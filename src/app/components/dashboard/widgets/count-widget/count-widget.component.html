@@ -1,0 +1,13 @@
+<div class="count-widget">
+  <div class="count-widget__image" [ngClass]="backgroundClass"></div>
+  <div class="count-widget__info">
+    <span class="count-widget__count">{{ count }}</span>
+    <span class="count-widget__title">{{ title }}</span>
+  </div>
+  <div class="count-widget__additional">
+    <div class="text">
+      <ng-content select=".dashboard-count-widget-additional"></ng-content>
+    </div>
+    <a [href]="link" target="_blank">&#xf105;</a>
+  </div>
+</div>

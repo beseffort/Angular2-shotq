@@ -1,0 +1,30 @@
+<div class="pay-check-modal" *ngIf="account">
+  <div class="pay-check-modal__body">
+    <div class="pay-check-modal__logo">
+      <img [src]="account.logo" [alt]="account.logo">
+    </div>
+
+    <div class="pay-check-modal__request">Please make the check payable to:</div>
+
+    <div class="pay-check-modal__name">{{account.name}}</div>
+    <div class="pay-check-modal__address">{{account.address1}}</div>
+    <div class="pay-check-modal__phone">{{account.phone}}</div>
+
+  </div>
+
+  <div class="pay-check-modal__form">
+    <form *ngIf="form" [formGroup]="form">
+      <div>
+        <label for="">Message</label>
+        <textarea formControlName="message"></textarea>
+      </div>
+    </form>
+  </div>
+  
+  <div class="pay-check-modal__footer">
+    <button type="button" class="btn btn_xs btn_transparent "
+            data-dismiss="modal" (click)="close()">Cancel</button>
+    <button type="button" class="btn btn_xs btn_blue"
+            [disabled]="!form.valid" (click)="save()">Done</button>
+  </div>
+</div>

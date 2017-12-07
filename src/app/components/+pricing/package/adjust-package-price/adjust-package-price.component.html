@@ -1,0 +1,58 @@
+<form (ngSubmit)="save()">
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+    <div class="padding-left-45 padding-right-45">
+        <p>To get started, use one of the following options to calculate your new prices automatically. Need to change the selected category of the displayed items? Click 'Cancel' below.</p>
+
+        <md-radio-group [(ngModel)]="selectedOption" name="selected_option">
+        	<div class="row">
+                <div class="col-xs-12">
+            		<md-radio-button value="percent" (click)="resetAdjustValues()">Ajdust prices by percentage</md-radio-button>
+                </div>
+        	</div>
+            <div class="row">
+                <div class="col-xs-3 form-material" *ngIf="selectedOption === 'percent'">
+                    <input name="percentage-value" type="number" class="form-control margin-bottom-10" placeholder="Enter Percentage" [(ngModel)]="value" (ngModelChange)="adjustPrices()"/>
+                </div>
+            </div>
+        	<div class="row">
+                <div class="col-xs-12">
+              		<md-radio-button value="fixed" (click)="resetAdjustValues()">Adjust prices by amount</md-radio-button>
+                </div>
+          	</div>
+            <div class="row">
+                <div class="col-xs-3 form-material" *ngIf="selectedOption === 'fixed'">
+                    <input name="amount-value" type="number" class="form-control margin-bottom-10" placeholder="Enter Amount" [(ngModel)]="value" (ngModelChange)="adjustPrices()"/>
+                </div>
+            </div>
+        </md-radio-group>
+    </div>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-left bold padding-left-45">Item Name</th>
+                <th class="text-center bold">Price</th>
+                <th class="text-center bold">New Price</th>
+                <th class="text-center bold">Cost of Goods Sold</th>
+                <th class="text-center bold padding-right-45">Profit Margin</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr *ngFor="let item of data; let i = index">
+        		<td class="text-left bold padding-left-45">{{item.name}}</td>
+        		<td class="text-center bold">{{originalPrices[i] | currency:'USD':true:'1.2-2'}}</td>
+        		<td class="text-center lighter form-material" (click)="editCell(i)">
+        			<span *ngIf="!editable[i]">{{item.price | currency:'USD':true:'1.2-2'}}</span>
+        			<input class="form-control" [(ngModel)]="item.price" type="number" step="0.01" id="item-price-{{i}}" name="item-price-{{i}}" *ngIf="editable[i]" (blur)="endEditing(i)" (keypress)="onKeyPress($event,i)">
+        		</td>
+    		    <td class="text-center bold">{{item.cogs_total | currency:'USD':true:'1.2-2'}}</td>
+        		<td class="text-center bold padding-right-45">{{percentProfitMargin[i] | percent:'1.2-2'}}</td>
+        	</tr>
+        </tbody>
+    </table>
+
+    <div class="align-right">
+        <button type="button" class="btn cancel-button" (click)="cancel()">CANCEL</button>
+        <button type="submit" class="btn save-button">SAVE</button>
+    </div>
+</form>

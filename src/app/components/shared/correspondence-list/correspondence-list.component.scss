@@ -1,0 +1,131 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.correspondence__list {
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5), inset 0 -1px 0 0 #e4e8f0;
+  margin: 0 !important;
+  padding-left: 0 !important;
+
+  &-item {
+    border-bottom: 1px solid #e4e8f0;
+    list-style-type: none;
+    padding: 15px 32px;
+    cursor: pointer;
+  }
+
+  &-item:last-child {
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.correspondence__message {
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.correspondence__message-header {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.correspondence__message-sender,
+.correspondence__message-recipient,
+.correspondence__message-date {
+  opacity: 0.5;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3a405b;
+}
+
+.correspondence__message-date {
+  margin-right: 20px;
+  &:before {
+    content: '';
+    display: inline-block;
+    margin: 0 16px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #3a405b;
+    position: relative;
+    top: -2px;
+  }
+}
+
+.correspondence__avatar {
+  display: table-cell;
+  vertical-align: top;
+  padding-right: 20px;
+}
+
+.u-photo {
+  @include sq-avatar(md);
+}
+
+.jobs-contacts-emails__meta {
+  opacity: 0.5;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3a405b;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    margin: 0 16px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #3a405b;
+    position: relative;
+    top: -2px;
+  }
+}
+
+.correspondence__message-body {
+}
+
+.correspondence__message-subject,
+.correspondence__message-text {
+  display: inline;
+}
+
+.correspondence__message-subject {
+  margin-right: 4px;
+  font-size: 18px;
+}
+
+.correspondence__message-label--contract,
+.correspondence__message-label--proposal,
+.correspondence__message-label--questionnaire {
+  font-size: 12px;
+  color: #ffffff;
+  border-radius: 100px;
+  padding: 0 8px;
+  cursor: default;
+}
+
+.correspondence__message-label--contract {
+  background-color: #086aff;
+}
+
+.correspondence__message-label--proposal {
+  background-color: #57cd75;
+}
+
+.correspondence__message-label--questionnaire {
+  background-color: #02ad94;
+}
+
+.no-items {
+  text-align: center;
+  font-size: 1.3rem;
+  padding: 3.6rem;
+}

@@ -1,0 +1,236 @@
+// typography
+h1 {
+	font-size: 42px;
+	font-weight: bold;
+	color: #3a405b;
+	font-family: 'Titillium Web';
+}
+.title {
+	font-size: 18px;
+	font-weight: 300;
+	text-align: center;
+	color: #3a405b;
+	font-family: 'Titillium Web';
+	span {
+		color: #e94e4c;
+	}
+	&_bold {
+		font-weight: 600;
+	}
+
+}
+.booking-package-caption {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgba(#3a405b, .5);
+	margin-left: 19px;
+}
+.split-line {
+	display: inline-block;
+	width: 100px;
+	border-top: 2px solid #b6c1cf;
+	margin: 40px 0;
+}
+.booking-overview {
+	text-align: center;
+	@media screen and (max-width: 900px) {
+	    padding: 0 20px;
+	}
+}
+
+.proposal-overview {
+	display: table;
+	max-width: 750px;
+	width: 100%;
+	margin: 0 auto 10px;
+	//margin: 40px auto 80px auto;
+	background-color: #fff;
+	border: solid 1px #e4e8f0;
+	border-radius: 2px;
+	&.is-green {
+		border-top: 2px solid #57cd75;
+	}
+}
+.proposal-pricing-wrap {
+	display: table-cell;
+	vertical-align: top;
+	width: 50%;
+	border-right: 1px solid #e4e8f0;
+}
+.proposal-pricing {
+	display: inline-table;
+	text-align: left;
+	padding: 10px 0 10px 27px;
+	width: 100%;
+}
+.item {
+	display: table-row;
+	&:last-child {
+		.item-description,
+		.item-price {
+			border-bottom: none;
+		}
+	}
+	&.final {
+		.item-description,
+		.item-price {
+			color : #57cd75;
+		}
+	}
+	&.black {
+		.item-description,
+		.item-price {
+			color : #3a405b;
+		}
+	}
+	&.normal {
+		.item-description {
+			font-weight: normal;
+			padding: 0 0 14px 0;
+		}
+	}
+	&_no-border {
+		.item-description,
+		.item-price {
+			border-bottom: none;
+			padding: 7px 0 0 0;
+		}
+	}
+
+	&-description,
+	&-price {
+		display: table-cell;
+		padding: 14px 0;
+		color: rgba(#3a405b, .5);
+		font-weight: 600;
+		border-bottom: solid 1px #e4e8f0;
+		padding-right: 21px;
+	}
+	&-price {
+		text-align: right;
+		font-size: 18px;
+		letter-spacing: -0.5px;
+		color : #3a405b;
+	}
+	&-description {
+		text-align: left;
+		font-size: 14px;
+		letter-spacing: 0.5px;
+
+	}
+	&-line {
+		position: relative;
+		font-size: 14px;
+		font-weight: normal;
+		letter-spacing: 0.5px;
+		color: #3a405b;
+		padding-left: 10px;
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			width: 2px;
+			height: 25px;
+			background: rgb(231,80,80);
+			background: -moz-linear-gradient(-45deg, rgba(231,80,80,1) 0%, rgba(247,174,24,1) 100%);
+			background: -webkit-linear-gradient(-45deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+			background: linear-gradient(135deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e75050', endColorstr='#f7ae18',GradientType=1 );
+		}
+	}
+}
+.proposal-items {
+	display: table-cell;
+	vertical-align: middle;
+	width: 50%;
+	text-align: center;
+	font-size: 0;
+	padding: 20px;
+	&:before {
+		content: "";
+		display: inline-block;
+		vertical-align: middle;
+		width: 0;
+		height: 100%;
+	}
+	.booking-package-product-list {
+		display: inline-block;
+		vertical-align: middle;
+		list-style-type: none;
+		padding-left: 0;
+		text-align: left;
+
+
+		.booking-package-product {
+			position: relative;
+			font-size: 16px;
+			font-weight: 300;
+			color: #3a405b;
+			margin-bottom: 17px;
+			font-family: 'Titillium Web';
+			padding-left: 16px;
+			text-align: left;
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 9px;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				border: 1px solid #3a405b;
+				background: transparent;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+		}
+		.booking-package-product-list-in {
+			list-style-type: none;
+			padding-left: 0;
+			li {
+				font-size: 14px;
+				color: rgba(#3a405b, .5);
+				&:before {
+					content: '';
+					display: none;
+				}
+			}
+		}
+	}
+}
+.subitems {
+	list-style-type: none;
+	padding-left: 0;
+}
+.payment-schedule-title {
+	margin-bottom: 20px;
+}
+.payment-schedule {
+	display: inline-table;
+	max-width: 378px;
+	width: 100%;
+	margin-bottom: 100px;
+	padding: 0 15px;
+	background: #FFF;
+	border: 1px solid #e4e8f0;
+}
+.contract-link {
+	padding-bottom: 200px;
+	&-title {
+		margin-bottom: 10px;
+	}
+	&-view {
+		display: inline-block;
+		text-transform: uppercase;
+		font-weight: 600;
+		color: #086aff;
+		margin-bottom: 10px;
+	}
+	&-about {
+		color: rgba(#3a405b, .5);
+		font-weight: 600;
+	}
+
+}

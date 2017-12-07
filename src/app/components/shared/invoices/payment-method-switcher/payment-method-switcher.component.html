@@ -1,0 +1,28 @@
+<form class="payment-method-switcher" [formGroup]="form" novalidate>
+  <ul class="merchant-accounts-list">
+    <li *ngFor="let gatewayAccount of merchantAccounts" class="merchant-account-item">
+      <label class="merchant-account-item__wrapper">
+        <input type="radio"
+          name="merchant_account"
+          class="merchant-account-item__input"
+          [value]="gatewayAccount.id"
+          formControlName="merchant_account"/>
+        <div class="merchant-account-img">
+          <img src="{{ paymentProviders[gatewayAccount.merchant_type].image }}" />
+        </div>
+      </label>
+    </li>
+  </ul>
+  <div class="merchant-accounts-checkbox" [ngClass]="{'disable-all-events': form.value.collect_manually}">
+    <label>
+      <input type="checkbox" name="collect_manually" formControlName="collect_manually" tabindex="-1"/>
+      <span>Collect Manually</span>
+    </label>
+  </div>
+  <div class="merchant-accounts-checkbox" *ngIf="!form?.value?.collect_manually && form?.value?.merchant_account">
+    <label>
+      <input type="checkbox" formControlName="pay_with_check" />
+      <span>Pay with check</span>
+    </label>
+  </div>
+</form>

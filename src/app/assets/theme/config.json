@@ -1,0 +1,34 @@
+{
+	"assets": "assets",
+	"destination": {
+		"css": "assets/css",
+		"js": "assets/js",
+		"skins": "assets/skins"
+	},
+	"source": {
+		"less": "src/less",
+		"js": "src/js",
+		"skins": "src/skins"
+	},
+	"html": "html",
+	"templates": {
+		"data": "src/templates/data",
+		"helpers": "src/templates/helpers",
+		"partials": "src/templates/partials",
+		"pages": "src/templates/pages"
+	},
+	"bootstrap": {
+		"less": "src/less/bootstrap",
+		"mixins": "src/less/mixins"
+	},
+	"autoprefixerBrowsers": [
+		"Android 2.3",
+		"Android >= 4",
+		"Chrome >= 20",
+		"Firefox >= 24",
+		"Explorer >= 8",
+		"iOS >= 6",
+		"Opera >= 12",
+		"Safari >= 6"
+	]
+}

@@ -1,0 +1,70 @@
+.buttons {
+    text-align:right;
+    padding-right:28px;
+    &.next {
+        border-radius: 2px;
+        background-color: #086aff;
+        color: #ffffff;
+        cursor: initial;
+        &[disable] {
+            background-color: rgb(182, 193, 207);
+        }
+    }
+    .btn {
+        display:inline-block;
+        letter-spacing: 0.8px;
+        background: transparent;
+        border: none;
+        font-style: normal;
+        font-size: 14px;
+        font-weight: 600;
+        line-height:21px;
+        color: rgb(87, 205, 117);
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        &.delete, &.cancel{
+            color: #e94e4c;
+        }
+    }
+    &_mod {
+        margin-right: -15px !important;
+    }
+}
+.list-group {
+    margin-bottom: 0;
+    &-title {
+        text-align: left;
+        font-style: normal;
+        color: rgba(58, 64, 91, 0.5);
+        font-size: 14px;
+        font-weight: normal;
+        margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 50px;
+    }
+    .btn {
+        display: inline-block;
+        letter-spacing: 0.8px;
+        background: none;
+        border: none;
+        font-style: normal;
+        color: #086aff;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 21px;
+        padding: 0;
+        text-transform: uppercase;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+// .cancel {
+//   color: #b5c1cf !important;
+// }
+
+schedule-payment-form /deep/ form {
+  margin-bottom: 15px;
+}

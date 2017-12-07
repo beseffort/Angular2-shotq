@@ -1,0 +1,43 @@
+<div class="page" *ngIf="!hideLoginScreen">
+	<div class="board">
+		<div class="board__left">
+			<!-- begin header -->
+		    <div class="board__header" *ngIf="!isLoading">
+		    	<div class="logo-box">
+			    	<div class="logo">
+			    		<img _ngcontent-cum-12="" alt="ShootQ logo" src="/assets/img/shootq-icon.svg" />
+			        </div>
+		        </div>
+		        <h1 class="board__title">Welcome to ShootQ!</h1>
+		    </div>
+		    <!-- end header -->
+		    <!-- begin body -->
+			<div class="board__body">
+				<form name="form" (ngSubmit)="doLogin()" #f="ngForm" novalidate>
+					<div class="loading-ripple" *ngIf="isLoading"></div>
+					<div *ngIf="!isLoading" class="field">
+			          <input #inputUsername name="username" placeholder="Email or Username" type="text" value="" [(ngModel)]="username">
+			        </div>
+			        <div *ngIf="!isLoading" class="field field_forgot">
+			          <input name="password" placeholder="Password" type="password" value="" [(ngModel)]="password">
+			          <span class="forgot" [routerLink]="['/forgot-password']">Forgot</span>
+			        </div>
+					<div *ngIf="!isLoading" class="control-button">
+					    <button type="submit" class="btn">LOGIN</button>
+					</div>
+				</form>
+				<div class="legend" *ngIf="!isLoading">
+					<p>Find out why thousands of photographers around the world use ShootQ<span class="trade-mark">&trade;</span> to manage their business</p>
+				</div>
+				<div class="account-message" *ngIf="!isLoading">
+					<span>Dont have an account?</span> 
+					<span class="link" [routerLink]="['/sign-up']">Sign up for a free trial</span>
+				</div>
+			</div>
+			<!-- end body -->
+		</div>
+		<div class="board__right">
+			<div class="bg-img" style="background-image: url('assets/img/login_work_less_guy.png')"></div>
+		</div>
+	</div>
+</div>

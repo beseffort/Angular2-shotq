@@ -1,0 +1,151 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.loading-ripple {
+	top: 40%;
+}
+.infoblock {
+	background-color: #fff;
+	border-top: 4px solid #3a405b;
+	@include box-shadow(0 1px 2px 0 rgba(181, 193, 207, 0.5));
+	color: $gray-dark;
+	&__title {
+		margin-bottom: 20px;
+		font-family: $font-family-base;
+		font-size: 24px;
+		font-weight: bold;
+		color: $gray-dark;
+    &_icon {
+      font-size: 13px;
+      position: absolute;
+      top: 10px;
+      left: 0;
+    }
+	}
+	&__subtitle {
+		margin-bottom: 12px;
+		font-family: $font-family-base;
+		font-size: 18px;
+		letter-spacing: 0.6px;
+		color: $gray-dark;
+	}
+	&__header {
+		padding: 25px 25px 0 25px;
+		&_underlined {
+			border-bottom: 1px solid $gray-lighter;
+			padding-bottom: 5px;
+		}
+    &_topunderlined {
+      border-top: 1px solid $gray-lighter;
+    }
+
+	}
+	&__body {
+		padding: 0 25px 25px 25px;
+	}
+}
+
+.location {
+	margin-bottom: 30px;
+	color: $gray-dark;
+}
+
+.person {
+	color: $gray-dark;
+	margin-bottom: 20px;
+	&__name {
+		font-weight: bold;
+		margin-bottom: 6px;
+	}
+}
+
+.extra-text {
+	margin: 0;
+	opacity: .65;
+	font-size: 12px;
+	letter-spacing: 0.4px;
+}
+
+.add-ons {
+	margin-top: 20px;
+	margin-bottom: 5px;
+	&__item {
+		display: block;
+		padding: 0 0 0 10px;
+		margin-bottom: 12px;
+		position: relative;
+		&:before {
+			content: '';
+			background-color: $bright-blue;
+			width: 2px;
+			height: 100%;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+	.package-expense {
+		margin-bottom: 10px;
+	}
+}
+
+.package-price {
+	font-family: $font-family-base;
+	font-weight: bold;
+	color: $gray-dark;
+	&_lg {
+		font-size: 24px;
+	}
+	&_sm {
+		font-size: 18px;
+		letter-spacing: -0.5px;
+	}
+	&_total {
+		color: $dark-mint;
+	}
+}
+
+.package-description {
+	color: $gray-dark;
+	margin-bottom: 20px;
+}
+.package-total {
+	margin-top: 10px;
+}
+.package-expense {
+	font-family: $font-family-base;
+	font-size: 14px;
+ 	font-weight: 600;
+ 	letter-spacing: 0.5px;
+ 	text-transform: uppercase;
+ 	color: $gray-dark;
+ 	margin-bottom: 0;
+ 	&_gray {
+		opacity: .5;
+ 	}
+ 	&_total {
+ 		color: $dark-mint;
+ 	}
+}
+
+.pay-button {
+	cursor: pointer;
+	width: 80px;
+	height: 34px;
+	border: 0;
+	outline: 0;
+	border-radius: 4px;
+	background-color: #57cd75;
+	text-align: center;
+	margin-right: 10px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	color: #ffffff;
+	font-family: 'Titillium Web';
+	font-size: 14px;
+	letter-spacing: normal;
+	line-height: normal;
+}

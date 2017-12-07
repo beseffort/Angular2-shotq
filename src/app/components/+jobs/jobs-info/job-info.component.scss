@@ -1,0 +1,132 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+$outer-space: 80px;
+$inner-space: 20px;
+$padding-x: 32px;
+$padding-y: 24px;
+
+.page {
+  &__header, &__content {
+    margin: 0 $outer-space $inner-space;
+  }
+}
+.row {
+  margin-right: -10px;
+  margin-left: -10px;
+  [class^="col-"] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+// .job-info-container {
+//   background: #f7f7f7;
+//   div.row {
+//     margin-left: 0 !important;
+//     margin-right: 0 !important;
+//   }
+//   .no-padding {
+//     padding: 0;
+//   }
+//   .no-padding-bottom {
+//     padding-bottom: 0;
+//   }
+//   .no-underline {
+//     &:hover {
+//       text-decoration: none;
+//     }
+//   }
+
+.icon-right-arrow.back {
+  font-size: 8px;
+  position: relative;
+  top: -2px;
+  transform: rotate(180deg);
+  display: inline-block;
+  margin-right: 5px;
+}
+// }
+
+
+
+// .page-content {
+//   & > .page-container {
+//     padding: 0;
+
+//     .row {
+//       & > div:first-child {
+//         padding-left: 0;
+//       }
+
+//       & > div:last-child {
+//         padding-right: 0;
+//       }
+//       @media (max-width: 991px) {
+//         & > div:first-child {
+//           padding-right: 0;
+//         }
+
+//         & > div:last-child {
+//           padding-left: 0;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .plr {
+//   padding-left: 65px;
+//   padding-right: 65px;
+// }
+
+// .notesBlock /deep/ {
+//   border: none;
+//   margin-top: 30px;
+// }
+
+.jobs-correspondence {
+  margin-top: 0 !important;
+  margin-bottom: $inner-space;
+  margin-left: 0;
+  background-color: #fff;
+  font-family: $font-family-base;
+  @include box-shadow(0 1px 1px 1px rgba(0, 0, 0, .1));
+  &__header {
+    padding: 20px 32px;
+    border-bottom: 1px solid $gray-lighter;
+    height: 64px !important;
+
+    h1 {
+      display: inline-block;
+      height: 36px;
+      line-height: 1.1;
+      font-family: $font-family-base;
+      font-size: $font-size-h3;
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal;
+      color: $gray-dark;
+    }
+  }
+}
+
+.activity {
+  background-color: #fff;
+  @include box-shadow(0 1px 1px 1px rgba(0, 0, 0, 0.1));
+  padding: 0;
+
+  &__header {
+    padding: $padding-y $padding-x;
+    min-height: 80px;
+    border-bottom: 1px solid $pale-grey;
+  }
+  &__title {
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: $font-size-h3;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $gray-dark;
+  }
+}

@@ -1,0 +1,171 @@
+<div class="public-overview">
+	<div class="loading-ripple" *ngIf="isLoading"></div>
+	<div class="public-overview__in" *ngIf="!isLoading">
+		<div class="row">
+			<div class="col-sm-5">
+    		<div class="infoblock m-b-20" *ngIf="signature && !signature.completed">
+    			<div class="infoblock__header">
+            <h2 class="infoblock__title">What's New?</h2>
+    			</div>
+      		<div class="infoblock__body">
+        		<p>You have a contract which requires your signature.</p>
+        		<button type="button" class="btn sq-btn-submit" (click)="sign($event)">Click to Sign</button>
+      		</div>
+    		</div>
+    		<!-- begin event details -->
+				<div class="event-details">
+					<div class="infoblock">
+						<div class="infoblock__header">
+							<h2 class="infoblock__title">Event Details</h2>
+						</div>
+						<div class="infoblock__body">
+							<div class="infoblock__option">
+								<h3 class="infoblock__subtitle" *ngIf="job.job_type">{{ job.job_type_details.name }}</h3>
+								<h3 class="infoblock__subtitle" *ngIf="!job.job_type">No Type</h3>
+								<div class="location">
+									<h4 class="extra-text">Location</h4>
+									<div *ngIf="job && job.main_event_details && job.main_event_details.location">
+										<span *ngIf="job.main_event_details.location.name">{{ job.main_event_details.location.name }}</span>
+										<div>
+											<span *ngIf="job.main_event_details.location.address1">{{ job.main_event_details.location.address1 }},
+												<span *ngIf="job.main_event_details.location.address2 && job.main_event_details.location.address2 !== ''">{{ job.main_event_details.location.address2 }},</span>
+											</span>
+										</div>
+										<div>
+											<span *ngIf="job.main_event_details.location.city"> {{ job.main_event_details.location.city }}, </span>
+											<span *ngIf="job.main_event_details.location.state">{{ job.main_event_details.location.state }} </span>
+											<span *ngIf="job.main_event_details.location.zip">{{ job.main_event_details.location.zip }}</span>
+										</div>
+									</div>
+									<span *ngIf="!job.main_event_details || !job.main_event_details.location">No Location</span>
+								</div>
+							</div>
+
+							<div class="infoblock__option">
+								<h2 class="infoblock__subtitle">Personnel</h2>
+								<span *ngIf="!job.job_workers || job.job_workers.length === 0">No Workers</span>
+								<div class="row" *ngIf="job.job_workers && job.job_workers.length">
+									<div class="col-sm-6" *ngFor="let worker of job.job_workers">
+										<div class="person">
+											<div class="person__name">
+												<span>{{ worker.name }}</span>
+											</div>
+											<div class="person__email">
+												<span>{{ worker.email || 'No Email' }}</span>
+											</div>
+											<div class="person__phone">
+												<span>{{ worker.phone || 'No Phone' }}</span>
+											</div>
+											<h4 class="extra-text" *ngIf="worker.roles && worker.roles.length">{{ worker.$formattedRoles }}</h4>
+											<h4 class="extra-text" *ngIf="!worker.roles || worker.roles.length === 0">No Roles</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end event details -->
+
+				<!-- begin timeline component -->
+				<timeline [showEditButton]="false" [showTitle]="true" [collapsibleAppointments]="true" [paramJobId]="job.id"></timeline>
+				<!-- end timeline component -->
+			</div>
+			<div class="col-sm-7">
+				<div class="package-details">
+					<div class="infoblock">
+						<div class="infoblock__header infoblock__header_underlined">
+							<div class="row">
+								<div class="col-xs-8">
+									<div *ngIf="pckg">
+										<h2 class="infoblock__title">{{ pckg.name }}</h2>
+										<span class="package-description">
+											{{ pckg.description }}
+										</span>
+									</div>
+									<div *ngIf="!pckg">
+										<h2 class="infoblock__title">No Package</h2>
+									</div>
+								</div>
+								<div class="col-xs-4 text-right">
+									<div class="package-price package-price_lg" *ngIf="pckg">{{ pckg.price | currency:'USD':true:'1.2-2' }}</div>
+									<div class="package-price package-price_lg" *ngIf="!pckg">{{ 0 | currency:'USD':true:'1.2-2' }}</div>
+								</div>
+							</div>
+						</div>
+						<div class="infoblock__body">
+							<div class="" *ngIf="overview">
+								<div class="add-ons">
+									<h3 class="package-expense package-expense_gray">ADD ONS</h3>
+									<div class="row" *ngFor="let addon of overview.selectedAddons">
+										<div class="col-xs-8">
+											<span class="add-ons__item">{{ addon.quantity }} {{ addon.name }}</span>
+										</div>
+										<div class="col-xs-4 text-right">
+											<div class="package-price package-price_sm">
+                                                ${{ addon.total_price * addon.quantity | number:'1.2-2' }}
+                                            </div>
+										</div>
+									</div>
+                                    <span *ngIf="!overview.selectedAddons.length">
+                                        No add-ons selected.</span>
+                                </div>
+								<div class="row">
+									<div class="col-xs-8">
+										<h3 class="package-expense">SHIPPING</h3>
+									</div>
+									<div class="col-xs-4 text-right">
+										<div class="package-price package-price_sm">${{ overview.shipping | number:'1.2-2' }}</div>
+									</div>
+								</div>
+								<div class="row" *ngIf="overview.discounts">
+									<div class="col-xs-8">
+										<h3 class="package-expense">DISCOUNT</h3>
+									</div>
+									<div class="col-xs-4 text-right">
+										<div class="package-price package-price_sm">${{ overview.discounts | number:'1.2-2' }}</div>
+									</div>
+								</div>
+                  				<div class="row" *ngIf="overview.tax">
+									<div class="col-xs-8">
+										<h3 class="package-expense">TAX</h3>
+									</div>
+									<div class="col-xs-4 text-right">
+										<div class="package-price package-price_sm">${{ overview.tax | number:'1.2-2' }}</div>
+									</div>
+								</div>
+								<div class="package-total">
+									<div class="row">
+										<div class="col-xs-8">
+											<h3 class="package-expense package-expense_total">TOTAL</h3>
+										</div>
+										<div class="col-xs-4 text-right">
+											<div class="package-price package-price_sm package-price_total">${{ overview.totalPrice | number:'1.2-2' }}</div>
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+          <div class="infoblock__header infoblock__header_topunderlined" *ngIf="nextPayment">
+            <div class="row">
+              <div class="col-xs-12">
+                <h2 class="infoblock__title">
+                  <i class="fa fa-arrow-right infoblock__title_icon" aria-hidden="true"></i> Next Payment
+                </h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-10">
+                <p class="m-b-5">{{ nextPayment.due | date:'longDate' }}</p>
+                <div><h3>{{ nextPayment.balance | currency:'USD':true }}</h3></div>
+              </div>
+              <div class="col-xs-2">
+                <button class="pay-button" (click)="pay()">Pay</button>
+              </div>
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

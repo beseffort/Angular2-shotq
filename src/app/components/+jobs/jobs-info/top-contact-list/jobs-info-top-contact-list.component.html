@@ -1,0 +1,40 @@
+<div class="jobs-info-top-contacts__container">
+  <div class="jobs-info-top-contacts__header">
+    <h1>Contacts</h1>
+    <button type="button" class="sq-btn-add pull-right"
+            (click)="onAddContactClicked($event)">
+        New Contact</button>
+  </div>
+    <p *ngIf="!contacts.length" class="no-items">
+        There are no job contacts to display.</p>
+  <ul class="jobs-info-top-contacts__list" *ngIf="contacts.length">
+    <li *ngFor="let contact of contacts" class="jobs-info-top-contacts__list-item vcard">
+      <a class="fn" [routerLink]="['/contacts/profile', contact.contact]">{{ contact.name }}</a>
+      <strong class="role">{{ contact.primaryRole.name }}</strong>
+      <em *ngIf="job.isPrimaryJobContact(contact)">Primary</em>
+      <div class="email" *ngIf="contact.default_email_address">{{ contact.default_email_address }}</div>
+      <div class="email--empty" *ngIf="!contact.default_email_address">Add email</div>
+      <div class="tel" *ngIf="contact.default_phone_number">{{ contact.default_phone_number }}</div>
+      <div class="tel--empty" *ngIf="!contact.default_phone_number">Add phone</div>
+      <div *ngIf="contact.$accessToken && job.proposals.length > 0 && job.proposals[0].status === 'Accepted'">
+        <a target="_blank"
+           [routerLink]="['/public/client-access', job.id, 'overview']"
+           [queryParams]="{access_token: contact.$accessToken}"
+           (click)="$event.stopPropagation()"
+        >View Client Site</a>
+      </div>
+      <div *ngIf="contact.$accessToken && job.proposals.length > 0">
+        <a target="_blank"
+           [routerLink]="['/booking', getProposalId(), 'welcome']"
+           [queryParams]="{access_token: contact.$accessToken}"
+           (click)="$event.stopPropagation()"
+        >View Booking Site</a>
+      </div>
+    </li>
+  </ul>
+  <div class="jobs-info-top-contacts__footer">
+    <button type="button" class="btn btn-link jobs-info-top-contacts__see-all"
+            (click)="onDisplayAllContactsClicked($event)"
+    >See all job contacts ({{ numberOfContacts }})</button>
+  </div>
+</div>

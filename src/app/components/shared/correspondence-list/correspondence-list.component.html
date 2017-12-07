@@ -1,0 +1,34 @@
+<p class="no-items" *ngIf="!correspondence.length">
+    There are no emails to display.</p>
+
+<ul class="correspondence__list" *ngIf="correspondence.length">
+  <li *ngFor="let message of correspondence" class="correspondence__list-item"
+    (click)="onMessageClicked(message)">
+    <div class="correspondence__avatar">
+      <span class="u-photo" *ngIf="!message.$senderPictureUrl">{{ message.$senderInitials }}</span>
+      <img class="u-photo" *ngIf="message.$senderPictureUrl" [src]="message.$senderPictureUrl">
+    </div>
+
+    <div class="correspondence__message">
+      <div class="correspondence__message-header">
+        <span class="correspondence__message-sender" tooltip="{{ message.sender_name }}">{{ message.$senderFirstName }}</span>
+        <ng-template [ngIf]="message.recipients.length">
+          <span>to </span>
+          <span class="correspondence__message-recipient"
+            *ngFor="let recipient of message.recipients; let isLast = last"
+            tooltip="{{ recipient.recipient_name }}"
+          >{{ recipient.$firstName }}<span *ngIf="!isLast">, </span></span>
+        </ng-template>
+        <time tooltip="{{ message.sent|date:'medium' }}" class="correspondence__message-date">{{ message.sent|date:'longDate' }}</time>
+        <span class="correspondence__message-label--contract" *ngIf="message.$isContract">Contract</span>
+        <span class="correspondence__message-label--proposal" *ngIf="message.$isProposal">Proposal</span>
+        <span class="correspondence__message-label--questionnaire" *ngIf="message.$isQuestionnaire">Questionnaire</span>
+      </div>
+
+      <div class="correspondence__message-body">
+        <h2 class="correspondence__message-subject">{{ message.subject }} <span *ngIf="message.body">&ndash;</span></h2>
+        <p class="correspondence__message-text" [innerHTML]="message.$truncatedBody"></p>
+      </div>
+    </div>
+  </li>
+</ul>

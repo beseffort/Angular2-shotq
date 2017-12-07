@@ -1,0 +1,51 @@
+<div class="page booking-wizard" *ngIf="proposal">
+  <div class="booking-wizard-header">
+    <app-step-indicator [nextStep]="nextStep"
+                        [steps]="steps"
+                        [canGoNextIfValid]="false"
+                        (onFinish)="onFinish()"
+                        (stepChanged)="onStepChange($event)">
+    </app-step-indicator>
+  </div>
+  <div class="booking-wizard-body" *ngIf="currentStep">
+    <booking-packages *ngIf="currentStep.name === 'package'"
+                      (onPackageSelect)="onPackageSelect($event)"
+                      [packages]="proposal.packages">
+    </booking-packages>
+
+    <booking-addons *ngIf="currentStep.name === 'addons'"
+                    [package]="proposal.approved_package_data">
+    </booking-addons>
+
+    <booking-event-details [proposal]="proposal"
+                           *ngIf="currentStep.name === 'event'"
+                           (valid)="onEventDetailsValidChange($event)">
+    </booking-event-details>
+
+    <booking-overview *ngIf="currentStep.name === 'overview'"
+                      [proposal]="proposal"
+                      (overviewUpdated)="updateOverview($event)">
+    </booking-overview>
+
+    <app-booking-sign *ngIf="currentStep.name === 'sign'"
+                      [proposal]="proposal"
+                      (onSign)="onNext()">
+
+    </app-booking-sign>
+
+
+    <booking-payment *ngIf="currentStep.name === 'payment'"
+                     [proposal]="proposal"
+                     [overview]="overview"
+                     (onPay)="onNext()"></booking-payment>
+  </div>
+  <div class="booking-wizard-footer" *ngIf="currentStep.options?.hasFooter">
+    <div class="text-right">
+
+      <button type="button" class="next-step" [disabled]="!currentStep.valid"
+              (click)="onNext()">Next
+      </button>
+    </div>
+
+  </div>
+</div>

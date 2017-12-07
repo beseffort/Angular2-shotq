@@ -1,0 +1,94 @@
+<div class="page " *ngIf="contract">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <!--<a href [routerLink]="['/contracts']" class="btn btn-link btn-link_back"> <i class="fa fa-angle-left"></i> Back</a>-->
+      </div>
+      <div class="col-md-6 col-sm-6 ">
+        <div class="text-right">
+          <div class="btn-group">
+            <!--<button type="button" class="btn btn-default">Save Template</button>-->
+            <button type="button" class="btn btn-default"
+                    (click)="showPreview()">Preview Contract
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="page-title">Edit Contract</h1>
+      </div>
+    </div>
+  </div>
+  <div class="page-content page-content_padding position-relative">
+
+    <div class="col-lg-8 col-md-7 col-sm-5 col-xs-5">
+      <div class="row">
+
+        <div class="contract-template">
+          <div class="contract-template__title">
+            <input type="text" [(ngModel)]="contract.title" placeholder="Contract Title" [disabled]="isDisabled">
+          </div>
+
+          <div class="contract-template__content">
+            <tinymce
+              [elementId]="'contract-contents'"
+              [noteBody]="contractContents"
+              [editableMode]="'active'"
+              [class]="'contract-contents-body'"
+              [name]="'contract-contents'"
+              [readonly]="isDisabled"
+              [toolbar]="'bold italic | bullist numlist | fontsizeselect | link image'"
+              [theme]="'inlite'"
+              [placeholder]="'Begin typing here'"
+              [templateVariables]="templateVariables"
+              (templateVariableErrors)="onTemplateVariableErrorsChange($event)"
+              (onEditorBlur)="onContentsChange($event)">
+            </tinymce>
+          </div>
+
+        </div>
+
+        <br><br><br><br><br><br><br>
+      </div>
+    </div><!--
+
+    <!-- variables -->
+    <div class="col-lg-4 col-md-5 col-sm-7 col-xs-7">
+      <app-template-variables [variables]="templateVariables"
+        [errors]="templateVarErrors"
+        (variablesChange)="onTemplateVariablesChange($event)">
+      </app-template-variables>
+      <!--<app-template-errors [errors]="templateVarErrors"></app-template-errors>-->
+
+    </div>
+
+    <!-- fixed-footer -->
+    <div class="row">
+      <div class="modal-footer padding-right-30  modal-footer_border">
+        <div class="row">
+          <div class="col-sm-12 padding-top-5">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button"
+                        class="btn cancel-button" (click)="cancel()">
+                  CANCEL
+                </button>
+                <button type="button"
+                        class="btn submit-button margin-right-0"
+                        (click)="save()">
+                  CONTINUE
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

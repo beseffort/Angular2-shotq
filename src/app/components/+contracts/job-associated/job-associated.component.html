@@ -1,0 +1,39 @@
+<div class="jobAssociated">
+  <p>You may associate this contract with a Job. You can skip this step and save your contract.</p>
+  <div class="selectStyle">
+    <select name="selectJob">
+      <option value=""></option>
+      <option value="job_type">Job type</option>
+    </select>
+    <div class="filter"></div>
+  </div>
+  <div class="content">
+    <div class="search">
+      <div class="input-search input-search-dark search-contact">
+        <i class="input-search-icon icon-search" aria-hidden="true"></i>
+        <input type="text" [(ngModel)]="search_box" (keyup)="search($event)" class="form-control" name="" placeholder="Search">
+      </div>
+    </div>
+    <div class="list">
+      <div class="row contact-list position-relative">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+          <div class="col-md-12 pl-0 pr-0">
+            <div id="table-container">
+              <table class="table table-hover">
+                <tbody>
+                  <tr *ngFor="let job of jobs">
+                    <td class="text-middle"><div class="checkbox-custom checkbox-default"><input type="checkbox" [checked]="isChecked(job)" (click)="toggleCheckJob(job)" /><label></label></div></td>
+                    <td class="text-middle bold job-name" >{{ job.name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="buttonsButtom">
+      <button type="submit" class="btn save-button">NEXT</button>
+      <button type="button" class="btn cancel-button" (click)="cancel()">DO THIS LATER</button>
+    </div>
+  </div>
+</div>

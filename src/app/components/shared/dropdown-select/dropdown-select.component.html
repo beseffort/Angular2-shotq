@@ -1,0 +1,42 @@
+<div class="dropdown-parent" [ngClass]="{'open': isOpen, 'disabled': disabled, 'search-mod': enableSearch && query.length > 0, 'with-custom-actions': customActions.length}" dropdown>
+  <button type="button" class="dropdown" dropdownToggle=""
+          [ngClass]="{'placeholder': !currentOption}"
+          (click)="enableSearch ? null : toggleDropdown()">
+    {{ (enableSearch ? currentLabel : currentOption?.label) || placeholder }}
+    <input #searchBox class="search-box" type="text"
+           [ngClass]="{'option-archived': currentOption?.archived }"
+           *ngIf="enableSearch"
+           (focus)="showDropdown()"
+           (blur)="hideDropdown()"
+           [(ngModel)]="query"
+           (ngModelChange)="onQueryChange($event)"
+           (keydown)="enterKeyDown($event)">
+    <span class="icon-down-arrow"
+          [ngClass]="{
+            'icon-down-arrow': !isOpen,
+            'icon-up-arrow': isOpen}">
+    </span>
+  </button>
+  <div #dropdownMenu
+       tabindex="-1"
+       role="menu"
+       class="dropdown-menu"
+       dropdownMenu=""
+       [ngStyle]="{'max-height.px': maxHeight}"
+       (blur)="enableSearch ? null : onDropdownBlur($event)">
+    <div class="dropdown-menu__item"
+         [ngClass]="{selected: option.value === currentOption?.value}"
+         tabindex="-1"
+         role="menuitem"
+         *ngFor="let option of options"
+         (click)="selectOption(option, true)">
+      <div class="option-label" [ngClass]="{'option-archived': option.archived }" [innerHTML]="option.label | highlight:query"></div>
+      <div class="option-description" *ngIf="option.description">{{ option.description }} </div>
+    </div>
+    <div class="dropdown-menu__item" role="menuitem" *ngIf="enableSearch && query?.length && !options?.length">No results were found.</div>
+  </div>
+  <div class="custom-actions" *ngIf="customActions.length">
+    <div class="custom-actions__item" *ngFor="let action of customActions" (click)="action.action()">{{ action.label }}</div>
+  </div>
+</div>
+<div class="field__text" *ngIf="currentOption && currentOption.description">{{ currentOption.description }}</div>

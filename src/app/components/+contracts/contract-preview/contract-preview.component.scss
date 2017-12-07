@@ -1,0 +1,247 @@
+.contract-preview-wrap {
+  text-align: center;
+}
+
+.contract-preview {
+  display: inline-block;
+  width: 100%;
+  max-width: 482px;
+  background: #FFF;
+  margin: 85px 0 30px 0;
+  @media screen and (max-width: 1040px) {
+    max-width: 400px;
+  }
+  &__head {
+    text-align: left;
+    width: 100%;
+    background-color: #086aff;
+    color: #fff;
+    padding: 20px 30px 30px 30px;
+  }
+  &__caption {
+    font-size: 25.6px;
+    color: #fff;
+  }
+  &__title {
+    font-size: 12.3px;
+    font-weight: 600;
+    color: #fff;
+  }
+  &__text {
+    font-size: 7.2px;
+    font-weight: normal;
+    color: #fff;
+  }
+  &__content {
+    text-align: left;
+    padding: 20px 30px;
+    color: #3a405b;
+    font-size: 7.2px;
+    &.contract-preview-border {
+        border-top: solid 1px #e4e7ef;
+    }
+    .contract-preview__title {
+      margin: 25px 0 16px 0;
+      font-size: 12.3px;
+      color: #3a405b;
+    }
+    .contract-preview__text {
+      margin-bottom: 10px;
+      color: #3a405b;
+    }
+
+
+  }
+
+  &_mod {
+    max-width: 960px;
+    margin: 0 0 85px;
+    // margin: 70px 0;
+    .contract-preview__caption {
+      font-size: 32px;
+    }
+    .contract-preview__title  {
+      font-size: 15.4px;
+    }
+    .contract-preview__head {
+      padding: 40px 50px;
+    }
+    .contract-preview__content {
+      padding: 25px 50px 30px 50px;
+      font-size: 14px;
+    }
+    /deep/.signature {
+      min-height: 51px;
+      /deep/ span {
+        font-size: 18px !important;
+      }
+    }
+    /deep/.contract-write__caption {
+      font-size: 14px;
+    }
+    // .contract-write__in {
+    //   display: flex;
+    // }
+  }
+}
+
+.contract-write {
+  margin: 0;
+  color: #3a405b;
+  zoom: 1;
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+  &__item {
+    display: inline-block;
+    vertical-align: top;
+    width: 35%;
+    margin-bottom: 10px;
+  }
+  &__name {
+    + span {
+      display: inline-block;
+      width: 50px;
+      border-bottom: 1px solid #3a405b;
+      margin-right: 20px;
+    }
+  }
+  &__in {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  &__left {
+    // float: left;
+    width: calc(50% - 10px);
+    // padding: 0 10px;
+  }
+  &__right {
+    // float: right;
+    width: calc(50% - 10px);
+    // padding: 0 10px;
+  }
+  &__title {
+    // font-size: 14px;
+    font-weight: bold;
+    color: #3a405b;
+    margin-bottom: 9px;
+
+  }
+
+  &__signature {
+    position: relative;
+    padding: 12px 11px 9px 11px;
+    border-radius: 1.7px;
+    border: 1px solid transparent;
+    // font-size: 18px;
+    color: #3a405b;
+    margin-bottom: 21px;
+    // font-family: 'brush-script', sans-serif;
+    &:after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      right: 11px;
+      bottom: 9px;
+      height: 1px;
+      background: rgba(#3a405b, .5);
+    }
+    &.is-selected {
+      background-color: rgba(#fae868, .3);
+      border-color: rgba(#ee8000, .3);
+    }
+    span {
+      font-size: 18px;
+      color: #3a405b;
+      font-family: 'brush-script', Roboto, sans-serif;
+    }
+  }
+  &__in {
+    // display: none;
+    margin: 0 -10px;
+  }
+
+}
+// .ckeckBox {
+//   position: relative;
+//   z-index: 2;
+//     input {
+//         display: none;
+//         & + label {
+//             display: inline-block;
+//             vertical-align: middle;
+//             font-size: 14px;
+//             color: #3a405b;
+//             padding: 0px 0 13px 23px;
+//             cursor: pointer;
+//             user-select: none;
+//             &:before {
+//                 content: '';
+//                 position: absolute;
+//                 left: 0;
+//                 top: 3px;
+//                 // margin-top: -10px;
+//                 width: 12px;
+//                 height: 12px;
+//                 border-radius: 2px;
+//                 background-color: #ffffff;
+//                 border: solid 1px #b6c1cf;
+//             }
+//         }
+//         &:checked + label {
+//             &:after {
+//                 content: '';
+//                 position: absolute;
+//                 left: 0px;
+//                 top: 3px;
+//                 // margin-top: -10px;
+//                 text-align: center;
+//                 background-image: linear-gradient(135deg,#e75050,#f7ae18);
+//                 border-radius: 2px;
+//                 font-family: Material-Design-Iconic-Font;
+//                 content: '\f26b';
+//                 color: #fff;
+//                 font-size: 10px ;
+//                 width: 12px;
+//                 height: 12px;
+
+//             }
+
+//         }
+//     }
+// }
+
+.sq-checkbox {
+  input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    top: 5px;
+    &:checked + label:after {
+      padding: 0 2px;
+    }
+  }
+  label {
+    line-height: 1.5;
+    &:before, &:after {
+      width: 12px;
+      height: 12px;
+      font-size: 11px;
+      line-height: 1;
+      top: 5px;
+    }
+  }
+}
+
+/deep/ .contract-preview-modal {
+  .modal-body {
+    border: none;
+  }
+
+  .modal-header {
+    display: none;
+  }
+}

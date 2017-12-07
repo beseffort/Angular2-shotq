@@ -1,0 +1,244 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.page {
+	min-height: 100vh;
+	margin-left: 0 !important;
+	-ms-display: flex;
+	display: flex;
+}
+
+.board {
+	width: 1180px;
+	height: 700px;
+	@include box-shadow(0 30px 40px 0 rgba(58, 64, 91, 0.2));
+	background-color: #ffffff;
+	text-align: center;
+	margin: auto;
+	-ms-display: flex;
+	display: flex;
+	&__left, &__right {
+		width: 50%;
+		position: relative;
+	}
+	&__header {
+		padding: 35px 105px 20px;
+	}
+	&__body {
+		padding: 0 105px;
+	}
+	&__title {
+		font-family: $font-family-base;
+		font-size: 32px;
+  		letter-spacing: -0.5px;
+  		color: $gray-dark;
+  		margin: 0;
+	}
+}
+
+.bg-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+.logo-box {
+	width: 130px;
+  	height: 130px;
+  	border-radius: 45px;
+  	background-color: #ffffff;
+  	@include box-shadow(0 20px 60px 0 rgba(181, 193, 207, 0.4));
+  	margin: 0 auto 20px;
+  	position: relative;
+}
+
+.logo {
+	width: 78px;
+	height: 78px;
+	@include vcenter;
+	img {
+		width: 100%;
+	}
+}
+.legend {
+	font-family: $font-family-base;
+	font-size: 16px;
+	font-weight: 600;
+	color: $gray-dark;
+	opacity: .5;
+	padding-top: 40px;
+}
+.account-message {
+	font-family: $font-family-base;
+	font-size: 16px;
+	text-align: center;
+	color: transparentize($gray-dark, .2);
+	padding-top: 10px;
+	.link {
+		font-weight: 600;
+		color: $bright-blue;
+		cursor: pointer;
+		opacity: .8;
+		transition: opacity .2s ease-in;
+		outline: 0;
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+
+.control-button {
+	padding-top: 14px;
+	button {
+		width: 100%;
+		height: 60px;
+		border-radius: 4px;
+		background-color: $bright-blue;
+		@include box-shadow(0 2px 8px 0 rgba(58, 64, 91, 0.5));
+		font-family: $font-family-base;
+		font-size: 18px;
+		letter-spacing: 0.8px;
+		color: #ffffff;
+		transition: all .2s ease-in;
+		&:hover, &:focus, &.active {
+			@include box-shadow(1px 2px 10px 1px rgba(58, 64, 91, 0.5));
+		}
+	}
+}
+
+.field {
+	margin-bottom: 14px;
+	input {
+		@include appearance(none);
+		outline: none;
+		transition: border-color .2s ease-in;
+		width: 100%;
+		height: 50px;
+  		border-radius: 4px;
+  		background-color: $gray-lightest;
+  		border: 1px solid $gray-lighter;
+  		font-size: 18px;
+  		color: $gray-dark;
+  		padding: 0 10px;
+  		&::placeholder, 
+  		&::-webkit-input-placeholder,
+  		&::-moz-placeholder,
+  		&:-ms-input-placeholder,
+  		&:-moz-placeholder {
+			opacity: .5;
+			color: $gray-dark;
+  		}
+  // 		&:-webkit-autofill {
+		// 	border-color: $gray-border;
+		// 	@include box-shadow(0 0 0px 1000px white inset);
+		// }
+		// &:focus, &:active {
+		// 	border-color: $gray-border;
+		// }
+		&[data-empty="false"] + label,
+			&:focus + label {
+				color: #898c9d;
+				font-size: 12px;
+				transform: translate3d(0, -12px, 0);
+		}
+		&.invalid {
+			border-color: $pastel-red;
+		}
+	}
+	&.is-validate {
+		padding-bottom: 28px;
+		input {
+			border-color: $pastel-red;
+		}
+		.validate-message {
+			position: absolute;
+			left: 0;
+			padding: 1px 5px;
+			font-size: 12px;
+			text-align: left;
+			color: $pastel-red;
+			a {
+				color: $bright-blue;
+				text-decoration: none;
+			}
+		}
+	}
+}
+.field_forgot {
+	position: relative;
+	input {
+		padding-right: 55px;
+	}
+	.forgot {
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translate(0, -50%);
+		font-weight: 600;
+		color: $gray-dark;
+		opacity: .5;
+		outline: none;
+		cursor: pointer;
+		transition: opacity .2s ease-in;
+		&:hover {
+			opacity: .8;
+		}
+	}
+}
+// 	div.panel {
+// 		width: 1180px;
+// 		max-width: auto;
+// 		&-flex {
+// 			-webkit-display: flex;
+// 			-moz-display: flex;
+// 			-o-display: flex;
+// 			display: flex;
+// 		}
+// 	    .left-side {
+// 	    	width: 50%;
+// 	    	.log-in-container {
+// 	    		.legend {
+// 	    			margin-top: 30px;
+// 	    		}
+// 	    		.account-message {
+// 					font-size: 16px;
+// 	    		}
+// 	    		.field {
+// 	    			position: relative;
+// 	    			span.forgot {
+// 	    				opacity: 0.5;
+// 	    				font-size: 14px;
+// 						font-weight: 600;
+// 						font-style: normal;
+// 						font-stretch: normal;
+// 						line-height: normal;
+// 						letter-spacing: normal;
+// 						text-align: left;
+// 						color: #3a405b;
+// 						position: absolute;
+// 					    right: 120px;
+//     					top: 13px;
+//     					cursor: pointer;
+// 	    			}
+// 	    		}
+// 	    	}
+// 		}
+// 		.right-side {
+// 			width: 50%;
+// 			height: 100%;
+// 			overflow: hidden;
+// 			text-align: right;
+// 			.right-img-workless {
+// 				max-width: none;
+// 				width: auto;
+// 				height: 100%;
+// 			}
+// 		}
+// 	}
+// }
+

@@ -1,0 +1,147 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.contract-send {
+  display: flex;
+  width: 100%;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  &__left {
+    flex: 1 0 50%;
+  }
+  &__right {
+    position: relative;
+    flex: 1 0 50%;
+    background-color: $gray-dark;
+    overflow-y: auto;
+  }
+}
+
+.page {
+  background-color: $body-bg !important;
+  &-header {
+    padding: 30px 50px 10px 30px !important;
+  }
+  &-content {
+    padding: 30px 80px 10px 30px !important;
+    margin-bottom: 70px;
+    @media screen and (max-width: breakpoint-max(lg)) {
+      padding: 30px 30px 10px 30px !important;
+    }
+  }
+}
+
+.text {
+  font-size: $font-size-base;
+  color: $body-color;
+  margin-bottom: 20px;
+}
+
+.iinput {
+  height: $input-height;
+  position: relative;
+  font-size: $font-size-base;
+  line-height: $input-line-height;
+  margin-bottom: $spacer-y;
+  border: $input-btn-border-width solid $input-border-color;
+  @include border-radius($input-border-radius);
+  @include box-shadow($input-box-shadow);
+  padding: $input-padding-y $input-padding-x;
+  color: $input-color;
+  background-color: $input-bg;
+
+  &__title {
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    line-height: $input-height;
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $body-color;
+  }
+  input {
+    padding: 4px 5px 4px 65px;
+    font-size: $font-size-base;
+    color: $body-color;
+    font-weight: 400;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+}
+
+.select {
+  position: relative;
+  margin-bottom: $spacer-y;
+  border-radius: $input-border-radius;
+  background-color: $input-bg;
+  border: solid 0.9px $pale-grey;
+  &:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+    background: $input-bg;
+    width: 20px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    z-index: 3;
+    margin-top: -2.5px;
+    width: 10px;
+    height: 5px;
+    background: url('/assets/img/open-icon.svg') no-repeat center center;
+    pointer-events: none;
+  }
+  select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    height: $input-height;
+    padding: 0 $input-padding-x;
+    @include appearance(none);
+    &:focus {
+      outline: none;
+    }
+  }
+
+}
+
+.modal-footer {
+  z-index: 1000;
+}
+
+.modal-footer_border {
+  background: $body-bg;
+  border-top: $modal-footer-border-width solid $modal-footer-border-color;
+}
+
+input:disabled {
+  background: $input-bg;
+}
+
+.contract-send__btn-edit-contacts,
+.contract-send__btn-edit-contract {
+  @include sq-button-base;
+  @include sq-button-link;
+  margin: 0 0 $spacer-y 0;
+  padding: $btn-padding-y 0;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+.contract-send__email-text,
+.contract-send__email-editor-form-control {
+  height: 200px;
+}
+
+.contract-send__email-text {
+  @include sq-base-form-control;
+  overflow-y: auto;
+}

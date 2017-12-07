@@ -1,0 +1,102 @@
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+
+.paginate-container {
+  position: initial;
+}
+
+.clearfix {
+	font-size: 0;
+	margin: 0 20px 25px;
+	&__left, &__right {
+		display: inline-block;
+		width: 50%;
+		vertical-align: middle;
+	}
+	&__right {
+		text-align: right;
+	}
+}
+
+.job-proposals {
+	padding-top: 25px;
+	background-color: #fff;
+	box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5);
+	&__title {
+		font-family: "Titillium Web", sans-serif;
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 1.79;
+		margin-bottom: 0;
+	}
+	&__archive {
+		color: rgba(58, 64, 91, 0.5);
+		font-size: 12px;
+	}
+	&__btn {
+		font-size: 14px;
+		font-weight: 400;
+		padding: 0 29px;
+		height: 34px;
+		background-color: #fafbfb;
+	  	border: solid 1px #e4e8f0;
+	  	border-radius: 4px;
+	  	box-shadow: 0 2px 2px 0 rgba(181, 193, 207, 0.15);
+	}
+}
+
+.no-items {
+  padding-bottom: 25px;
+}
+
+.table-responsive {
+	overflow: visible;
+	table {
+		margin-bottom: 0;
+		thead {
+			background-color: #fafbfb;
+			white-space: nowrap;
+		}
+		td, th {
+			padding-left: 25px;
+		}
+		th {
+			position: relative;
+			line-height: 1.5;
+    		padding: 6px 25px;
+			&:before {
+				content: '';
+				display: block;
+				width: 1px;
+				height: 22px;
+				background-color: #e4e7ef;
+				position: absolute;
+				top: 4px;
+				left: 0;
+			}
+		}
+		td:first-child, th:first-child {
+			padding-left: 20px;
+			&:before {
+				display: none;
+			}
+		}
+		td:last-child {
+			padding-right: 30px;
+			text-align: right;
+		}
+		th {
+			font-size: 12px;
+			text-transform: uppercase;
+			letter-spacing: 0.8px;
+			font-weight: 600;
+		}
+		td {
+			font-size: 14px;
+			font-weight: 400;
+		}
+		td.bold {
+			font-weight: 600;
+		}
+	}
+}

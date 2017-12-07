@@ -1,0 +1,29 @@
+<div class="event-workflow-container">
+  <ul class="event-workflow-timeline" [ngClass]="{'is-selected': !!selected}">
+    <li class="event-workflow__block group-event start">
+      <div class="group-event-info event-workflow__outblock event-workflow__outblock_start">
+        <div class="group-event-title event-workflow__inblock event-workflow__inblock_start">Start</div>
+      </div>
+    </li>
+    <li class="event-workflow__btn event-workflow__btn_start add-group-event">
+      <button type="button" class="btn add-group-event-btn" (click)="addNewGroup(0)">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </li>
+    <template ngFor let-group [ngForOf]="eventGroups" let-i="index">
+      <li class="event-workflow__block group-event" [ngClass]="{'main-event': group.id === mainEvent?.id, 'is-selected': group.id === selected?.id}">
+        <div class="group-event-info event-workflow__outblock">
+          <div class="event-workflow__inblock pointer" (click)="editGroup(group)">
+            <div class="group-event-title">{{ group.name }}</div>
+            <div class="group-event-date">{{ group.start | date:'mediumDate' }}</div>
+          </div>
+        </div>
+      </li>
+      <li class="event-workflow__btn add-group-event">
+        <button type="button" class="btn add-group-event-btn" (click)="addNewGroup(i + 1)">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+      </li>
+    </template>
+  </ul>
+</div>

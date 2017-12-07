@@ -1,0 +1,81 @@
+<div class="page page-dashboard">
+    <div class="page__header">
+      <div class="page__header_in">
+        <!-- begin page background -->
+        <div class="page-dashboard__bg"></div>
+        <!-- end page background -->
+
+        <!-- begin dashboard header -->
+        <div class="db-header">
+          <h1 class="db-header__title">Hi, {{currentUser?.first_name}} {{currentUser?.last_name}}!</h1>
+          <div class="db-header__message">Welcome to your ShootQ dashboard.</div>
+        </div>
+        <!-- end dashboard header -->
+      </div>
+      <!-- begin dashboard widgets -->
+      <div class="db-widgetbar">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="db-widget">
+              <dashboard-count-widget [title]="'New Leads'"
+                [backgroundClass]="'image-leads'"
+                [link]="'http://lorempixel.com/120/110/'"
+                [count]="newLeadsStat?.new_leads_count">
+                <div class="dashboard-count-widget-additional">
+                  <strong>{{ newLeadsStat?.close_rate }}%</strong> average close rate
+                </div>
+              </dashboard-count-widget>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="db-widget center">
+              <dashboard-count-widget [title]="'Outstanding Invoices'"
+                [backgroundClass]="'image-invoices'"
+                [link]="'http://lorempixel.com/120/110/'"
+                [count]="outstandingInvoicesStat?.invoices_count">
+                <div class="dashboard-count-widget-additional">
+                  <strong>{{ outstandingInvoicesStat?.amount | currency:'USD':true }}</strong> in total outstanding amount
+                </div>
+              </dashboard-count-widget>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="db-widget right">
+              <payments-table-widget [paymentsData]="incomePaymentsStat"></payments-table-widget>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end dashboard widgets -->
+    </div>
+
+
+    <div class="page__content">
+      <div class="db-content">
+        <div class="row">
+          <div class="col-sm-8">
+              <div class="db-content-block">
+                  <div class="recent-activity">
+                      <div class="recent-activity__header">
+                          <i class="oi-pulse"></i>
+                          <h2 class="recent-activity__title">
+                              Recent Activity</h2>
+                      </div>
+                      <div class="recent-activity__in">
+                          <activity-feed [type]="'account'"></activity-feed>
+                      </div>
+                  </div>
+              </div>
+            <!--<div class="db-content-block">
+              <dashboard-tasks></dashboard-tasks>
+            </div>-->
+          </div>
+          <div class="col-sm-4">
+            <div class="db-schedule">
+              <dashboard-schedule></dashboard-schedule>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

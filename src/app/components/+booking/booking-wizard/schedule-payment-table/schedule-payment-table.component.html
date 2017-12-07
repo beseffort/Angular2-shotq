@@ -1,0 +1,6 @@
+<div class="payment-schedule" *ngIf="paymentTableData">
+  <div class="item black" *ngFor="let p of paymentTableData.result">
+    <div class="item-description">{{ p.payment_date }}</div>
+    <div class="item-price">${{ p.full_payment }}</div>
+  </div>
+</div>

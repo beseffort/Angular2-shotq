@@ -1,0 +1,130 @@
+.paid {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 0px;
+    margin: 3px 0;
+    &__title {
+        font-style: normal;
+        color: rgba(58, 64, 91,0.5);
+        font-size: 12px;
+        font-weight: normal;
+        display:inline-block;
+        vertical-align: top;
+        position: relative;
+        top:5px; 
+        margin-right: 6px;
+    }
+    label {
+        display:inline-block;
+        width:82px;
+        border-radius: 2px;
+        background-color: rgb(255, 255, 255);
+        border: solid 1px rgb(228, 231, 239);
+        height:27px;
+        position:relative;
+        padding-left:25px;
+        padding-top:2px;
+        padding-bottom:2px;
+        i.icon-ios-calendar {
+            position:absolute;
+            top:4px;
+            left:3px;
+            font-size:16px;
+            color: rgba(58, 64, 91,1);
+        }
+        input {
+            color: rgb(58, 64, 91);
+            font-size: 10px;
+            height: 22px;
+            // padding-top:2px;
+            // padding-bottom:2px;
+            width:100%;
+            border:none;
+            vertical-align:top;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+.left {
+    span {
+        color: rgba(#3a405b, .5);
+    }
+}
+.selectStyle {
+    max-width: 140px;
+    height: 27px;
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
+    select {
+        height: auto;
+    }
+    &:after {
+        top: 10px;
+    }
+    & + span {
+        display: inline-block;
+        vertical-align: text-top;
+        font-style: normal;
+        color: #3a405b;
+        font-size: 12px;
+        font-weight: normal
+    }
+}
+.dropdown-payment {
+    display: inline-block;
+    vertical-align: middle;
+    width: 140px;
+    margin-right: 15px;
+}
+.selectBlock {
+    margin-bottom: 12px;
+    
+}
+.inputSelect {
+    display: inline-block;
+    vertical-align: top;
+    height: 30px;
+    border: 1px solid #e4e7ef;
+    input {
+        font-size: 12px;
+        line-height: 23px;
+        padding-top: 2px;
+        padding-bottom: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #3a405b;
+        border: none;
+        font-size: 14px;
+        &::-webkit-input-placeholder {
+            color: rgba(#3a405b, .3);
+        }
+        &::-moz-input-placeholder {
+            color: rgba(#3a405b, .3);
+        }
+        &::-o-input-placeholder {
+            color: rgba(#3a405b, .3);
+        }
+        &::-ms-input-placeholder {
+            color: rgba(#3a405b, .3);
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    &_width {
+        display: block;
+        input {
+            width: 100%;
+        }
+    }
+}
+.form-padding {
+    padding: 0 27px 0 55px;
+}
+.edit {
+    background-color: #f7f7f7;
+    padding: 15px 27px 15px 55px;
+}

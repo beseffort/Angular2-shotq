@@ -1,0 +1,13 @@
+<div class="payments-table-widget">
+  <div class="main-info">
+    <div class="main-info__date">{{ currentMonth }}</div>
+    <div class="main-info__amount">{{ currentMonthAmount|currency:'USD':true }}</div>
+    <div class="main-info__changes" *ngIf="lastMonthGrowth"
+      [ngClass]="{'increase': lastMonthGrowth > 0, 'decrease': lastMonthGrowth < 0}">
+      <strong><span *ngIf="lastMonthGrowth > 0">+</span>{{ lastMonthGrowth }}%</strong> vs last month
+    </div>
+  </div>
+  <div class="payments">
+    <income-payments-chart [chartData]="paymentsData"></income-payments-chart>
+  </div>
+</div>

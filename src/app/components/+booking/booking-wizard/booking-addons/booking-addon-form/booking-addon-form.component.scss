@@ -1,0 +1,104 @@
+.booking-addon-form {
+  &-fields {
+    margin: 0 30px 0 60px;
+    .field-container {
+      text-align: left;
+      vertical-align: middle;
+      height: 34px;
+      td {
+        vertical-align: middle;
+        width: 33.3%;
+      }
+    }
+    label,
+    .price {
+      font-size: 14px;
+      font-weight: 600;
+      color: #3a405b;
+    }
+    label {
+      margin: 0;
+    }
+  }
+  &-summary {
+    padding: 0 30px 0 60px;
+    font-weight: bold;
+    color: #57cd75;
+    &:after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+    span {
+      &:first-child {
+        float: left;
+      }
+      &:last-child {
+        float: right;
+      }
+    }
+
+  }
+}
+
+.field-control {
+  width: 200px;
+}
+// .selectStyle {
+//   position: relative;
+//   height: 24px;
+//   border-radius: 2px;
+//   background-color: #ffffff;
+//   border: 1px solid #e4e7ef;
+//   width: 200px;
+//   overflow: hidden;
+//   position: relative;
+//   @media screen and (max-width: 960px) {
+//     width: 100px;
+//   }
+//   &:before {
+//     content: "";
+//     position: absolute;
+//     right: 0px;
+//     top: 0px;
+//     height: 30px;
+//     background: #FFF;
+//     width: 20px;
+//     z-index: 2;
+//     pointer-events: none;
+//   }
+//   &:after {
+//     content: "";
+//     position: absolute;
+//     right: 5px;
+//     top: 50%;
+//     z-index: 3;
+//     margin-top: -2.5px;
+//     width: 10px;
+//     height: 5px;
+//     background: url('/assets/img/open-icon.svg') no-repeat center center;
+//     pointer-events: none;
+//   }
+//   select {
+//     border: none;
+//     background: none;
+//     outline: none;
+//     font-family: 'Titillium Web' !important;
+//     text-align: left;
+//     font-style: normal;
+//     color: #3a405b;
+//     font-size: 14px;
+//     font-weight: normal;
+//     height: 100%;
+//     line-height: 1.4;
+//     padding-left: 8px;
+//     display: block;
+//     width: 100%;
+//     box-sizing: border-box;
+//     padding-right: 30px;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//   }
+// }
+

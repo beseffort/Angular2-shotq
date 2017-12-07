@@ -1,0 +1,75 @@
+<div class="panel-body payment">
+  <h2 class="payment__ttl">
+    Payment Schedule
+  </h2>
+  <div class="payment__in">
+    <div class="rippleContainer" *ngIf="isLoading">
+      <div class="loading-ripple"></div>
+    </div>
+    <div class="text-center margin-bottom-20 no-items-message"
+         *ngIf="!isLoading && !scheduledPayments.length">
+      There are no payments to display
+    </div>
+    <div class="contract-list contract-list-extend table-responsive" *ngIf="!isLoading && scheduledPayments.length">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="gap-39">&nbsp;</th>
+          <th>DATE DUE</th>
+          <th>STATUS</th>
+          <th>BALANCE PAID</th>
+          <th>BALANCE DUE</th>
+          <th>AMOUNT</th>
+          <th class="gap-39"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let schedule of scheduledPayments">
+          <td class="icon-39">
+            <i *ngIf="schedule.overdue && schedule.status !== 'paid'" class="icon-alert"></i>
+            <i *ngIf="schedule.status === 'paid'" class="icon-confirm"></i>
+          </td>
+          <td>{{ schedule.due | date:'shortDate'}}</td>
+          <td class="gray">{{ schedule._humanizedStatus }}</td>
+          <td class="gray">{{ schedule.paid | currency:'USD':true }}</td>
+          <td class="gray">{{ schedule.balance | currency:'USD':true }}</td>
+          <td>{{ schedule.amount | currency:'USD':true }}</td>
+          <td>
+
+            <div dropdown
+                 class="btn-group"
+                 [(isOpen)]="schedule._buttonOpen"
+                 *ngIf="!adminMode && schedule.balance > 0">
+              <button (click)="togglePay(schedule)"
+                      (clickOutside)="schedule._buttonOpen = false"
+                      type="button"
+                      class="pay-button">
+                Pay
+              </button>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" appClickOutside>
+
+                <li role="menuitem">
+                  <a class="dropdown-item" href="#" (click)="payWithCard(schedule);$event.preventDefault()">
+                    Pay With Card
+                  </a>
+                </li>
+                <li role="menuitem">
+                  <a class="dropdown-item" href="#" (click)="payWithCheck();$event.preventDefault()">
+                    Pay With Check
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <dropdown *ngIf="adminMode && schedule._actions.length" [button]="false"
+                      listClass="blue-circle pad"
+                      [dropdownClass]="'dropdown-menu-right'"
+                      [actions]="schedule._actions"
+                      (optionSelected)="onActionSelected($event, schedule)"
+                      iconClass="icon-more-icon-o font-size-10"></dropdown>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

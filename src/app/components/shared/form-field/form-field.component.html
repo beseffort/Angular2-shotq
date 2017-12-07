@@ -1,0 +1,85 @@
+<div class="form-group form-material" *ngIf="!withSelect && !spanWithSelect  && !onlySelect" [class.has-error]="errors && errors.length">
+  <div class="row">
+    <div class="col-xs-1" *ngIf="!hideIcon">
+      <img class="" alt="" src="/assets/img/warning-light-u-i.svg" *ngIf="errors && errors.length">
+    </div>
+    <div class="col-xs-11">
+      <div [id]="inputGroupId" class="input-group input-group-icon">
+        <span [id]="spanId" (click)="onSpanClick()" class="input-group-addon">{{label}}</span>
+        <input *ngIf="withInput && type !== 'number' && (label == 'Phone' || label == 'Phone Number')" type="text" [id]="inputId" class="form-control masked {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required" [min]="min" [step]='step' [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef2="ngModel" (focus)="addSelectedClass()" (blur)="removeSelectedClass($event)"/>
+        <input *ngIf="withInput  && type !== 'number' && label != 'Phone' && label != 'Phone Number'" [type]="type" [id]="inputId" class="form-control {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required" [min]="min" [step]='step' [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef1="ngModel" (focus)="addSelectedClass()" (blur)="removeSelectedClass($event)">
+        <input *ngIf="withInput  && type === 'number'" [type]="type" [id]="inputId" class="form-control {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required" [min]="min" [max]="max" [step]='step' [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef1="ngModel" (focus)="addSelectedClass()" (blur)="inputNumberBlur($event)" (input)="inputHandler($event)">
+		    <span *ngIf="showPrimary" class="input-group-addon primary">
+          Primary
+        </span>
+        <span *ngIf="showDelete && value && !isLoading">
+          <i class="input-group-addon icon-trash" (click)="valueDeleted($event)"></i>
+        </span>
+        <span *ngIf="showDelete && isLoading">
+          <img class="mini-spinner" src="/assets/img/mini-loader.svg">
+        </span>
+      </div>
+      <div *ngIf="errors && errors.length">
+        <div *ngFor="let error of errors">
+          <p>{{error}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<form-field-wrap *ngIf="withSelect  && !onlySelect" [label]="label" [floating]="floating" [inputId]="inputId" [errors]="getErrors(inputRef2)">
+    <div [id]="inputGroupId" class="input-group">
+      <div [id]="dropDownGroupId" class="input-group-btn">
+          <button [id]="buttonId" type="button" class="btn form-field" (click)="toggleOpen()" (focus)="addSelectedClass()" (blur)="removeFocusStyle()">
+            {{selectedOptionName}} {{label}}
+            <span *ngIf="!isOpen" class="icon-down-arrow"></span>
+            <span *ngIf="isOpen" class="icon-up-arrow"></span>
+          </button>
+          <ul [id]="listId" (blur)="removeFocusStyle()" tabindex="-1" role="menu" class="dropdown-menu">
+            <li tabindex="-1" role="menuitem" id="{{listId}}-{{option.id}}" *ngFor="let option of options" (blur)="removeFocusStyle()" (click)="onSelectChange(option.id)">{{option.name}} {{label}}</li>
+          </ul>
+      </div>
+      <input *ngIf="withInput && (label == 'Phone' || label == 'Phone Number')" type="text" [id]="inputId" class="form-control masked {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required" [min]="min" [step]='step' [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef2="ngModel" (focus)="addSelectedClass()" (blur)="removeSelectedClass($event)"/>
+      <input *ngIf="withInput && label != 'Phone' && label != 'Phone Number'" [type]="type" [id]="inputId" class="form-control {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required" [min]="min" [step]='step' [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef2="ngModel" (focus)="addSelectedClass()" (blur)="removeSelectedClass($event)">
+	    <span *ngIf="showPrimary" class="input-group-addon primary">
+        Primary
+      </span>
+      <span *ngIf="showDelete && value && !isLoading">
+        <i class="input-group-addon icon-trash" (click)="valueDeleted($event)"></i>
+      </span>
+      <span *ngIf="showDelete && isLoading">
+        <img class="mini-spinner" src="/assets/img/mini-loader.svg">
+      </span>
+    </div>
+</form-field-wrap>
+
+<form-field-wrap *ngIf="spanWithSelect && !onlySelect" [label]="label" [floating]="floating">
+	<div [id]="inputGroupId" class="input-group input-group-icon">
+    <span class="input-group-addon" (click)="onSpanClick('selector')">{{label}}</span>
+    <div [id]="dropDownGroupId">
+      <button [id]="buttonId" type="button" class="btn form-field span-selector" (click)="toggleOpen()" (focus)="addSelectedClass()" (blur)="removeFocusStyle()">
+      {{selectedOptionName}} {{auxLabel}}
+        <span *ngIf="!isOpen" class="icon-down-arrow"></span>
+        <span *ngIf="isOpen" class="icon-up-arrow"></span>
+      </button>
+      <ul [id]="listId" (blur)="removeFocusStyle()" tabindex="-1" role="menu" class="dropdown-menu {{cssClass}}">
+        <li tabindex="-1" role="menuitem" id="{{listId}}-{{option.id}}" (blur)="removeFocusStyle()" *ngFor="let option of options" (click)="onSelectChange(option.id)">{{option.name}} {{auxLabel}}</li>
+      </ul>
+    </div>
+    <span *ngIf="showPrimary" class="input-group-addon primary" default="true">Primary</span>
+  </div>
+</form-field-wrap>
+
+<!-- Select  -->
+<div *ngIf="onlySelect" [id]="inputGroupId" class="input-group">
+  <div [id]="dropDownGroupId" class="input-group-btn">
+    <button [id]="buttonId" type="button" class="btn form-field" (click)="toggleOpen()" (focus)="addSelectedClass()" (blur)="removeFocusStyle()" [disabled]="disabled">
+      <span class="form-field__text">{{selectedOptionName | truncateWords: truncateWords}}</span>
+      <span *ngIf="!isOpen" class="icon-down-arrow"></span>
+      <span *ngIf="isOpen" class="icon-up-arrow"></span>
+    </button>
+    <ul [id]="listId" (blur)="removeFocusStyle()" tabindex="-1" role="menu" class="dropdown-menu">
+      <li tabindex="-1" role="menuitem" id="{{listId}}-{{option.id}}" [class.link]="option.link" [class.selected]="selectedOptionName == option.name" *ngFor="let option of options" (blur)="removeFocusStyle()" (click)="onSelectChange(option.id)">{{option.name | truncateWords: truncateOptionWords }}</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <div class="modal-header-in">
+        <div class="h3">Delete Categories</div>
+        <span>Move items to another category or keep them uncategorized.</span>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="modal-del__category" *ngFor="let category of categoriesToDelete">
+        <span class="modal-del__category-name">{{ category.name }}</span>
+        <div class="clearfix">
+            <span class="modal-del__category-msg">
+                There are
+                <span class="modal-del__category-numb">
+                    {{ category.template_count }}
+                </span>
+                items in this category.</span>
+            <app-dropdown-select class="pull-right"
+                                 (optionSelected)="setMoveTo(category, $event)"
+                                 [allowNull]="true" [options]="categories"
+                                 [labelKey]="'name'" [valueKey]="'name'"
+                                 [placeholder]="'Move to…'"></app-dropdown-select>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer bg clearfix">
+    <button type="button" class="btn btn_xs btn_transparent"
+            data-dismiss="modal" (click)="close()">Cancel</button>
+    <button type="button" class="btn btn_xs btn_blue"
+            (click)="close(categoriesToDelete)">Save</button>
+</div>

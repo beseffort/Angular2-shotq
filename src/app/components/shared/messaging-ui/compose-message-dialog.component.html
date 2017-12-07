@@ -1,0 +1,180 @@
+<div class="message-view-dialog__header" *ngIf="displayMode === VIEW">
+  <span class="message-view-dialog__title"><i class="icon-letter" aria-hidden="true"></i></span>
+  <button type="button" class="message-dialog__close-btn" (click)="cancel()" ><span>&times;</span></button>
+</div>
+<div class="message-view-dialog__body" *ngIf="displayMode === VIEW">
+  <div class="message-header">
+    <div class="message-dialog__sender-picture">
+      <span class="u-photo" *ngIf="!message.$senderPictureUrl">{{ message.$senderInitials }}</span>
+      <img class="u-photo" *ngIf="message.$senderPictureUrl" [src]="message.$senderPictureUrl">
+    </div>
+
+    <div class="message-dialog__meta">
+      <button
+        *ngIf="message.ccRecipients.length || message.bccRecipients.length"
+        [class.message-view-dialog__expand-head-btn]="!isHeaderExpanded"
+        [class.message-view-dialog__expand-head-btn--open]="isHeaderExpanded"
+        (click)="isHeaderExpanded = !isHeaderExpanded"
+      ></button>
+      <span class="message-dialog__sender">{{ message.sender_name }}</span>
+      <span *ngIf="message.toRecipients.length">to
+        <span *ngFor="let r of message.toRecipients" class="message-dialog__recipient">{{ r.recipient_name }}</span>
+      </span>
+      <div *ngIf="message.ccRecipients.length && isHeaderExpanded">CC
+        <span *ngFor="let r of message.ccRecipients" class="message-dialog__recipient">{{ r.recipient_name }}</span>
+      </div>
+      <div *ngIf="message.bccRecipients.length && isHeaderExpanded">BСС
+        <span *ngFor="let r of message.bccRecipients" class="message-dialog__recipient">{{ r.recipient_name }}</span>
+      </div>
+    </div>
+
+    <h2 class="message-dialog__subject">{{ message.subject }}</h2>
+  </div>
+  <hr class="message-header__border-bottom">
+  <div class="message-dialog__body" [innerHTML]="message.body"></div>
+</div>
+<div class="message-view-dialog__footer" *ngIf="displayMode === VIEW">
+  <button *ngIf="perms.reply" type="button" class="message-dialog__reply-btn" (click)="onReply()">Reply</button>
+</div>
+
+
+<div class="message-compose-dialog__header" *ngIf="displayMode === COMPOSE">
+  <div class="loading-ripple" *ngIf="isLoading"></div>
+  <span class="message-compose-dialog__title">Compose an Email</span>
+  <button type="button" class="message-dialog__close-btn" (click)="cancel()" ><span>&times;</span></button>
+</div>
+
+<form class="message-compose-dialog__body" [formGroup]="form" *ngIf="displayMode === COMPOSE">
+  <div class="message-compose-dialog__template" *ngIf="templatesEnable">
+    <div class="btn-group">
+      <button
+        type="button" class="message-compose-dialog__select-template-btn"
+        [class.open]="templateDropdownMenuOpen"
+        (click)="templateDropdownMenuOpen = !templateDropdownMenuOpen">
+        {{ selectedTemplateName || 'No Template' | truncate: 60 }}
+      </button>
+      <ul class="message-compose-dialog__select-template-menu"
+          [class.open]="templateDropdownMenuOpen">
+        <li *ngFor="let template of templates"
+            (click)="onTemplateSelected(template); templateDropdownMenuOpen = false"
+        >{{ template.name | truncate: 110 }}</li>
+      </ul>
+    </div>
+    <div class="pull-right hidden">
+      <div class="checkbox" *ngIf="!readOnly">
+        <input type="checkbox" name="copy" id="copy">
+        <label for="copy">Send Me a Copy</label>
+      </div>
+    </div>
+
+  </div>
+  <div class="message-compose-dialog__message-head" [class.expanded]="isHeaderExpanded">
+    <button
+      [class.message-compose-dialog__expand-head-btn]="!isHeaderExpanded"
+      [class.message-compose-dialog__expand-head-btn--open]="isHeaderExpanded"
+      (click)="isHeaderExpanded = !isHeaderExpanded"
+    ></button>
+
+    <div class="sq-form-group--recipients">
+      <div class="sq-input-group"
+           [class.has-error]="form.controls.recipients.touched && form.controls.recipients.errors">
+        <span class="input-group-addon">To</span>
+        <tag-input
+          id="id_recipients" name="recipients" type="text"
+          class="sq-form-control--recipients"
+          formControlName="recipients"
+          [theme]="'sq'" [onAdding]="createOnAddingCallback()"
+          [placeholder]="'Add Contact or Email'" [secondaryPlaceholder]="'Contacts'"
+        >
+          <tag-input-dropdown
+            [autocompleteObservable]='createSuggestContactsCallback()'
+            [appendToBody]="false">
+            <template let-item="item">{{ item.display }}&nbsp;&lt;{{ item.email }}&gt;</template>
+          </tag-input-dropdown>
+        </tag-input>
+      </div>
+      <div class="sq-input-group" *ngIf="isHeaderExpanded">
+        <span class="input-group-addon">CC</span>
+        <tag-input
+          id="id_cc_recipients" name="cc_recipients" type="text"
+          class="sq-form-control--recipients"
+          formControlName="ccRecipients"
+          [theme]="'sq'" [onAdding]="createOnAddingCallback()"
+          [placeholder]="'Add Contact'" [secondaryPlaceholder]="'Contacts'"
+        >
+          <tag-input-dropdown
+            [autocompleteObservable]='createSuggestContactsCallback()'
+            [appendToBody]="false">
+            <template let-item="item">{{ item.display }}&nbsp;&lt;{{ item.email }}&gt;</template>
+          </tag-input-dropdown>
+        </tag-input>
+      </div>
+      <div class="sq-input-group" *ngIf="isHeaderExpanded">
+        <span class="input-group-addon">BCC</span>
+        <tag-input
+          id="id_bcc_recipients" name="bcc_recipients" type="text"
+          class="sq-form-control--recipients"
+          formControlName="bccRecipients"
+          [theme]="'sq'" [onAdding]="createOnAddingCallback()"
+          [placeholder]="'Add Contact'" [secondaryPlaceholder]="'Contacts'"
+        >
+          <tag-input-dropdown
+            [autocompleteObservable]='createSuggestContactsCallback()'
+            [appendToBody]="false">
+            <template let-item="item">{{ item.display }}&nbsp;&lt;{{ item.email }}&gt;</template>
+          </tag-input-dropdown>
+        </tag-input>
+      </div>
+    </div>
+
+    <div class="sq-form-group">
+      <input id="id_subject" name="subject" type="text" class="message-compose-dialog__subject"
+             formControlName="subject" placeholder="Subject" autocomplete="off"
+             [class.has-error]="form.controls.subject.touched && form.controls.subject.errors"/>
+      <div *ngIf="form.controls.subject.touched && form.controls.subject.errors">
+        <div class="error" *ngIf="form.controls.subject.errors.required">this field is required</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="message-compose-dialog__editor">
+    <div class="sq-form-group">
+      <sq-text-editor
+        class="message-compose-dialog__editor-form-control"
+        name="body" formControlName="body"
+        [toolbarContainer]="'#message-compose-dialog__editor-toolbar'"
+      ></sq-text-editor>
+    </div>
+  </div>
+
+  <div class="message-compose-dialog__attachments"*ngIf="files.length">
+    <h3 class="message-compose-dialog__attachments-title">Attached</h3>
+    <ul class="message-compose-dialog__attachment-list">
+      <li class="message-compose-dialog__attachment-list-item" *ngFor="let file of files">
+        <button
+            *ngIf="perms.attach" class="email-template__remove-attachment-btn"
+            title="Remove the attachment"
+            (click)="onRemoveAttachmentById(file.id)">
+          <i class="icon icon-close"></i>
+        </button>
+        <a class="message-compose-dialog__attachment-name" [href]="file.url"
+        >{{ file.filename }}: {{ file.$formattedSize }}</a>
+      </li>
+    </ul>
+  </div>
+
+</form>
+<div class="message-compose-dialog__footer" *ngIf="displayMode === COMPOSE">
+  <button type="button" class="message-dialog__send-btn" (click)="submit()" [disabled]="form.invalid">Send Email</button>
+
+  <div class="message-compose-dialog__editor-toolbar"
+       id="message-compose-dialog__editor-toolbar">
+  </div>
+
+  <label class="message-dialog__attach-btn" *ngIf="perms.attach">
+    <i class="fa fa-paperclip" aria-hidden="true"></i> Add Attachments
+    <input type="file" ng2FileSelect multiple style="display: none"
+           [uploader]="uploader" (change)="onAddAttachment($event)">
+  </label>
+</div>

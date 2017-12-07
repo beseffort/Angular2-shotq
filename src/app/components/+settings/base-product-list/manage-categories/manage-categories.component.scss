@@ -1,0 +1,142 @@
+/deep/ {
+  modal-overlay .modal {
+    //overflow: hidden!important;
+    display: flex !important;
+    height: 100%;
+  }
+
+  modal-overlay .modal-dialog {
+    margin: auto !important;
+  }
+}
+
+.btn {
+  &_add {
+    padding: 0;
+    letter-spacing: 0.8px;
+    color: #086aff;
+    padding-top: 10px;
+  }
+  &_delete {
+    padding-left: 0;
+    padding-right: 0;
+    color: #e94e4c;
+  }
+}
+
+.clearfix {
+  font-size: 0;
+  &__msg {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 50%;
+    font-size: 14px;
+  }
+  &__btn {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 50%;
+    .btn {
+      padding: 0;
+      color: #086aff;
+    }
+  }
+
+}
+
+.category {
+  position: relative;
+  margin-bottom: 7px;
+  &.is-edited {
+    .category__label {
+      padding-left: 0;
+      width: 100%;
+      &:before, &:after {
+        display: none;
+      }
+    }
+  }
+  &.is-created {
+    .category__label {
+      width: 70%;
+    }
+    .buttons {
+      .btn {
+        margin: 0;
+      }
+      .btn.cancel {
+        color: #b5c1cf;
+      }
+      .btn.save {
+        color: #57cd75;
+      }
+    }
+  }
+  &__checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    opacity: 0;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    z-index: 2;
+    cursor: pointer;
+    &:checked + label:before {
+      background-color: #086aff;
+      box-shadow: 0 1px 2px 0 rgba(8, 106, 255, 0.5);
+      border: none;
+    }
+    &:checked + label:after {
+      font-family: Material-Design-Iconic-Font;
+      content: '\f26b';
+      color: #fff;
+      margin-left: 3px;
+      margin-top: -2px;
+    }
+  }
+  &__label {
+    height: 34px;
+    padding-left: 30px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+    &:before, &:after {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+    }
+    &:before {
+      content: '';
+      background-color: #fff;
+      border: 1px solid #b6c1cf;
+    }
+
+    input {
+      height: 100%;
+      width: 100%;
+      border: 1px solid #e4e8f0;
+      border-radius: 2px;
+      padding: 0 10px;
+      color: #3a405b;
+      &:disabled {
+        border: 0;
+        background-color: transparent;
+        color: #3a405b;
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+}
+
+input, input:focus {
+  outline: none;
+}
+

@@ -1,0 +1,56 @@
+<div class="job-proposals">
+    <div class="clearfix">
+        <div class="clearfix__left">
+            <h2 class="job-proposals__title">Proposals <span>({{ proposals.length }})</span></h2>
+            <span class="job-proposals__archive cursor-pointer" (click)="toggleView();">
+                View <span *ngIf="!isArchived">Archived </span>Proposals
+            </span>
+        </div>
+        <div class="clearfix__right">
+            <button class="job-proposals__btn btn pull-right"
+                    [routerLink]="['../', 'proposal']"
+                    *ngIf="!isArchived && !proposals.length">New Proposal</button>
+        </div>
+    </div>
+    <div class="">
+        <div class="rippleContainer" *ngIf="isLoading">
+            <div class="loading-ripple"></div>
+        </div>
+        <div id="table-container" class="table-responsive">
+            <div class="text-center no-items" *ngIf="!proposals.length">
+                There are no items to display.
+            </div>
+            <table class="table table-hover scroll"
+                   *ngIf="proposals.length">
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>TYPE</th>
+                        <th>SENT DATE</th>
+                        <th colspan="2">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let proposal of proposals">
+                        <td class="bold cursor-pointer"
+                            (click)="openProposal(proposal)">{{ proposal.name }}</td>
+                        <td>{{ proposal.job.job_type_details?.name }}</td>
+                        <td>{{ proposal.sent_at | date: 'mediumDate' }}</td>
+                        <td>{{ proposal.status | humanize }}</td>
+                        <td>
+                            <dropdown *ngIf="proposal.actions?.length"
+                                      [dropUp]="true"
+                                      [button]="false"
+                                      [dropdownClass]="'dropdown-menu-right'"
+                                      listClass="blue-circle vertical"
+                                      iconClass="icon-more-icon-o font-size-10"
+                                      [actions]="proposal.actions"
+                                      (optionSelected)="singleAction($event, proposal)">
+                            </dropdown>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

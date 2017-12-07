@@ -1,0 +1,44 @@
+<!-- begin contact info -->
+<div class="infoblock">
+	<!-- begin header -->
+	<div class="infoblock__header">
+		<h2 class="infoblock__title">My Contact Information</h2>
+		<button *ngIf="!isUserInfoLoading && userInfo" class="infoblock__edit-btn" (click)="editContactInfo()">EDIT</button>
+	</div>
+	<!-- end header -->
+	<!-- begin body -->
+	<div class="infoblock__body">
+		<div class="rippleContainer" *ngIf="isUserInfoLoading">
+			<div class="loading-ripple"></div>
+		</div>
+		<div class="contact-information" *ngIf="!isUserInfoLoading">
+			<table class="table" *ngIf="userInfo">
+				<thead>
+					<tr>
+						<th>NAME</th>
+						<th>
+							<span *ngIf="userInfo.default_phone_details?.phone_type">{{ userInfo.default_phone_details.phone_type_details.name | uppercase }}</span> PHONE
+						</th>
+						<th>EMAIL*</th>
+						<th>ADDRESS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ (userInfo.full_name || '-') | capitalize }}</td>
+						<td>{{ userInfo.default_phone_details?.number || '-' }}</td>
+						<td>{{ userInfo.default_email_details?.address || '-' }}</td>
+						<td>{{ userInfo.default_address_details?.address1 || '-' }}</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="no-items-message" *ngIf="!userInfo">No user info.</p>
+		</div>
+	</div>
+</div>
+<!-- end contact info -->
+<!-- begin contracts -->
+<injected-contracts-list *ngIf="userInfo" [canAdd]="false"
+                         [query]="{job: jobId, signatures__contact: userInfo.id}">
+</injected-contracts-list>
+<!-- end contracts -->

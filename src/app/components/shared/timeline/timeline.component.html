@@ -1,0 +1,86 @@
+<div class="timeline-block" id="timelineBlock">
+  <div class="timeline-block__title">
+    <h1 *ngIf="showTitle">Event Timeline</h1>
+  </div>
+  <div class="action" *ngIf="showEditButton">
+    <button class="btn btn-edit" (click)="modalAddEventOpen()" (updateJobName)="getNewJobName($event)" [disabled]="isLoading">EDIT</button>
+  </div>
+  <div class="loading-ripple divRipple" *ngIf="isLoading"></div>
+  <div *ngIf="events.length === 0" class="no-events-to-display">
+    There are no events to display.
+  </div>
+  <ul class="timeline-list" *ngIf="events.length > 0">
+    <li class="timeline-list__item" *ngFor="let e of events" [class.gray]="e.past" [class.expanded]="e.expanded">
+      <p class="timeline-date" *ngIf="e.start">{{e.start | date:'MMMM d' }}</p>
+      <p class="date" *ngIf="!e.start">No date selected</p>
+      <accordion>
+        <accordion-group [isOpened]="e.mainEvent" (onOpen)="onOpenAccordion($event, e)" (onClose)="onCloseAccordion($event, e)" (onToggle)="onToggleAccordion($event, e)">
+          <accordion-heading>
+            <span *ngIf="e.name">{{e.name}}</span>
+          </accordion-heading>
+          <div class="contentAccordion" *ngIf="!e.hasSubevents">
+            <ul>
+              <li>
+                <h4>No Appointments to display</h4>
+              </li>
+            </ul>
+          </div>
+          <div class="contentAccordion" *ngIf="e.hasSubevents">
+            <ul>
+              <li *ngFor="let sub of e.subevents" [class.green]="!sub.hasConflict" [class.red]="sub.hasConflict && !e.past" [class.gray]="e.past" [class.expanded]="sub.expanded">
+                <!-- START non collapsible appointments -->
+                <ng-template [ngIf]="!collapsibleAppointments">
+                  <h4 [class.conflict-event]="sub.hasConflict && !e.past" (click)="solveConflict(sub, e)">{{sub.name}}</h4>
+                  <br *ngIf="sub.hasConflict">
+                  <p class="date-info">{{sub.start | date:'shortTime'}} - {{sub.end | date:'shortTime'}}</p>
+                  <!-- <br> -->
+                  <p class="location-info" (click)="addressClick(sub, e)">
+                    <span>{{sub.location.name}}</span>
+                    <!--span>{{sub.location.street}}</span>
+                    <span>{{sub.location.city}}, {{sub.location.state}} {{sub.location.zip}}</span-->
+                  </p>
+                  <div class="conflict-click-zone" *ngIf="sub.hasConflict && !e.past" (click)="solveConflict(sub, e)">
+                    <span></span>
+                  </div>
+                  <div class="solve-conflict" *ngIf="sub.hasConflict && sub.showSolveConflict" >
+                    <div class="title">Conflict</div>
+                    <div class="content">
+                      <div class="event-name">{{sub.conflicts.jobName}}</div>
+                      <div class="description">{{sub.conflicts.name}}</div>
+                      <div class="time">{{sub.conflicts.start | date:'shortTime'}} - {{sub.conflicts.end | date:'shortTime'}}</div>
+                    </div>
+                    <div class="actions">
+                      <button class="btn btn-dismiss" (click)="dismissConflict(sub)">DISMISS</button>
+                      <button class="btn btn-view-job"(click)="viewJob(sub)">VIEW JOB</button>
+                    </div>
+                  </div>
+                </ng-template>
+                <!-- END non collapsible appointments -->
+                <!-- START collapsible appointments -->
+                <ng-template [ngIf]="collapsibleAppointments">
+                  <accordion class="appointmentAccordion">
+                    <accordion-group (onToggle)="onToggleSubAccordion($event, sub)" [class.expanded]>
+                      <accordion-heading>
+                        <h4>{{sub.name}}</h4>
+                      </accordion-heading>
+                      <div class="contentAccordion">
+                        <p class="date-info">{{sub.start | date:'shortTime'}} - {{sub.end | date:'shortTime'}}</p>
+                        <!-- <br> -->
+                        <p class="location-info" (click)="addressClick(sub, e)">
+                          <span>{{sub.location.name}}</span>
+                          <!--span>{{sub.location.street}}</span>
+                          <span>{{sub.location.city}}, {{sub.location.state}} {{sub.location.zip}}</span-->
+                        </p>
+                      </div>
+                    </accordion-group>
+                  </accordion>
+                </ng-template>
+                <!-- END collapsible appointments -->
+              </li>
+            </ul>
+          </div>
+        </accordion-group>
+      </accordion>
+    </li>
+  </ul>
+</div>

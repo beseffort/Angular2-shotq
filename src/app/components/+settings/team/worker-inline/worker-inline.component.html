@@ -1,0 +1,14 @@
+<div  class="col-md-6">
+  <div class="item__ava"><img src="{{ worker.avatar || 'http://placehold.it/76x76' }}"></div>
+  <div class="item__info">
+    <div class="item__name">{{ worker.name }}<span *ngIf="!worker.active && worker.role != choices.OWNER">(deactivated)</span></div>
+    <div class="item__mail">{{ worker.email }}</div>
+    <div class="item__job_role m_title">{{ worker.job_role === choices.CUSTOMIZE ? worker.custom_job_role : worker.job_role }}</div>
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="pull-right item__right">
+    <div class="item__special"><strong>{{ worker.role }}</strong></div>
+    <div class="item__edit" [routerLink]="['/settings/team/', worker.id]">Edit</div>
+  </div>
+</div>

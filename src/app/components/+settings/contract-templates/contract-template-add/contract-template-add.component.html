@@ -1,0 +1,95 @@
+<div class="page">
+  <div class="page-content">
+    <div class="row margin-bottom-30">
+        <a href [routerLink]="['../']" class="btn btn-link btn-link_back"> <i class="fa fa-angle-left"></i>BACK TO TEMPLATES</a>
+    </div>
+    <!-- layouts -->
+    <div class="row">
+      <div class="col-md-8 col-sm-7 col-xs-7">
+        <!-- title -->
+        <div class="row">
+          <h1 class="page-title">{{ !!template.id ? 'Edit' : 'Add' }} Contract Template</h1>
+        </div>
+        <div class="row">
+          <div class="contract-template">
+            <div class="contract-template__title">
+              <input type="text" [(ngModel)]="template.name" placeholder="Contract Title">
+            </div>
+            <div class="contract-template__content">
+              <tinymce
+                [elementId]="'template-contents'"
+                [noteBody]="tempContents"
+                [editableMode]="'active'"
+                [templateVariables]="variablesList"
+                [canReceiveVariable]="true"
+                [class]="'template-contents-body'"
+                [name]="'template-contents'"
+                [readonly]="false"
+                [toolbar]="'bold italic | bullist numlist | fontsizeselect | link image'"
+                [theme]="'inlite'"
+                [placeholder]="'Begin typing here'"
+                [blurEvent]="false">
+              </tinymce>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-5 col-xs-5">
+        <div class="row margin-bottom-40">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-11 col-sm-12">
+            <div class="text-right col-right">
+              <button type="button" class="btn btn_sm btn_grey" style="width: 100%" 
+                      (click)="emailPreviewModal.show()">Default Email</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 hidden-sm"></div>
+          <div class="col-md-10 col-sm-12">
+            <app-template-variables
+              [hideErrors]="true"
+              [variables]="variablesList">
+            </app-template-variables>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="position-relative">
+          <div class="loading-ripple" *ngIf="isLoading"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- fixed-footer -->
+    <div class="row">
+      <div class="modal-footer padding-right-30  modal-footer_border">
+        <div class="row">
+          <div class="col-sm-12 padding-top-5">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button"
+                        class="btn btn_md btn_white margin-right-20" (click)="close()">
+                  Close
+                </button>
+                <button type="button"
+                        class="btn btn_md btn_blue  margin-right-45"
+                        (click)="save()">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-email-template-add #emailAddModal></app-email-template-add>
+    <app-email-template-preview #emailPreviewModal
+                                (createConfirmed)="emailAddModal.show()"></app-email-template-preview>
+  </div>
+</div>

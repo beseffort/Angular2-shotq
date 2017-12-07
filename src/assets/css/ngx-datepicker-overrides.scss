@@ -1,0 +1,99 @@
+ngx-my-date-picker {
+	.selector {
+	  &.selectorarrow {
+	    &:before,
+	    &:after {
+	      display: none;
+	    }
+	  }
+	  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.23);
+	  border: 1px solid #CCC !important;
+	  margin-top: 10px !important;
+	}
+	table.header {
+	  border-bottom: 1px solid #e8e8e8;
+	  tr {
+	    td {
+	      padding-top: 5px;
+	      padding-bottom: 5px;
+	    }
+	  }
+	  .headertodaybtn {
+	    display: none;
+	  }
+	  .headerbtncell {
+	    padding: 0 15px;
+	  }
+	  .headerbtn {
+	    &.icon {
+	      font-family: FontAwesome!important;
+	      color: #bbb;
+	    }
+	    &.icon-left {
+	      &:before {
+	        content: "\f053";
+	      }
+	    }
+	    &.icon-right {
+	      &:before {
+	        content: "\f054";
+	      }
+	    }
+	  }
+	}
+	.caltable {
+	  background: red;
+	  thead {
+	    tr {
+	      th.weekdaytitle {
+	        background: transparent;
+	        font-size: 14px;
+	        font-weight: 400;
+	        color: #d8d8d8;
+	        text-align: center;
+	      }
+	    }
+	  }
+	  tbody {
+	    tr {
+	      td {
+	        &.currmonth {
+	          cursor: pointer;
+	          background-color: #fff;
+	          &:hover {
+	            background: transparent;
+	          }
+	          span {
+	            color: #333;
+	            text-decoration: none;
+	            &:hover {
+	              color: orange;
+	            }
+	          }
+	        &.selectedday {
+	          > div {
+	            background-color: orange!important;
+	            border: none;
+	            span {
+	              color: #fff;
+	              
+	            }
+	          }
+	        }
+	        &.daycell {
+	          > div {
+	            width: 26px;
+	            height: 26px;
+	            font-weight: 400;
+	            line-height: 26px;
+	            background: 0 0;
+	            border: none;
+	            border-radius: 20px;
+	          }
+	        }
+	      }
+	      }
+	    }
+	  }
+	}
+}

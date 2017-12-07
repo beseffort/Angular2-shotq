@@ -1,0 +1,85 @@
+<div class="modal-header">
+  <div class="modal-header-in">
+    <div class="h3">Send an invitation</div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="loading-ripple divRipple" *ngIf="isLoading"></div>
+  <form [formGroup]="invitationForm" *ngIf="!isLoading">
+    <div class="modal-body-row">
+      <div class="form-group">
+        <label class="form-group__label">User Details</label>
+        <div class="form-group__fields">
+          <div class="row">
+            <div class="col-sm-6 padding-left-0">
+              <div class="field" [ngClass]="{'has-error': invitationForm.controls.first_name.errors && showFormErrors}">
+                <input id="id_job_name" type="text"
+                       [class.has-error]="invitationForm.controls.first_name.touched && invitationForm.controls.first_name.errors"
+                       [attr.data-empty]="!invitationForm.controls.first_name.value"
+                       formControlName="first_name">
+                <label for="id_job_name">First name *</label>
+                <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.first_name"></validation-messages>
+              </div>
+            </div>
+            <div class="col-sm-6 padding-0">
+              <div class="field" [ngClass]="{'has-error': invitationForm.controls.last_name.errors && showFormErrors}">
+                <input id="id_job_name" type="text"
+                       [class.has-error]="invitationForm.controls.last_name.touched && invitationForm.controls.last_name.errors"
+                       [attr.data-empty]="!invitationForm.controls.last_name.value"
+                       formControlName="last_name">
+                <label for="id_job_name">Last name *</label>
+                <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.last_name"></validation-messages>
+              </div>
+            </div>
+          </div>
+          <div class="field" [ngClass]="{'has-error': invitationForm.controls.email.errors && showFormErrors}">
+            <input id="id_job_name" type="text"
+                   [class.has-error]="invitationForm.controls.email.touched && invitationForm.controls.email.errors"
+                   [attr.data-empty]="!invitationForm.controls.email.value"
+                   formControlName="email">
+            <label for="id_job_name">Email *</label>
+            <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.email"></validation-messages>
+          </div>
+          <div class="form-group__field">
+            <div class="form-select is-selected" [ngClass]="{'has-error': invitationForm.controls.role.errors && showFormErrors}">
+              <label for="">Account Role *</label>
+              <div class="dropdown-select_wrap">
+                <app-dropdown-select [options]="choices.roleChoices"
+                                     formControlName="role"
+                                     [selectFirstAsDefault]="false">
+                </app-dropdown-select>
+              </div>
+            </div>
+            <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.role"></validation-messages>
+          </div>
+          <div class="form-group__field">
+            <div class="form-select is-selected" [ngClass]="{'has-error': invitationForm.controls.role.errors && showFormErrors}">
+              <label for="">Job Role *</label>
+              <div class="dropdown-select_wrap">
+                <app-dropdown-select [options]="choices.jobRoleChoices"
+                                     formControlName="job_role"
+                                     [selectFirstAsDefault]="false">
+                </app-dropdown-select>
+              </div>
+            </div>
+            <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.job_role"></validation-messages>
+          </div>
+          <div class="field"
+               *ngIf="invitationForm.controls.job_role.value == choices.CUSTOMIZE"
+               [ngClass]="{'has-error': invitationForm.controls.custom_job_role.errors && showFormErrors}">
+            <input id="id_job_name" type="text"
+                   [class.has-error]="invitationForm.controls.custom_job_role.touched && invitationForm.controls.custom_job_role.errors"
+                   [attr.data-empty]="!invitationForm.controls.custom_job_role.value"
+                   formControlName="custom_job_role">
+            <label for="id_job_name">Custom Job Role *</label>
+            <validation-messages class="error" [showWhen]="showFormErrors" [control]="invitationForm.controls.custom_job_role"></validation-messages>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer bg">
+  <button type="button" class="sq-btn-dismiss" data-dismiss="modal" (click)="close()">Cancel</button>
+  <button type="button" class="sq-btn-submit" (click)="create()">Send Invitation</button>
+</div>

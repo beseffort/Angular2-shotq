@@ -1,0 +1,45 @@
+// Override the theme variables as this dialog has different look
+$modal-title-font-size: 1.75rem;
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+
+.activities-dialog__title {
+  @include sq-dialog-title;
+  margin: 0;
+}
+
+.activities-dialog__header {
+  @include sq-dialog-header;
+  border-bottom: 1px solid $gray-lighter;
+}
+
+.activities-dialog__body {
+  @include sq-dialog-body;
+  padding-bottom: 1.25rem;
+}
+
+.activities-dialog__footer {
+  @include sq-dialog-footer;
+}
+
+.activities-dialog__dismiss-btn {
+  @include sq-button-base;
+  @include sq-button-variant($input-color, $input-bg, $input-border-color);
+}
+
+.activity-block {
+  margin-bottom: 2.28rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &__date {
+    color: #37394c;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.86rem;
+    padding: 1rem 1.25rem 0.5rem;
+    display: inline-block;
+  }
+}

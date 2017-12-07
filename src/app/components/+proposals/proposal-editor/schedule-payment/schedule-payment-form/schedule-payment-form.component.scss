@@ -1,0 +1,136 @@
+.anotherPayment {
+  background-color: rgb(250, 251, 251);
+  margin-left: -30px;
+  padding-left: 30px;
+  margin-right: -28px;
+  padding-right: 28px;
+  padding-top: 14px;
+  padding-bottom: 15px;
+  .selectBlock {
+    padding-bottom: 10px;
+    .selectStyle {
+      max-width: 210px;
+      display: inline-block;
+      margin-right: 10px;
+      vertical-align: middle;
+      margin-bottom: 0px;
+    }
+    .percentage {
+      max-width: 48px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    span {
+      padding-left: 0 !important;
+
+      &:after, &:before {
+        display: none !important;
+      }
+    }
+
+  }
+  .due {
+    .inputStyle {
+      max-width: 48px;
+      margin-right: 10px;
+    }
+    p {
+      color: #3a405b;
+      margin-right: 5px;
+    }
+    .buttons {
+      float: right;
+      margin: 0px;
+      padding-top: 4px;
+
+      & > a {
+        display: inline-block;
+        letter-spacing: 0.8px;
+        font-style: normal;
+        color: #57cd75;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 21px;
+        width: auto;
+        padding: 0px;
+        margin: 0;
+        border: none;
+
+        &.cancel {
+          margin-right: 20px;
+          color: #b5c1cf;
+        }
+      }
+
+      .btn {
+        text-transform: uppercase;
+      }
+    }
+
+    & > * {
+      display: inline-block;
+      margin-bottom: 0px;
+      vertical-align: middle;
+    }
+
+    .day {
+      width: 140px;
+      margin-right: 10px;
+    }
+
+    .after.inputStyle {
+      max-width: 140px;
+      overflow: visible;
+    }
+  }
+}
+
+.inputStyle {
+  &.percentage {
+    max-width: 80px !important;
+    input {
+      padding: 4px 5px;
+
+    }
+  }
+}
+
+.delete-btn {
+  color: #e94e4c !important;
+}
+
+.after > input {
+  max-width: 100px !important;
+  background: #FFF;
+  line-height: 23px;
+  padding-top: 2px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #3a405b;
+  border: solid 1px #e4e7ef;
+  font-size: 14px;
+  &::-webkit-input-placeholder {
+    color: rgb(58, 64, 91);
+    font-size: 14px;
+    font-weight: 300;
+    font-style: normal;
+    text-overflow: ellipsis;
+
+  }
+}
+
+.selectBlock .percentage {
+  max-width: 48px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/deep/ {
+  .header .headerbtncell {
+    padding: 0 10px !important;
+  }
+}
+

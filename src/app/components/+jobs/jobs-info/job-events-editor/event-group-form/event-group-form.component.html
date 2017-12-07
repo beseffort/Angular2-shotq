@@ -1,0 +1,108 @@
+<div class="event-group-form">
+  <div class="form-header">
+    <ul class="form-header-actions form-header__col">
+      <li class="action-btn-container form-header__btn">
+        <button type="button" class="btn action-btn btn_red" (click)="deleteGroup(eventGroup)">
+          <i class="icon icon-trash"></i>Delete
+        </button>
+      </li>
+      <li class="action-btn-container form-header__btn">
+        <button type="button" class="btn action-btn" (click)="makeGroupMain()" *ngIf="!isMainEvent">
+          <i class="icon icon-person"></i> Set as the main event
+        </button>
+        <span class="btn action-btn cursor-default" *ngIf="isMainEvent">This is the main event</span>
+      </li>
+    </ul>
+    <div class="close-container form-header__col form-header__col_r">
+      <div class="modified-date form-header__item" *ngIf="eventGroup.modified">
+        Last saved {{ eventGroup.modified | date:'MMM d' }} at {{ eventGroup.modified | date:'shortTime' }}
+      </div>
+      <div class="close-btn-wrapper form-header__item">
+        <button type="button" class="btn" (click)="closeForm()">
+          <i class="icon icon-close" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-body">
+    <form [formGroup]="form" novalidate>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="field">
+            <input type="text" class="form-control" placeholder="Name" formControlName="name">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="field">
+            <input type="text"
+              class="form-control"
+              placeholder="Location Name"
+              formControlName="location_name">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="field">
+            <input type="text"
+              class="form-control"
+              placeholder="Location"
+              formControlName="address"
+              googleplace
+              (setAddress)="updateLocation($event)">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="field select-field">
+            <app-dropdown-select formControlName="event_type"
+                                 [placeholder]="eventGroup.event_type_data?.display_name"
+                                 [options]="eventTypesOptions"
+                                 [selectFirstAsDefault]="!eventGroup.event_type">
+            </app-dropdown-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="field field__datepicker">
+            <sq-datetimepicker [options]="{useCurrent: false}" formControlName="start"></sq-datetimepicker>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="field field__datepicker">
+            <sq-datetimepicker [options]="{useCurrent: false}"
+              formControlName="end"
+              (dpShow)="onEndDateTimePickerShow(form)"></sq-datetimepicker>
+          </div>
+        </div>
+        <div class="col-sm-2" *ngIf="formValue.start || formValue.end">
+          <div class="sq-checkbox">
+            <input type="checkbox" formControlName="all_day">
+            <label>All day</label>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="form.errors?.invalidInterval || form.errors?.groupInvalidInterval">
+        <div class="col-sm-12 form-group__col">
+          <div class="alert alert-danger" role="alert" *ngIf="form.errors?.invalidInterval">
+            Sorry, end time cannot be earlier than start time.
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="form.errors?.groupInvalidInterval">
+            There are events out of the selected interval. Please change events time first.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="field">
+            <textarea placeholder="Enter description" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<div [class]="class" [@divInOut]="animation" (@divInOut.start)="animationStarted($event)"
+        (@divInOut.done)="animationDone($event)">
+	<ng-content></ng-content>
+</div>

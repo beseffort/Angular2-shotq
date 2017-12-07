@@ -1,0 +1,173 @@
+<div class="booking-event-details">
+
+  <div class="booking-wizard-step-header">
+    <div class="text-center">
+      <h1>Event Details</h1>
+      <div class="title" *ngIf="proposal.expiration_date">
+        This Proposal Expires on <span>{{ proposal.expiration_date | date: 'fullDate' }}</span>
+      </div>
+      <hr class="split-line"/>
+    </div>
+  </div>
+
+  <div class="booking-event-details-body">
+    <!-- <div class="booking-event-expires">
+      This Proposal Expires on <span class="booking-event-expire-date">December 10, 2016</span>
+    </div> -->
+    <div class="photographers-wrap" *ngIf="workers?.length > 0">
+      <div class="photographers-title">PHOTOGRAPHERS</div>
+      <ul class="photographers">
+        <li *ngFor="let worker of workers">
+          <div class="photographers-image">
+            <img class="worker-avatar" [src]="worker.avatar || 'assets/img/avatar.png'"/>
+          </div>
+          <div class="photographers-name">{{ worker.name }}</div>
+        </li>
+      </ul>
+    </div>
+
+    <form class="primary-contact-form" [formGroup]="contactForm">
+      <div class="primary-contact-form-header">
+        Primary Contact
+      </div>
+      <div class="primary-contact-form-description">
+        The primary Contact is the signee of the contract the person we should contact regarding all official event
+        correspondence.
+      </div>
+      <div class="row primary-contact-form-line">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="firstName">First Name*</label>
+            <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                   formControlName="first_name">
+          </div>
+        </div>
+      </div>
+      <div class="row primary-contact-form-line">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="lastName">Last Name*</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Last Name"
+                   formControlName="last_name">
+          </div>
+        </div>
+      </div>
+      <div class="row primary-contact-form-line">
+        <form formGroupName="default_phone_details">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" class="form-control" formControlName="number" placeholder="Phone">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="cellPhone">&nbsp;</label>
+              <app-dropdown-select formControlName="phone_type"
+                                   [options]="phoneTypes"
+                                   [labelKey]="'name'"
+                                   [valueKey]="'id'">
+
+              </app-dropdown-select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row primary-contact-form-line">
+        <form formGroupName="default_email_details">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Email*</label>
+              <input type="email" class="form-control" formControlName="address" placeholder="Email">
+            </div>
+          </div>
+        </form>
+      </div>
+      <form formGroupName="address">
+        <div class="row primary-contact-form-line">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Address*</label>
+              <input type="text"
+                class="form-control"
+                formControlName="address1"
+                placeholder="Street Address"
+                googleplace
+                (setAddress)="updateLocation($event)">
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ng-container *ngIf="false">
+        <div class="primary-contact-form-header">
+          Event Details
+        </div>
+        <div class="primary-contact-form-header primary-contact-form-header_mod ">
+          Wedding
+        </div>
+
+        <div class="row primary-contact-form-line">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>NUMBER OF PEOPLE</label>
+              <input type="text" class="form-control" placeholder="Number">
+            </div>
+          </div>
+        </div>
+
+        <div class="row primary-contact-form-line">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>LOCATION</label>
+              <input type="text" class="form-control" placeholder="Location">
+            </div>
+          </div>
+        </div>
+
+        <div class="row primary-contact-form-line">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>ADDRESS*</label>
+              <input type="text" class="form-control" placeholder="Street Address">
+            </div>
+          </div>
+        </div>
+
+        <div class="row primary-contact-form-line">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>CITY*</label>
+              <input type="text" class="form-control" placeholder="City">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>State</label>
+              <div class="selectStyle">
+                <select id="cellPhone">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row primary-contact-form-line">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>ZIP CODE*</label>
+              <input type="text" class="form-control" placeholder="Code">
+            </div>
+          </div>
+        </div>
+
+
+      </ng-container>
+
+    </form>
+  </div>
+</div>

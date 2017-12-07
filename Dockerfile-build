@@ -1,0 +1,22 @@
+FROM node:6.10.1
+
+# Create app directory
+RUN mkdir -p /code/shootq-ui/
+WORKDIR /code/shootq-ui
+# Install app dependencies
+COPY package.json /code/shootq-ui/
+RUN npm install -g \
+  typings\
+  webpack\
+  webpack-dev-server\
+  karma-cli\
+  protractor\
+  typescript\
+  grunt\
+  grunt-cli\
+  gulp\
+  && npm install\
+  && npm cache clean
+COPY . /code/shootq-ui/
+USER node
+ENTRYPOINT ["npm"]

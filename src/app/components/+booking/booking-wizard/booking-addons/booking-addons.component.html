@@ -1,0 +1,45 @@
+<div class="booking-addons" *ngIf="package">
+
+  <div class="booking-wizard-step-header">
+    <div class="text-center">
+      <h1>Optional Add-Ons</h1>
+    </div>
+  </div>
+  <div class="text-center" *ngIf="!package.addons.length">
+    <h2 class="text-color">Selected package has no add-ons</h2>
+  </div>
+
+  <div class="booking-addons-container" *ngIf="package.addons.length">
+
+    <div class="booking-addons-items">
+      <div class="booking-addons-item"
+           (click)="selectAddon(item, ind)"
+           *ngFor="let item of package.addons, let ind = index;">
+        <div class="booking-addons-item-checkbox radio-custom">
+          <input type="checkbox" id="addon{{item.id}}"
+                 (click)="checkAddon(item, $event)"
+                 [checked]="item.approved"/>
+          <label for="addon{{item.id}}"></label>
+        </div>
+        <div class="booking-addons-item-body">
+          <div class="booking-addons-item-image">
+            <img src="{{item.images[0]?.url || 'http://lorempixel.com/40/40/cats/'}}">
+          </div>
+          <div class="booking-addons-item-content">
+            {{ item.name }}
+          </div>
+          <div class="booking-addons-item-price">
+            ${{ item.total_price * item.quantity | number: '1.2-2'}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-addons-info"
+         *ngIf="currentAddon"
+         [ngStyle]="{'margin-top': formMargin}">
+      <app-booking-addon-form [addon]="currentAddon"
+                              (onChange)="debouncedItemSave.next(currentAddon)">
+      </app-booking-addon-form>
+    </div>
+  </div>
+</div>

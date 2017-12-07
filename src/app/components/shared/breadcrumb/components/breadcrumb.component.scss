@@ -1,0 +1,43 @@
+#breadcrumb {
+  padding: 35px 80px 20px 182px;
+  font-size: 12px;
+  color: #3a405b;
+  a {
+    color: #3a405b;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+.breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  &-item {
+    display: inline-block;
+    padding-right: 10px;
+    &:not(:first-child) {
+      padding-left: 18px;
+      position: relative;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        width: 6px;
+        height: 10px;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjEwIiB2aWV3Qm94PSIwIDAgNiAxMCI+PHBhdGggZmlsbD0iIzNBNDA1QiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNLjk4IDEuMTQ1YS42OTQuNjk0IDAgMCAwIDAgLjk4MmwyLjk4MiAyLjk4TC45ODIgOC4wOWEuNjk0LjY5NCAwIDEgMCAuOTguOTgyTDUuNDM2IDUuNmEuNjk0LjY5NCAwIDAgMCAwLS45ODJMMS45NjMgMS4xNDVhLjY5My42OTMgMCAwIDAtLjk4MiAweiIvPjwvc3ZnPg==);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: contain;
+      }
+    }
+    &.active {
+      font-weight: bold;
+      color: #3a405b;
+    }
+  }
+  
+}

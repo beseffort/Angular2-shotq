@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <div class="modal-header-in">
+        <div class="h3">Delete contacts?</div>
+    </div>
+</div>
+<div class="modal-body">
+    <p>Are you sure you want to delete selected contacts?</p>
+    <div *ngIf="contactsWithRelations.length">
+        These contacts are associated with job, so can't be deleted:
+        <ul>
+            <li *ngFor="let contact of contactsWithRelations">{{ contact.full_name }}</li>
+        </ul>
+    </div>
+
+</div>
+<div class="modal-footer bg clearfix">
+    <button type="button" class="btn btn_xs btn_transparent"
+            data-dismiss="modal" (click)="dismiss()">Cancel</button>
+    <button type="button" class="btn btn_xs btn_blue"
+            (click)="close()">Ok</button>
+</div>

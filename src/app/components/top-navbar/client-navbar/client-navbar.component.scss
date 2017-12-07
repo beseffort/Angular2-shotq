@@ -1,0 +1,47 @@
+.site-navbar {
+  margin-bottom: 0;
+}
+
+.select-job-btn {
+  width: 222px;
+  height: 30px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+  line-height: normal;
+  color: #3a405b;
+  letter-spacing: normal;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+  position: relative;
+  text-align: left;
+  padding-left: 4px;
+}
+.select-job-btn-arrow {
+  position: absolute;
+  right: 0;
+  &:before {
+    content: "\f078";
+    font-family: FontAwesome;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    display: table-cell;
+    padding-top: 8px;
+  }
+}
+.job-dropdown.open {
+  .select-job-btn-arrow:before {
+    content: "\f077";
+  }
+}
+.job-dropdown .dropdown-menu {
+  min-width: 222px;
+}
+.nav-job-selector {
+  color: #3a405b;
+}

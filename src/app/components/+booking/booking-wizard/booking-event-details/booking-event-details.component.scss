@@ -1,0 +1,227 @@
+// typography
+h1 {
+	font-size: 42px;
+	font-weight: bold;
+	color: #3a405b;
+	font-family: 'Titillium Web';
+}
+.title {
+	font-size: 18px;
+	font-weight: 300;
+	text-align: center;
+	color: #3a405b;
+	font-family: 'Titillium Web';
+	span {
+		color: #e94e4c;
+	}
+
+}
+.split-line {
+	display: inline-block;
+	width: 100px;
+	border-top: 2px solid #b6c1cf;
+	margin: 30px 0;
+}
+
+
+.photographers-wrap {
+	text-align: center;
+	margin-bottom: 40px;
+	.photographers-title {
+		font-size: 14px;
+		font-weight: bold;
+		color: #3a405b;
+	}
+	.photographers {
+		list-style-type: none;
+		padding-left: 0;
+		li {
+			display: inline-block;
+			vertical-align: top;
+			margin: 0 7px;
+			text-align: center;
+		}
+		&-image {
+			position: relative;
+			width: 100px;
+			height: 100px;
+			border: 2px solid transparent;
+			margin: 0 auto;
+			// border-radius: 50%;
+			// overflow: hidden;
+			&:after {
+				content:"";
+				display:block;
+				left:50%;
+				top:50%;
+				position:absolute;
+				-moz-transform: translate(-50%,-50%);
+				-webkit-transform: translate(-50%,-50%);
+				-o-transform: translate(-50%,-50%);
+				-ms-transform: translate(-50%,-50%);
+				transform: translate(-50%,-50%);
+				width:calc(100% + 4px);
+				height:calc(100% + 4px);
+				background: rgb(231,80,80);
+				background: -moz-linear-gradient(-45deg, rgba(231,80,80,1) 0%, rgba(247,174,24,1) 100%);
+				background: -webkit-linear-gradient(-45deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+				background: linear-gradient(135deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e75050', endColorstr='#f7ae18',GradientType=1 );
+				// border: 2px solid #3a405b;
+				// z-index:1;
+				border-radius: 50px;
+
+			}
+		}
+		img {
+			position: relative;
+			z-index: 2;
+			border-radius: 50%;
+		}
+		&-name {
+			margin: 10px 0;
+		}
+	}
+}
+.primary-contact-form {
+	width: 500px;
+	margin: 0 auto ;
+	padding-bottom: 160px;
+	text-align: center;
+	&-header {
+		font-size: 24px;
+		color: #3a405b;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	&-header_mod {
+		font-weight: 300;
+		margin: 10px 0 40px 0;
+	}
+	&-description {
+		font-size: 14px;
+		font-weight: normal;
+		margin-bottom: 40px;
+	}
+	&-line {
+		margin-bottom: 25px;
+	}
+}
+
+.form-group {
+	text-align: left;
+	margin-bottom: 25px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+	label {
+		font-size: 12px;
+		text-transform: uppercase;
+		font-weight: bold;
+		margin-bottom: 5px;
+		color: #3a405b;
+	}
+	input {
+		border-radius: 2px;
+		background-color: #fff;
+		border: solid 0.9px #e4e7ef;
+		height: 30px;
+		padding: 0 10px;
+		&::-webkit-input-placeholder {
+			color: rgba(#3a405b, .5);
+			font-style: normal;
+			margin-left: -25px;
+
+		}
+		&::-moz-input-placeholder {
+			color: rgba(#3a405b, .5);
+			font-style: normal;
+			margin-left: -25px;
+		}
+		&::-ms-input-placeholder {
+			color: rgba(#3a405b, .5);
+			font-style: normal;
+
+		}
+		&:focus::-webkit-input-placeholder {
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			// padding: 0 27px;
+		}
+		&:focus::-moz-input-placeholder {
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			// padding: 0 27px;
+		}
+		&:focus::-ms-input-placeholder {
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			// padding: 0 27px;
+		}
+		&:focus::-webkit-contacts-auto-fill-button {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+}
+
+.selectStyle {
+    position: relative;
+    height: 30px;
+    border-radius: 2px;
+    background-color: #fff;
+    border: 1px solid #e4e7ef;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    &:before {
+        content: "";
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        height: 30px;
+        background: #FFF;
+        width: 20px;
+        z-index: 2;
+        pointer-events: none;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        z-index: 3;
+        margin-top: -2.5px;
+        width: 10px;
+        height: 5px;
+        background: url('/assets/img/open-icon.svg') no-repeat center center;
+        pointer-events: none;
+    }
+    select {
+        border: none;
+        background: none;
+        outline: none;
+        font-family: 'Titillium Web'!important;
+        text-align: left;
+        font-style: normal;
+        color: #3a405b;
+        font-size: 14px;
+        font-weight: normal;
+        // height: 24px;
+        height: 100%;
+        line-height: 1.4;
+        padding-left: 10px;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 30px;
+        -webkit-appearance:none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+.worker-avatar{
+  height: 100%;
+}
+

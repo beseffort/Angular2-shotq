@@ -1,0 +1,142 @@
+<div class="invoice-pay-form">
+  <div class="modal-header">
+    <h3 class="modal-title">Pay Invoice</h3>
+    <p class="modal-message">Enter your payment information.</p>
+  </div>
+
+  <div class="modal-body">
+    <div class="rippleContainer" *ngIf="isLoading">
+      <div class="loading-ripple"></div>
+    </div>
+    <form [formGroup]="form" *ngIf="form">
+      <div class="form-group">
+        <div class="modal-body-row"
+             *ngFor="let fieldData of form.controls | keys">
+          <div class="sq-form-field">
+            <input type="text" [formControlName]="fieldData.key"
+                   [attr.data-empty]="!form.value[fieldData.key]">
+            <label>{{ fieldLabels[fieldData.key] }}</label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!--Authorize.net-->
+    <ng-container *ngIf="context.invoice.merchant_account_details.merchant_type === 'authorize_gateway'">
+      <form
+        method="post" action="https://test.authorize.net/payment/payment"
+        id="formAuthorizeNetPopup" name="formAuthorizeNetPopup" target="iframeAuthorizeNet"
+        style="display:none;">
+        <input type="hidden" name="Token"
+               [value]="secretToken"
+        />
+        <input type="hidden" name="PaymentProfileId" value=""/>
+        <input type="hidden" name="ShippingAddressId" value=""/>
+      </form>
+
+      <div id="divAuthorizeNetPopup" style="display:none;" class="AuthorizeNetPopupSimpleTheme">
+        <div class="AuthorizeNetPopupOuter">
+          <iframe name="iframeAuthorizeNet" id="iframeAuthorizeNet"
+                  frameborder="0"
+                  scrolling="no" style="min-height: 1060px; min-width: 100%"></iframe>
+        </div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowT"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowR"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowB"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowL"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowTR"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowBR"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowBL"></div>
+        <div class="AuthorizeNetShadow AuthorizeNetShadowTL"></div>
+      </div>
+
+    </ng-container>
+
+    <!--Braintree-->
+    <div class="braintree-frame"
+         id="braintree-container"
+         *ngIf="context.invoice.merchant_account_details.merchant_type === 'braintree_gateway'">
+      <form [action]="chargeUrl" method="post" [hidden]="!btreeInstance">
+
+        <div class="row">
+          <div class="col-xs-8 padding-left-0">
+            <div class="form-group ">
+              <label class="control-label" for="card-number">Card Number</label>
+              <div id="card-number" class="form-control"></div>
+            </div>
+          </div>
+          <div class="col-xs-4 padding-right-0">
+            <div class="form-group">
+              <label class="control-label" for="expiration-date">Expiration Date</label>
+              <div id="expiration-date" class="form-control"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6 padding-left-0">
+            <div class="form-group ">
+              <label class="control-label" for="cvv">CVV</label>
+              <div id="cvv" class="form-control"></div>
+            </div>
+          </div>
+          <div class="col-xs-6 padding-right-0">
+            <div class="form-group">
+              <label class="control-label" for="postal-code">Postal Code</label>
+              <div id="postal-code" class="form-control"></div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <!--PayPal-->
+    <iframe *ngIf="context.invoice.merchant_account_details.merchant_type === 'paypal_gateway' && payflowUrl"
+            class="paypal-iframe" scrolling="no"
+            [src]="payflowUrl | safeUrl" frameborder="0"></iframe>
+
+    <!--Square-->
+    <div class="form-group" *ngIf="context.invoice.merchant_account_details.merchant_type === 'square_gateway'">
+
+      <div class="row">
+        <div class="col-xs-8 padding-left-0">
+          <div class="form-group ">
+            <label class="control-label" for="card-number">Card Number</label>
+            <div id="sq-card-number" class="form-control"></div>
+          </div>
+        </div>
+        <div class="col-xs-4 padding-right-0">
+          <div class="form-group">
+            <label class="control-label" for="expiration-date">Expiration Date</label>
+            <div id="sq-expiration-date" class="form-control"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6 padding-left-0">
+          <div class="form-group ">
+            <label class="control-label" for="cvv">CVV</label>
+            <div id="sq-cvv" class="form-control"></div>
+          </div>
+        </div>
+        <div class="col-xs-6 padding-right-0">
+          <div class="form-group">
+            <label class="control-label" for="postal-code">Postal Code</label>
+            <div id="sq-postal-code" class="form-control"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn_xs btn_transparent" data-dismiss="modal"
+            (click)="close()">Cancel
+    </button>
+    <button type="button" class="btn btn_xs btn_blue"
+            [disabled]="!(merchantFormValid && (!form || form && form.valid))"
+            (click)="send()">Send
+    </button>
+  </div>
+</div>

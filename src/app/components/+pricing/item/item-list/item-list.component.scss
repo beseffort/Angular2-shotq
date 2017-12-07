@@ -1,0 +1,289 @@
+.page {
+    &.pricingItemList {
+        .top-actions {
+            height: auto !important;
+            padding: 23px 0px 23px 21px;
+            margin-bottom:0px !important;
+            > a {
+                float:left !important;
+                position:static !important;
+            }
+            .input-search {
+                margin-right:35px;
+                margin-top: -1px;
+                position: relative;
+                top: -5px;
+                input {
+                    padding-right: 24px;
+                }
+            }
+            .btn-white {
+                margin-left:10px;
+                span {
+                    color:#3a405b;
+                }
+            }
+            
+        }
+        @media (max-width:767px) {
+            .top-actions {
+                text-align:center !important;
+                > * {
+                    float:none !important;
+                    display:inline-block !important;
+                }
+                > a {
+                    float:none !important;
+                    margin-bottom:10px !important;
+                }
+                .input-search {
+                    margin-right:0px !important;
+                    margin-left:0px !important;
+                }
+            }
+
+        }
+        .panel {
+            margin-top: 0px !important;
+            box-shadow: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            .panel-body {
+                padding-top:0px;
+                .accordion-group-container {
+                    border-bottom:1px #e0e0e0 solid;
+                    .panel {
+                        padding-right:0px;
+                        &.dropup {
+                            .panel-heading {
+                                h4 {
+                                    &:before {
+                                        display:none;
+                                    }
+                                    &:after {
+                                        display:block;
+                                        background-position: top right;
+                                    }
+                                }
+                            }
+                        }
+                        .panel-heading {
+                            padding-right:0px;
+                            height: auto;
+                            border-bottom:none !important;
+                            h4 {
+                                padding-top:22px;
+                                padding-left:21px;
+                                padding-right:32px;
+                                padding-bottom:22px;
+                                &:after,
+                                &:before {
+                                    content: "";
+                                    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AsJDSI6uS7DeAAAANVJREFUKM9jYKAFqG2c/H/GnJX/0cUvXb75P7+47f/e/Scw5OYv2vC/un7i/0tXbqHIsTAwMDDISIkxrF63i2HqjOX/szMiGRkYGBguXrrxv7NvHgMDAwODlKQYimFTZyz/v3TFZgYmJiaGR4+fM1y8dOO/vp4GIwMDAwMjsqL1m/YwBPm7MBgbaTNMnraU4T8DA0NZYSIDTDEx6hjRbV6/aQ8DExMTg7iYMENJQQKKYTNnr/y/ev0uhkA/FwZkn3T1z2dgYGBgqClPxwxPXGFDblhTDADS0XEHJMaJFAAAAABJRU5ErkJggg==');
+                                    width: 10px;
+                                    height: 8px;
+                                    position: absolute;
+                                    top: 50%;
+                                    -moz-transform: translateY(-50%);
+                                    -webkit-transform: translateY(-50%);
+                                    -o-transform: translateY(-50%);
+                                    -ms-transform: translateY(-50%);
+                                    transform: translateY(-50%);
+                                    right: 37px;
+                                    background-repeat:no-repeat;
+                                }
+                                &:after {
+                                    display:none;
+                                }
+                                a {
+                                    color: #3a405b;
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                    line-height:36px;
+                                    display:block;
+                                }
+                                .caret {
+                                    display:none;
+                                }
+                            }
+                        }
+                        .panel-body {
+                            border-top: none;
+                            .itemList-actions {
+                                margin-bottom:10px;
+                                margin-left:20px;
+                                &:after {
+                                    content: "";
+                                    height: 35px;
+                                    position: absolute;
+                                    width: 2px;
+                                    background: #fff;
+                                    left: -22px;
+                                    z-index: 2;
+                                    top: -1px;
+                                }
+                                &:before {
+                                    content: "";
+                                    height: 33px;
+                                    position: absolute;
+                                    width: 2px;
+                                    background: #fafbfb;
+                                    left: -22px;
+                                    z-index: 2;
+                                    top: 34px;
+                                }
+                                > a {
+                                    height: 24px;
+                                    border-radius: 2px;
+                                    background-color: rgb(87, 205, 117);
+                                    text-align: center;
+                                    color: rgb(255, 255, 255);
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    letter-spacing: 0.8px;
+                                    width: 90px;
+                                    line-height: 24px;
+                                    padding: 0;
+                                    margin-right: 10px;
+                                    text-transform:uppercase;
+                                    
+                                    + button {
+                                        border-top-left-radius: 4px;
+                                        border-bottom-left-radius: 4px;
+                                    }
+                                }
+                                button {
+                                    background-color: #fafbfb;
+                                    border-color: #b6c1cf;
+                                    color:#3a405b;
+                                    padding:0px;
+                                    width:68px;
+                                    text-align: center;
+                                    line-height:24px;
+                                    font-size:14px;
+                                    vertical-align: top;
+                                    height:24px;
+                                    img {
+                                        height:14px;
+                                        vertical-align: top;
+                                        margin-top: 4px;
+                                        display: inline-block;
+                                    }
+                                }
+                            }
+                            .contact-list {
+                                margin-left:0px !important;
+                                margin-right:0px !important;
+                                .col-md-12 {
+                                    padding-left:0px;
+                                    padding-right:0px;
+                                }
+                                .table-wrapper {
+                                    > table {
+                                        min-width: 700px;
+                                        width: calc( 100% - 1px);
+                                    }
+                                }
+                                .checkbox-custom {
+                                    label {
+                                        &:before {
+                                            border-radius: 2px !important;
+                                            width: 16px;
+                                            height: 16px;
+                                            background-color: #ffffff;
+                                            border: solid 1px #b6c1cf;
+                                            top: 2px;
+                                        }
+                                        &:after {
+                                            
+                                        }
+                                    }
+                                    input {
+                                        &:checked {
+                                            + label {
+                                                &:after {
+                                                    border-radius: 2px !important;
+                                                    width: 16px;
+                                                    height: 16px;
+                                                    line-height: 14px;
+                                                    font-size: 15px !important;
+                                                    top: 2px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                table {
+                                    margin-bottom:0px;
+                                    thead {
+                                        tr {
+                                            th {
+                                                vertical-align: middle;
+                                                border-right:none;
+                                                &:nth-child(1) {
+                                                    padding-left:8px;
+                                                    .checkbox-custom.checkbox-default:after {
+                                                        content: "";
+                                                        height: 33px;
+                                                        position: absolute;
+                                                        width: 2px;
+                                                        background: #fafbfb;
+                                                        left: -10px;
+                                                        z-index: 2;
+                                                        top: -6px;
+                                                    }
+                                                    ~ th {
+                                                        &:after {
+                                                            content: "";
+                                                            width: 1px;
+                                                            height: 19px;
+                                                            position: absolute;
+                                                            border-right: 1px solid #e4e7ef;
+                                                            right: -1px;
+                                                        }
+                                                    }
+                                                }
+                                                &:nth-child(2) {
+                                                    padding-left:0px;
+                                                }
+                                                
+                                                span {
+                                                    &.icon {
+                                                        top:13px;
+                                                    }
+                                                }
+                                                color: #3a405b;
+                                                font-size: 12px;
+                                                font-weight: bold;
+                                                letter-spacing: 0.8px;
+                                                line-height: 19px;
+                                                padding-top: 6px !important;
+                                                padding-bottom: 5px !important;
+                                                padding-left:25px;
+                                            }
+                                        }
+                                    }
+                                    tbody {
+                                        tr {
+                                            td {
+                                                padding-left:25px;
+                                                vertical-align: middle;
+                                                &:nth-child(1) {
+                                                    padding-left:8px;
+                                                }
+                                                &:nth-child(2) {
+                                                    padding-left: 0px;
+                                                    font-weight: bold;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

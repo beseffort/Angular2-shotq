@@ -1,0 +1,53 @@
+<!-- Address contact  add && edit  -->
+<div *ngIf="fullAddressView">
+<form-field-wrap  [label]="label" [floating]="floating" [errors]="getErrors(inputAddress1, 'Address 1')">
+  <div [id]="inputGroupId" class="input-group input-group-icon form-group">
+    <span id="span-address-1" class="input-group-addon">Address 1</span>
+    <input #inputAddress1="ngModel" [id]="inputId" class="form-control" [(ngModel)]="ngValue.address1" type="text" (setAddress)="getAddress($event)" (focus)="addSelectedClass()" (blur)="removeSelectedClass($event)"  placeholder="" googleplace>
+     <span *ngIf="showDelete && checkFields() && !isLoading">
+        <i class="input-group-addon icon-trash" (click)="valueDeleted($event)"></i>
+    </span>
+    <span *ngIf="showDelete && checkFields() && isLoading" class="input-group-addon">
+      <img class="mini-spinner" src="/assets/img/mini-loader.svg">
+    </span>
+  </div>
+</form-field-wrap>
+<div class="form-group" >
+  <form-field label="Address 2" [(ngValue)]="ngValue.address2" auxname="address2" type="text" (ngValueChange)="emitValueChange()">
+  </form-field>
+</div>
+<div class="form-group"  >
+  <form-field label="City" [(ngValue)]="ngValue.city" auxname="city" type="text" (ngValueChange)="emitValueChange()">
+  </form-field>
+</div>
+<div class="form-group" >
+  <form-field label="State" [(ngValue)]="ngValue.state" auxname="state" type="text" (ngValueChange)="emitValueChange()">
+  </form-field>
+</div>
+<div class="form-group" >
+  <form-field label="ZIP Code" [(ngValue)]="ngValue.zip" auxname="zip" type="zip" (ngValueChange)="emitValueChange()">
+  </form-field>
+</div>
+<div class="form-group" >
+  <form-field label="Country" [spanWithSelect]="true" cssClass="countries-class" [(ngSelectValue)]="ngValue.country" [options]="countries">
+  </form-field>
+</div>
+</div>
+<!-- Address contact  merge  -->
+<div class="input-group-icon" *ngIf="!fullAddressView && !showOnLabel" >
+    <span *ngIf="left" [id]="spanId"  class="input-group-addon">{{label}}</span>
+    <div [id]="inputGroupId" class="input-group input-group-icon">
+      <input type="text"  #addressInput="ngModel" [ngModel]="displayAddress()" (setAddress)="getAddress($event)" googleplace>
+    </div>
+</div>
+<!-- Address contact  merge in two lines -->
+<div class="input-group-icon" *ngIf="showOnLabel && !fullAddressView" >
+    <span *ngIf="left" [id]="spanId"  class="input-group-addon">{{label}}</span>
+    <div [id]="inputGroupId" *ngIf= "!isEmpty()" class="input-group input-group-icon">
+      <label>{{displayAddressSplited(1)}}</label><br>
+      <label>{{displayAddressSplited(2)}}</label>
+    </div>
+    <div [id]="inputGroupId" *ngIf= "isEmpty()"  class="input-group input-group-icon">
+      <label class="oneLine">{{displayAddressSplited(1)}}</label>
+    </div>
+</div>

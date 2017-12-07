@@ -1,0 +1,45 @@
+.page {
+	padding-top: 50px;
+	background: #FAFBFB !important;
+	margin-left: 0 !important;
+}
+
+.booking-wizard {
+	&-footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 101;
+		background: #FFF;
+		border-top: 1px solid #f0f2f7;
+		padding: 10px 0;
+	}
+}
+
+.next-step {
+	padding: 11px 52px;
+	font-size: 14px;
+	margin-right: 130px;
+	// font-weight: bold;
+	letter-spacing: 0.7px;
+	text-align: center;
+	color: #fff;
+	font-family: 'Titillium Web';
+	border-radius: 2px;
+	background-color: #086aff;
+	border: none;
+	text-transform: capitalize;
+	&:hover {
+		opacity: .8;
+	}
+	&[disabled] {
+		// background-color: darken(#f7f7f7, 4%);
+		background-color: #b6c1cf;
+		cursor: default;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+

@@ -1,0 +1,169 @@
+div.btn-group.contact-actions {
+  button {
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    color: #9b9b9b;
+  }
+  button.is-active {
+    color: #086aff;
+  }
+  button:first-child {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+    border-left: 1px solid #E4E4E4;
+  }
+  button:last-child {
+    border-radius: 0 50px 50px 0;
+    border-left: none;
+    border-right: 1px solid #E4E4E4;
+  }
+  button {
+    border-right: none;
+    border-left: none;
+  }
+  @media screen and (max-width: 858px) {
+    width: 220px;
+    button {
+      width: 110px;
+    }
+    button:first-child {
+      margin-bottom: 5px;
+    }
+    button.second {
+      margin-bottom: 5px;
+      border-radius: 0 500px 500px 0;
+      border-left: none;
+    }
+    button.third {
+      border-radius: 500px 0 0 500px;
+      border-right: none;
+    }
+  }
+  @media screen and (max-width: 585px) {
+    width: 115px;
+    button {
+      width: 110px;
+      border-radius: 500px 500px 500px 500px !important;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.btn-link_back {
+  font-size: 12px;
+  font-weight: 600;
+  color: #086aff;
+  text-transform: uppercase;
+  padding-left: 0;
+  i {
+    display: inline-block;
+    vertical-align: sub;
+    font-size: 24px;
+    margin-right: 9px;
+  }
+}
+
+.modal-footer_border {
+  background: #fff;
+  border-top: 1px solid #f0f2f7;
+}
+
+.modal-footer {
+  z-index: 10!important;
+}
+
+// template
+.contract-template {
+  margin: 55px 0;
+  &__title {
+    font-size: 32px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    // color: rgba(#3a405b, .5);
+    color: #3a405b;
+    margin-bottom: 50px;
+    input {
+      width: 100%;
+      line-height: normal;
+      border: none;
+      outline: none;
+      color: #3a405b;
+      &::placeholder {
+        color: rgba(#3a405b, .5);
+      }
+      &:focus::-webkit-input-placeholder {
+        color: transparent
+      }
+    }
+
+  }
+  &__content {
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    color: rgba(#3a405b, 1);
+    margin: 0 20px;
+  }
+}
+
+.page-title {
+  font-family: 'Titillium Web';
+  font-size: 42px;
+  font-weight: bold;
+  color: #3a405b;
+}
+
+.page {
+  background-color: #fff !important;
+
+}
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  background: transparent;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  transition: opacity .3s;
+  &:hover {
+    opacity: .8;
+  }
+  &_sm {
+    padding: 10px 26px;
+  }
+  &_md {
+    padding: 12px 52px 11px 52px;
+    text-transform: uppercase;
+  }
+  &_grey {
+    color:  #3a405b;
+    background-color: #fafbfb;
+    box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5);
+    border-color: #e4e8f0;
+    font-weight: 300;
+  }
+  &_blue {
+    background-color: #086aff;
+    border-color: #086aff;
+    color: #fff;
+    font-weight: 600;
+  }
+  &_white {
+    background: #FFF;
+    color:  #3a405b;
+    font-weight: 600;
+    border-color: #b6c1cf;
+  }
+}
+
+.col-right {
+  .btn {
+    max-width: 318px;
+  }
+}
+

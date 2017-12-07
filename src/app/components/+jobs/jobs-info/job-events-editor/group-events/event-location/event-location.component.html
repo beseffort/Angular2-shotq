@@ -1,0 +1,14 @@
+<form class="event-location events-editor__location" [formGroup]="form" novalidate>
+  <i class="fa fa-map-marker" aria-hidden="true"></i>
+  <input type="text"
+    class="form-control"
+    placeholder="Enter a new location name or leave blank"
+    formControlName="name" />
+  <i class="fa fa-map-marker" aria-hidden="true"></i>
+  <input type="text"
+    class="form-control"
+    placeholder="Enter a new address or leave blank"
+    formControlName="address"
+    googleplace
+    (setAddress)="updateLocation($event)" />
+</form>

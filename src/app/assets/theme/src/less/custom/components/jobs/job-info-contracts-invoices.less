@@ -1,0 +1,343 @@
+.contract_invoice {
+    padding-right: 80px;
+    padding-left: 80px;
+    .page-content {
+        padding: 0;
+        padding-top: 20px;
+        background-color: #ffffff;
+        -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
+        box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
+    }
+    button.new-invoice {
+        width: 120px;
+        height: 34px;
+        border-radius: 4px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.06);
+        border: solid 1px #cfcfcf;
+    }
+    .default-dropdown {
+        form-field {
+            button.form-field {
+                width: 194px;
+                height: 24px;
+                span.caret {
+                    top: 8px;
+                    right: 16px;
+                }
+            }
+            ul.dropdown-menu {
+                min-width: 194px !important;
+                width: 194px;
+            }
+            div.input-group {
+                padding-left: 20px;
+                padding-bottom: 15px;
+            }
+        }
+    }
+    .action-buttons {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        > a {
+            height: 24px;
+            border-radius: 2px;
+            background-color: rgb(87, 205, 117);
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            width: 90px;
+            line-height: 24px;
+            padding: 0;
+            margin-right: 10px;
+            text-transform: uppercase;
+            
+            + button {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+        }
+        button {
+            background-color: #fafbfb;
+            border-color: #b6c1cf;
+            color: #3a405b;
+            padding: 0px;
+            width: 68px;
+            text-align: center;
+            line-height: 24px;
+            font-size: 14px;
+            vertical-align: top;
+            height: 24px;
+            width: 97.2px;
+            img {
+                height:14px;
+                vertical-align: top;
+                margin-top: 4px;
+                display: inline-block;
+            }
+        }
+    }
+    .input-search {
+        height: 30px;
+        width: 150px;
+        margin-top: 3px;
+        margin-left: 0;
+        .input-search-icon {
+            color: #3a405b;
+            font-size: 12px;
+            top: 10px;
+            width: auto;
+            margin: 0px;
+            -moz-transform: inherit;
+            -webkit-transform: inherit;
+            -o-transform: inherit;
+            -ms-transform: inherit;
+            transform: inherit;
+            left: 10px;
+        }
+        input {
+            line-height: 21px;
+            background-color: #ffffff;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 30px !important;
+            height: auto;
+            border: none;
+            letter-spacing: normal;
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: #3a405b;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                opacity: 0.5;
+            }
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: #3a405b;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                opacity: 0.5;
+            }
+            &:-ms-input-placeholder { /* IE 10+ */
+                color: #3a405b;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                opacity: 0.5;
+            }
+            &:-moz-placeholder { /* Firefox 18- */
+                color: #3a405b;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                opacity: 0.5;
+            }
+        }
+    }
+    .contracts-invoices-list {
+        margin-top: 10px;
+        table {
+            margin-bottom: 80px !important;
+            thead {
+                background-color: #fafbfb;
+                text-transform: uppercase;
+                font-size: 12px;
+                height: 30px;
+                tr {
+                    th:first-child {
+                        width: 1%;
+                        padding-left: 10px !important;
+                        border-right: none !important;
+                        .checkbox-custom {
+                            padding-left: 18px !important;
+                            padding-right: 5px;
+                            margin-top: 3px;
+                        }
+                    }
+                    th:last-child {
+                        border-right: none !important;
+                        width: 100px;
+                    }
+                    th {
+                        border-right: solid 1px #e4e7ef;
+                        font-weight: 600;
+                        border-bottom: 0;
+                        position: relative;
+                        vertical-align: middle;
+                        border-right: none;
+                        color: #3a405b;
+                        font-size: 12px;
+                        font-weight: bold;
+                        letter-spacing: 0.8px;
+                        line-height: 19px;
+                        padding-top: 3px !important;
+                        padding-bottom: 5px !important;
+                        vertical-align: middle;
+                        padding-left: 25px;
+                        .head-name {
+                            display: inline-block;
+                        }
+                        .head-sort {
+                            position: absolute;
+                            top: 9px;
+                            right: 12px;
+                        }
+                        &:nth-child(1) {
+                        .checkbox-custom.checkbox-default:after {
+                            content: "";
+                            height: 33px;
+                            position: absolute;
+                            width: 2px;
+                            background: #fafbfb;
+                            left: -10px;
+                            z-index: 2;
+                            top: -6px;
+                        }
+                        ~ th {
+                            &:after {
+                                content: "";
+                                width: 1px;
+                                height: 19px;
+                                position: absolute;
+                                border-right: 1px solid #e4e7ef;
+                                right: -1px;
+                            }
+                        }
+                    }
+                    }
+                }
+            }
+            color: #3a405b;
+            tbody {
+                max-height: 500px;
+                tr:first-child {
+                    td {
+                        border-top: 0 !important;
+                    }
+                }
+                tr {
+                    td:first-child {
+                        border-top: 0;
+                        width: 1%;
+                        padding-left: 10px !important;
+                        .checkbox-custom {
+                            padding-left: 18px !important;
+                            padding-right: 5px;
+                            margin-top: 3px;
+                        }
+                    }
+                    td.bold {
+                        a {
+                            color: #3a405b;
+                            font-weight: 600;
+                        }
+                    }
+                    td.contact-name {
+                        font-size: 14px;  
+                        font-weight: 600;
+                        font-style: normal;
+                        font-stretch: normal;
+                        color: #3a405b;
+                        padding-left: 12px;
+                        text-transform: capitalize;
+                    }
+                    td {
+                        vertical-align: middle;
+                        height: 51px;
+                        padding-left: 25px;
+                        dropdown {
+                            ul.dropdown-menu {
+                                right: 0;
+                                left: auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    table.scroll { 
+        display:block;
+        tbody,
+        thead {
+            display:block;
+            tr {
+                display:table-row;
+                th ,
+                td {
+                    display:table-cell;
+                }
+            }
+        }
+        thead {
+            overflow: hidden;
+        }
+        tbody {
+            overflow:auto;
+        }
+        &.invoice {
+            tbody {
+                tr {
+                    td {
+                        &:nth-child(1) {
+                            min-width:60px
+                        }
+                        &:nth-child(2) {
+                            min-width:120px;
+                        }
+                        &:nth-child(3) {
+                            min-width:120px;
+                        }
+                        &:nth-child(4) {
+                            min-width:120px;
+                        }
+                        &:nth-child(5) {
+                            min-width:100px;
+                        }
+                        &:nth-child(6) {
+                            min-width:100px;
+                        }
+                        &:nth-child(7) {
+                            min-width:100px;
+                        }
+                    }
+                }
+            }
+        }
+        &.contract {
+            tbody {
+                tr {
+                    td {
+                        &:nth-child(1) {
+                            min-width:60px
+                        }
+                        &:nth-child(2) {
+                            min-width:120px;
+                        }
+                        &:nth-child(3) {
+                            min-width:120px;
+                        }
+                        &:nth-child(4) {
+                            min-width:120px;
+                        }
+                        &:nth-child(5) {
+                            min-width:100px;
+                        }
+                        &:nth-child(6) {
+                            min-width:100px;
+                        }
+                        &:nth-child(7) {
+                            min-width:80px;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    dropdown {
+        padding-left: 20%;
+    }
+}

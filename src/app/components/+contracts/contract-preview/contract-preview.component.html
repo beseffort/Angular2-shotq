@@ -1,0 +1,59 @@
+<div class="contract-preview-wrap">
+  <div class="contract-preview" [ngClass]="{'contract-preview_mod': classModifier}">
+    <div class="contract-preview__head">
+      <div class="contract-preview__caption">{{ contract.title }}</div>
+      <div class="contract-preview__title">{{ contract.job_name }}</div>
+      <div class="contract-preview__text">{{ contract.event_date | date: 'longDate' }}</div>
+    </div>
+
+    <div class="loading-ripple" *ngIf="previewLoading"></div>
+    <div class="contract-preview__content" [innerHtml]="contractPreview | safeHtml">
+    </div>
+    <div class="contract-preview__content contract-preview-border">
+
+      <div class="contract-write">
+        <!-- *ngIf="contract.job_data" -->
+        <!-- <span class="contract-write__name">{{ contract.job_data.internal_owner.first_name }} {{ contract.job_data.internal_owner.last_name }}</span>
+        <span></span> -->
+        <div class="contract-write__in">
+
+          <div *ngFor="let signature of signatures; let _even = even; let _odd = odd"
+               [ngClass]="{'contract-write__left': _even,
+                           'contract-write__right': _odd }">
+            <app-contract-signature [signature]="signature"
+                                    [sign]="sign"
+                                    [selected]="signature?.selected">
+            </app-contract-signature>
+          </div>
+          <div class="contract-write__left" *ngIf="workerSignature">
+            <app-contract-signature [signature]="workerSignature"
+                                    [sign]="sign"
+                                    [selected]="workerSignature?.selected"
+
+                                    (onChange)="onSigned($event)">
+            </app-contract-signature>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row" *ngIf="canSign">
+        <div class="sq-checkbox">
+          <input type="checkbox" id="check"
+                 [disabled]="currentSignatureCompleted"
+                 [(ngModel)]="agreement" (click)="updateValidity()">
+          <label for="check"> I have read and fully understand the contract presented above and by entering my
+            full name and pressing, "Sign and Continue," I represent and warrant that I am the individual
+            identified and I understand and agree to be bound by the legal contract set forth above.</label>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+  <button id="submitButton" type="submit" class="hidden" (click)="submit()"></button>
+
+</div>

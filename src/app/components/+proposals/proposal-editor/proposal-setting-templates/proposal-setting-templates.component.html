@@ -1,0 +1,75 @@
+<div class="overview">
+  <div class="contentBlock">
+    <h2>Select a settings template</h2>
+    <div class="selectBlock" >
+      <div class="row">
+        <div class="col-sm-6">
+          <app-dropdown-select [ngModel]="setting"
+                               [options]="templates"
+                               [valueKey]="'id'"
+                               [labelKey]="'name'"
+                               (optionSelected)="onSelectSettings($event)">
+          </app-dropdown-select>
+        </div>
+        <div class="col-sm-6">
+          <button type="button" class="btn btn-link btn-custom-settings" (click)="onSwitchToCustom.emit()">CREATE CUSTOM SETTINGS</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedTemplate">
+      <div class="stepBlock">
+        <div class="title">
+          <h2>1. How do you want to receive payment?</h2>
+          <a href="" (click)="applyAndEdit($event, 1)">EDIT</a>
+        </div>
+        <div class="infoBlock padding-bottom-10" *ngIf="selectedTemplate.merchant_account">
+          <img [src]="paymentProviders[selectedTemplate.merchant_account.merchant_type].image"/>
+        </div>
+        <div class="infoBlock padding-bottom-10" *ngIf="selectedTemplate.collect_manually">
+          <p><i class="fa fa-check-square-o" aria-hidden="true"></i> Collect Manually</p>
+        </div>
+        <div class="infoBlock padding-bottom-10" *ngIf="selectedTemplate.pay_with_check">
+          <p><i class="fa fa-check-square-o" aria-hidden="true"></i> Allow client to pay with check</p>
+        </div>
+      </div>
+      <div class="stepBlock step2">
+        <div class="title">
+          <h2>2. Payment Schedule Templates</h2>
+          <a href="" (click)="applyAndEdit($event, 5)">EDIT</a>
+        </div>
+        <div class="infoBlock">
+          <p *ngFor="let payment of selectedTemplate.schedule_template.payments">{{ payment.title }}</p>
+        </div>
+      </div>
+      <div class="stepBlock step3">
+        <div class="title">
+          <h2>3. Apply a discount?</h2>
+          <a href="" (click)="applyAndEdit($event, 2)">EDIT</a>
+        </div>
+        <div class="infoBlock">
+          <p *ngFor="let discount of selectedTemplate.discount_templates">{{ discount.name }}</p>
+        </div>
+      </div>
+      <div class="stepBlock step4">
+        <div class="title">
+          <h2>4. Apply a tax?</h2>
+          <a href="" (click)="applyAndEdit($event, 3)">EDIT</a>
+        </div>
+        <div class="infoBlock">
+          <p>{{ selectedTemplate.tax_template?.name }}</p>
+        </div>
+      </div>
+      <div class="stepBlock step5">
+        <div class="title">
+          <h2>5. Expiration</h2>
+          <a href="" (click)="applyAndEdit($event, 4)">EDIT</a>
+        </div>
+        <div class="infoBlock">
+          <p *ngIf="selectedTemplate.expire_type === 'never'">Never Expire</p>
+          <p *ngIf="selectedTemplate.expire_type === 'in x days'">{{ selectedTemplate.expire_days }} day(s) after proposal is sent</p>
+          <p *ngIf="selectedTemplate.expire_type === 'on date'">{{ selectedTemplate.expire_at | date:'M/d/y' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

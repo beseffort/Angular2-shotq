@@ -1,0 +1,5 @@
+<div class="cursor-pointer {{cssClass}}" (click)="toggleSorting()">
+  {{title}}
+  <i *ngIf="!newStyles" class="icon icon {{sortIconClass()}}"></i>
+  <i *ngIf="newStyles" class="{{sortIconClass()}} new-style"></i>
+</div>

@@ -1,0 +1,34 @@
+<div class="contents contents_addons">
+    <h3>Add Ons<span>({{ items.length }})</span><i class="infoIc"></i></h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ITEM</th>
+                    <th align="right">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody [dragula]='"package-items-bag"' [dragulaModel]='items' [dragulaOptions]="dragulaOptions">
+                <tr *ngIf="items.length == 0">
+                    <td colspan="2">
+                        <div class="empty">
+                            <h4>Your add ons is empty!</h4>
+                            <p>Begin by dragging and dropping items from your shelf on the right. </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngFor="let product of items; let i = index;">
+                  <td>
+                      <span class="img-photo img">
+                          <span >
+                              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAdCAYAAACuc5z4AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4AwaDzMnevl8vgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAARySURBVEjHnZVdbFRFFMd/Z+7d7d12134goNBQND5ACQlCAxHbgMZEiYmSKI2JSiDGDY/6qtHsRhM/nkx8AiMoNUG7xmDCh5hoiZqQJhajCavgCypQUGhZpHS3d+4cH+7dtihtwZPczNw5c/6Z859z/iNVqzR4zGoiCHtoBmA7FVV0tv21CMxcoADso4NG9tLEXvbRMdf2Bg98bsY87gZ6ps1PzxUiqjr7hhJtKDuAFACGCZSduoWR/w0su0abaWl+HmN+YwufAvAxTyKug8uV9zTfWpkp1swIuvtijrbsdowOM8J+VVQVpcJ+jA7Tlt0uuy/mbglY+i400ZzbihdVOHGypHnCuk/zhJw4WcKjQnNuq/RdaLopKuSD0wG3LXgGUC7+vFfza8Ib0zSU4vblWwHhyp8f6bal1ev8vP9XjnnpZ1E8UAuyCGQ1ygDixhCRG+aqqqhpwvAAqsdBz4H4CBGXJvp8cmErpB8G9zXO+wmjQ0TuczwxM4ImXQOqiB5FxeBMChN1gXmIXHjAJxKD2O+JwkFIgVSHb7K6QQBNRoLFuHAQP3UbkRifpppgPEftm+NkNrwADUsQzgGCc/+93+m/db+4O/Hs74xfeoeG+Q/SVBOfsQYl64Ry2bKmZwwX9XP+3DFaMzemYXRcGT4QUSgoAwMep3LCHYvuw8hKyiXL6h0w1qA+QRUkFZeGOMVoOFMlJJ3YTOuqRym9kuN87ZDmM3/IgbMhIgoFMHkhqGGgCrhEEyLAzkxpb8nDr+RJje/Eu/YumfB1KZ3JxDERUEiwqvgEAWgCHLnZZWlLe5rM5XuBbHJ5XUyEWTxfURdTZywEQXJiL1n0nWDDmYF711cJLh8iGD1DZnSEoLKf7K9XiKzg1bO2AtU6FfX0neDb67pLvvhlqZTK6aQnlFODn+DXNsPYZnTkDd20qUbaCl6YXHZMhYEAhCSNCcXEcykWDXc1PY1vDtLqPSfFo36sFflQu9cN6Yb7v9WNG69OdWLyqngI1KkQq5M16tu4rdb3PoLHaxB1YrRI94KnpFicrGI5cqxNDn7XGlNop+hUq1SrGKpVMK4uSYJ1kXz1QxeeexuidjynYOdj9E16nnhcikUjAz+uIJ3rI9PyoXw5tAznHBoqnZ2CcRDUqwILnZ2CWIfvliNmG0QrElIEUUVZjOFFeh6rIryEum4ESKdawH0GhJTLSs8yYiqC5MTlXsW4LB4vY9wGJIobRiJFIsG4GuKu4vEW4roRl2TqeoBXwbXEDWIhqFeFOCkUCiC2EbX3IFEcJE6QSGKQyCHRWsStRBRMRLIOYlvBpWIMJ1NVYawUKCg44pPWPzs1x2WQaB7ipq0nI/FBChQUY4EAH2MEVOnvT2EcOM5OKpjq9dooJPN/+UXBKPT3Jy+5EZ9r15Rs4LGwvYvIHWFCd9E4TW/n0mOAGpCWDha2dyHqMTauPmmnwFqM+RvCQRpTS7hVa4T4aWMd6FrSbo9PrTZKqvEw4gzirZpUulu1mDGLymFqtdF/AKW/8jVUagV+AAAAAElFTkSuQmCC" />
+                          </span>
+                      </span>
+                      <span class="text">{{ product.name }}</span>
+                  </td>
+                  <td><span>{{ product.price | currency:'USD':true }} <span (click)="removeProduct(i)" class="icon-close"></span></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

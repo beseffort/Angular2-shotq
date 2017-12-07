@@ -1,0 +1,19 @@
+<div class="activities-dialog__header">
+    <h1 class="activities-dialog__title">Activity</h1>
+</div>
+<div class="activities-dialog__body">
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+    <div *ngFor="let date of _.keys(groupedActivities);">
+        <span class="activity-block__date">{{ date | date: 'MMMMd, y' }}</span>
+        <ul class="activity-list">
+            <!-- begin list item -->
+            <li class="activity-item" *ngFor="let activity of groupedActivities[date]">
+                <activity-item [item]="activity"></activity-item>
+            </li>
+            <!-- end list item -->
+        </ul>
+    </div>
+</div>
+<div class="activities-dialog__footer">
+    <button type="button" class="activities-dialog__dismiss-btn" (click)="dismiss()">Close</button>
+</div>

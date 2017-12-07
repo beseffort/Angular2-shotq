@@ -1,0 +1,583 @@
+@import "mixins/border-radius";
+@import "mixins/clearfix";
+@import "mixins/hover";
+@import "mixins/breakpoints";
+@import "mixins/hover";
+@import "mixins/image";
+@import "mixins/resize";
+@import "mixins/screen-reader";
+@import "mixins/tab-focus";
+@import "mixins/reset-text";
+@import "mixins/text-hide";
+@import "mixins/text-truncate";
+
+@mixin appearance($appearance) {
+  -webkit-appearance: $appearance;
+  -moz-appearance: $appearance;
+  //noinspection CssUnknownProperty
+  appearance: $appearance;
+}
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin transition($transition...) {
+  transition: $transition;
+}
+
+// Button variants
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-button-variant($color, $background, $border) {
+  $active-background: darken($background, 10%);
+  $active-border: darken($border, 12%);
+
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  box-shadow: $btn-box-shadow;
+
+  @include hover {
+    color: $color;
+    background-color: $active-background;
+    border-color: $active-border;
+  }
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: $active-background;
+    border-color: $active-border;
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: $active-background;
+    border-color: $active-border;
+    // Remove the gradient for the pressed/active state
+    background-image: none;
+    box-shadow: $btn-active-box-shadow;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      border-color: darken($border, 25%);
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    &:focus,
+    &.focus {
+      background-color: $background;
+      border-color: $border;
+    }
+    @include hover {
+      background-color: $background;
+      border-color: $border;
+    }
+  }
+}
+
+@mixin sq-button-outline-variant($color) {
+  color: $color;
+  background: transparent none;
+  border-color: $color;
+
+  @include hover {
+    color: #fff;
+    background-color: $color;
+    border-color: $color;
+  }
+
+  &:focus,
+  &.focus {
+    color: #fff;
+    background-color: $color;
+    border-color: $color;
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: #fff;
+    background-color: $color;
+    border-color: $color;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: #fff;
+      background-color: darken($color, 17%);
+      border-color: darken($color, 25%);
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    &:focus,
+    &.focus {
+      border-color: lighten($color, 20%);
+    }
+    @include hover {
+      border-color: lighten($color, 20%);
+    }
+  }
+}
+
+// Button sizes
+@mixin sq-button-size($padding-y, $padding-x, $font-size, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  @include border-radius($border-radius);
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-button-base {
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  text-align: center;
+  text-transform: capitalize;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: $input-btn-border-width solid transparent;
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  @include transition(all .2s ease-in-out);
+
+  &,
+  &:active,
+  &.active {
+    &:focus,
+    &.focus {
+      //@include tab-focus();
+      outline: none;
+    }
+  }
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+  &.focus {
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active {
+    background-image: none;
+    outline: 0;
+    @include box-shadow($btn-active-box-shadow);
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: $cursor-disabled;
+    opacity: .65;
+    @include box-shadow(none);
+  }
+}
+
+// Make a button look and behave like a link
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-button-link {
+  font-weight: normal;
+  color: $link-color;
+  border-radius: 0;
+
+  &,
+  &:active,
+  &.active,
+  &:disabled {
+    background-color: transparent;
+    @include box-shadow(none);
+  }
+  &,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+  @include hover {
+    border-color: transparent;
+  }
+  @include hover-focus {
+    color: $link-hover-color;
+    text-decoration: $link-hover-decoration;
+    background-color: transparent;
+  }
+  &:disabled {
+    @include hover-focus {
+      color: $btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+
+}
+
+// Forms
+
+// Form validation states
+// Used to generate the form validation CSS for warnings, errors, and successes.
+@mixin sq-form-control-validation($color) {
+  // Color the label and help text
+  .sq-form-control-feedback,
+  .sq-form-control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .custom-control {
+    color: $color;
+  }
+  // Set the border and box shadow on specific inputs to match
+  .sq-form-control {
+    border-color: $color;
+    // @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075)); // Redeclare so transitions work
+
+    &:focus {
+      // border-color: darken($border-color, 10%);
+      // $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten($border-color, 20%);
+      // @include box-shadow($shadow);
+    }
+  }
+
+  // Set validation states also for addons
+  .sq-input-group-addon {
+    color: $color;
+    border-color: $color;
+    background-color: lighten($color, 40%);
+  }
+  // Optional feedback icon
+  .form-control-feedback {
+    color: $color;
+  }
+}
+
+// Form control focus state
+//
+// Generate a customized focus state and for any input with the specified color,
+// which defaults to the `@input-border-focus` variable.
+//
+// We highly encourage you to not customize the default value, but instead use
+// this to tweak colors on an as-needed basis. This aesthetic change is based on
+// WebKit's default styles, but applicable to a wider range of browsers. Its
+// usability and accessibility should be taken into account with any change.
+//
+// Example usage: change the default blue border and shadow to white for better
+// contrast against a dark gray background.
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-form-control-focus() {
+  &:focus {
+    color: $input-color-focus;
+    background-color: $input-bg-focus;
+    border-color: $input-border-focus;
+    outline: none;
+    $shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px $input-box-shadow-focus;
+    @include box-shadow($shadow);
+  }
+}
+
+// Form control sizing
+//
+// Relative text size, padding, and border-radii changes for form controls. For
+// horizontal sizing, wrap controls in the predefined grid classes. `<select>`
+// element gets special love because it's special, and that's a fact!
+@mixin sq-input-size($parent, $input-height, $padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+  #{$parent} {
+    height: $input-height;
+    padding: $padding-y $padding-x;
+    font-size: $font-size;
+    line-height: $line-height;
+    @include border-radius($border-radius);
+  }
+
+  select#{$parent} {
+    height: $input-height;
+    line-height: $input-height;
+  }
+
+  textarea#{$parent},
+  select[multiple]#{$parent} {
+    height: auto;
+  }
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-base-form-control {
+  display: block;
+  width: 100%;
+  // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+  // height: $input-height;
+  padding: $input-padding-y $input-padding-x;
+  font-size: $font-size-base;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  outline: none;
+  // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214.
+  background-image: none;
+  background-clip: padding-box;
+  border: $input-btn-border-width solid $input-border-color;
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  @include border-radius($input-border-radius);
+  @include box-shadow($input-box-shadow);
+  @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+
+  &:-webkit-autofill {
+    border-color: $input-border-focus;
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+    color: $gray-dark;
+  }
+  &:focus, &:active {
+    outline: none;
+    border-color: $input-border-focus;
+  }
+
+  // Unstyle the caret on `<select>`s in IE10+.
+  &::-ms-expand {
+    background-color: transparent;
+    border: 0;
+  }
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  @include sq-form-control-focus();
+
+  // Placeholder
+  &::placeholder {
+    color: $input-color-placeholder;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &:disabled,
+  &[readonly] {
+    background-color: $input-bg-disabled;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: $cursor-disabled;
+  }
+}
+
+// User photo
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-avatar($size) {
+  width: map-get($avatar-sizes, $size);
+  height: map-get($avatar-sizes, $size);
+  max-width: map-get($avatar-sizes, $size);
+  max-height: map-get($avatar-sizes, $size);
+  line-height: map-get($avatar-sizes, $size);
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  vertical-align: top;
+  font-size: map-get($avatar-font-sizes, $size);
+  font-weight: 600;
+  text-align: center;
+  color: #3a405b;
+  background-color: #e4e8f0;
+  cursor: default;
+}
+
+@mixin dialog-close-button {
+  float: right;
+  font-size: ($font-size-base * 1.5);
+  font-weight: $close-font-weight;
+  line-height: 1;
+  color: $close-color;
+  text-shadow: $close-text-shadow;
+  opacity: .2;
+
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+
+  @include hover-focus {
+    color: $close-color;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: .5;
+  }
+
+}
+
+// Modal dialog
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-dialog-header {
+  margin: 0;
+  padding: $modal-header-padding;
+  background-color: $modal-header-bg;
+  color: $gray-dark;
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-dialog-title() {
+  padding: $modal-title-padding;
+  line-height: $modal-title-line-height;
+  font-size: $modal-title-font-size;
+  font-weight: $modal-title-font-weight;
+  font-family: $font-family-base;
+  color: $gray-dark;
+  text-align: left;
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-dialog-body() {
+  position: relative;
+  font-size: $font-size-base;
+  background-color: $modal-content-bg;
+  color: $gray-dark;
+  line-height: 1.2;
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-dialog-footer() {
+  position: static;
+  height: auto;
+  padding: $modal-footer-padding;
+  background-color: $modal-footer-bg;
+  box-shadow: inset 0 1px 0 0 $gray-lighter;
+  text-align: right; // right align buttons
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-dialog-content($size) {
+  -webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .2);
+  font-family: $font-family-base;
+  width: map-get($modal-sizes, $size);
+  margin: 7vh auto !important;
+}
+
+//noinspection SassScssResolvedByNameOnly
+@mixin sq-modal-dialog($size) {
+  @include sq-dialog-content($size);
+
+  .modal-header {
+    @include sq-dialog-header();
+  }
+
+  .modal-title {
+    @include sq-dialog-title();
+  }
+
+  .modal-body {
+    @include sq-dialog-body();
+  }
+
+  .modal-footer {
+    @include sq-dialog-footer();
+  }
+
+  legend {
+    float: left;
+    font-size: 1rem;
+    font-weight: $modal-title-font-weight;
+    margin: 0 0 ($grid-gutter-width / 2) 0;
+  }
+
+  form, fieldset {
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+      & > div:first-child {
+        padding-left: 0;
+      }
+      & > div:last-child {
+        padding-right: 0;
+      }
+      @media (max-width: breakpoint-max(md)) {
+        & > div:first-child {
+          padding-right: 0;
+        }
+        & > div:last-child {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  fieldset {
+    margin: 0;
+    padding: $grid-gutter-width $modal-padding-x ($grid-gutter-width / 2) $modal-padding-x;
+  }
+
+  fieldset:nth-child(odd) {
+    background-color: $gray-lightest;
+  }
+
+  fieldset:nth-child(even) {
+    background-color: $modal-content-bg;
+  }
+}
+
+// media queries
+
+// width
+@mixin r($width) {
+  @media only screen and (max-width: $width+ "px") {
+    @content;
+  }
+}
+
+@mixin rmin($width) {
+  @media only screen and (min-width: $width+ "px") {
+    @content;
+  }
+}
+
+// height
+@mixin rh($height) {
+  @media only screen and (max-height: $height + "px") {
+    @content;
+  }
+}
+
+@mixin rhmin($height) {
+  @media only screen and (min-height: $height + "px") {
+    @content;
+  }
+}
+
+// alignment
+@mixin vertical {
+  text-align: center;
+  font-size: 0;
+  &:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 100%;
+  }
+}
+
+@mixin vcenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

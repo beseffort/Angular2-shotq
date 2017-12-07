@@ -1,0 +1,318 @@
+<div class="page contactProfile">
+    <div class="loading-ripple loading-ripple-user-info" *ngIf=!authorized></div>
+    <div *ngIf="authorized">
+    <div class="infoBlock">
+        <div class="contact-image">
+            <label>
+                <div class="image-container" [class.add-image]="!contact.avatar_url" >
+                    <span *ngIf="!contact.avatar_url"><i class="icon md-plus"></i></span>
+                    <img *ngIf="contact.avatar_url" [src]="contact.avatar_url">
+                    <input type="file" #avatar ng2FileSelect style="display: none" id="avatar"
+                           accept="image/x-png, image/png, image/jpeg"
+                           [uploader]="uploader" (change)="onFileChange($event)">
+                </div>
+            </label>
+        </div>
+        <div class="name-row">
+            <div class="col-1">
+                <h2 class="contact-name" *ngIf="contactDataFormatted">{{ getFullName()}}</h2>
+                <div class="proposal-status">
+                    <i class="icon-confirm"></i>
+                    <span class="proposal-status">New Lead</span>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="add-new-options">
+                    <button class="sq-btn-default" (click)="editContact()">Edit</button>
+                    <dropdown btnClass="sq-btn-secondary" iconClass="icon {{dropdownIcon}}" [button]="false" [actions]="contactProfileActions" (optionSelected)="executeAction($event)" (openCloseEvent)="openCloseEvHandler($event)"></dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="cols">
+            <div class="col-contact-info">
+                <div class="field contact-type-dropdown">
+                    <i class="icon-account"></i>
+                    <form-field [onlySelect]="true" [ngSelectValue]="contactTypeId" (ngSelectValueChange)="setContactType($event)" [options]="contactTypeItems"></form-field>
+                </div>
+                <div class="field">
+                    <i class="icon-letter"></i><a href="mailto:{{ getPrimaryEmail() }}">{{ getPrimaryEmail() }} </a>
+                     <span class="number" *ngIf ="contactDataFormatted.default_email_details !== null" >{{getType(contactDataFormatted.default_email_details.email_type_details?.name)}}</span>
+                </div>
+                <div class="field">
+                    <i class="icon-phone"></i><a href="tel:{{ getPrimaryPhone() }}">{{ getPrimaryPhone() }} </a>
+                        <span  class="number" *ngIf="contactDataFormatted.default_phone_details !== null" >{{getType(contactDataFormatted.default_phone_details.phone_type_details?.name)}}</span>
+                </div>
+
+                <div *ngIf="contactDataFormatted" class="seeMore">
+                    <a (click)="seeMore()">More contact info</a>
+                </div>
+            </div>
+            <div class="col-financial-info">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="label">NEXT DUE DATE</td>
+                            <td class="value">N/A</td>
+                        </tr>
+                        <tr>
+                            <td class="label">BALANCE DUE</td>
+                            <td class="value">0</td>
+                        </tr>
+                        <tr>
+                            <td class="label">OUTSTANDING INVOICES</td>
+                            <td class="value">0</td>
+                        </tr>
+                        <tr>
+                            <td class="label">TOTAL REVENUE</td>
+                            <td class="value">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-job-info">
+                <table class="table">
+                    <tbody>
+                        <ng-template ngFor let-job [ngForOf]="contactJobs" let-i="index">
+                            <tr *ngIf="i <= 3">
+                                <td class="job-number" [class.digits-2]="contactJobs.length >= 10 && contactJobs.length < 100" [class.digits-3]="contactJobs.length >= 100">
+                                    <div class="job-number__icon" *ngIf="i == 0"></div>
+                                    <span *ngIf="i == 0">{{contactJobs.length}}</span>
+                                </td>
+                                <td class="job-name" [class.digits-2]="contactJobs.length >= 10 && contactJobs.length < 100" [class.digits-3]="contactJobs.length >= 100">{{job.name}}<div class="colored-dot cyan"></div></td>
+                            </tr>
+                        </ng-template>
+                        <tr>
+                            <td></td>
+                            <td class="see-more"><a (click)="changeTab(1, 'jobs')">See more</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="seeMoreBlock" [style.height]="divHeight" [style.paddingTop]="paddingTop" [style.paddingBottom]="paddingBottom">
+            <div class='row'>
+              <div class='col-sm-3'>
+                    <h4>Additional Information</h4>
+                    <ul>
+                        <li>
+                            <span>MAIDEN NAME</span>{{ getMaidenName() }}
+                        </li>
+                        <li class="see-more-website">
+                            <span>WEBSITE</span>
+                            <ng-template ngIf="contact.$websiteUrl">
+                                <a target="_blank" href="{{ contact.$websiteUrl }}">{{ contact.$websiteDisplayName }}</a>
+                            </ng-template>
+                        </li>
+                    </ul>
+
+                    <h4>Social</h4>
+                    <div class="socialLinks">
+                      <a *ngIf="contact.$facebookId" class="facebook"
+                         target="_blank" href="https://facebook.com/{{ contact.$facebookId }}"
+                         title="{{ contact.$facebookId }}">
+                        <span class="facebook"><i class="fa fa-facebook"></i></span>
+                      </a>
+                      <a *ngIf="!contact.$facebookId" class="facebook" href="javascript:void(0)">
+                        <span class="facebook-disabled"><i class="fa fa-facebook"></i></span>
+                      </a>
+                      <a *ngIf="contact.$twitterId" class="twitter"
+                         target="_blank" href="https://twitter.com/{{ contact.$twitterId }}"
+                         title="{{ contact.$twitterId }}">
+                        <span class="twitter"><i class="fa fa-twitter"></i></span>
+                      </a>
+                      <a *ngIf="!contact.$twitterId" class="twitter" href="javascript:void(0)">
+                        <span class="twitter-disabled"><i class="fa fa-twitter"></i></span>
+                      </a>
+                      <a *ngIf="contact.$instagramId" class="instagram"
+                         target="_blank" href="https://instagram.com/{{ contact.$instagramId }}"
+                         title="{{ contact.$instagramId }}">
+                        <span class="instagram"><i class="fa fa-instagram"></i></span>
+                      </a>
+                      <a *ngIf="!contact.$instagramId" class="instagram" href="javascript:void(0)">
+                        <span class="instagram-disabled"><i class="fa fa-instagram"></i></span>
+                      </a>
+                    </div>
+              </div>
+                <div class='col-sm-3'>
+                    <h4>Phone & Fax</h4>
+                    <ul *ngIf="contactDataFormatted && contactDataFormatted.default_phone_details">
+                        <li>
+                            <span>{{ getTypePhone(contactDataFormatted.default_phone_details) }} Phone</span>{{ getPrimaryPhone() }}<br><a href="#">Primary</a>
+                        </li>
+                        <ng-template ngFor let-phone [ngForOf]="contactDataFormatted.phones" let-i="index">
+                            <li *ngIf="phone && phone.id !== contactDataFormatted.default_phone_details.id && i < 3">
+                                <span>{{ getTypePhone(phone) }} Phone</span>{{ phone.number }}
+                            </li>
+                        </ng-template>
+                    </ul>
+                </div>
+                <div class='col-sm-3' *ngIf="contactDataFormatted">
+                    <h4>Address</h4>
+                    <ul *ngIf="contactDataFormatted">
+                        <li>
+                            <span>Country</span>
+							<ng-template [ngIf]="contactDataFormatted.default_address && contactDataFormatted.default_address.country_name != false">
+                            	{{ getAddressField('country_name') }}
+                            </ng-template>
+                            <ng-template [ngIf]="contactDataFormatted.default_address && contactDataFormatted.default_address.country_name == false">
+                            	{{ getAddressField('country') }}
+                            </ng-template>
+                        </li>
+                        <li>
+	                        <ng-template [ngIf]="contactDataFormatted.default_address">
+	                            <span>Street Address</span>{{ getAddressField('address1') }}
+	                        </ng-template>
+                        </li>
+                        <li>
+                            <ng-template [ngIf]="contactDataFormatted.default_address && contactDataFormatted.default_address.address2">
+                                <span>Address 2</span>{{ getAddressField('address2') }}
+                            </ng-template>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-sm-4">
+                        			<ng-template [ngIf]="contactDataFormatted.default_address">
+                                    	<span>City</span>{{ getAddressField('city') }}
+            						</ng-template>
+                                </div>
+                                <div class="col-sm-4">
+                        			<ng-template [ngIf]="contactDataFormatted.default_address">
+                                    	<span>State</span>{{ getAddressField('state') }}
+            						</ng-template>
+                                </div>
+                                <div class="col-sm-4">
+                        			<ng-template [ngIf]="contactDataFormatted.default_address">
+                                    	<span>Zip</span>{{ getAddressField('zip') }}
+            						</ng-template>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class='col-sm-2'>
+                    <h4>Personal Information</h4>
+                    <ul>
+                        <li *ngIf=getBirthday()><span>Birthday</span>{{birthday | date: 'longDate'}}</li>
+                        <li *ngIf='getBirthday() === false'><span>Birthday</span>-</li>
+                    </ul>
+                    <ul>
+                        <li *ngIf=getAnniversary()><span>Anniversary</span>{{ anniversary | date: 'longDate' }}</li>
+                        <li *ngIf='getAnniversary()== false'><span>Anniversary</span>-</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="buttonsBottom" *ngIf="contactDataFormatted">
+                <span (click)="exportVCard(contactDataFormatted.id)"><i class="icon-ic-export"></i>Export vCard</span>
+            	<span (click)="archiveContact(contactDataFormatted.id)"><i class="icon-archive"></i>Archive</span>
+            </div>
+        </div>
+        <div class="tab-row">
+            <ul class="tab-list">
+                <li (click)="changeTab(1, 'jobs')" [class.active]="tabActive == 1">JOBS</li>
+                <li (click)="changeTab(2, 'contracts')" [class.active]="tabActive == 2">CONTRACTS</li>
+                <li (click)="changeTab(3, 'invoices')" [class.active]="tabActive == 3">INVOICES</li>
+                <li (click)="changeTab(4, 'conversations')" [class.active]="tabActive == 4">EMAILS</li>
+                <li (click)="changeTab(5, 'activity')" [class.active]="tabActive == 5">ACTIVITY</li>
+                <li (click)="changeTab(6, 'notes')" [class.active]="tabActive == 6">NOTES</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <div class="jobsBlock" *ngIf="tabActive == 1">
+            <div class="emptyJob" *ngIf="contactJobs.length === 0 && !isJobsLoading">
+                <p>You don’t have any Jobs with this contact yet!</p>
+                <div class="text-center">
+                    <a class="btnCreateJob" (click)="createNewJob($event)">
+                        <svg width="210" height="34">
+                            <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad" gradientTransform="rotate(270)">
+                                <stop offset="0%" style="stop-color:rgb(231, 80, 80);
+                                stop-opacity:1"/>
+                                <stop offset="100%" style="stop-color:rgb(247, 174, 24);
+                                stop-opacity:1"/>
+                            </linearGradient>
+                            </defs>
+                            <text x="0" y="31" font-family="Titillium Web, Arial" font-size="43" fill="url(#gradient)" letter-spacing="-1" class="svg_text">
+                            Create A Job
+                            </text>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="contentJob" *ngIf="contactJobs.length > 0 && !isJobsLoading">
+                <div class="titleBlock">
+                    <h4>Jobs</h4>
+                    <div class="input-search input-search-dark search-contact">
+                        <i class="input-search-icon icon-search" aria-hidden="true"></i>
+                        <input type="text" class="form-control" name="" placeholder="Search Contracts" />
+                    </div>
+                </div>
+                <div class="table-responsive jobs-list">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Job Name</th>
+                                <th><span>Type</span></th>
+                                <th><span>Date Of Job</span></th>
+                                <th><span>Status</span></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <ng-template ngFor let-job [ngForOf]="contactJobs" let-i="index">
+                            <tr *ngIf="i >= jobsPaginator.first && i <= jobsPaginator.last">
+                                <td></td>
+                                <td><strong><a [routerLink]="['/jobs', job.id]">{{job.name}}</a></strong></td>
+                                <td>{{job.type}}</td>
+                                <td>{{job.date | date}}</td>
+                                <td><strong>{{job.status | capitalize}}</strong></td>
+                                <td class="text-center"></td>
+                                <td></td>
+                            </tr>
+                        </ng-template>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paginate-container" [class.has-pages]="hasPages">
+                    <paginate [totalItems]="jobsPaginator.totalItems" [newDesign]="true" [perPageOptions]="[5, 10, 50, 100]" (ngChange)="jobsPaginatorHandle($event)"></paginate>
+                </div>
+            </div>
+        </div>
+        <div class="contractsBlock" *ngIf="tabActive == 2">
+            <injected-contracts-list [query]="{signatures__contact: contact.id}"></injected-contracts-list>
+        </div>
+        <div class="invoicesBlock" *ngIf="tabActive == 3">
+            <invoices [targetType]="'contact'" [targetId]="contact.id"
+                      [adminMode]="true" ></invoices>
+        </div>
+        <div class="conversationsBlock" *ngIf="tabActive == 4">
+            <div class="contacts-correspondence__container">
+              <div class="contacts-correspondence__header">
+                <h1>Communication</h1>
+                <button type="button" class="btn contacts-correspondence__new-message-btn hidden">New Email</button>
+              </div>
+              <correspondence-list
+                [correspondence]="contactCorrespondence"
+                (displayMessage)="onDisplayMessage($event)"
+              ></correspondence-list>
+            </div>
+        <div class="activityBlock" *ngIf="tabActive == 5">
+            <!--<activity-feed></activity-feed>-->
+        </div>
+        <div class="notesBlock" *ngIf="tabActive == 6">
+            <notes [notes]="contactNotes"
+                   [notesLoading]="notesLoading"
+                   [requestRes]="responseOK"
+                   [pagination]="paginator"
+                   (onDeleteNotes)="deleteNotes($event)"
+                   (onNoteChanged)="saveNote($event)"
+                   (onPageChange)="handlePageChangeNotes($event)">
+            </notes>
+        </div>
+    </div>
+    </div>
+</div>

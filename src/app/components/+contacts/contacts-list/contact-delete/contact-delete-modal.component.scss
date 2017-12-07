@@ -1,0 +1,98 @@
+.modal-dialog {
+  max-width: 600px !important;
+  margin: 20vh auto !important;
+}
+
+
+.modal-header {
+  padding: 20px 40px!important;
+
+  .h3, h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3a405b;
+    font-family: 'Titillium Web';
+    margin: 0;
+    margin-bottom: 7px;
+  }
+}
+
+.modal-body {
+  padding: 15px 40px;
+  border-top: 1px solid #e4e8f0;
+  border-bottom: 1px solid #e4e8f0;
+  overflow-y: visible;
+  padding-bottom: 0;
+}
+
+.modal-footer {
+  position: initial;
+  height: 50px;
+  padding: 7px 40px;
+  background: #FAFBFB;
+}
+
+.btn {
+  margin-right: 10px;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  width: auto;
+  text-transform: capitalize;
+  &_xs {
+    padding: 5px 30px;
+  }
+  &_md {
+    padding: 10px 19px;
+  }
+  &_transparent {
+    background: transparent;
+    color: rgba(55, 57, 76, 0.5);
+  }
+  &_blue {
+    background-color: #086aff;
+    color: #fff;
+  }
+  &_green {
+    background-color: #57cd75;
+    color: #fff;
+  }
+  &_red {
+    background-color: #e94e4c;
+    color: #fff;
+  }
+  &_shadow {
+    box-shadow: 0 30px 50px 0 rgba(0, 0, 0, 0.2);
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.modal-del {
+  &__category {
+    margin-bottom: 20px;
+    &-name {
+      font-weight: bold;
+      color: #3a405b;
+    }
+    &-msg {
+      color: rgba(44, 48, 73, 0.5);
+    }
+    &-numb {
+      color: #f0531c;
+    }
+    app-dropdown-select.pull-right {
+      position: relative;
+      top: -8px;
+      min-width: 180px;
+
+      /deep/ .dropdown-menu {
+        max-height: 150px;
+        overflow: auto;
+      }
+    }
+  }
+}
+

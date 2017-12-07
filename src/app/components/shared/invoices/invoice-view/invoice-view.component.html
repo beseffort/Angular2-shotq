@@ -1,0 +1,153 @@
+<!-- <div class="page">
+    <div class="page-content" > -->
+<!-- Invoice data -->
+<div class="panel panel-shadow">
+    <!-- begin info stripe for paid invoice -->
+    <div class="info-stripe">Paid in full</div>
+    <!-- end info stripe for paid invoice -->
+    <div class="panel-body client-invoice-info">
+        <div class="row">
+            <div class="rippleContainer" *ngIf="isLoading">
+                <div class="loading-ripple"></div>
+            </div>
+            <h2 *ngIf="!invoice">Invoice</h2>
+            <div class="text-center m-t-20 no-items-message" *ngIf="!isLoading && !invoice">
+                There is no invoice information to display
+            </div>
+            <div *ngIf="!isLoading && invoice">
+                <div class="invoice-info-container">
+                    <div class="invoice-info">
+                        <h2>Invoice #{{ invoice.number || invoice.id }}</h2>
+                        <div class="clearfix">
+                            <div class="property pull-left">
+                                <span class="property-title">Studio name</span>
+                                <span class="property-value">{{ invoice.account_data.name }}</span>
+                            </div>
+                            <div class="property pull-left">
+                                <span class="property-title">Studio address</span>
+                                <span class="property-value">
+                                    {{ invoice.account_data.address1 || 'No address.' }}
+                                </span>
+                            </div>
+                            <div class="property pull-left">
+                                <span class="property-title">Studio website</span>
+                                <span class="property-value">
+                                    {{ invoice.account_data.website || 'No website.' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="property pull-left">
+                                <span class="property-title">Client name</span>
+                                <span class="property-value">{{ invoice.contact_data.full_name }}</span>
+                            </div>
+                            <div class="property pull-left">
+                                <span class="property-title">Client billing address</span>
+                                <span class="property-value">
+                                    {{ invoice.contact_data.default_address_details?.address1 || 'No address.' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="event-info-container col-sm-4 col-md-4 col-xs-8">
+                        <div class="event-name">
+                            <span class="title-data">Event</span>
+                            <span class="event-data">{{ invoice.main_event_name }}</span>
+                        </div>
+                        <div class="event-date">
+                            <span class="title-data">Invoice Date</span>
+                            <span class="event-data">{{ invoice.created | date:'fullDate' }}</span>
+                        </div>
+                        <div class="event-due-date">
+                            <span class="title-data">Due Date</span>
+                            <span class="event-data">{{ invoice.due_date | date:'fullDate' }}</span>
+                        </div>
+                    </div>
+                    <div class="package-info col-sm-8 col-md-8 col-xs-8" *ngIf="package">
+                        <div class="row package-name">
+                            <div class="col-xs-8 padding-0">
+                                <span>{{ package.name }}</span>
+                            </div>
+                            <div class="text-right col-xs-4">
+                                <span class='text-right'>{{ package.price | currency:'USD':true }}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="package.description" class="package-description">
+                            <p>{{ package.description }}</p>
+                        </div>
+                        <div class="detail row add-on">
+                            <h3 class="add-on-title">ADD ONS</h3>
+                            <div class="row" *ngFor="let addon of package.addons">
+                                <div class="add-on-container col-xs-8">
+                                    <p class="add-on-description">
+                                        {{ addon.name }}
+                                        <span *ngIf="addon.quantity > 1"> (x{{ addon.quantity }})</span>
+                                    </p>
+                                    <ng-container *ngFor="let option of addon.option_groups">
+                                        <span class="add-on__option"
+                                              *ngIf="option.selected_data">
+                                            {{ option.name }}: {{ option.selected_data?.name }}
+                                        </span>
+                                    </ng-container>
+                                </div>
+                                <div class="text-right col-xs-4">
+                                    <ng-container>
+                                        <p class="add-on-price">
+                                            {{ (addon.price * addon.quantity) | currency:'USD':true }}</p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <span *ngIf="!package.addons.length"
+                                  class="no-addons" >
+                                No add-ons selected.</span>
+                        </div>
+                        <div class="detail row" *ngIf="package.shipping">
+                            <div class="shipping col-xs-8">
+                                <span>SHIPPING</span>
+                            </div>
+                            <div class="text-right col-xs-4">
+                                <span class="shipping">{{ package.shipping | currency:'USD':true }}</span>
+                            </div>
+                        </div>
+                        <div class="detail row" *ngIf="package.tax">
+                            <div class="tax col-xs-8">
+                                <span>DISCOUNT</span>
+                            </div>
+                            <div class="text-right col-xs-4">
+                                <span class="tax">{{ package.discount | currency:'USD':true }}</span>
+                            </div>
+                        </div>
+                        <div class="detail row" *ngIf="package.tax">
+                            <div class="tax col-xs-8">
+                                <span>TAX</span>
+                            </div>
+                            <div class="text-right col-xs-4">
+                                <span class="tax">{{ package.tax | currency:'USD':true }}</span>
+                            </div>
+                        </div>
+                        <div class='total-container row'>
+                            <div class="total col-xs-8">
+                                <span>TOTAL</span>
+                            </div>
+                            <div class="text-right col-xs-4">
+                                <span class="total-amount">{{ package.total | currency:'USD':true }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Payment Schedule-->
+<div class="panel panel-shadow" *ngIf="invoice">
+    <app-scheduled-payments [invoice]="invoice" [adminMode]="adminMode"></app-scheduled-payments>
+</div>
+<!-- Payment History-->
+<div class="panel panel-shadow">
+    <app-applied-payments [invoice]="invoice"></app-applied-payments>
+</div>
+<!--    </div>
+</div> -->

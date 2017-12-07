@@ -1,0 +1,12 @@
+$padding-class-prefix: open-modal-padding !default
+
+@for $i from 1 through 20 {
+  .#{$padding-class-prefix}-#{$i} {
+    .modal-open {
+      padding-right: #{$i}px;
+      top-navbar {
+        padding-right: #{$i}px;
+      }
+    }
+  }
+}

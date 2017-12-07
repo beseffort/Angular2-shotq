@@ -1,0 +1,30 @@
+<div class="title contract-write__caption">{{ signatureName }}</div>
+<div class="signature " (click)="onSignatureClick()" appClickOutside (clickOutside)="onClickOutside($event)"
+     [ngClass]="{'is-selected': selected, 'edit-block': editing}">
+  <div class="signature__select" *ngIf="selectingStyle">
+    <div class="title title_md signature__title">Choose a style</div>
+    <ul class="signature__list">
+      <li class="signature__item"
+          *ngFor="let font of fontStyles"
+          (click)="selectStyle(font)">
+        <span [ngClass]="'font-' + font">
+          {{ signature.name}}
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <span [ngClass]="'font-' + signature.sig_style"
+        *ngIf="signature.completed">
+    {{signature.completed ? signature.name : signature.name}}
+  </span>
+  <span *ngIf="!signature.completed && selected">Click to Sign</span>
+
+  <div class="edit-block__content" *ngIf="editing && !completed">
+    <a (click)="edit($event)" class="btn edit">edit</a>
+    <a (click)="clear($event)" class="btn delete">delete</a>
+  </div>
+</div>
+<div *ngIf="completed">
+    {{ signature.ip_address }} - {{ signature.modified | date: 'mediumDate' }}
+</div>

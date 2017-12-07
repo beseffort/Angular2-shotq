@@ -1,0 +1,49 @@
+<nav class="site-navbar navbar navbar-inverse navbar-mega nav-client-access" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left" [class.hided]="sidebarCollapsed"
+      (click)="emitToggleSidebar()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="hamburger-bar"></span>
+    </button>
+    <button type="button" class="navbar-toggle" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <i class="icon md-more" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="navbar-container plml0 container-fluid">
+    <!-- Navbar Collapse -->
+    <div class="collapse navbar-collapse navbar-collapse-toolbar" [class.collapsed]="!isMenuCollapsed" [class.in]="!isMenuCollapsed">
+      <!-- Navbar Toolbar / Date & Selector -->
+      <ul class="nav navbar-toolbar" *ngIf="isMenuCollapsed">
+        <li class="nav-job-selector default-dropdown">
+          <div class="dropdown job-dropdown" dropdown>
+            <div class="select-job-btn" dropdown-open>
+              {{ currentJob?.name || 'Select Job' }}
+              <span class="select-job-btn-arrow"></span>
+            </div>
+            <ul class="dropdown-menu">
+              <li *ngFor="let job of jobs" (click)="selectJob(job)"><a stop-click>{{ job.name }}</a></li>
+            </ul>
+          </div>
+          <span class="job-date">{{ currentJob?.main_event_date | date: 'longDate' }}</span>
+        </li>
+      </ul>
+      <!-- Navbar Toolbar / Navigation menu -->
+      <ul class="nav navigation-menu" *ngIf="currentJobId">
+        <li class="menu-item" [routerLink]="['/public', 'client-access', currentJobId, 'overview']" routerLinkActive="is-active">OVERVIEW</li>
+        <li class="menu-item" [routerLink]="['/public', 'client-access', currentJobId, 'communication']" routerLinkActive="is-active">COMMUNICATION</li>
+        <li class="menu-item" [routerLink]="['/public', 'client-access', currentJobId, 'invoices']" routerLinkActive="is-active">INVOICES</li>
+        <li class="menu-item" [routerLink]="['/public', 'client-access', currentJobId, 'account']" routerLinkActive="is-active">ACCOUNT</li>
+      </ul>
+      <!-- End Navbar Toolbar -->
+      <!-- Navbar Toolbar Right -->
+      <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right" *ngIf="currentJob?.account_logo">
+        <li class="logo-block">
+          <div class="client-logo">
+            <img [src]="currentJob?.account_logo" />
+          </div>
+        </li>
+      </ul>
+      <!-- End Navbar Toolbar Right -->
+    </div>
+  </div>
+</nav>

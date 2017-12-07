@@ -1,0 +1,41 @@
+<form [formGroup]="form">
+  <div class="row form-padding">
+    <div class="col-sm-6">
+      <span class="left">
+        <span>{{ payment.title }}</span>
+      </span>
+    </div>
+    <div class="col-sm-6">
+      <div class="text-right">
+        <div class="paid">
+          <span class="paid__title">Already Paid</span>
+          <label for="">
+            <i class="icon-ios-calendar"></i>
+            <input type="text"
+              ngx-mydatepicker
+              formControlName="paid_date"
+              [options]="{dateFormat: 'mm/dd/yyyy', showTodayBtn: false, showSelectorArrow: false}"
+              #dp="ngx-mydatepicker"
+              (focus)="dp.toggleCalendar();$event.stopPropagation()"
+              (keyup)="onKeyUp($event, form)">
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="edit " *ngIf="payment.paid_date">
+    <div class="selectBlock">
+      <div class="dropdown-payment">
+        <app-dropdown-select formControlName="payment_method"
+                             [options]="paymentMethods">
+        </app-dropdown-select>
+      </div>
+      <div class="inputSelect">
+        <input type="text" placeholder="Transaction ID" formControlName="transaction_id">
+      </div>
+    </div>
+    <div class="inputSelect inputSelect_width">
+      <input type="text" placeholder="Description" formControlName="payment_description">
+    </div>
+  </div>
+</form>

@@ -1,0 +1,133 @@
+.btn-link_back {
+  font-size: 12px;
+  font-weight: 600;
+  color: #086aff;
+  text-transform: uppercase;
+  padding-left: 0;
+  i {
+    display: inline-block;
+    vertical-align: sub;
+    font-size: 24px;
+    margin-right: 9px;
+  }
+}
+
+.page-header {
+  padding-left: 25px !important;
+}
+
+.page-content {
+  &_padding {
+    padding: 0 15px 0 25px;
+  }
+}
+
+//info-block
+.info-block {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #086aff;
+  margin: 0 15px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: -1px;
+    font-size: 14px;
+    font-style: italic;
+    color: #fff;
+  }
+}
+
+.modal-footer_border {
+  background: #fff;
+  border-top: 1px solid #f0f2f7;
+}
+
+div.btn-group {
+  margin-top: 20px;
+  button {
+    border-right: none;
+    border-left: none;
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    color: #9b9b9b;
+    border-radius: 50px;
+    border: 1px solid #E4E4E4;
+    &:first-child:not(:last-child):not(.dropdown-toggle) {
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+    &.is-active {
+      color: #086aff;
+    }
+  }
+}
+
+// template
+.contract-template {
+  margin: 55px 0;
+  &__title {
+    font-size: 32px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    // color: rgba(#3a405b, .5);
+    color: #3a405b;
+    margin-bottom: 50px;
+    input {
+      width: 100%;
+      line-height: normal;
+      border: none;
+      outline: none;
+      color: #3a405b;
+      &::placeholder {
+        color: rgba(#3a405b, .5);
+      }
+      &:focus::-webkit-input-placeholder {
+        color: transparent
+      }
+    }
+
+  }
+  &__content {
+    font-size: 18px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    color: rgba(#3a405b, 1);
+    em {
+      color: #3a405b;
+    }
+  }
+}
+
+.page {
+  background-color: #fff !important;
+
+}
+
+.page-title {
+  font-family: 'Titillium Web';
+  font-size: 42px;
+  font-weight: 600;
+  color: #3a405b;
+}
+
+.modal-header {
+  margin: 0;
+}
+
+.modal-footer {
+  z-index: 1000;
+}
+

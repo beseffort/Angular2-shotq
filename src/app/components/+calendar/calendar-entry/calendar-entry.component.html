@@ -1,0 +1,20 @@
+<div class="calendar-component page">
+  <div class="page__header"></div>
+  <div class="page__content">
+    <calendar-header (onChangeViewButtonClicked)="updateCalendarView($event)"
+                     (onNextButtonClicked)="next()"
+                     (onPrevButtonClicked)="prev()"
+                     [title]="title"
+                     [view]="currentView"></calendar-header>
+    <div class="page__container">
+      <div class="calendar-filter">
+        <calendar-filter (onFiltersChanged)="applyFilters($event)"
+                         (onTimezoneChanged)="timezoneChanged($event)"></calendar-filter>
+      </div>
+      <div class="calendar-fullcalendar">
+        <calendar-fullcalendar (onInit)="onCalendarInit($event)"
+                               [events]="eventGroups"></calendar-fullcalendar>
+      </div>
+    </div>
+  </div>
+</div>

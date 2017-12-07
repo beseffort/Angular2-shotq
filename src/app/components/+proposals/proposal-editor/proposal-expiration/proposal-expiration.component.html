@@ -1,0 +1,36 @@
+<h2>5. When will this proposal expire?</h2>
+<form [formGroup]="expireForm" *ngIf="proposal">
+  <div class="daysBlock">
+    <div class="inputStyle">
+      <input type="number" placeholder="0" formControlName="expire_days" min="1"/>
+    </div>
+    <div class="m-b-s m-b-s_width">
+      <app-dropdown-select formControlName="expire_type"
+                           [options]="expireTypes">
+      </app-dropdown-select>
+    </div>
+    <span>From the day this proposal is sent.</span>
+  </div>
+  <div class="date">
+    <p>OR choose a specific date.</p>
+    <div class="inputBlock">
+      <div class="inputStyle">
+        <input type="text"
+            ngx-mydatepicker
+            formControlName="expire_at"
+            [options]="{dateFormat: 'dd.mm.yyyy'}"
+            #dp="ngx-mydatepicker"
+            (focus)="dp.toggleCalendar();$event.stopPropagation()">
+      </div>
+      <i class="icon-ios-calendar"></i>
+    </div>
+  </div>
+  <div class="checkBlock">
+    <div class="checkStyle">
+      <label>
+        <input type="checkbox" formControlName="never_expire"/>
+        <span>I do not want this proposal to expire.</span>
+      </label>
+    </div>
+  </div>
+</form>

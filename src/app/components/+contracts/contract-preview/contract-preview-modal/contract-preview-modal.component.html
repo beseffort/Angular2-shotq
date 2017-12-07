@@ -1,0 +1,31 @@
+<div class="loading-ripple" *ngIf="isLoading"></div>
+
+<div *ngIf="!isLoading && contract">
+    <app-contract-preview [contract]="contract"
+                          [classModifier]="true"
+                          [sign]="sign"
+                          [canSign]="context.canSign"
+                          (valid)="onValidChange($event)">
+    </app-contract-preview>
+
+  <div *ngIf="context.showFooter && false" class="">
+        <div class="row">
+          <div class="col-sm-12 padding-top-5">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button"
+                        class="btn cancel-button" (click)="cancel()">
+                  CANCEL
+                </button>
+                <button type="button"
+                        (click)="edit()"
+                        [disabled]=""
+                        class="btn submit-button margin-right-0">
+                  {{ this.context.confirmText || 'EDIT' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

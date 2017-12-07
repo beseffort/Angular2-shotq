@@ -1,0 +1,78 @@
+<div class="dashboard-schedule">
+  <div class="dashboard-schedule__header">
+    <i class="fa fa-calendar-o" aria-hidden="true"></i>
+    <h2 class="dashboard-schedule__title">Schedule</h2>
+  </div>
+  <div class="dashboard-schedule__nav">
+    <button class="dashboard-schedule__btn btn-prev-week" (click)="changeWeek(-1)">
+      <i class="md md-chevron-left"></i>
+    </button>
+    <div class="dashboard-schedule__period">{{ groupEventFilter.periodStr }}</div>
+    <button class="dashboard-schedule__btn btn-next-week" (click)="changeWeek(1)">
+      <i class="md md-chevron-right"></i>
+    </button>
+  </div>
+  <div class="rippleContainer" *ngIf="isLoading">
+    <div class="loading-ripple"></div>
+  </div>
+  <ul class="week-timeline" *ngIf="!isLoading && schedule">
+    <!-- begin day -->
+    <li class="day"
+      *ngFor="let day of schedule.days"
+      [ngClass]="{'no-events': day.events.length === 0, 'past-events': day.isPassed}">
+      <div class="day__in">
+        <div class="day__info">
+          <i class="fa fa-circle" aria-hidden="true"></i>
+          <span class="day__name">{{ day.dayTitle }}</span>
+        </div>
+        <!-- begin event group -->
+        <div class="day__events">
+          <!-- begin event -->
+          <div class="day-event bg-green" *ngFor="let scheduleEvent of day.events" [style.background-color]="scheduleEvent.event.event_type_color">
+            <div class="day-event__info" [routerLink]="['/jobs', scheduleEvent.event.job]" [queryParams]="{eventgroup: scheduleEvent.event.id}">
+              <h3 class="day-event__name">{{ scheduleEvent.event.name }}</h3>
+              <div class="day-event__time">{{ scheduleEvent.periodStr }}</div>
+            </div>
+            <div class="day-event__weather">
+              <i [ngClass]="scheduleEvent.weatherIcon"></i>
+            </div>
+            <div class="day-event__popover">
+              <div class="event-popover">
+                <div class="event-popover__header">
+                  <h4 class="event-popover__title">
+                    <i class="fa fa-circle"></i>
+                    <span>{{ scheduleEvent.event.name }}</span>
+                  </h4>
+                  <div class="event-popover__location">{{ scheduleEvent.event.location?.address1 }}</div>
+                </div>
+                <ul class="event-popover__sub-events" *ngIf="scheduleEvent.event.events.length > 0">
+                  <li class="event-popover__sub-event" *ngFor="let event of scheduleEvent.event.events">
+                    <a href="" class="event-popover__event-item">
+                      <div class="event-popover__event-name">{{ event.name }}</div>
+                      <div class="event-popover__event-time">{{ event.start | date:'shortTime' }} - {{ event.end | date:'shortTime' }}</div>
+                    </a>
+                  </li>
+                </ul>
+                <div class="event-popover__desc" *ngIf="scheduleEvent.event.description">{{ scheduleEvent.event.description }}</div>
+                <div class="event-popover__footer">
+                  <div class="event-popover__btn">
+                    <button class="sq-btn-submit" [routerLink]="['/jobs', scheduleEvent.event.job]" [queryParams]="{eventgroup: scheduleEvent.event.id}">View</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="no-events__msg" *ngIf="day.events.length === 0">No scheduled events.</div>
+          <!-- end event -->
+        </div>
+        <!-- end event group -->
+      </div>
+      <!-- begin weather icon -->
+      <!--div class="day__weather">
+        <i class="wi wi-day-cloudy"></i>
+      </div-->
+      <!-- end weather icon -->
+    </li>
+    <!-- end day -->
+  </ul>
+</div>

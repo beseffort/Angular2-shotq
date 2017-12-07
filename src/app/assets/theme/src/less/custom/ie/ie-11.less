@@ -1,0 +1,108 @@
+.page {
+  .page-content {
+    .row-panel-container {
+      .bottom-actions {
+        display: inline-block;
+        position: absolute;
+        right: 24px;
+        bottom: -7px;
+        i {
+          font-size: 18px;
+        }
+      }
+      .panel {
+        .panel-body {
+          padding-bottom: 0;
+          accordion {
+            .panel-group {
+              margin-bottom: 0;
+            }
+          }
+          .contact-list {
+            .global-actions {
+              padding-bottom: 12px;
+              padding-right: 66px;
+              font-size: 17px;
+              .action-option {
+                padding-left: 10px;
+                padding-right: 10px;
+              }
+            }
+            .table > tbody > tr > td {
+              border: none;
+            }
+          }
+          .top-actions {
+            display: block;
+            font-size: 20px;
+            z-index: 9999;
+            margin-right: 60px;
+            .input-search .form-control {
+                border-radius: 0px;
+                border: none;
+                margin-bottom: 0px !important;
+            }   
+            .form-material .floating {
+                border-radius: 0px;
+                border: none;
+                padding-top: 7px !important;
+                margin-bottom: 0px !important;
+            }
+            .form-group {
+                margin-bottom: -10px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+accordion-group {
+  .panel-default {
+    .panel-heading {
+      padding-right: 30px;
+      panel-title a {
+      font-weight: 400;
+      }
+    }
+    .panel-collapse {
+      padding-left: 13px;
+      margin-bottom: 0;
+      background-color: #ffd099;
+      .panel-body {
+        padding-left: 0;
+        padding-right: 0;
+        background-color: #fafafa;
+        cpager {
+          .row {
+            margin-left: 30px;
+            margin-right: 40px;
+          }   
+          .rows-per-page {
+            display: inline-block;
+            position: absolute;
+            right: 300px;
+            .select-title {
+              display: inline-block;
+            }
+            .select-container {
+              display: inline-block;
+            }
+            .select-container select {
+              background-color: #fafafa;  
+              border: none;
+              padding-right: 14px;
+              padding-left: 15px;
+              display: inline; /* IE-11 fix */
+            }
+          }
+        }
+      }
+    }
+  }
+}
+fab-toolbar {
+  position: relative;
+  top: -95px !important; /* IE-11 fix */
+  right: -184px;
+}

@@ -1,0 +1,12 @@
+// .page {
+// 	margin: 0!important;
+// 	padding: 0!important;
+// }
+
+.sq-page {
+	max-width: percentage(1180/1440);
+	margin: 0 auto;
+	&__content {
+		padding: 40px 0;
+	}
+}

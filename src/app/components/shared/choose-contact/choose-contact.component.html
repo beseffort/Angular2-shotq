@@ -1,0 +1,144 @@
+<div class="contacts-modal">
+<div class="modal-header">
+    <div class="modal-header-in">
+        <div class="h3">Contacts</div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <ul class="filter-list">
+            <li class="filter-list__item" [class.current]="currentFilter === 'all'"
+                (click)="setFilter('all')">
+                ALL
+            </li>
+            <li class="filter-list__item" [class.current]="currentFilter === 'selected'"
+                (click)="setFilter('selected')">
+                SELECTED ({{ selectedContacts.length }})
+            </li>
+            <li class="filter-list__item filter-list__item_right" [class.current]="currentFilter === 'new'"
+                (click)="this.addNewContactRow();">
+                + NEW CONTACT
+            </li>
+        </ul>
+        <!-- <hr class="footer-line"> -->
+        <div class="choose-list" *ngIf="currentFilter !== 'new'">
+            <div class="input-search">
+                <i class="input-search-icon md-search"></i>
+                <input [ngModel]="search_box" (ngModelChange)="changed($event)" type="text"
+                       class="form-control search-box"
+                       name="search_box" placeholder="Search">
+            </div>
+            <!-- <hr class="footer-line"> -->
+            <div class="list-group list-group-full"
+                 infinite-scroll
+                 [infiniteScrollDistance]="2"
+                 (scrolled)="onScroll()"
+                 [scrollWindow]="false">
+                <div class="loading-ripple" *ngIf="isLoading"></div>
+                <div class="text-center padding-top-20" *ngIf="!isLoading && totalItems.length === 0">
+                    There are no items to display.
+                </div>
+                <div *ngIf="totalItems > 0" class="row position-relative">
+                    <div class="col-md-12 contact-list pl-0 pr-0">
+                        <div id="table-container">
+                            <table class="table table-hover" *ngIf="showNewContactRow && !isLoading">
+                                <tbody>
+                                <tr class="new-contact-data">
+                                    <td class="font-weight-600 new-conctact-name">
+                                        <input type="text" name="contact-name"
+                                            placeholder="First Name"
+                                            [(ngModel)]="newName"
+                                            required/>
+                                    </td>
+                                    <td class="font-weight-600 new-conctact-last-name">
+                                        <input type="text"
+                                            name="contact-name"
+                                            placeholder="Last Name"
+                                            [(ngModel)]="newLastName"
+                                            required/>
+                                    </td>
+                                    <td class="font-weight-600 new-contact-email">
+                                        <input type="email"
+                                            name="contact-email"
+                                            placeholder="Email"
+                                            [(ngModel)]="newEmail"
+                                            required/>
+                                    </td>
+                                    <td class="default-dropdown contacts-modal__dropdown">
+                                        <form-field [onlySelect]="true" (ngSelectValueChange)="newRoleChange($event)"
+                                                    [ngSelectValue]="newRole" [options]="jobRoles"></form-field>
+                                    </td>
+                                    <td class="actions">
+                                        <i class="icon-confirm" (click)="addNewContact()"></i>
+                                        <i class="icon-cancel" (click)="cancelAddNew()"></i>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr *ngFor="let contact of contacts">
+                                    <td>
+                                        <div class="checkbox-custom checkbox-default">
+                                            <input type="checkbox"
+                                                   [disabled]="jobData.isPrimaryContactId(contact.id)"
+                                                   [(ngModel)]="contact.selected"
+                                                   (ngModelChange)="setSelected(contact)"/>
+                                            <label></label>
+                                        </div>
+                                    </td>
+                                    <td *ngIf="contact.full_name.length < 20"
+                                        class="font-weight-600">
+                                        {{ contact.full_name }}
+                                        <span *ngIf="jobData.isPrimaryContactId(contact.id)">(PRIMARY)</span>
+                                    </td>
+                                    <td *ngIf="contact.full_name.length >= 20" class="font-weight-600">
+                                        <span tooltip="{{ gcontact.full_name }}"
+                                              placement="bottom">{{ checkLength(contact.full_name) }}</span>
+                                    </td>
+                                    <td *ngIf="getEmail(contact).length < 17">
+                                        {{ getEmail(contact) }}
+                                    </td>
+                                    <td *ngIf="getEmail(contact).length >= 17">
+                                    <span tooltip="{{ getEmail(contact)}}"
+                                          placement="bottom">{{ checkLength(getEmail(contact)) }}</span>
+                                    </td>
+                                    <td class="default-dropdown contacts-modal__dropdown">
+                                        <form-field [onlySelect]="true" [ngSelectValue]="contact.role"
+                                                    (ngSelectValueChange)="roleChange(contact, $event)"
+                                                    [options]="jobRoles"
+                                                    [disabled]="contact.isJobContact"></form-field>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="footer-line">
+            <div class="padding-left-25 footer-buttons">
+                <button id="cancelButton" class="btn cancel-button" (click)="modalClose()">CANCEL</button>
+                <button [disabled]="submitDisabled" class="btn save-button"
+                        (click)="save()">ADD</button>
+            </div>
+        </div>
+        <div *ngIf="currentFilter === 'new'" class="newContact">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+            <form (ngSubmit)="addNewContact()">
+                <hr class="footer-line">
+                <div class="checkbox-custom checkbox-default custom-pos">
+                    <input type="checkbox" (click)="setNewSelected()" [checked]="newChecked"/><label></label>
+                    <input type="text" name="contact-name" placeholder="Name" [(ngModel)]="newName" required/>
+                    <input type="email" name="contact-email" placeholder="Email" [(ngModel)]="newEmail" required/>
+                </div>
+                <hr class="footer-line">
+                <div class="padding-left-25 padding-top-20">
+                    <button class="btn save-button" type="submit">ADD</button>
+                    <button id="cancelButton" class="btn cancel-button" (click)="modalClose()">CANCEL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

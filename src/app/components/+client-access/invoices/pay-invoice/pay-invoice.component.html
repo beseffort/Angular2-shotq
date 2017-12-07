@@ -1,0 +1,39 @@
+<div class="client-access-modal-container">
+  <p>Enter your payment information.</p>
+  <form #modalForm="ngForm" (ngSubmit)="setInvoiceInfo()" (keydown)="checkForEnter($event)" novalidate>
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+    <div class="row">
+      <div class="form-group">
+        <form-field [(ngValue)]="model.first_name" [hideIcon]="true" label="First Name" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.last_name" [hideIcon]="true" label="Last Name" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.card_number" [hideIcon]="true" label="Card Number" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.cvv" [hideIcon]="true" label="CVV" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.card_expiration_date" [hideIcon]="true" label="Expiration" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+          <form-field [(ngValue)]="model.billing_address" [hideIcon]="true" label="Billing Address" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.city" [hideIcon]="true" label="City" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.state" [hideIcon]="true" label="State" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+      <div class="form-group">
+        <form-field [(ngValue)]="model.zip_code" [hideIcon]="true" label="Zip Code" [nameField]="true" type="text" required="true"></form-field>
+      </div>
+    </div>
+    <div class="bottom-actions">
+      <button class="btn cancel" (click)="close($event)">Cancel</button>
+      <button class="btn save" type="submit">Pay Now</button>
+    </div>
+  </form>
+</div>

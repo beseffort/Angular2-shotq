@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <div class="modal-header-in">
+        <div class="h3">Personnel</div>
+    </div>
+</div>
+<div class="modal-body">
+    <ul class="filter-list">
+        <li [class.current]="currentFilter === 'all'"
+            (click)="setFilter('all')">
+            ALL
+        </li>
+        <li [class.current]="currentFilter === 'selected'"
+            (click)="setFilter('selected')">
+            SELECTED ({{ selectedItemsCount }})
+        </li>
+    </ul>
+    <div class="choose-list">
+        <div class="input-search">
+            <i class="input-search-icon md-search"></i>
+            <input [ngModel]="search_box" (ngModelChange)="changed($event)" type="text"
+                   class="form-control search-box"
+                   name="search_box" placeholder="Search">
+        </div>
+        <!-- <hr class="footer-line"> -->
+        <div class="list-group list-group-full"
+             infinite-scroll
+             [infiniteScrollDistance]="2"
+             (scrolled)="onScroll()"
+             [scrollWindow]="false">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+            <div class="text-center padding-top-20"
+                 *ngIf="!isLoading && totalItems === 0">
+                There are no items to display
+            </div>
+            <div *ngIf="totalItems > 0" class="row position-relative">
+                <div class="col-md-12 contact-list pl-0 pr-0">
+                    <div id="table-container">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr *ngFor="let worker of workers" [ngClass]="{'td-line-through': !worker.active}">
+                                <td>
+                                    <div class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" (click)="toggleSelected(worker)"
+                                               [checked]="worker.selected"/><label></label>
+                                    </div>
+                                </td>
+                                <td class="font-weight-600 truncate">{{ getFullName(worker) }}</td>
+                                <td class="truncate">{{ worker.email }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer bg">
+    <button class="btn btn_sm btn_transparent"
+            (click)="close()">CANCEL
+    </button>
+    <button [disabled]="!workersToSave.length"
+            class="btn btn_sm btn_blue"
+            (click)="saveJobWorkers($event)">
+        SAVE
+    </button>
+</div>

@@ -1,0 +1,27 @@
+sidebar {
+  position: absolute;
+  top: 66px;
+  height: calc(100% - 66px);
+  background-color: #fafbfb;
+  &:after {
+    content: '';
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    width: 100px;
+    height: 100%;
+    background: #fafbfb;
+  }
+}
+
+top-navbar {
+  z-index: 1500;
+  position: absolute;
+  z-index: 1600;
+  width: 100%;
+  top: 0;
+
+  .site-navbar {
+    position: initial;
+  }
+}

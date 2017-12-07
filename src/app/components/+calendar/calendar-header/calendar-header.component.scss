@@ -1,0 +1,93 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.custom-fc-topbar {
+	height: 79px;
+	position: relative;
+	//@include box-shadow(inset 1px 0 0 0 $gray-lighter, inset 0 -1px 0 0 $gray-lighter);
+	&__tabs, &__switcher, &__btn {
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+	&__tabs, &__btn {
+		width: 25%;
+	}
+	&__switcher {
+		width: 50%;
+		text-align: center;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	&__tabs {
+		height: 100%;
+		list-style: none;
+		margin: 0;
+		left: 0
+	}
+	&__btn {
+		text-align: right;
+		padding-right: 20px;
+		right: 0;
+	}
+}
+
+.custom-fc-tab {
+	position: relative;
+	display: inline-block;
+	font-size: 14px;
+	height: 100%;
+	&:after {
+		content: '';
+		display: none;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 2px;
+		background-color: $gray-dark;
+	}
+	&:hover, &.is-active {
+		&:after {
+			display: block;
+		}
+		a {
+			font-weight: bold;
+		}
+	}
+	a {
+		display: block;
+		padding: 29px 17px;
+		text-decoration: none;
+		color: $gray-dark;
+	}
+}
+
+.custom-fc-period {
+	display: inline-block;
+	min-width: 190px;
+	font-size: 18px;
+	margin: 0 20px;
+}
+
+.custom-fc-btn {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dadfea;
+	border-radius: 50%;
+	background-color: #fff;
+	display: inline-block;
+	.md {
+		font-size: 22px;
+		color: $bright-blue;
+		line-height: 1.4;
+	}
+	.md-chevron-right {
+		margin-left: 2px;
+	}
+}
+
+.sq-btn-secondary {
+	font-size: 16px;
+	padding: 12px 36px;
+}

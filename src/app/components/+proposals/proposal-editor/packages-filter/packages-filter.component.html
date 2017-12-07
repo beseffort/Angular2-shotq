@@ -1,0 +1,30 @@
+<div class="packages-filter-block border">
+  <div class="row">
+    <div class="col-lg-8 col-md-7 col-sm-6">
+      <div class="categories-container">
+        <ul class="categories-list">
+          <li class="category" [ngClass]="{'is-active': !filterParams.category}">
+            <button type="button" (click)="setCategory(null)">All</button>
+          </li>
+          <li class="category"
+            *ngFor="let category of categories"
+            [ngClass]="{'is-active': category.id === filterParams.category}">
+            <button type="button" (click)="setCategory(category.id)">{{ category.name }}</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-5 col-sm-6">
+      <div class="text-right">
+        <div class="search-packages-form-container">
+          <form class="search-packages-form" [formGroup]="form">
+            <div class="input">
+              <i class="input-search-icon icon-search input__icon"></i>
+              <input type="text" class="" placeholder="Search Packages" formControlName="searchQuery">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

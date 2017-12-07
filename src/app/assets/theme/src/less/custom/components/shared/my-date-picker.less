@@ -1,0 +1,275 @@
+.material-datepicker {
+    my-date-picker {
+        position: absolute;
+        .mydp {
+            border:none;
+            .selector {
+                left: -163px;
+                background-color: #ffffff;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                border-radius:0px;
+                table {
+                    background-color: #ffffff;
+                    font-family: 'Titillium Web',sans-serif;
+                    font-size: 14px;
+                    color:#2b2b2b;
+                    &.header {
+                        border-bottom: 1px solid #e8e8e8;
+                        tbody {
+                            tr {
+                                td {
+                                    width:50%;
+                                    box-sizing: border-box;
+                                    padding-top:5px;
+                                    padding-bottom:5px;
+                                    > div {
+                                        float:none !important;
+                                        display: table;
+                                        width: 100%;
+                                        .headerbtncell {
+                                            text-align: center;
+                                            background: none !important;
+                                            button {
+                                                font-family: 'FontAwesome' !important;
+                                                color:#bbbbbb;
+                                                &.icon-left {
+                                                    &:before {
+                                                        content:"\f053";
+                                                    }
+                                                }
+                                                &.icon-right {
+                                                    &:before {
+                                                        content:"\f054";
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .headermonthtxt {
+                                            font-family: 'Titillium Web',sans-serif;
+                                            font-size: 14px;
+                                            color:#2b2b2b;
+                                        }
+                                        > div {
+                                            button {
+                                                background:none !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &.caltable {
+                        thead {
+                            tr {
+                                th {
+                                    text-align: center;
+                                    color: #d8d8d8;
+                                    font-size: 14px;
+                                    font-family: 'Titillium Web',sans-serif;
+                                    background:none;
+                                    font-weight:normal;
+                                }
+                            }
+                        }
+                        tbody {
+                            tr {
+                                td {
+                                    cursor: pointer;
+                                    background-color: rgb(255, 255, 255);
+                                    > div {
+                                        border-radius:20px;
+                                        width:26px;
+                                        height:26px;
+                                        line-height:26px;
+                                        background:none;
+                                        border:none;
+                                        font-weight: normal;
+                                    }
+                                    span {
+                                        font-size: 14px;
+                                        font-family: 'Titillium Web',sans-serif;
+                                        display: inline-block;
+                                        line-height: 26px;
+                                        vertical-align: top;
+                                    }
+                                    &.selectedday {
+                                        > div {
+                                            background-color:orange !important;
+                                            color:#fff;
+                                            border:none;
+                                            span {
+                                                color:#fff;
+                                            }
+                                        }
+                                    }
+                                    &.currmonth {
+                                        span {
+                                            color: rgb(51, 51, 51);
+                                        }
+                                    }
+                                    &:hover {
+                                        span {
+                                            color:orange;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .selectiongroup {
+                background: none;
+                border: none;
+                height: auto;
+                display: block;
+                input {
+                    &.selection {
+                        height: 50px !important;
+                        padding-left: 0;
+                        font-family: 'Titillium Web',sans-serif;
+                        font-size: 14px !important;
+                        font-weight: 400;
+                        color: #fff !important;
+                        background-color: rgba(255,255,255,.2)!important;
+                        border: 1px solid transparent!important;
+                        border-radius: 0 2px 2px 0!important;
+                        display: table-cell;
+                        position: inherit;
+                        text-align: left;
+                    }
+                }
+                .selbtngroup {
+                    position: absolute;
+                    right: 0px;
+                    width: auto;
+                    top: 0;
+                    height: 50px !important;
+                }
+            }
+            
+            .btnclearenabled {
+                background: none;
+                border: none;
+                &:hover {
+                    background:transparent;
+                }
+                > span {
+                    height: 50px;
+                    line-height: 50px !important;
+                }
+                .icon-cross {
+                    font-family: 'icomoon' !important;
+                    color:#fff;
+                    font-weight: bold;
+                    &:before {
+                        content: "\e916";
+                    }
+                }
+            }
+            .btnpickerenabled {
+                opacity: 0;
+                width:34px;
+            }
+        }
+    }
+    .datepicker-open {
+        my-date-picker {
+            .mydp {
+                .selectiongroup {
+                    input {
+                        &.selection {
+                            color: #3a405b!important;
+                        }
+                    }
+                }
+                .btnclearenabled {
+                    .icon-cross {
+                        color: #3a405b!important;
+                    }
+                }
+            }
+        }
+        .inputContainer {
+            input {
+                &:focus {
+                    outline: 0;
+                }
+                &.selection {
+                    color: #3a405b!important;
+                }
+            }
+            button {
+                &.focus {
+                    outline: 0;
+                }
+            }
+            .btnclearenabled {
+                .icon-cross {
+                    color: #3a405b!important;
+                }
+            }
+
+        }
+    }
+    .inputContainer {
+        position: relative;
+        input {
+            &:focus {
+                outline: 0;
+            }
+            &.selection {
+                width: 100%;
+                height: 50px !important;
+                padding-left: 0;
+                font-family: 'Titillium Web',sans-serif;
+                font-size: 14px !important;
+                font-weight: 400;
+                color: #fff !important;
+                background-color: rgba(255,255,255,.2)!important;
+                border: 1px solid transparent;
+                border-radius: 0 2px 2px 0!important;
+                display: table-cell;
+                position: inherit;
+                text-align: left;
+            }
+        }
+        .btnContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            button {
+                width: 30px;
+                padding: 0;
+                &.btnclearenabled {
+                    background: none;
+                    border: none;
+                    &:hover {
+                        background:transparent;
+                    }
+                    > span {
+                        height: 50px;
+                        line-height: 50px !important;
+                    }
+                    .icon-cross {
+                        font-family: 'icomoon' !important;
+                        font-size: 16px;
+                        color:#fff;
+                        font-weight: bold;
+                        &:before {
+                            content: "\e916";
+                        }
+                    }
+                }
+                &:focus {
+                    outline: 0;
+                }
+                &.btnpickerenabled {
+                    opacity: 0;
+                    width:34px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,91 @@
+<div [ngClass]="{'wrap-template': inlineMode, 'slider': inlineMode}"
+     id="{{ sliderContainerId }}">
+    <div class="page">
+        <div class="page-header page-header_border">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="h2">
+                        <span *ngIf="isArchived">Archived </span>
+                        {{ modelName }} Templates
+                    </h2>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn_sm btn_grey"
+                                (click)="filterTemplates();">
+                        <span *ngIf="!isArchived">
+                          Archived {{ modelName }} Templates
+                        </span>
+                            <span *ngIf="isArchived">
+                          Back to {{ modelName }} Templates
+                        </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content position-relative ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="loading-ripple" *ngIf="isLoading || isSliderReinitializing"></div>
+                    <div class="template-wrap position-relative"
+                         [ngClass]="{'is-archived': isArchived, 'opacity-0': isSliderReinitializing}">
+                        <div class="ttemplate-item ttemplate-item_add"
+                             [ngClass]="{'pull-left': inlineMode}"
+                             *ngIf="!isArchived && prependAddButton">
+                            <button type="button" class="ttemplate-item__btn ttemplate-item_center"
+                                    (click)="addTemplateClick()">
+                                <i class="icon-add"></i>
+                            </button>
+                        </div>
+                        <div class="ttemplate-item ttemplate-slide"
+                             [ngClass]="template.id | templateColorPipe"
+                             *ngFor="let template of templates">
+                            <div class="ttemplate-item__top">
+                                <!--<div class="ttemplate-item__about">-->
+                                <!--Default: <span>2</span>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="ttemplate-item__name pointer"
+                                 (click)="openTemplate(template)">
+                                {{ template.name || template.title }}
+                            </div>
+                            <div class="ttemplate-item__about" *ngIf="template.job_count">
+                                Active in <span>{{ template.job_count }}</span> Jobs
+                            </div>
+                            <div class="ttemplate-item__footer">
+                                <div class="ttemplate-item__btn-justify">
+                                    <ng-container *ngFor="let action of actions">
+                                        <button *ngIf="action.active(template)"
+                                                [title]="action.title" type="button"
+                                                class="ttemplate-item__btn "
+                                                (click)="singleTemplateAction(action, template)">
+                                            <i class="" [ngClass]="action.icon"></i>
+                                        </button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ttemplate-item ttemplate-item_add" *ngIf="!isArchived && !prependAddButton">
+                            <button type="button" class="ttemplate-item__btn ttemplate-item_center"
+                                    (click)="addTemplateClick()">
+                                <i class="icon-add"></i>
+                            </button>
+                        </div>
+                        <p *ngIf="isArchived && !templates.length">No archived templates.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<app-email-template-add *ngIf="modelName=='Email'"
+                        #modifyEmailTemplate></app-email-template-add>
+<app-discount-template-add *ngIf="modelName=='Discount'"
+                           #modifyDiscountTemplate></app-discount-template-add>
+<app-taxes-template-add *ngIf="modelName=='Taxes'"
+                        #modifyTaxesTemplate></app-taxes-template-add>
+<app-schedule-template-add *ngIf="modelName=='Schedule'"
+                        #modifyScheduleTemplate></app-schedule-template-add>

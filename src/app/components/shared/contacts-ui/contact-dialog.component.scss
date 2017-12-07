@@ -1,0 +1,180 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+/deep/ .modal-dialog--contact {
+  @include sq-modal-dialog(md);
+
+  .btn {
+    border: 1px solid transparent;
+    padding: 0 30px;
+    height: 34px;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  .btn-primary {
+    border-radius: 4px;
+    background-color: #086aff;
+  }
+
+  .btn-link {
+    color: rgba(55, 57, 76, 0.5);
+  }
+
+  legend {
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 12px 0 !important;
+  }
+
+  form, fieldset {
+    .row {
+      & > div:first-child {
+        padding-left: 0;
+      }
+      & > div:last-child {
+        padding-right: 0;
+      }
+      @media (max-width: breakpoint-max(md)) {
+        & > div:first-child {
+          padding-right: 0;
+        }
+        & > div:last-child {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  fieldset {
+    margin: 0;
+    padding: 24px 40px 12px 40px;
+  }
+
+  fieldset:nth-child(odd) {
+    background-color: #fafbfb;
+  }
+
+  fieldset:nth-child(even) {
+    background-color: #fff;
+  }
+
+  .field {
+    position: relative;
+    margin-bottom: 10px;
+
+    label {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      z-index: 2;
+      color: #9da0ad;
+      transform: translate3d(0, 0, 0);
+      transition: all 0.2s ease-in-out;
+      user-select: none;
+      pointer-events: none;
+      &.is-selected {
+        color: #898c9d;
+        font-size: 10px;
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    input {
+      width: 100%;
+      height: 44px;
+      border-radius: 2px;
+      background-color: #fff;
+      border: solid 1px #e4e8f0;
+      padding: 15px 15px 0 20px;
+      font-size: 14px;
+      color: #3a405b;
+      outline: none !important;
+
+      &:-webkit-autofill {
+        border-color: #b6c1cf;
+        -webkit-box-shadow: 0 0 0px 1000px white inset;
+        color: #3a405b;
+      }
+      &:focus, &:active {
+        border-color: #b6c1cf;
+      }
+      &[data-empty="false"] + label,
+      &[data-empty="false"] + /deep/ngx-my-date-picker + label,
+      &:focus + label {
+        color: #898c9d;
+        font-size: 10px;
+        transform: translate3d(0, -10px, 0);
+      }
+
+    }
+
+    .dropdown-datepicker_wrap {
+      height: 44px;
+      border-radius: 2px;
+      background-color: #fff;
+      border: solid 1px #e4e8f0;
+    }
+
+  }
+  .field.has-error {
+    input + label,
+    input + /deep/ngx-my-date-picker + label {
+      color: #898c9d;
+      font-size: 10px;
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+}
+
+.important-dates {
+  /deep/ngx-my-date-picker {
+    background-color: #000;
+    /deep/.ngxmdp {
+      bottom: 290px;
+      left: 210px;
+    }
+    /deep/.ngxmdp .monthinput,
+    /deep/.ngxmdp .yearinput {
+      width: 40px;
+      height: 22px;
+      padding: 0;
+    }
+    /deep/ table.header .headerbtncell {
+      padding: 0 12px;
+    }
+
+  }
+  .field.input-group + div {
+    position: relative;
+    top: -8px;
+  }
+
+  .form-control {
+    border-right: 0;
+    position: static;
+    &:focus + label + .input-group-btn > .btn-calendar {
+      border: 1px solid #b6c1cf;
+      border-left: 0;
+    }
+
+  }
+
+}
+.btn-calendar {
+  transition: all 0.2s ease-in-out;
+  height: 44px;
+  width: 44px;
+  border: 1px solid #e4e8f0;
+  border-left: none;
+  background-color: transparent;
+  @include appearance(none);
+  outline: none;
+}
+.icon-ios-calendar {
+  font-size: 16px;
+}
+
+.modal-title {
+  padding: 15px 35px;
+}

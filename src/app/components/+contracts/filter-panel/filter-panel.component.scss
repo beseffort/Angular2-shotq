@@ -1,0 +1,57 @@
+// vars
+$image_dir: '/assets/img/';
+$text_color: #3a405b;
+$hover: #fafbfb;
+
+.filter-contracts {
+	padding: 5px 15px 20px 15px;
+	background: $hover;
+	margin-left: 21px;
+	width: 310px;
+	float: right;
+	.filter-contracts__caption {
+		font-size: 12px;
+		font-weight: bold;
+		letter-spacing: 0.8px;
+		color: $text_color;
+		margin-bottom: 10px;
+	}
+	.filter-contracts__row {
+		padding: 5px 16px 20px 16px;
+		background: #FFF;
+		margin-bottom: 20px;
+	}
+	.filter-contracts__row:last-child {
+		margin-bottom: 0;
+	}
+	.filter-contracts__title {
+		font-size: 14px;
+		font-weight: 600;
+		color: $text_color;
+		opacity: 0.5;
+	}
+	.filter-contracts__group {
+		font-size: 0;
+		margin: 0 -7px;
+	}
+	.filter-contracts__group button {
+		display: inline-block;
+		vertical-align: top;
+		width: 75px;
+		height: 30px;
+		border-radius: 2px;
+		text-align: center;
+		font-size: 12px;
+		margin: 10px 6px 0 6px;
+		color: $text_color;
+		background-color: $hover;
+		border: solid 1px #f0f2f7;
+	    white-space: nowrap;
+	}
+	.filter-contracts__group button.is-active {
+		background-color: #086aff;
+		border-color: #086aff;
+		color: #fff;
+	}
+
+}

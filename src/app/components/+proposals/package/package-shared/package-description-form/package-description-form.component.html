@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+  <div class="categoryBlock categoryBlock_mod border">
+    <span class="categoryBlock__title">Category</span>
+    <div class="dropdown-category dropdown-category_mod">
+      <ss-multiselect-dropdown [options]="packageCategories"
+        [settings]="categoriesControlSettings"
+        [texts]="categoriesControlTexts"
+        formControlName="categories"></ss-multiselect-dropdown>
+    </div>
+  </div>
+  <div class="title inputStyle margin-bottom-10">
+    <input type="text" placeholder="Name" formControlName="name" required/>
+  </div>
+  <div class="description margin-bottom-5">
+    <div class="inputStyle">
+      <textarea placeholder="Description" formControlName="description"></textarea>
+    </div>
+  </div>
+</form>

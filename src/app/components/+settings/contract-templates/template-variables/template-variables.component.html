@@ -1,0 +1,69 @@
+<div appClickOutside (clickOutside)="seartTerm = '';">
+  <!--*ngIf="errors.length == 0"-->
+  <div class="right-sidebar ">
+    <div class="right-sidebar__title" *ngIf="errors?.length == 0">
+      Insert Variables
+    </div>
+    <div class="right-sidebar__in" >
+      <div *ngIf="errors?.length == 0">
+        <div class="right-sidebar__input">
+          <input type="text" [(ngModel)]="seartTerm" placeholder="Search Variables">
+          <i *ngIf="showCloseIcon" class="icon icon-close" (click)="onCloseClick()"></i>
+        </div>
+        <div class="right-sidebar__row" *ngFor="let group of _.keys(variableGroups);">
+          <div class="right-sidebar__second-title">{{ group }}</div>
+          <div class="right-sidebar__content">
+            <div class="variables-item">
+              <div *ngFor="let item of variableGroups[group] | arrayFilter: {value: seartTerm}">
+                <span class="c-tooltip variables-item__tag"
+                      [attr.data-tooltip]="item.value"
+                      [makeDraggable]="item"
+                      (dblclick)="onDblClickVar(item)">
+                    {{ item.value }}
+                    <br>
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-errors" *ngIf="errors?.length > 0 && !hideErrors">
+        <div class="sidebar-errors__num"><span>{{ errors.length }}</span> Errors</div>
+        <div class="sidebar-errors__content">
+          <div class="sidebar-errors__head cleacfix">
+            <div class="sidebar-errors__left">
+              <button class="sidebar-errors__btn left"
+                      [disabled]="currentError?.index == 0"
+                      (click)="step(-1)">
+                <i class="fa fa-angle-left"></i>
+              </button>
+              <span>{{ currentError?.index + 1 }}</span> of <span>{{ errors.length }}</span>
+              <button class="sidebar-errors__btn right"
+                      [disabled]="currentError?.index == errors.length - 1"
+                      (click)="step(1)">
+                <i class="fa fa-angle-right"></i>
+              </button>
+            </div>
+            <div class="sidebar-errors__right">
+              <a class="sidebar-errors__link pointer" (click)="dismissVariable()">dismiss</a>
+            </div>
+          </div>
+          <div class="sidebar-errors__text">
+            “{{ currentError.name }}” could not be found in the database. If you would like to replace the text, you may do so in the
+            field
+            below. It will not be stored in the database.
+          </div>
+        </div>
+
+        <div class="right-sidebar__caption">LABEL</div>
+        <div class="right-sidebar__input" *ngIf="currentError">
+          <input type="text" [(ngModel)]="currentError.value" (keyup.enter)="replaceVar()" placeholder="Enter {{ currentError.name }}">
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.sq-multiselect {
+  width: 100%;
+  .dropdown-toggle {
+    display: inline-block;
+    width: 100%;
+    padding: 4.5px 15px;
+    padding-right: 23px;
+    text-align: left;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: normal;
+    color: #3a405b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:focus,&:hover {
+      background-color: #fff;
+    }
+    .caret {
+      position: absolute;
+      right: 13px;
+      top: 13px;
+      width: 8px;
+      height: 10px;
+      border: none;
+      font-family: 'icomoon';
+      font-size: 6px;
+      &:before {
+        content: "\e912";
+      }
+    }
+  }
+  .dropdown-menu {
+    width: 100%;
+    border-radius: 0;
+    .dropdown-item > a {
+      color: #3a405b;
+      font-size: 14px;
+      &:focus {
+        background-color: #fff;
+      }
+      &:hover {
+        background-color: #f0f2f7;
+      }
+    }
+  }
+}

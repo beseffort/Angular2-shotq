@@ -1,0 +1,178 @@
+<form (ngSubmit)="save()" class="hidden">
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+    <div class="padding-left-45 padding-right-45">
+        <p>To get started, use one of the following options to calculate your new prices automatically. Need to change the selected category of the displayed items? Click 'Cancel' below.</p>
+
+        <md-radio-group [(ngModel)]="selectedOption" name="selected_option">
+        	<div class="row">
+                <div class="col-xs-12">
+            		<md-radio-button value="percent" (click)="resetAdjustValues()">Adjust prices by percentage</md-radio-button>
+                </div>
+        	</div>
+            <div class="row">
+                <div class="col-xs-3 form-material" *ngIf="selectedOption === 'percent'">
+                    <input name="percentage-value" type="number" class="form-control margin-bottom-10" placeholder="Enter Percentage" [(ngModel)]="value" (ngModelChange)="adjustPrices()"/>
+                </div>
+            </div>
+        	<div class="row">
+                <div class="col-xs-12">
+              		<md-radio-button value="fixed" (click)="resetAdjustValues()">Adjust prices by amount</md-radio-button>
+                </div>
+          	</div>
+            <div class="row">
+                <div class="col-xs-3 form-material" *ngIf="selectedOption === 'fixed'">
+                    <input name="amount-value" type="number" class="form-control margin-bottom-10" placeholder="Enter Amount" [(ngModel)]="value" (ngModelChange)="adjustPrices()"/>
+                </div>
+            </div>
+        </md-radio-group>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="checkbox-custom checkbox-default">
+                  <input [(ngModel)]="maintainProfit" name="maintain-profit" type="checkbox" checked="">
+                  <label>When changing an item's <b>Cost of Goods Sold</b> value, adjust my package prices to maintain their profit margins.</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-left bold padding-left-45">Item Name</th>
+                <th class="text-center bold">Price</th>
+                <th class="text-center bold">New Price</th>
+                <th class="text-center bold">Cost of Goods Sold</th>
+                <th class="text-center bold padding-right-45">Shipping</th>
+            </tr>
+        </thead>
+        <tbody>
+        	<tr *ngFor="let item of data; let i = index">
+        		<td class="text-left bold padding-left-45">{{item.name}}</td>
+                <td class="text-center bold">{{originalPrices[i] | currency:'USD':true:'1.2-2'}}</td>
+        		<td class="text-center lighter form-material" (click)="editCell(i, 0, 'price')">
+                    <span *ngIf="!editableRow0[i]">{{item.price | currency:'USD':true:'1.2-2'}}</span> 
+                    <input *ngIf="editableRow0[i]" class="form-control" [(ngModel)]="item.price" type="number" step="0.01" id="item-price-{{i}}" name="item-price-{{i}}" (blur)="endEditing(i,0)" (keypress)="onKeyPress($event,i,0)">
+                </td> 
+        		<td class="text-center lighter form-material" (click)="editCell(i, 1, 'goods')">
+                    <span *ngIf="!editableRow1[i]">{{item.cost_of_goods_sold | currency:'USD':true:'1.2-2'}}</span>
+                    <input *ngIf="editableRow1[i]" class="form-control" [(ngModel)]="item.cost_of_goods_sold" type="number" step="0.01" id="item-goods-{{i}}" name="item-goods-{{i}}" (blur)="endEditing(i,1)" (keypress)="onKeyPress($event,i,1)">
+                </td>
+        		<td class="text-center lighter form-material padding-right-45" (click)="editCell(i, 2, 'shipping')">
+                    <span *ngIf="!editableRow2[i]">{{item.shipping_cost | currency:'USD':true:'1.2-2'}}</span>
+                    <input *ngIf="editableRow2[i]" class="form-control" [(ngModel)]="item.shipping_cost" type="number" step="0.01" id="item-shipping-{{i}}" name="item-shipping-{{i}}" (blur)="endEditing(i,2)" (keypress)="onKeyPress($event,i,2)">
+                </td>
+        	</tr>
+        </tbody>
+    </table>
+
+    <div class="align-right">
+        <button type="button" class="btn cancel-button" (click)="cancel()">CANCEL</button>
+        <button type="submit" class="btn save-button">SAVE</button>
+    </div>
+</form>
+<div class="jobInfo">
+  <div class="selectStyle">
+    <select name="selectJob">
+      <option value=""></option>
+      <option value="Wedding">Wedding Template 3</option>
+    </select>
+  </div>
+  <div class="accordionTitle">
+    <h3>
+      Pre-Ceremony
+      <span>Dec 10, 2016 6:00 AM - 10:00 AM</span>
+      <i class="icon-trash"></i>
+    </h3>
+  </div>
+
+  <div class="tab">
+    <div class="content">
+
+      <div class="field">
+        <label>Appointment name</label>
+        <input src="" type="text" value="Ceremony" name="appointmentName" />
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="field">
+            <label>Start date</label>
+            <input src="" type="text" value="Ceremony" name="startdate[]" />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="field">
+            <label>End date</label>
+            <input src="" type="text" value="Ceremony" name="endttime" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="field">
+            <label>Start time</label>
+            <input src="" type="text" value="Ceremony" name="starttime" />
+          </div>
+          <div class="checkboxBlock">
+            <label>
+              <input value="" type="checkbox" /> <span>All day</span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="field">
+            <label>End date</label>
+            <input type="text" value="Ceremony" name="endttime" />
+          </div>
+          <div class="checkboxBlock">
+            <label>
+              <input value="" type="checkbox" /> <span>Confirmed</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Church Address</label>
+        <input type="text" value="" name="churchAddress" />
+      </div>
+      <div class="hr"></div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label>Additional Event Info</label>
+          <div class="listInputs">
+            <div class="inputBlock">
+              <span>Total Bridesmaids</span>
+              <input value="" type="text" />
+            </div>
+            <div class="inputBlock">
+              <span>Total Groomsmen</span>
+              <input value="" type="text" />
+            </div>
+            <div class="inputBlock">
+              <span>Titak Guests</span>
+              <input value="" type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label>Personnel</label>
+          <ul class="personnelList">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <div class="checkboxBlock">
+            <label>
+              <input value="" type="checkbox" /> <span>Notify of changes</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="buttonsButtom">
+    <button type="button" class="btn cancel-button" (click)="cancel()">CANCEL</button>
+    <button type="submit" class="btn save-button">SAVE</button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="position-relative" (click)="openCalendar($event)">
+  <div class="datepicker-wrap" >
+    <form-field-wrap [label]="label" [floating]="floating" [inputId]="inputId" [errors]="getErrors(inputRef)">
+      <input type="text" [id]="inputId" class="form-control {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required"
+        [class.focus]="isOpened" tabindex="-1"
+        [ngModel]="value | date: 'fullDate'" [name]="inputId" #inputRef="ngModel">
+      <i class="icon md-calendar calendar-icon"></i>
+    </form-field-wrap>
+  </div>
+  <i class="icon md-close reset-icon" (click)="clear()" *ngIf="value"></i>
+</div>
+<div class="custom-datepicker" *ngIf="isOpened">
+    <datepicker [ngModel]="value" (ngModelChange)="onChange($event)" [showWeeks]="false"></datepicker>
+</div>

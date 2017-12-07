@@ -1,0 +1,16 @@
+<input type="file" id="image-input" class="hidden" ng2FileSelect [uploader]="uploader"/>
+<div ng2FileDrop
+   (fileOver)="fileOverBase($event)"
+   [uploader]="uploader"
+   (click)="openDialogBox($event)"
+   (onFileDrop)="onFileDrop($event)"
+   class="well my-drop-zone {{dropZoneCssClass}} {{getImageOverClass()}}">
+   <p *ngIf="!image.url">+</p>
+  <img [src]="showImage && image.url" [hidden]="!showImage || !image.url" >
+</div>
+<div class="hidden">
+  <label class="btn btn-success btn-file">
+      <input id="img-input" #imgInput type="file" image-upload (imageSelected)="selected($event)" [resizeOptions]="resizeOptions" [file]="fileDraged" accept="image/x-png, image/jpeg">
+      Select Image
+  </label>
+</div>

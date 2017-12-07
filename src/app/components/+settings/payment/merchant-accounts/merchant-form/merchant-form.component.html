@@ -1,0 +1,133 @@
+<div class="modal fade " #modal bsModal="bs-modal" (onHidden)="close()"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm save-setting-confirm bg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header-in">
+          <div class="h3 " *ngIf="!testing">
+            {{!!account.id ? currentGateway.name : 'Add New ' + currentGateway.name + ' Merchant'}}
+          </div>
+          <div class="h3 " *ngIf="testing">Test Transaction</div>
+          <div class="row" *ngIf="!testing">
+            <div class="col-md-6">
+              <span>Merchant account credentials</span>
+            </div>
+            <div class="col-md-6"
+                 *ngIf="testFormFields.hasOwnProperty(account.merchant_type) && form.valid">
+              <div class="text-right">
+                <span class="pointer blue"
+                      (click)="enableTestMode()">Run a test transaction</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="testing">
+            <div class="col-md-12">
+              Enter a valid credit card to test that your merchant account credentials are valid. A charge for $1.00 USD
+              will be charged and subsequently refunded to the provided credit card.
+            </div>
+          </div>
+          <!-- <hr> -->
+        </div>
+        <div class="modal-body margin-top-5" *ngIf="!testing">
+          <form [formGroup]="form">
+            <div formGroupName="settings">
+              <div class="form-group" *ngIf="account.merchant_type !== 'square_gateway'">
+                <ng-container *ngFor="let meta of currentGateway.metadata">
+                  <div class="modal-body-row" *ngIf="requiredFields[meta.key] && meta.key === 'currency'">
+                    <label class="form-group__label">{{ fieldLabels.currency }}</label>
+                    <div class="dropdown-select_wrap">
+                      <app-dropdown-select [options]="currencyChoices"
+                                           formControlName="currency">
+                      </app-dropdown-select>
+                    </div>
+                  </div>
+                  <div class="modal-body-row" *ngIf="requiredFields[meta.key] && meta.key !== 'currency'">
+                    <div class="input input_placeholder">
+                      <input type="text" [formControlName]="meta.key"
+                             [attr.data-empty]="!form.value.settings[meta.key]">
+                      <label>{{ meta.name }}</label>
+                    </div>
+                  </div>
+                </ng-container>
+
+              </div>
+              <div class="form-group" *ngIf="account.merchant_type === 'square_gateway'">
+                <div class="modal-body-row" *ngIf="squareLocations">
+                  <label class="form-group__label">Location</label>
+                  <div class="dropdown-select_wrap" >
+                    <app-dropdown-select [options]="squareLocations"
+                                         [valueKey]="'id'"
+                                         [labelKey]="'name'"
+                                         formControlName="location_id"></app-dropdown-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <button class="btn btn_xs" *ngIf="account.merchant_type === 'square_gateway'"
+                  (click)="toggleAuthorizeSquare()">
+            {{ !account.settings.access_token ? 'Authorize' : 'Deauthorize' }}
+          </button>
+        </div>
+        <div class="modal-body margin-top-5" *ngIf="testing">
+          <iframe class="paypal-iframe" scrolling="no" *ngIf="payflow_url && !showTestForm"
+                  [src]="payflow_url | safeUrl" frameborder="0"></iframe>
+
+          <form [formGroup]="testForm" *ngIf="showTestForm && testFormFields[account.merchant_type]?.length">
+            <div class="form-group">
+              <div class="modal-body-row" *ngFor="let fieldData of testFormFields[account.merchant_type]">
+                <div class="input input_placeholder">
+                  <input type="text" [formControlName]="fieldData.key"
+                         [attr.data-empty]="!testForm.value[fieldData.key]">
+                  <label>{{fieldData.name}}</label>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="form-group" *ngIf="account.merchant_type === 'square_gateway'">
+            <div class="modal-body-row">
+              <label>Card Number</label>
+              <div id="sq-card-number"></div>
+            </div>
+            <div class="modal-body-row">
+              <label>CVV</label>
+              <div id="sq-cvv"></div>
+            </div>
+            <div class="modal-body-row">
+              <label>Expiration Date</label>
+              <div id="sq-expiration-date"></div>
+            </div>
+            <div class="modal-body-row">
+              <label>Postal Code</label>
+              <div id="sq-postal-code"></div>
+            </div>
+
+            <!--<form id="nonce-form" novalidate action="/sdfsdf" method="post">-->
+
+            <!--<input type="hidden" id="card-nonce" name="nonce">-->
+            <!--<input type="submit" (click)="requestSquareCardNonce($event)">-->
+            <!--</form>-->
+          </div>
+        </div>
+        <div class="modal-footer bg">
+          <button type="button" class="btn btn_xs btn_transparent " data-dismiss="modal"
+                  (click)="close()">Cancel
+          </button>
+          <button type="button" class="btn btn_xs btn_blue"
+                  *ngIf="!testing"
+                  [disabled]="!form.valid"
+                  (click)="save(true)">Save
+          </button>
+
+          <button type="button" class="btn btn_xs btn_blue"
+                  *ngIf="testing && showTestForm"
+                  [disabled]="!testForm.valid"
+                  (click)="onChargeClick()">Charge Card
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

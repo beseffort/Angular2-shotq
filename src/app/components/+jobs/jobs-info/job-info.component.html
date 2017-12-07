@@ -1,0 +1,100 @@
+<div class="page">
+  <div class="page__header">
+    <job-header #headerRef
+                [job]="job" [jobRoles]="roles" [jobTypes]="types"
+                [tabs]="tabs" [(currentTab)]="currentTab"
+                (changeJob)="onChangeJob($event)"
+                (changeJobContact)="onChangeJobContact($event)"
+                (createMessage)="onCreateMessage($event)"
+                (onTabChange)="handleTabChange($event)"
+                *ngIf="job"></job-header>
+  </div>
+  <div class="page__content">
+    <div class="row" *ngIf="!!job && currentTab.status === 'events'">
+      <div class="col-sm-12">
+        <job-events-editor [job]="job" (mainEventChanged)="onMainEventChanged($event)"></job-events-editor>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentTab.status === 'invoices'">
+      <div class="col-sm-12">
+        <invoices [targetId]="job.id" [targetType]="'job'"
+                  [adminMode]="true" [activeInvoiceId]="invoiceToShowId"></invoices>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="currentTab.status === 'proposals_and_contracts'">
+      <div class="col-sm-12" *ngIf="!proposalToShowId">
+        <div class="margin-bottom-20">
+          <job-proposals [jobId]="jobId"
+                          (showProposal)="proposalToShowId = $event;"></job-proposals>
+        </div>
+        <injected-contracts-list [query]="{job: job}"></injected-contracts-list>
+      </div>
+
+
+      <div class="col-sm-12" *ngIf="proposalToShowId">
+        <a class="no-underline" (click)="proposalToShowId = undefined;">
+          <i class="icon-right-arrow back"></i>
+          Back to Proposals & Contracts List
+        </a>
+        <job-proposal-overview [proposalId]="proposalToShowId"></job-proposal-overview>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="currentTab.status === 'contacts'">
+      <div class="col-md-8">
+        <div class="jobs-correspondence">
+          <div class="jobs-correspondence__header">
+            <h1>Communication</h1>
+            <button type="button" class="sq-btn-add pull-right"
+                    (click)="onCreateMessage()"
+            >New Email</button>
+          </div>
+          <correspondence-list
+              [correspondence]="correspondences"
+              (displayMessage)="onDisplayMessage($event)"
+          ></correspondence-list>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <job-top-contact-list
+            [job]="job" [maxContactCount]="5"
+            (onAddContact)="addJobContact($event)"
+            (onDisplayAllContacts)="displayAllJobContacts($event)">
+        </job-top-contact-list>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="currentTab.status === 'notes&activity'">
+      <div class="col-sm-7">
+          <notes [notes]="notes"
+                 [notesLoading]="notesLoading"
+                 [requestRes]="responseOK"
+                 [pagination]="paginator"
+                 (onDeleteNotes)="deleteNotes($event)"
+                 (onNoteChanged)="saveNote($event)"
+                 (onPageChange)="handlePageChange($event)">
+        </notes>
+      </div>
+      <div class="col-sm-5 activity">
+        <div class="activity__header">
+            <h3 class="activity__title">Activity</h3>
+        </div>
+        <activity-feed [type]="'objectAny'"
+                       [target]="job.id" [contentType]="job.content_type">
+        </activity-feed>
+      </div>
+    </div>
+  </div>
+
+  <job-contact-list-dialog #jobContactListDialog [job]="job" [roles]="roles"
+                           (addJobContact)="addJobContact($event)"
+                           (jobContactChanged)="saveJobContact($event)"
+                           (archiveJobContacts)="archiveJobContacts($event)"
+                           (deleteJobContacts)="deleteJobContacts($event)"
+                           (setAsPrimaryJobContact)="setAsPrimaryJobContact($event)"
+                           (changeJobContact)="onChangeJobContact($event)"
+  ></job-contact-list-dialog>
+
+</div>

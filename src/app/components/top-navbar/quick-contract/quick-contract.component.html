@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <div class="modal-header-in">
+    <div class="h3">New Contract</div>
+
+  </div>
+</div>
+<div class="modal-body">
+  <div class="loading-ripple divRipple" [ngClass]="{'hidden': !isLoading}"></div>
+  <div [ngClass]="{'hidden': isLoading}">
+    <contact-set-or-create [contact]="job?.external_owner" [showErrorsWhen]="showFormErrors" [required]="false"></contact-set-or-create>
+    <div class="modal-body-row">
+      <div class="form-group">
+        <label for="" class="form-group__label">Associate to Job (optional)</label>
+        <div class="form-group__fields">
+          <div class="field">
+            <input type="text" id="exampleInputEmail1"
+                   [(ngModel)]="jobName"
+                   [disabled]="jobInitialized"
+                   [typeahead]="jobSuggestions"
+                   typeaheadWaitMs="500"
+                   typeaheadOptionField="name"
+                   [attr.data-empty]="!jobName"
+                   (typeaheadOnSelect)="onJobSelect($event)">
+            <label for="id_job_name">Job name *</label>
+          </div>
+          <div class="form-group__field margin-bottom-5">
+            <div class="form-select is-selected">
+              <label for="">Job Type</label>
+              <div class="dropdown-select_wrap">
+                <app-dropdown-select [(ngModel)]="jobType"
+                                     [disabled]="jobInitialized"
+                                     [placeholder]="'Job Type'"
+                                     [options]="jobTypes">
+                </app-dropdown-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group modal-body-row">
+      <label class="form-group__label">Choose Contract template*</label>
+      <div class="dropdown-select_wrap">
+        <app-dropdown-select [placeholder]="'Choose Template'"
+                             [(ngModel)]="contractTemplateId"
+                             (optionSelected)="contractTemplate = $event"
+                             [labelKey]="'name'"
+                             [valueKey]="'id'"
+                             [options]="contractTemplates"></app-dropdown-select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer bg">
+  <button type="button" class="sq-btn-dismiss" data-dismiss="modal" (click)="close()">Cancel</button>
+  <button type="button" class="sq-btn-submit" [disabled]="!valid()" (click)="save()">Done</button>
+</div>

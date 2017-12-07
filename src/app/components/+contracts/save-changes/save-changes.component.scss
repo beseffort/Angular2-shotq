@@ -1,0 +1,80 @@
+.saveChangesModal {
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    margin:0px  !important;
+    -moz-transform: translate(-50%,-50%)  !important;
+    -webkit-transform: translate(-50%,-50%) !important;
+    -o-transform: translate(-50%,-50%) !important;
+    -ms-transform: translate(-50%,-50%) !important;
+    transform: translate(-50%,-50%) !important;
+    .modal-header {
+        .first-panel {
+            .panel-header {
+                h2 {
+                    font-style: normal;
+                    color: #3a405b  !important;
+                    font-size: 24px !important;
+                    font-weight: 600 !important;
+                    line-height:36px;
+                    font-family: 'Titillium Web' !important;
+                    text-align: center !important;
+                    margin-top:47px !important;
+                    margin-bottom:22px !important;
+                }
+            }
+        }
+        .left-box {
+            display:none;
+        }
+    }
+    .modal-content {
+        border-radius: 0px;
+    }
+    .modal-body  {
+        background-color:#fff;
+        padding-bottom:40px;
+        p {
+            color: #3a405b;
+            font-size: 18px;
+            font-weight: 300;
+            line-height:27px;
+            text-align: center;
+            margin-bottom:35px;
+        }
+        .buttonsBlock {
+            text-align:center;
+            .btn {
+                &.primary {
+                    color: #ffffff;
+                    font-size: 14px;
+                    font-weight: bold;
+                    letter-spacing: 0.7px;
+                    line-height:21px;
+                    padding-bottom:15px;
+                    padding-top:15px;
+                    width:180px;
+                    display:inline-block;
+                    margin-right:10px;
+                    border-radius: 2px;
+                    background-color: #086aff;
+                    text-align: center;
+                }
+                &.secondary {
+                    color: #e4e7ef;
+                    font-size: 14px;
+                    font-weight: bold;
+                    letter-spacing: 0.7px;
+                    text-align: center;
+                    line-height:21px;
+                    padding-bottom:15px;
+                    padding-top:15px;
+                    width:180px;
+                    display:inline-block;
+                    border-radius: 2px;
+                    border: solid 1px #e4e7ef;
+                }
+            }
+        }
+    }
+}

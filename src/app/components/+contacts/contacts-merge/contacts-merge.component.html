@@ -1,0 +1,181 @@
+<div bsModal #saveSettingModal="bs-modal" [config]="{backdrop: false}" class="modalConfirm modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg modalNextStep">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2>Merge?</h2>
+                <div class="loading-ripple" *ngIf="isLoading"></div>
+                <p>These contacts will be merged with the selected values. Merging can't be undone.<br/> Would you like to continue?</p>
+                <div class='buttons'>
+                    <a class='cancel cpointer' (click)="hideModalConfirm()">CANCEL</a>
+                    <a class='yes cpointer' (click)="doMerge($event);">OK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page contactMerge">
+	<div class="page-header">
+        <button type="button" class="close" aria-label="Close" (click)="cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+		<h1 class="page-title">
+			Merge Contacts
+		</h1>
+        <p class="merge-contact-notice">Please pick the fields that you would like to combine into the merged contact.<br/>Fields that don't have the checkboxes will be merged automatically because they are unique to one of the contacts.</p>
+	</div>
+	<div class="page-content">
+        <div class="loading-ripple divRipple" *ngIf="!showContactPanels || isLoading"></div>
+        <div class="mergeBlock">
+            <div class="row" *ngIf="showContactPanels">
+                <div class="col-xs-6 col-md-6 col-panel-container-top col-panel-merge-left">
+                    <div class="panel panel-shadow">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group">
+		                            <div class="name">
+		                            <div class="firstName">
+		                            <label>{{model1FirstName}}</label>
+		                          </div>
+		                          <label>{{model1LastName}}</label>
+		                          </div>
+                                  <p *ngIf="!equalContacts" class="select-all"><a class="link-style" (click)="selectAll('left')" >select all</a></p>
+                                    <ng-template ngFor let-model_1 [ngForOf]="model1 | keys" let-i="index" let-last="last">
+                                        <div *ngIf="!isObject(model_1.value) && inArray(model_1.key)">
+                                          <div class="input-group-icon" [class.checked]="getModelItemChecked('left', model, i)" [class.error]= "notCheck( model, i)">
+                                            <div class="checkbox-custom checkbox-default checkbox-mrg-ctc">
+                                                <input type="checkbox" id="{{model_1.key}}_lft" [checked]="getModelItemChecked('left', model, i)" (change)="checkProperty('left', model_1, i, $event)"><label></label>
+                                            </div>
+                                            <form-field [(ngValue)]="model_1.value" label="{{model_1.key | humanize}}" type="text" required="true"></form-field>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="isArray(model_1.value)">
+                                            <ng-template ngFor let-submodel [ngForOf]="model_1.value" let-i="index">
+                                                <ng-template [ngIf]="showAllFields || !submodel.equal">
+                                                    <ng-template ngFor let-model [ngForOf]="submodel | keys">
+                                                        <div class="relative" *ngIf="inArray(model.key) && (showAllFields || !model.value.equal)" >
+                                                            <div class="input-group-icon addressFields" *ngIf="model_1.key === 'addresses' || model_1.key === 'equal_addresses'" [class.checked]="getModelItemChecked('left', model, i)" [class.disabled]="model.value.equal" [class.error]= "notCheck( model, i) && !model.value.equal" [class.address-empty]="isTwoAddressEmpty(model.key, i)">
+                                                                <div *ngIf="!model.value.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc">
+                                                                    <input type="checkbox" [checked]="getModelItemChecked('left', model, i)" id="{{model.key}}_{{i}}_lft" (change)="checkProperty('left', model, i, $event)"><label></label>
+                                                                </div>
+                                                                <div *ngIf="model.value !== '[empty]'">   
+		                                                            <form-field-address label="{{model.key | humanize}}" [left]="true" #addressInput [(ngValue)]="model.value" [fullAddressView]="false" [showOnLabel]="true" [showCloseButton]="false"  required="true"></form-field-address>
+		                                                        </div>
+		                                                        <div *ngIf="model.value === '[empty]'">
+		                                                            <form-field [(ngValue)]="model.value" label="{{model.key | humanize}}"  required="true" ></form-field>
+		                                                        </div>
+                                                            </div>
+                                                            <div class="input-group-icon" *ngIf="model_1.key !== 'addresses' && model_1.key !== 'equal_addresses'" [class.checked]="getModelItemChecked('left', model, i)" [class.disabled]="model.value.equal || submodel.equal" [class.error]= "notCheck( model, i) && !(model.value.equal || submodel.equal)">
+                                                                <ng-template [ngIf]="isObject(model.value)">
+                                                                    <div *ngIf="!model.value.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc">
+                                                                        <input type="checkbox" [checked]="getModelItemChecked('left', model, i)" id="{{model.key}}_{{i}}_lft" (change)="checkProperty('left', model, i, $event)"><label></label>
+                                                                    </div>
+                                                                    <ng-template ngFor let-address [ngForOf]="model.value | keys" let-i="index">
+                                                                        <div *ngIf="getInputType(address.key) !== 'hidden'">
+                                                                            <form-field [(ngValue)]="address.value" label="{{model.key | humanize}}" [type]="getInputType(address.key)" required="true"></form-field>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ng-template>
+                                                                <ng-template [ngIf]="!isObject(model.value)">
+                                                                    <div *ngIf="!submodel.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc">
+                                                                        <input type="checkbox" [checked]="getModelItemChecked('left', model, i)" id="{{model.key}}_{{i}}_lft" (change)="checkProperty('left', model, i, $event)"><label></label>
+                                                                    </div>
+                                                                    <form-field *ngIf="getInputType(model.key) !== 'hidden'" class="text-capitalize" [(ngValue)]="model.value" label="{{model.key | humanize}}" type="text" required="true"></form-field>
+                                                                </ng-template>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-template>
+                                            </ng-template>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            <!-- End row -->
+                            </div> 
+                        <!-- end panel body -->
+                        </div>
+                    <!-- end panel -->
+                    </div>
+                <!-- end col -->
+                </div>
+                <div class="col-xs-6 col-md-6 col-panel-container-top col-panel-merge-right">
+                    <div class="panel panel-shadow">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group">
+                                 <div class="name2">
+                                    <div class="firstName">
+                                        <label>{{model2FirstName}}</label>
+                                      </div>
+                                      <label>{{model2LastName}}</label>
+                                </div>
+                                <p *ngIf="!equalContacts" class="select-all-2"><a class="link-style" (click)="selectAll('right')">select all</a></p>
+                                    <ng-template ngFor let-model_2 [ngForOf]="model2 | keys" let-i="index" let-last="last">
+                                        <div *ngIf="!isObject(model_2.value) && inArray(model_2.key)">
+                                          <div class="input-group-icon" [class.checked]="getModelItemChecked('right', model, i)">
+                                            <div class="checkbox-custom checkbox-default checkbox-mrg-ctc"><input type="checkbox" [checked]="getModelItemDisabled('right', model, i)" id="{{model_2.key}}_rgt" (change)="checkProperty('right', model_2, i, $event)" [class.error]= "notCheck( model, i)"><label></label></div>
+                                            <form-field [(ngValue)]="model_2.value" label="{{model_2.key | humanize}}" type="text" required="true"></form-field>
+                                          </div>
+                                        </div>
+                                        <div *ngIf="isArray(model_2.value)">
+                                            <ng-template ngFor let-submodel [ngForOf]="model_2.value" let-i="index">
+                                                <ng-template [ngIf]="showAllFields || !submodel.equal">
+                                                    <ng-template ngFor let-model [ngForOf]="submodel | keys">
+                                                        <div class="relative" *ngIf="inArray(model.key) && (showAllFields || !model.value.equal)">
+                                                            <div *ngIf="model_2.key === 'addresses' || model_2.key === 'equal_addresses'" class="input-group-icon addressFields"  [class.checked]="getModelItemChecked('right', model, i)" [class.disabled]="model.value.equal" [class.error]= "notCheck( model, i) && !model.value.equal && !model.value.equal" [class.address-empty]="isTwoAddressEmpty(model.key, i)">
+                                                                <div *ngIf="!model.value.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc"><input type="checkbox" [checked]="getModelItemChecked('right', model, i)"  id="{{model.key}}_{{i}}_rgt" (change)="checkProperty('right', model, i, $event)"><label></label></div>
+                                                                <div *ngIf="model.value !== '[empty]'">   
+                                                                	<form-field-address label="{{model.key | humanize}}" [left]="false" #addressInput [(ngValue)]="model.value" [fullAddressView]="false" [showCloseButton]="false" [showOnLabel]="true" required="true" ></form-field-address>
+                                                            	</div>
+		                                                        <div *ngIf="model.value === '[empty]'">
+		                                                            <form-field [(ngValue)]="model.value" label="{{model.key | humanize}}" required="true"></form-field>
+		                                                        </div>
+                                                            </div>
+                                                            <div *ngIf="model_2.key !== 'addresses' && model_2.key !== 'equal_addresses'" class="input-group-icon" [class.checked]="getModelItemChecked('right', model, i)" [class.disabled]="model.value.equal || submodel.equal" [class.error]= "notCheck( model, i) && !(model.value.equal || submodel.equal)">
+                                                                <ng-template [ngIf]="isObject(model.value)">
+                                                                    <div *ngIf="!model.value.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc"><input type="checkbox" [checked]="getModelItemChecked('right', model, i)" id="{{model.key}}_{{i}}_rgt" (change)="checkProperty('right', model, i, $event)"><label></label></div>
+                                                                    <ng-template ngFor let-address [ngForOf]="model.value | keys" let-i="index">
+                                                                        <div *ngIf="getInputType(address.key) !== 'hidden'">
+                                                                            <form-field [(ngValue)]="address.value" label="{{model.key | humanize}}" [type]="getInputType(address.key)" required="true"></form-field>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ng-template>
+                                                                <ng-template [ngIf]="!isObject(model.value)">
+                                                                    <div *ngIf="!submodel.equal" class="checkbox-custom checkbox-default checkbox-mrg-ctc"><input type="checkbox" [checked]="getModelItemChecked('right', model, i)" id="{{model.key}}_{{i}}_rgt" (change)="checkProperty('right', model, i, $event)"><label></label></div>
+                                                                    <form-field *ngIf="getInputType(model.key) !== 'hidden'" class="text-capitalize" [(ngValue)]="model.value" type="text" required="true"></form-field>
+                                                                </ng-template>
+                                                            </div> 
+                                                        </div>
+                                                    </ng-template>
+                                                </ng-template>
+                                            </ng-template>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                        <!-- End row -->
+                            </div> 
+                        <!-- end panel body -->
+                        </div>
+                    <!-- end panel -->
+                    </div>
+                <!-- end col -->
+                </div>
+            <!-- end row -->
+            </div>
+            <div *ngIf="showContactPanels">
+                <p class="merge-contact-notice" *ngIf="existEquals && !showAllFields && !equalContacts">Hiding fields with the same values. <a class="link-style" (click)="toggleShowAllFields()">Show all fields.</a></p>
+                <p class="merge-contact-notice" *ngIf="existEquals && showAllFields && !equalContacts">Showing all fields. <a class="link-style" (click)="toggleShowAllFields()">Show only different fields.</a></p>
+                <p class="merge-contact-notice" *ngIf="!existEquals">Showing all fields. There are no fields with the same value.</p>
+                <p class="merge-contact-notice" *ngIf="equalContacts && !showAllFields">All the fields have the same values. <a class="link-style" (click)="toggleShowAllFields()">Show all fields.</a></p>
+                <p class="merge-contact-notice" *ngIf="equalContacts && showAllFields">Showing all fields. <a class="link-style" (click)="toggleShowAllFields()">Show only different fields.</a></p>
+            </div>
+        </div>
+	</div>
+    <div class="page-bottom-actions">
+        <a id='cancelButton' class='btn btn-default' (click)="cancel()">
+            cancel
+        </a>
+        <a class="btn btn-primary" (click)="clickMerge();" >
+            Merge Contacts
+        </a>
+    </div>
+</div>

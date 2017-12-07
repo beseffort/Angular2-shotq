@@ -1,0 +1,77 @@
+.table > thead {
+  th {
+    &.column-with-sort {
+      cursor: pointer;
+    }
+    span.icon {
+      position: absolute;
+      right: 8px;
+      font-size: 7px;
+      top: 16px;
+    }
+  }
+  font-size: 12px;
+}
+.pagination-container {
+  text-align: right;
+  padding-top: 10px;
+  .inline-block {
+    display: inline-block;
+    vertical-align: top;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.text-green-600 {
+  color: #57cd75;
+  font-weight: 600;
+}
+.product-actions-dropdown {
+  .dropdown-menu > li {
+    position: relative;
+  }
+  li a {
+    color: #3a405b;
+    font-size: 13px;
+    padding: 6px 14px 8px 49px;
+    &> i {
+      position: absolute;
+      top: 7px;
+      left: 24px;
+      font-size: 18px;
+      color: #3a405b !important;
+    }
+    &> span {
+      color: #3a405b;
+      font-size: 13px;
+    }
+  }
+}
+.select-checkbox {
+  input[type='checkbox'] {
+    margin-top: 4px;
+    margin-left: -16px;
+  }
+}
+.item-qty-selected {
+  color: #7AA0B6;
+  margin-left: 20px;
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+.categories-dropdown {
+  .dropdown-menu {
+    max-height: 200px;
+    overflow-y: scroll;
+    bottom: initial;
+  }
+  .dropdown-toggle {
+    display: inline-block;
+    width: 66px;
+  }
+  .dropdown-item {
+    color: #3a405b;
+  }
+}

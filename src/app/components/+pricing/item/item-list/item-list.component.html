@@ -1,0 +1,271 @@
+<div class="page pricingItemList">
+  <div class="page-content">
+    <div class="row-panel-container">
+      <div class="tab-row grey-background">
+        <ul class="tab-list">
+          <li *ngFor="let tab of tabs; let i=index;" [class.current]="currentTab.title === tab.title" (click)="handleTabChange(i)">{{tab.title}}</li>
+        </ul>
+      </div>
+      <div class="top-actions text-right">
+        <a class="btn btn-success" (click)="openModal()" >
+          <span class="btn-name">Add New</span>
+        </a>
+        <a class="btn btn-white" (click)="openManageCategoriesModal(currentStatus)" >
+          <span class="btn-name">Manage Categories</span>
+        </a>
+        <div class="input-search form-group">
+          <i _ngcontent-uyc-9="" aria-hidden="true" class="input-search-icon icon-search"></i>
+          <input [(ngModel)]="search_box" (keyup)="search($event, selectedCategory, currentStatus)" class="form-control search-box" name="search_box" placeholder="Search" type="text">
+          <button type="button" class="input-search-close icon md-close" (click)="clearSearchInput($event)" aria-label="Close"></button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel panel-shadow">
+        <div class="panel-body pl-pr0">
+          <ng-template [ngIf]="currentStatus == 'products_and_services'">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+	          <accordion>
+              <ng-template ngFor let-category let-i="index" [ngForOf]="categories">
+                <div class="accordion-group-container" id="{{category.id}}" (click)="setCategory($event, category.id)">
+                <accordion-group heading="{{category.name | humanize}} ({{category.item_template_count}}) " (onOpen)="onAccordionOpen($event)" [isOpened]="category.id == selectedCategory ? true : false">
+                    <div *ngIf="actionsBar.enabled && category.item_template_count > 0" class="btn-group itemList-actions">
+                        <button type="button" class="btn btn-default delete" >
+                          <ng-template [ngIf]="category && category.name !== 'Archived'">
+                            <span tooltip="Discontinue" placement="bottom" class="action-option action-option-discontinue" ><i class="icon-archive" (click)="openActionsModal('discontinue')"></i></span>
+                          </ng-template>
+                        </button>
+                        <button type="button" class="btn btn-default second" >
+                          <span tooltip="Delete" placement="bottom" class="action-option action-option-delete" (click)="openActionsModal('trash')"><i class="icon-trash"></i></span>
+                        </button>
+                        <button type="button" class="btn btn-default third">
+                          <dropdown tooltip="Categories" placement="bottom" [category]="true" class="action-option" iconClass="icon-folder" [actions]="itemNotAssocCategories" [extraActions]="itemCategories" [blockDropdown]="blockDropdown" (click)="getItemCategories(category.id)" (optionSelected)="associativeAction($event)"></dropdown>
+                        </button>
+                    </div>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected == 1 && category.item_template_count > 0" >{{itemQtySelected}} item selected</span>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected > 1 && category.item_template_count > 0" >{{itemQtySelected}} items selected</span>
+                    <div class="align-right"></div>
+                    <div class="row contact-list position-relative">
+                      <div class="col-md-12">
+                        <div class="text-center m-t-20 m-b-20" *ngIf="category.id != -2 && ((items[category.id] && items[category.id].length === 0) || !items[category.id])">No matches were found. If you'd like, you can also <a href="javascript:void(0)" (click)="openManageCategoriesModal(currentStatus)">delete</a> this category.</div>
+                        <div class="text-center m-t-20 m-b-20" *ngIf="category.id == -2 && ((items[category.id] && items[category.id].length === 0) || !items[category.id])">There are no items to display</div>
+                        <table class="table table-hover table-responsive" *ngIf="items[category.id] && items[category.id].length > 0">
+                          <thead>
+                            <tr>
+                              <th><div class="checkbox-custom checkbox-default"><input type="checkbox" (click)="checkAll(category.id)" [checked]="selectAllChecked" /><label></label></div></th>
+                              <th (click)="changeSortBy('name', category.id)">Name <span [class]="getIcon('sort_name')"></span></th>
+                              <th>Type</th>
+                              <th>Price</th>
+                              <th>Sold</th>
+                              <th class="text-middle">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="items[category.id]">
+                              <tr *ngIf="((i >= (paginator[category.id].currentPage - 1) * paginator[category.id].perPage) && (i < ((paginator[category.id].currentPage - 1) * paginator[category.id].perPage) + paginator[category.id].perPage))">
+                                <td class="text-middle">
+                                  <div class="checkbox-custom checkbox-default">
+                                    <input type="checkbox" [checked]="isChecked(item)" (click)="toggleCheckItem(item)" />
+                                    <label></label>
+                                  </div>
+                                </td>
+                                <td *ngIf="category.id === 0 && item && item.status === 'archived'" class="text-middle bold contact-name">{{ item.name }} (Archived)</td>
+                                <td *ngIf="item && item.status !== 'archived'" class="text-middle bold contact-name">{{ item.name }}</td>
+                                <td class="text-middle text-capitalize">{{ item.item_type }}</td>
+                                <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+                                <td class="text-middle">{{ item.item_count }}</td>
+                                <td class="text-middle">
+                                  <!-- active ordered item -->
+                                  <ng-template [ngIf]="category.name !== 'Archived' && item.item_count > 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.orderedItem" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                  <!-- active not ordered item -->
+                                  <ng-template [ngIf]="category.name !== 'Archived' && item.item_count === 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.allItems" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <cpager id="pager-{{category.id}}" [totalItems]="paginator[category.id].totalItems" [currentPage]="paginator[category.id].currentPage" (ngChange)="handlePageChange($event, category.id)"></cpager>
+                </accordion-group>
+                </div>
+              </ng-template>
+              <div class="accordion-group-container" id="{{discCategory.id}}" (click)="setCategory($event, discCategory.id)">
+              <accordion-group heading="Archived ({{discCategory.item_template_count}}) " (onOpen)="onAccordionOpen($event)" [isOpened]="false">
+                    <div *ngIf="actionsBar.enabled && discCategory.item_template_count > 0" class="btn-group itemList-actions">
+                        <button type="button" class="btn btn-default delete" ><span tooltip="Restore" class="action-option action-option-archive" (click)="openActionsModal('restore')"><i class="icon fa fa-refresh"></i></span></button>
+                        <button type="button" class="btn btn-default second" ><span tooltip="Delete" placement="bottom" class="action-option action-option-delete" (click)="openActionsModal('trash')"><i class="icon-trash"></i></span></button>
+                    </div>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected == 1 && discCategory.item_template_count > 0" >{{itemQtySelected}} item selected</span>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected > 1 && discCategory.item_template_count > 0" >{{itemQtySelected}} items selected</span>
+                    <div class="align-right"></div>
+                    <div class="row contact-list position-relative">
+                      <div class="col-md-12">
+                        <div class="text-center m-t-20 m-b-20" *ngIf="items && ((items[discCategory.id] && items[discCategory.id].length === 0) || !items[discCategory.id])">There are no items to display</div>
+                        <table class="table table-hover table-responsive" *ngIf="items && items[discCategory.id] && items[discCategory.id].length > 0">
+                          <thead>
+                            <tr>
+                              <th><div class="checkbox-custom checkbox-default"><input type="checkbox" (click)="checkAll(discCategory.id)" [checked]="selectAllChecked" /><label></label></div></th>
+                              <th (click)="changeSortBy('name', category.id)">Name <span [class]="getIcon('sort_name')"></span></th>
+                              <th>Type</th>
+                              <th>Price</th>
+                              <th>Ordered</th>
+                              <th class="text-middle">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="items[discCategory.id]">
+                              <tr *ngIf="((i >= (paginator[discCategory.id].currentPage - 1) * paginator[discCategory.id].perPage) && (i < ((paginator[discCategory.id].currentPage - 1) * paginator[discCategory.id].perPage) + paginator[discCategory.id].perPage))">
+                                <td class="text-middle">
+                                  <div class="checkbox-custom checkbox-default">
+                                    <input type="checkbox" [checked]="isChecked(item)" (click)="toggleCheckItem(item)" />
+                                    <label></label>
+                                  </div>
+                                </td>
+                                <td class="text-middle bold contact-name">{{ item.name }}</td>
+                                <td class="text-middle text-capitalize">{{ item.item_type }}</td>
+                                <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+                                <td class="text-middle">{{ item.item_count }}</td>
+                                <td class="text-middle">
+                                  <!-- Archived item but ordered -->
+                                  <ng-template [ngIf]="discCategory.name === 'Archived' && item.item_count > 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.discItem" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                  <!-- Archived item not ordered -->
+                                  <ng-template [ngIf]="discCategory.name === 'Archived' && item.item_count === 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.discItemNotOrdered" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <cpager id="pager-{{discCategory.id}}" [totalItems]="paginator[discCategory.id].totalItems" [currentPage]="paginator[discCategory.id].currentPage" (ngChange)="handlePageChange($event, discCategory.id)"></cpager>
+                </accordion-group>
+                </div>
+			      </accordion>
+          </ng-template>
+          <ng-template [ngIf]="currentStatus == 'packages'">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+            <accordion>
+              <ng-template ngFor let-category let-i="index" [ngForOf]="categories">
+                <div class="accordion-group-container" id="{{category.id}}" (click)="setCategory($event, category.id)">
+                <accordion-group heading="{{category.name | humanize}} ({{category.package_template_count}}) " (onOpen)="onAccordionOpen($event)" [isOpened]="category.id == selectedCategory ? true : false">
+                    <div *ngIf="actionsBar.enabled && category.package_template_count > 0" class="btn-group itemList-actions">
+                        <button type="button" class="btn btn-default delete" >
+                          <ng-template [ngIf]="category && category.name !== 'Archived'">
+                            <span tooltip="Discontinue" placement="bottom" class="action-option action-option-discontinue" ><i class="icon-archive" (click)="openActionsModal('discontinue')"></i></span>
+                          </ng-template>
+                        </button>
+                        <button type="button" class="btn btn-default second" ><span tooltip="Delete" placement="bottom" class="action-option action-option-delete" ><i class="icon-trash"></i></span></button>
+                        <button type="button" class="btn btn-default third">
+                          <dropdown tooltip="Categories" placement="bottom" [category]="true" class="action-option" iconClass="icon-folder" [actions]="itemNotAssocCategories" [extraActions]="itemCategories" (click)="getItemCategories(category.id)" (optionSelected)="associativeAction($event)"></dropdown>
+                        </button>
+                    </div>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected == 1 && category.package_template_count > 0" >{{itemQtySelected}} item selected</span>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected > 1 && category.package_template_count > 0" >{{itemQtySelected}} items selected</span>
+                    <div class="align-right"></div>
+                    <div class="row contact-list position-relative">
+                      <div class="col-md-12">
+                        <div class="text-center m-t-20 m-b-20" *ngIf="category.id != -2 && paginator[category.id].totalItems === 0">No matches were found. If you'd like, you can also <a href="javascript:void(0)" (click)="openManageCategoriesModal(currentStatus)">delete</a> this category.</div>
+                        <div class="text-center m-t-20 m-b-20" *ngIf="category.id == -2 && paginator[category.id].totalItems === 0">There are no items to display</div>
+                        <table class="table table-hover table-responsive" *ngIf="paginator[category.id].totalItems > 0">
+                          <thead>
+                            <tr>
+                              <th><div class="checkbox-custom checkbox-default"><input type="checkbox" (click)="checkAll(category.id)" [checked]="selectAllChecked" /><label></label></div></th>
+                              <th (click)="changeSortBy('name', category.id)">Name <span [class]="getIcon('sort_name')"></span></th>
+                              <th>Price</th>
+                              <th>Ordered</th>
+                              <th class="text-middle">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="items[category.id]">
+                              <tr>
+                                <td class="text-middle">
+                                  <div class="checkbox-custom checkbox-default">
+                                    <input type="checkbox" [checked]="isChecked(item)" (click)="toggleCheckItem(item)" />
+                                    <label></label>
+                                  </div>
+                                </td>
+                                <td *ngIf="category.id === 0 && item && item.status === 'archived'" class="text-middle">{{ item.name }} (Archived)</td>
+                                <td *ngIf="item && item.status !== 'archived'" class="text-middle">{{ item.name }}</td>
+                                <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+                                <td class="text-middle">{{ item.package_count }}</td>
+                                <td class="text-middle">
+                                  <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.allPackages" (optionSelected)="singleItemAction($event, item, 'packages')"></dropdown>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <cpager id="pager-{{category.id}}" [totalItems]="paginator[category.id].totalItems" [currentPage]="paginator[category.id].currentPage" (ngChange)="handlePageChange($event, category.id)"></cpager>
+                </accordion-group>
+                </div>
+              </ng-template>
+              <div class="accordion-group-container" id="{{discCategory.id}}" (click)="setCategory($event, discCategory.id)">
+              <accordion-group heading="Archived ({{discCategory.package_template_count}}) " (onOpen)="onAccordionOpen($event)" [isOpened]="false">
+                    <div *ngIf="actionsBar.enabled && discCategory.package_template_count > 0" class="btn-group itemList-actions">
+                        <button type="button" class="btn btn-default delete" ><span tooltip="Restore" class="action-option action-option-archive" (click)="openActionsModal('restore')"><i class="icon fa fa-refresh"></i></span></button>
+                        <button type="button" class="btn btn-default second" ><span tooltip="Delete" placement="bottom" class="action-option action-option-delete" (click)="openActionsModal('trash')"><i class="icon-trash"></i></span></button>
+                    </div>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected == 1 && discCategory.package_template_count > 0" >{{itemQtySelected}} item selected</span>
+                    <span class="item-qty-selected" *ngIf="itemQtySelected > 1 && discCategory.package_template_count > 0" >{{itemQtySelected}} items selected</span>
+                    <div class="align-right"></div>
+                    <div class="row contact-list position-relative">
+                      <div class="col-md-12">
+                        <div class="text-center m-t-20 m-b-20" *ngIf="paginator[discCategory.id].totalItems === 0">There are no items to display</div>
+                        <table class="table table-hover table-responsive" *ngIf="paginator[discCategory.id].totalItems > 0">
+                          <thead>
+                            <tr>
+                              <th><div class="checkbox-custom checkbox-default"><input type="checkbox" (click)="checkAll(discCategory.id)" [checked]="selectAllChecked" /><label></label></div></th>
+                              <th (click)="changeSortBy('name', category.id)">Name <span [class]="getIcon('sort_name')"></span></th>
+                              <th>Price</th>
+                              <th>Ordered</th>
+                              <th class="text-middle">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-template ngFor let-item let-i="index" [ngForOf]="items[discCategory.id]">
+                              <tr>
+                                <td class="text-middle">
+                                  <div class="checkbox-custom checkbox-default">
+                                    <input type="checkbox" [checked]="isChecked(item)" (click)="toggleCheckItem(item)" />
+                                    <label></label>
+                                  </div>
+                                </td>
+                                <td class="text-middle">{{ item.name }}</td>
+                                <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+                                <td class="text-middle">{{ item.item_count }}</td>
+                                <td class="text-middle">
+                                  <!-- Archived item but ordered -->
+                                  <ng-template [ngIf]="discCategory.id === -1 && item.package_count > 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.discItem" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                  <!-- Archived item not ordered -->
+                                  <ng-template [ngIf]="discCategory.id === -1 && item.package_count === 0">
+                                    <dropdown [button]="false" listClass="blue-circle pad" iconClass="icon-more-icon-o font-size-10" [actions]="itemActions.discItemNotOrdered" (optionSelected)="singleItemAction($event, item)"></dropdown>
+                                  </ng-template>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <cpager id="pager-{{discCategory.id}}" [totalItems]="paginator[discCategory.id].totalItems" [currentPage]="paginator[discCategory.id].currentPage" (ngChange)="handlePageChange($event, discCategory.id)"></cpager>
+                </accordion-group>
+                </div>
+            </accordion>
+          </ng-template>
+      	</div>
+      </div>
+	</div>
+</div>

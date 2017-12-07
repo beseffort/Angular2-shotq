@@ -1,0 +1,186 @@
+<div class="page">
+	<div class="page-header" [ngSwitch]="step">
+		<div class="row" *ngSwitchCase="1">
+			<div class="col-xs-8 col-sm-6">
+				<h1 class="page-title">
+					Import CSV
+				</h1>
+			</div>
+			<div class="col-xs-4 col-sm-6">
+				<!-- Buttons Step 1 -->
+				<div class="pull-right">
+					<div class="select-file">
+					    <label id="import-csv-button" class="btn btn-success btn-file" [class.disabled]="isLoading" (click)="openDialog($event)">UPLOAD CSV</label>
+					    <input id="input-file" class="hide" #inputFile (change)="fileSelected($event)" [disabled]="isLoading" type="file" name="file" accept=".csv" />
+				  	</div>
+			  	</div>
+			</div>
+		</div>
+
+		<div class="row" *ngSwitchCase="2">
+			<div class="col-xs-6 col-sm-6">
+				<h1 class="page-title">
+					Import CSV
+				</h1>
+			</div>
+		</div>
+
+		<div class="row" *ngSwitchCase="3">
+			<div class="col-xs-5 col-sm-6">
+				<h1 class="page-title">
+					Import CSV
+				</h1>
+			</div>
+			<div class="col-xs-7 col-sm-6">
+				<!-- Search Step 3 -->
+				<div class="input-search input-search-dark search-contact">
+		          <i class="input-search-icon icon-search" aria-hidden="true"></i>
+		          <input type="text" [(ngModel)]="search_box" (keyup)="search($event)" class="form-control" name="" placeholder="Search Contacts">
+		        </div>
+			</div>
+		</div>
+	</div>
+	<div class="position-relative">
+		<div class="loading-ripple" *ngIf="isLoading"></div>
+	</div>
+
+    <div [ngSwitch]="step">
+	    <div class="page-content">
+            <div class="row row-panel-container row-header">
+                <div class="body">
+                    <div class="row csv-stepx" >
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <div class="pearls row">
+                                <div class="current col-xs-5">
+                                    <div class="pearl-icon shootq-pearl-icon">
+                                        <span class="step-number">1</span>
+                                    </div>
+                                    <span class="pearl-title upload">Upload CSV</span>
+                                    <div class="gradient-line" [ngClass]="{unselected: step == 1}"></div>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div class="pearl-icon shootq-pearl-icon" [ngClass]="{unselected: step == 1}">
+                                        <span class="step-number">2</span>
+                                    </div>
+                                    <span class="pearl-title map">Map Columns</span>
+                                    <div class="gradient-line" [ngClass]="{unselected: step == 1 || step == 2}"></div>
+                                </div>
+                                <div class="col-xs-2">
+                                    <div class="pearl-icon shootq-pearl-icon" [ngClass]="{unselected: step == 1 || step == 2}">
+                                        <span class="step-number">3</span>
+                                    </div>
+                                    <span class="pearl-title pick importcsv-step3">Import Contacts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end panel body -->
+                </div>
+            <!-- end row -->
+            </div>
+            <!-- Step 2 -->
+            <div *ngSwitchCase="2">
+                <div class="row">
+                    <div class="col-sm-7 table-container p-0">
+                        <table class="table table-responsive table__column-names">
+                        <thead>
+                        <tr>
+                            <th><span class="h4 m-0">CSV Column Names</span></th>
+                            <th><span class="h4 m-0">ShootQ Column Names</span></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr *ngFor="let fieldCSV of allFields">
+                            <td class="csv-attribute">{{ fieldCSV | capitalize }}</td>
+                            <td class="position-relative">
+                                <select class="form-control"
+                                        (change)="mapFieldsOnChange(fieldCSV, $event)">
+                                    <option [selected]="!isMapped(fieldCSV)" value="default">Column Name</option>
+                                    <option *ngFor="let fieldShootQ of fields" [value]="fieldShootQ.slug"
+                                            [selected]="areMapped(fieldCSV, fieldShootQ)">{{fieldShootQ.name | capitalize}}</option>
+                                </select>
+                                <i class="icon-down-arrow"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    <!-- end panel body -->
+                    </table>
+                <!-- end row -->
+                    </div>
+                    <div class="col-sm-5 actions-container-top">
+                        <span class="h5 select-file__title">{{ csvFile.name }}</span>
+                        <i class="icon-close" (click)="cancelAndGoToFirstStep()"></i>
+                        <div class="select-file">
+                            <label class="btn btn-success btn-file upload-different-csv" (click)="openDialog($event)">UPLOAD A DIFFERENT CSV</label>
+                            <input id="input-file" class="hide" #inputFile (change)="fileSelected($event)" type="file" name="file" accept=".csv" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Step 2 -->
+
+            <!-- Step 3 -->
+            <div *ngSwitchCase="3">
+                <div class="row row-panel-container">
+                    <div class="panel-body">
+                        <div class="row before-list">
+                            <div class="contact-list">
+                                <div class="table-responsive" id="table-container">
+                                    <table class="table table-hover import-csv">
+                                        <thead>
+                                            <tr>
+                                                <th><div class="checkbox-custom checkbox-default"><input type="checkbox" (click)="toggleCheckAll()" [checked]="allChecked" /><label></label></div></th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-template ngFor let-contact [ngForOf]="generatedContacts" let-i="index">
+                                                <tr *ngIf="i >= paginator.first && i <= paginator.last || paginator.perPage == 0">
+                                                    <td class="text-middle">
+                                                        <div class="checkbox-custom checkbox-default">
+                                                            <input type="checkbox" (click)="checkContact(contact)" [checked]="isChecked(contact.id)"/>
+                                                            <label></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-middle bold contact-name">{{ getFullName(contact.data) | humanize }}</td>
+                                                    <td class="text-middle email">{{getDefaultField('email',contact)}}</td>
+                                                    <td class="text-middle">{{getDefaultField('phone',contact)}}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- end panel body -->
+                    </div>
+                <!-- end row -->
+                </div>
+                <div class="paginate-container">
+                    <!-- <div class="text-left paginator-container"> -->
+                    <div class="pag-container">
+                        <paginate customClass="contacts-pagination small" [totalItems]="paginator.total" [currentPage]="paginator.currentPage"
+                                  [newDesign]="true" (ngChange)="handlePageChange($event)"
+                                  [perPageOptions]="[5, 10, 50, 100]" [perPage]="paginator.perPage"
+                                  [maxSize]="paginator.maxSize"></paginate>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-white" (click)="cancel()">CANCEL</button>
+                        <button class="btn btn-primary" (click)="createContacts()" [disabled]="!canCreate()" >IMPORT {{checkedContacts.length}} CONTACTS</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End Step 3 -->
+        </div>
+
+        <div class="bottom-actions clearfix" *ngSwitchCase="2">
+            <div class="actions pull-right">
+                <button class="btn btn-white" (click)="cancel()">CANCEL</button>
+                <button class="btn btn-primary" (click)="nextStep()" >CONTINUE</button>
+            </div>
+        </div>
+    </div>
+</div>

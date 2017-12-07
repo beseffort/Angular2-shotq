@@ -1,0 +1,81 @@
+<div class="page mlr0i contract_invoice jb-invoice-list" *ngIf="!activeInvoice">
+  <div class="page__content">
+    <div class="page__title">
+      <h3>Invoices ({{ jobInvoices.length }})</h3>
+    </div>
+    <div class="row mlr0i contracts-invoices-list position-relative">
+      <div class="rippleContainer" *ngIf="isLoading">
+        <div class="loading-ripple"></div>
+      </div>
+      <div class="col-md-12 pr-0 pl-0" *ngIf="!isLoading">
+        <div class="text-center m-t-20 no-items-message" *ngIf="!jobInvoices.length">There are no items to display</div>
+        <div id="table-container" class="table-responsive" *ngIf="jobInvoices.length">
+          <table class="table table-hover scroll invoice">
+            <thead>
+            <tr>
+              <th>
+                <div class="checkbox-custom checkbox-default">
+                  <input type="checkbox" (click)="checkAll()"
+                         [checked]="selectAllChecked"/><label></label>
+                </div>
+              </th>
+              <th class="pl-0">NAME</th>
+              <th>AMOUNT</th>
+              <th>PAID</th>
+              <!--<th>SENT DATE</th>-->
+              <th class="br-none">STATUS</th>
+              <th class="text-middle"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of jobInvoices">
+              <td class="text-middle">
+                <div class="checkbox-custom checkbox-default">
+                  <input type="checkbox" [checked]="isChecked(invoice)"
+                         (click)="toggleCheck(invoice)"/><label></label>
+                </div>
+              </td>
+
+              <td class="pl-0 font-weight-600">
+                <div (click)="activeInvoice = invoice">Invoice #{{invoice.id}}</div>
+              </td>
+
+              <td>{{invoice.total | currency:'USD':true:'1.2-2'}}</td>
+              <td>{{invoice.paid | currency:'USD':true:'1.2-2'}}</td>
+
+              <!--<td [class.red]="invoice.balance > 0"-->
+                  <!--[class.grey]="invoice.balance === 0">-->
+                <!--{{invoice.balance | currency:'USD':true:'1.2-2'}}-->
+              <!--</td>-->
+
+              <td>{{invoice.status | capitalize}}</td>
+
+              <td class="text-middle action-button">
+                <dropdown [button]="false"
+                          listClass="blue-circle pad"
+                          [dropdownClass]="'dropdown-menu-right'"
+                          [actions]="invoiceActions"
+                          (optionSelected)="invoiceAction($event, invoice)"
+                          iconClass="icon-more-icon-o font-size-10"></dropdown>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-container *ngIf="activeInvoice">
+  <div class="invoice-back-panel">
+    <div class="invoice-back-btn" (click)="activeInvoice = null"><i class="icon-right-arrow"></i> Back to Invoice List</div>
+    <!-- <button class="sq-btn-add pull-right" type="button">New Invoice</button> -->
+    <payment-method-switcher class="pull-right"
+      [paymentMethodInfo]="activeInvoice"
+      (onChange)="updateInvoicePaymentMethod($event)"
+      *ngIf="adminMode"></payment-method-switcher>
+  </div>
+  <app-invoice-view [invoice]="activeInvoice" [adminMode]="adminMode"></app-invoice-view>
+</ng-container>

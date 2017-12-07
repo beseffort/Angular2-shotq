@@ -1,0 +1,80 @@
+<div class="page">
+	<div class="page__content">
+		<div class="st-job-feature">
+			<!-- begin header -->
+			<div class="st-job-feature__header clearfix">
+				<div class="st-job-feature__col left">
+					<h1>{{ headerItemName }}s</h1>
+                    <span class="cursor-pointer" (click)="changeFilter()">
+                        View
+                        <ng-container *ngIf="!isArchived">Archived </ng-container>
+                        {{ headerItemName }}s
+                    </span>
+				</div>
+				<div class="st-job-feature__col right pull-right"
+                     *ngIf="!isPageLoading && !isArchived">
+					<button class="btn btn-success" (click)="newItem()">New {{ headerItemName }}</button>
+				</div>
+			</div>
+			<!-- end header -->
+			<!-- begin content -->
+			<div class="st-job-feature__content position-relative">
+                <div class="loading-ripple" *ngIf="isPageLoading || isLoading"></div>
+
+                <ng-container *ngIf="!isPageLoading">
+                    <div class="st-job-feature-no-items" *ngIf="!items?.length">
+                        There are no {{ itemName }}s to display.
+                    </div>
+				    <ul class="st-job-feature-list" *ngIf="items?.length">
+                        <!-- begin list item -->
+                        <li class="st-job-feature-list__item"
+                            *ngFor="let item of items"
+                            [ngClass]="{'is-editing': itemIsEdited(item)}">
+                            <ng-container *ngIf="!itemIsEdited(item)">
+                                <div *ngIf="hasColorPicker"
+                                     class="st-job-feature-list__color"
+                                     [style.background]="item.color"></div>
+                                <span class="st-job-feature-list__text"
+                                      (dblclick)="enterEdit(item);">{{ item.name }}</span>
+                            </ng-container>
+                            <ng-container *ngIf="itemIsEdited(item)">
+                                <div *ngIf="hasColorPicker"
+                                     class="st-job-feature-list__color cursor-pointer"
+                                     [(colorPicker)]="item.color"
+                                     [cpSaveClickOutside]="false"
+                                     [cpOKButton]="true"
+                                     [cpCancelButton]="true"
+                                     [cpFallbackColor]="'#000'"
+                                     [style.background]="item.color"></div>
+                                <input class="st-job-feature-list__text"
+                                       [ngClass]="{'has-error': item.invalid}"
+                                       [(ngModel)]="item.name" maxlength="200"
+                                       autosize/>
+                            </ng-container>
+                            <div class="st-job-feature-list__icons" *ngIf="item.active !== false">
+                                <ng-container *ngIf="!itemIsEdited(item)">
+                                    <button class="st-job-feature-list__btn" (click)="enterEdit(item);">
+                                        <i class="md-edit"></i>
+                                    </button>
+                                    <button class="st-job-feature-list__btn" (click)="confirmDelete(item)">
+                                        <i class="icon icon-trash"></i>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="itemIsEdited(item)">
+                                    <button class="st-job-feature-list__btn" (click)="save(item)">
+                                        <i class="icon-confirm"></i>
+                                    </button>
+                                    <button class="st-job-feature-list__btn" (click)="cancelEdit(item);">
+                                        <i class="icon-cancel"></i>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </li>
+                        <!-- end list item -->
+                    </ul>
+                </ng-container>
+			</div>
+			<!-- end content -->
+		</div>
+    </div>
+</div>

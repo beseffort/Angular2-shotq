@@ -1,0 +1,79 @@
+<div>
+  <h2>1. How would you like to schedule payment?</h2>
+  <div class="selectCreate" *ngIf="!schedule">
+    <p>Select a payment schedule.</p>
+    <a href="" (click)="createNewSchedule($event)">CREATE CUSTOM SCHEDULE</a>
+    <div class="clearfix"></div>
+  </div>
+  <div class="selectCreate" *ngIf="schedule">
+    <p>Custom payment schedule</p>
+    <div class="clearfix"></div>
+  </div>
+  <form class="schedule-templates" *ngIf="!schedule">
+    <div *ngIf="selectedSchedule" >
+      <div class="payment-text-wrap border-title">
+        <h3 class="payment-title ">Added to Proposal</h3>
+        <div class="div">
+          <button type="button" class="btn-check btn-check_active" (click)="deleteSelectedSchedule()"></button>
+          <p class="payment-about">{{ selectedSchedule.title }}</p>
+        </div>
+      </div>
+      <ul class="list-payment">
+        <li *ngFor="let paymentItem of selectedSchedule.payments" class="list-payment-item">
+          <schedule-selected-payment-form [payment]="paymentItem"
+            (paymentUpdated)="updateSelectedSchedule($event)"></schedule-selected-payment-form>
+        </li>
+      </ul>
+      <div class="buttons buttons_schedule">
+        <button type="button" class="btn" style="width: auto;" (click)="editSelectedSchedule()">Edit schedule</button>
+      </div>
+    </div>
+    <div class="payment-text-wrap" *ngIf="scheduleTemplates.length">
+      <h3 class="payment-title">Select Payment Schedule</h3>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let scheduleTemplate of scheduleTemplates"
+        (click)="toggleScheduleTemplate($event, scheduleTemplate)"
+        [ngClass]="{'is-active': activeScheduleTemplateId === scheduleTemplate.id}" >
+        <button type="button" class="btn-check " (click)="usePreset($event, scheduleTemplate)"></button>
+        <span class="list-group-title">{{ scheduleTemplate.title }}</span>
+        <div *ngIf="activeScheduleTemplateId === scheduleTemplate.id">
+          <ul class="list-group">
+            <li *ngFor="let paymentItem of scheduleTemplate.payments" class="list-group-item">
+              <div>
+                <span class="left">
+                  <span>{{ paymentItem.title }}</span>
+                </span>
+                <div class="clearfix"></div>
+              </div>
+            </li>
+          </ul>
+          <div class="buttons">
+            <button type="button" style="width: auto;" class="btn btn-secondary"
+              (click)="editPreset(scheduleTemplate)">Edit</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </form>
+  <div *ngIf="schedule">
+    <ul class="listSelect">
+      <li class="active showOptions showOptions_mod">
+        <ul>
+          <li>
+            <schedule-preset-form [schedule]="schedule"
+              [proposalHasEvent]="proposalHasEvent"
+              (saved)="onSave($event)"
+              (deleted)="onDelete($event)"
+              (savedAsPreset)="savePreset($event)"
+              (canceled)="cancelEdit()"></schedule-preset-form>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="buttons">
+    <a href="" class="back" (click)="back($event)">BACK</a>
+    <a href="" class="next" (click)="next($event)" [ngClass]="{'disable': !valid}">NEXT</a>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<p>Deleting items is a permanent action that cannot be reversed<p>
+
+<p>Items and packages that have been previously sold or presented in an online booking cannot be permanently deleted. They will be archived instead</p>
+
+<div class="loading-ripple" *ngIf="isLoading"></div>
+<div class="align-right">
+    <button type="button" class="btn cancel-button" (click)="cancel()">CANCEL</button>
+    <button type="button" type="submit" class="btn save-button" (click)="confirm()">CONFIRM</button>
+</div>

@@ -1,0 +1,40 @@
+<div class="panel-body payment">
+  <h2 class="payment__ttl">
+    Payment History
+  </h2>
+  <div class="payment__in">
+    <div class="rippleContainer" *ngIf="isLoading">
+      <div class="loading-ripple"></div>
+    </div>
+    <div class="text-center m-t-20 no-items-message" *ngIf="!isLoading && !appliedPayments.length">There are no
+      items to display
+    </div>
+    <div class="contract-list contract-list-extend table-responsive" *ngIf="!isLoading && appliedPayments.length">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="gap-39">&nbsp;</th>
+          <th>TRANSACTION ID</th>
+          <th>DATE</th>
+          <th>STATUS</th>
+          <th>PAYMENT METHOD</th>
+          <th>AMOUNT</th>
+          <th class="gap-39"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let history of appliedPayments">
+          <td class="icon-39"><i *ngIf="history.status === 'applied'" class="icon-confirm"></i></td>
+
+          <td>{{ history.external_payment?.transaction_id }}</td>
+          <td>{{ history.created | date:'mediumDate' }}</td>
+          <td>{{ history.status }}</td>
+          <td>{{ history.external_payment?.payment_type | capitalize }}</td>
+          <td>{{ history.amount | currency:'USD':true }}</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

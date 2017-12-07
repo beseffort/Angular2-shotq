@@ -1,0 +1,244 @@
+<div class="wrap-jobs-steps clearfix" *ngIf="showStepIndicator">
+  <ng-container *ngFor="let step of activeSteps; let i = index; let _first = first">
+    <hr [ngClass]="{'is-disabled': i > currentStep.index}" *ngIf="!_first">
+    <div class="job-step" (click)="i <= currentStep.index && activateStep(step.name)">
+      <div class="job-step__in">
+        <div class="job-step__text">{{ step.title }}</div>
+        <div class="job-step__num">{{ i + 1 }}</div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+<div class="jobAssociated" *ngIf="currentStep.name == 'job' && currentStep.enabled">
+  <div class="jobAssociated__head">
+      <div class="jobAssociated__title">Associate with a Job</div>
+    <div class="">
+      You may associate this contract with a Job. You can skip this step and save your contract.
+    </div>
+  </div>
+  <app-dropdown-select [(ngModel)]="jobFilter.job_type"
+                       (ngModelChange)="getJobs()"
+                       [options]="jobTypes">
+  </app-dropdown-select>
+
+  <div class="contact-type-list">
+    <ul class="">
+      <li *ngFor="let jobType of jobOrderingTypes"
+          [ngClass]="{current: jobType.key == jobFilter.ordering}"
+          (click)="jobOrderingChange(jobType)">
+        {{ jobType.name }}
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="jobAssociated__content">
+    <div class="jobAssociated__search">
+      <i class="input-search-icon icon-search" aria-hidden="true"></i>
+      <input type="text"
+             [formControl]="searchTermControl"
+             class="form-control"
+             placeholder="Search">
+    </div>
+
+
+    <div class="jobAssociated__list jobAssociated__list_mod ">
+      <div class="contact-list position-relative">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+        <perfect-scrollbar class="ps-container">
+            <div class="radio-custom pointer"
+                 (click)="contract.job = job.id"
+                 *ngFor="let job of jobs">
+              <input type="radio" name="contract-job"
+                     [checked]="contract.job == job.id"
+                     (click)="contract.job = job.id">
+              <label>{{ job.name }}</label>
+            </div>
+        </perfect-scrollbar>
+
+      </div>
+    </div>
+    <div class="buttonsButtom">
+      <button (click)="nextStep()"
+              [ngClass]="{'is-disabled': !canGoNext()}"
+              class="btn save-button">NEXT
+      </button>
+      <button type="button" class="btn cancel-button" (click)="contract.job = null; nextStep(true)">SKIP</button>
+    </div>
+  </div>
+</div>
+
+<!-- Send To Modal -->
+<div class="jobAssociated" *ngIf="currentStep.name == 'contact' && currentStep.enabled">
+  <div class="jobAssociated__head">
+      <div class="jobAssociated__title">Send To</div>
+      <div class="jobAssociated__text">
+        Contracts must be associated with a person. Please select a recipient(s) to send the contract to. The
+        contract
+        will not be sent until you are done editing and sign the contract.
+      </div>
+  </div>
+
+  <div class="contact-type-list">
+    <!-- <app-dropdown-select [(ngModel)]="contactFilter.contact_types"
+                         (ngModelChange)="getContacts()"
+                         [options]="contactTypes">
+    </app-dropdown-select> -->
+
+    <div class="row">
+      <div class="col-md-8 col-sm-8">
+        <ul class="">
+          <li *ngFor="let option of contactOrderingTypes"
+              [ngClass]="{current: option.key == contactFilter.order}"
+              (click)="contactOrderingChange(option)">
+            {{ option.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <ul class="right">
+          <li class="current" (click)="addingContact = !addingContact">+ NEW CONTACT</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="jobAssociated__content">
+    <div class="jobAssociated__search">
+      <i class="input-search-icon icon-search" aria-hidden="true"></i>
+      <input type="text" class="form-control" placeholder="Search"
+        [(ngModel)]="contactFilter.search"
+        (ngModelChange)="getContacts()">
+    </div>
+
+    <div class="jobAssociated__list jobAssociated__list_mod">
+      <perfect-scrollbar class="ps-container">
+
+        <div class="contact-list position-relative">
+          <div class="loading-ripple" *ngIf="isLoading"></div>
+
+            <div class="checkbox-custom is-trio checkbox-default" *ngIf="addingContact">
+              <div class="checkbox-custom__checkbox">
+                <input type="checkbox" [(ngModel)]="addingContact">
+                <label></label>
+              </div>
+
+              <div class="checkbox-custom__input name">
+                <input type="text" placeholder="First Name" [(ngModel)]="newContact.first_name" required>
+              </div>
+              <div class="checkbox-custom__input name">
+                <input type="text" placeholder="Last Name" [(ngModel)]="newContact.last_name" required>
+              </div>
+              <div class="checkbox-custom__input">
+                <input type="email" placeholder="Email" [(ngModel)]="newContact.email" required>
+              </div>
+            </div>
+
+            <div class="checkbox-custom checkbox-default pointer"
+                 (click)="contact._selected = !contact._selected; onContactCheck()"
+                 *ngFor="let contact of contacts">
+              <div class="row">
+                <div class="col-md-7">
+                  <input type="checkbox" [ngModel]="contact._selected">
+                  <label>{{ contact.first_name }} {{ contact.last_name }}</label>
+                </div>
+                <div class="col-md-5">
+                  <span class="contact-list__email">{{ contact.default_email }}</span>
+                </div>
+              </div>
+            </div>
+
+
+
+        </div>
+
+      </perfect-scrollbar>
+    </div>
+
+
+    <div class="buttonsButtom">
+      <button (click)="nextStep()"
+              [ngClass]="{'is-disabled': !canGoNext()}"
+              class="btn save-button">NEXT
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- begin select template modal -->
+<div class="select-template" *ngIf="currentStep.name == 'template' && showTemplateStep && currentStep.enabled">
+  <div class="select-template__title">Select a Template</div>
+  <div class="select-template__in">
+    <div class="position-relative">
+      <div class="loading-ripple" *ngIf="isLoading"></div>
+      <div class="template-wrap position-relative">
+        <!-- is-green , is-orange , is-yellow , is-red , is-black -->
+        <perfect-scrollbar class="ps-container">
+          <div class="template-item pointer"
+               [ngClass]="template.color"
+               (click)="contract.template = template.id"
+               *ngFor="let template of templates">
+            <div class="template-item__in">
+              <div class="template-item__top">
+                <div class="template-item__edit">Last Edited</div>
+                <div class="template-item__date"> {{ template.modified | date:'medium' }}</div>
+                <div class="radio-custom template-item__radio">
+                  <input type="radio" name="contract-template"
+                         [checked]="contract.template == template.id"
+                         (click)="contract.template = template.id">
+                  <label for=""></label>
+                </div>
+              </div>
+              <div class="template-item__name">{{ template.name }}</div>
+              <a class="template-item__view pointer"
+                 (click)="openTemplate(template)">View Contract Template
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </perfect-scrollbar>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="select-template__footer">
+    <button (click)="nextStep()"
+            [ngClass]="{'is-disabled': !canGoNext()}"
+            class="btn save-button ">NEXT
+    </button>
+  </div>
+</div>
+
+<div class="select-template" *ngIf="currentStep.name == 'template' && !showTemplateStep && currentStep.enabled">
+  <div class="select-template__vcenter">
+    <h1 class="h1">You don’t have any Contract Templates yet!</h1>
+    <img class="select-template__pic" src="/assets/img/img-contract.svg" width="192px" height="192" alt="">
+    <button class="btn btn-success" [routerLink]="['/contracts', 'templates', 'add']" (click)="modalClose()">
+      <span>+</span> Create A New Contract Template
+    </button>
+  </div>
+</div>
+<!-- end select template modal -->
+
+<div class="jobAssociated jobAssociated_sm" *ngIf="currentStep.name == 'errors' && currentStep.enabled">
+  <div class="jobAssociated__title">
+    You’re missing variables!
+  </div>
+  <div class="jobAssociated__text">
+    You can edit the template & save as new, or use the edited version once.
+  </div>
+  <div class="jobAssociated__footer">
+
+    <button type="button" (click)="goToContract()"
+            class="btn save-button margin-right-0 margin-right-5">
+      RESOLVE ERRORS
+    </button>
+    <button type="button" (click)="goToContract(true)"
+            class="btn continue-button margin-left-5">
+      CONTINUE
+    </button>
+  </div>
+</div>

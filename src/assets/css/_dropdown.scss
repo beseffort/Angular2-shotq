@@ -1,0 +1,114 @@
+@mixin sq-caret($size: $font-size-base / 2.5) {
+  // Generate the caret automatically
+  &::after {
+    //noinspection CssNoGenericFontName
+    font-family: 'icomoon' !important;
+    font-size: $size;
+    content: "\e912";
+    vertical-align: middle;
+    width: 1em;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.open::after {
+    content: "\e913";
+  }
+}
+
+// Links, buttons, and more within the dropdown menu
+// `<button>`-specific styles are denoted with `// For <button>s`
+@mixin sq-dropdown-item {
+  display: block;
+  width: 100%; // For `<button>`s
+  padding: 3px $dropdown-item-padding-x;
+  clear: both;
+  font-weight: normal;
+  color: $dropdown-link-color;
+  text-align: inherit; // For `<button>`s
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+  background: none; // For `<button>`s
+  border: 0; // For `<button>`s
+
+  @include hover-focus {
+    color: $dropdown-link-hover-color;
+    text-decoration: none;
+    background-color: $dropdown-link-hover-bg;
+  }
+
+  // Active state
+  &.active {
+    @include plain-hover-focus {
+      color: $dropdown-link-active-color;
+      text-decoration: none;
+      background-color: $dropdown-link-active-bg;
+      outline: 0;
+    }
+  }
+
+  // Disabled state
+  //
+  // Gray out text and ensure the hover/focus state remains gray
+  &.disabled {
+    @include plain-hover-focus {
+      color: $dropdown-link-disabled-color;
+    }
+
+    // Nuke hover/focus effects
+    @include hover-focus {
+      text-decoration: none;
+      cursor: $cursor-disabled;
+      background-color: transparent;
+      background-image: none; // Remove CSS gradient
+    }
+  }
+}
+
+// The dropdown menu
+@mixin sq-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  min-width: $dropdown-min-width;
+  padding: $dropdown-padding-y 0;
+  margin: $dropdown-margin-top 0 0; // override default ul
+  font-size: $font-size-base;
+  color: $body-color;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  @include border-radius($border-radius);
+  @include box-shadow($dropdown-box-shadow);
+
+  // Open state for the dropdown
+  &.open {
+    // Show the menu
+    display: block;
+
+    // Remove the outline when :focus is triggered
+    > a {
+      outline: 0;
+    }
+  }
+
+  & > * {
+    @include sq-dropdown-item;
+  }
+
+  //li > a {
+  //  display: block;
+  //  padding: 3px 20px;
+  //  clear: both;
+  //  font-weight: 400;
+  //  line-height: 1.42857143;
+  //  color: #333;
+  //  white-space: nowrap;
+  //}
+}

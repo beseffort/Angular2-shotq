@@ -1,0 +1,41 @@
+<div class="settings-component page">
+	<div class="page-header">
+		<h1 class="page-title">
+			Settings
+		</h1>
+	</div>
+	<div class="page-content">
+		<div class="panel" *ngFor="let setting of settings">
+			<div #mainPanel class="panel-body cursorPointer" (click)="onToggle(setting)">
+				<div class="content-container">
+					<div class="icon-container">
+						<i class="{{setting.icon}} setting-icon"></i>
+					</div>
+					<div class="text-container">
+						<span *ngIf="!setting.linkTo" class="category-name">{{ setting.name }}</span>
+						<a *ngIf="setting.linkTo" class="category-name">{{ setting.name }}</a>
+						<span class="category-info">{{ setting.info }}</span>
+					</div>
+				</div>
+				<img *ngIf="!setting.isOpen && setting.actions" src="/assets/img/open-icon-copy.svg" class="icon-open">
+				<i *ngIf="setting.isOpen && setting.actions" class="icon-close"></i>
+			</div>
+			<div  *ngIf="setting.isOpen && setting.actions" class="actions-list">
+				<div class="panel" *ngFor="let action of setting.actions">
+					<div class="panel-body" (click)="navigateTo(action.linkTo)">
+						<div class="content-container">
+							<div class="icon-container">
+								<i class="setting-icon action-icon"
+                   [ngClass]="action.icon"></i>
+							</div>
+							<div class="text-container">
+								<span class="action-name">{{ action.name }}</span>
+							</div>
+						</div>
+						<img src="/assets/img/open-icon-small.svg" class="icon-open action">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

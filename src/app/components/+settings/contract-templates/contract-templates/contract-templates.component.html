@@ -1,0 +1,49 @@
+<div class="page margin-top-50">
+  <div class="page-header page-header_border">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="h2">Contract Templates</h2>
+      </div>
+      <div class="col-md-4">
+        <div class="text-right">
+          <button type="button" class="btn btn_sm btn_grey">Archived Contract Templates</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-content position-relative ">
+    <div class="row">
+      <div class="col-md-12">  
+        <div class="template-wrap position-relative">
+          <div class="loading-ripple" *ngIf="isLoading"></div>
+          <div class="template-item"
+               [ngClass]="template.color"
+               *ngFor="let template of templates"> 
+            <div class="template-item__top">
+              <div class="template-item__about">
+                Default: <span>2</span>
+              </div>
+            </div>
+            <div class="template-item__name pointer"
+                 [routerLink]="[template.id]">
+              {{ template.name }}
+            </div>
+            <div class="template-item__about">Active in <span>7</span>  Jobs</div>
+            <div class="template-item__footer"> 
+              <div class="template-item__btn-justify">
+                <button type="button" class="template-item__btn"><i class="icon-clone"></i> </button>
+                <button type="button" class="template-item__btn"><i class="icon-archive"></i> </button>
+                <button type="button" class="template-item__btn"><i class="icon-pensil"></i> </button>
+              </div> 
+            </div>
+          </div>
+          <div class="template-item template-item_add">
+            <button type="button" class="template-item__btn template-item_center"><i class="icon-add"></i> </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

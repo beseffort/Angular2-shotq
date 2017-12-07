@@ -1,0 +1,70 @@
+<div class="page package-add" [dragulaScroller]="'package-items-bag'"
+     [dragulaScrollMargin]="100"
+     [dragulaScrollSpeed]="20">
+  <div class="topBar">
+    <div class="buttons">
+      <a href="" (click)="goToBack($event)" class="back"><i class="icon-up-arrow"></i>Back</a>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content-in">
+      <div class="row">
+        <div class="col-sm-5 col-md-5">
+          <button type="button" class="content-add border border_darken" (click)="createNewItem()">Create new item
+          </button>
+          <package-all-items [addonsEnabled]="displayAddonsList"
+                             [allItems]="allTemplateItems"
+                             (addingItem)="addItem($event)"></package-all-items>
+        </div>
+        <div class="col-sm-7 col-md-7">
+          <package-description-form [package]="package"
+                                    (descriptionUpdated)="updateDescription($event)"></package-description-form>
+          <package-template-contents [allItems]="allTemplateItems" [contents]="package.items"
+                                     (contentsChanged)="onItemsChange($event)"></package-template-contents>
+          <div class="addons">
+            <div class="addonStyle">
+              <label>
+                <input type="checkbox" value="" name="checkAddons" [(ngModel)]="displayAddonsList"
+                       (change)="toggleAddons($event)"/>
+                <span>Enable Add Ons</span>
+              </label>
+            </div>
+          </div>
+          <package-template-addons [allItems]="allTemplateItems" [contents]="package.addons"
+                                   (contentsChanged)="onAddonsChange($event)"
+                                   *ngIf="displayAddonsList"></package-template-addons>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- fixed-footer -->
+<div class="row">
+  <div class="footer-line">
+    <div class="totalBlock-wrap">
+      <div class="row">
+        <div class="col-md-8 col-sm-9 ">
+          <package-items-calculator
+            [cogs_total]="package.cogs_total"
+            [total]="package.price"
+            [profit]="package.profit_margin"
+            [shipping_cost]="package.shipping_cost"
+            (totalChanged)="onTotalChange($event)">
+          </package-items-calculator>
+        </div>
+        <div class="col-md-4 col-sm-3">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="text-right">
+                <button type="button" class="btn submit-button margin-right-0" (click)="save()">
+                  SAVE & ADD
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

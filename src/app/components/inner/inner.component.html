@@ -1,0 +1,15 @@
+<div id="wrapper"  [class.show-blur]="blur">
+	<top-navbar *ngIf="isLoggedIn"
+                [sidebarCollapsed]="isSidebarCollapsed"
+                [sidebarClientAccess]="isClientAccessSidebar"
+                (toggleSidebar)="changeSidebarCollapsed()"
+                [class.hide]="hideTopnavbar" >
+	</top-navbar>
+	<sidebar *ngIf="isLoggedIn"
+             [collapsed]="isSidebarCollapsed"
+             [class.hide]="hideSidebar"></sidebar>
+	<breadcrumb *ngIf="isLoggedIn"
+                class="{{ breadcrumbClass }} {{ hideBreadcrumb }}" ></breadcrumb>
+	<router-outlet></router-outlet>
+	<footer></footer>
+</div>

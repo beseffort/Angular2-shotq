@@ -1,0 +1,169 @@
+<div class="page item-detail-container">
+  <div class="page-content">
+    <div class="position-relative">
+      <div class="loading-ripple" *ngIf="isLoading"></div>
+    </div>
+    <div class="pricingItemEdit">
+      <form (ngSubmit)="save()">
+        <div class="is-table-row">
+          <div class="colLeft">
+            <div class="form-group inputName">
+              <editable-label required="true" placeholder="" [(value)]="itemTemplate.name" name="itemName"></editable-label>
+            </div>
+            <div class="gallery">
+              <div class="imagePreview text-center">
+                <img src="{{largeImage.url}}" alt="{{largeImage.name}}" *ngIf="images.length > 0" />
+              </div>
+              <div class="row">
+                <div class="col-image-container" *ngFor="let image of images; let i = index">
+                  <div class="img-actions-container">
+                    <a role="button" class="close delete-img" aria-label="Close" href="javascript:void(0)"
+                      (click)="deleteImage(i)" >
+                    <span aria-hidden="true">×</span>
+                    </a>
+                  </div>
+                  <img src="{{image.url}}" alt="{{image.name}}" (mouseover)="onMouseOverImage($event, image)"/>
+                </div>
+                <div class="col-image-container" *ngIf="images.length <= 5">
+                  <drag-and-drop-image dropZoneCssClass="item-edit-drop-zone" (imgSelected)="addImage($event)" (associateImg)="associateSavedImage($event)">
+                  </drag-and-drop-image>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="colRightBlock">
+            <div class="colRight">
+              <div class="optionsBlock">
+                <div class="selectStyleNew">
+                  <label >Item Type</label>
+                  <form-field [onlySelect]="true"  [ngSelectValue]="selectedType" (ngSelectValueChange)="selectType($event)" [options]="itemTypes"></form-field>
+                </div>
+                <div class="selectStyleNew categories-container" *ngIf="categories">
+                  <label>Category</label>
+                  <ss-multiselect-dropdown [options]="categories"
+                    [settings]="categoriesControlSettings"
+                    [texts]="categoriesControlTexts"
+                    [(ngModel)]="itemTemplate.categories"
+                    [ngModelOptions]="{standalone: true}"></ss-multiselect-dropdown>
+                  <button type="button" class="btn btn-default"
+                    tooltip="Manage categories"
+                    container="body"
+                    (click)="openManageCategoriesModal()">
+                    <i class="fa fa-folder-o" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="itemDetails max-width">
+                <label>Item Details</label>
+                <div class="form-group cost-container">
+                  <form-field label="Selling Price" type="number" required="true" name="selling-price" cssClass="custom-input-prices" [(ngValue)]="itemTemplate.price" (ngValueChange)="calculateGrossProfit($event)" [step]="0.01" [min]="0" [roundDecimal]="true"></form-field>
+                  <form-field label="Cost of Goods" type="number" required="true" name="cost-goods" cssClass="custom-input-prices" [(ngValue)]="itemTemplate.cost_of_goods_sold" (ngValueChange)="calculateGrossProfit($event)" [step]="0.01" [min]="0" [roundDecimal]="true"></form-field>
+                  <form-field label="Shipping Cost" type="number" required="true" name="shipping-cost" cssClass="custom-input-prices" [(ngValue)]="itemTemplate.shipping_cost" [step]="0.01" [min]="0" [roundDecimal]="true"></form-field>
+                  <div class="form-group profit-container margin-right">
+                    <div class="form-material floating">
+                      <label class="profit-title">Profit</label>
+                      <label class="profit-number"
+                      [class.green-label]="grossProfit > 0"
+                      [class.red-label]="grossProfit < 0">
+                      {{grossProfit | currency:'USD':true:'1.2-2'}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="itemOptions">
+                <label>Item Options</label>
+                <div class="add-option-dropdown container">
+                  <button type="button" class="btn btn-link add-option-btn" (click)="addOption({type: 'drop'})">Add Item Option</button>
+                </div>
+                <div class="itemOptionsBlock">
+                  <p *ngIf="itemTemplate.item_template_option_groups && itemTemplate.item_template_option_groups.length === 0" class="white-background">
+                    This is how you distinguish variations of your product (e.g., Color or Size).
+                  </p>
+                  <table class="table my-table border" *ngFor="let option of itemTemplate.item_template_option_groups; let j = index; let isOdd = odd; let isEven = even" [class.grey-background]="isOdd"  [class.white-background]= "isEven">
+                  <tbody>
+                    <tr>
+                      <td class="border-right width-5 barsBlock">
+                        &nbsp;
+                        <!-- <i class="icon fa-bars barsBlock__icon grabbable" aria-hidden="true"></i> -->
+                        <div class="barsBlock__icon">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </td>
+                      <td class="border-right width-5 checkSlide">
+                        <span tooltip="Required" placement="bottom"></span>
+                        <md-slide-toggle
+                          class="width-5"
+                          color="primary"
+                          name="option-required-{{j}}"
+                          [(ngModel)]="option.required"
+                          tooltip="{{option.required ? 'Required': 'Not required'}}">
+                        </md-slide-toggle>
+                      </td>
+                      <td class="border-right width-15 optionName" width="135">
+                        <editable-label required="true" placeholder="" [(value)]="option.name" name="option-name-{{j}}">
+                        </editable-label>
+                      </td>
+                      <td width="20">&nbsp;</td>
+                      <td class="titleBlock titleBlock_padding" width="160" align="center">Extra Cost of Goods</td>
+                      <td width="25">&nbsp;</td>
+                      <td class="titleBlock titleBlock_right titleBlock_padding" width="160" >Extra Price</td>
+                    </tr>
+                    <ng-template ngFor let-value [ngForOf]="option.item_template_options" let-i="index" let-last="last">
+                      <tr (mouseover)="showDeleteButton(value, 'enter')" (mouseleave)="showDeleteButton(value, 'leave')">
+                      <td colspan="2" class="border-right" [class.border-top-none]="i > 1"></td>
+                      <td class="border-right textBlock">
+                        <editable-label placeholder=""
+                        [(value)]="value.name" >
+                        </editable-label>
+                      </td>
+                      <td width="20">&nbsp;</td>
+                      <td class="border-right price-cell" align="left">
+                        <div class="inputBlock ">
+                          <span class="inputBlock__icon">+$</span>
+                          <form-field label="" type="number" required="true" name="cost-goods" cssClass="custom-input-prices" [(ngValue)]="value.extra_cogs" [step]="0.01" [min]="0" [roundDecimal]="true"></form-field>
+                        </div>
+                      </td>
+                      <td width="25">&nbsp;</td>
+                      <td class="price-cell" align="right">
+                        <div class="inputBlock ">
+                          <span class="inputBlock__icon">+$</span>
+                          <form-field label="" type="number" required="true" name="cost-goods" cssClass="custom-input-prices" [(ngValue)]="value.extra_price" [step]="0.01" [min]="0" [roundDecimal]="true"></form-field>
+                        </div>
+                      </td>
+                      <td class="width-4 deleteBlock">
+                        <span (click)="confirmDeleteOptionValue(j, i)" class="delete-val close" [class.hide]="!value.showDelete">×</span>
+                      </td>
+                      </tr>
+                    </ng-template>
+                    <tr [class.hide]="!(loadMiniSpin && loadMiniSpinId === j)" class="loadMiniSpin">
+                      <td colspan="7">
+                        <img class="miniSpinSvg" src="/assets/img/mini-loader.svg">
+                      </td>
+                    </tr>
+                    <tr class="addButton">
+                      <td></td>
+                      <td colspan="7">
+                        <a href="javascript:void(0);" (click)="addNewOptionValue(j)">Add</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="input-name descriptionBlock max-width">
+                <form-field-textarea label="Description" name="description" cssClass="custom-input-description" required="false" [(ngValue)]="itemTemplate.description"></form-field-textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="saveBlock">
+          <button type="button" class="sq-btn-dismiss" (click)="close()">CANCEL</button>
+          <button type="submit" class="btn btn-block waves-effect waves-light save" [disabled]="isLoading">SAVE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

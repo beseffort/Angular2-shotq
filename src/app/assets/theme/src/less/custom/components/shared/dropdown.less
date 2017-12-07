@@ -1,0 +1,27 @@
+/* Always */
+ul.dropdown-menu {
+	li.category-item {
+		md-checkbox {
+			label {
+				.md-checkbox-inner-container {
+					width: 16px !important;
+					height: 16px !important;
+				}
+			}
+		}
+	}
+}
+/* Only when checked */
+ul.dropdown-menu {
+	li.category-item {
+		.md-checkbox-checked {
+			label {
+				.md-checkbox-inner-container {
+					.md-checkbox-background {
+						background-image: linear-gradient(135deg,#e75050,#f7ae18) !important;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,84 @@
+<div class="page">
+  <div class="board">
+    <!-- <div class="board__left">
+      
+    </div> -->
+    <div class="board__left" *ngIf="!isLoading">
+      <!-- begin preloader -->
+      <div class="loading-ripple" *ngIf="isLoading"></div>
+      <!-- end preloader -->
+
+      <!-- begin header -->
+      <div class="board__header">
+        <div class="logo-box">
+          <div class="logo">
+            <img alt="ShootQ logo" src="/assets/img/shootq-icon.svg" />
+          </div>
+        </div>
+        <h1 class="board__title">Get started for free</h1>
+      </div>
+      <!-- end header -->
+      <!-- begin body -->
+      <div class="board__body">
+        <form [formGroup]="signUpForm">
+          <div class="field field_placeholder field_half left" [ngClass]="{'is-validate': signUpForm.controls.first_name.invalid && showFormErrors}">
+            <input name="first_name" type="text" value="" formControlName="first_name" [attr.data-empty]="!signUpForm.value.first_name">
+            <label for="first_name">First name</label>
+            <span *ngIf="signUpForm.controls.first_name.errors && showFormErrors" class="validate-message">
+              <span *ngIf="signUpForm.controls.first_name.errors.required">The first name is required.</span>
+              <span *ngIf="signUpForm.controls.first_name.errors.maxlength">First name needs to be 30- characters.</span>
+            </span>
+          </div>
+          <div class="field field_placeholder field_half" [ngClass]="{'is-validate': signUpForm.controls.last_name.invalid && showFormErrors}">
+            <input name="last_name" type="text" value="" formControlName="last_name" [attr.data-empty]="!signUpForm.value.last_name">
+            <label for="last_name">Last name</label>
+            <span *ngIf="signUpForm.controls.last_name.errors && showFormErrors" class="validate-message">
+              <span *ngIf="signUpForm.controls.last_name.errors.required">The last name is required.</span>
+              <span *ngIf="signUpForm.controls.last_name.errors.maxlength">Last name needs to be 30- characters.</span>
+            </span>
+          </div>
+          <div class="field field_placeholder" [ngClass]="{'is-validate': signUpForm.controls.email.invalid && showFormErrors}">
+            <input name="email" type="text" value="" formControlName="email" [attr.data-empty]="!signUpForm.value.email">
+            <label for="email">Email</label>
+            <span *ngIf="signUpForm.controls.email.errors && showFormErrors" class="validate-message">
+              <span *ngIf="signUpForm.controls.email.errors.required">The email is required.</span>
+              <span *ngIf="signUpForm.controls.email.errors.emailUniqueInvalid">This email is already in use. Do you want to  <a href="#" [routerLink]="['/login']">log in instead</a>?</span>
+              <span *ngIf="signUpForm.controls.email.errors.maxlength">Email needs to be 254- characters.</span>
+              <span *ngIf="signUpForm.controls.email.errors.email && signUpForm.value.email">Email is wrong.</span>
+            </span>
+          </div>
+          <div class="field field_placeholder" [ngClass]="{'is-validate': signUpForm.controls.username.invalid && showFormErrors}">
+            <input name="username"  type="text" value="" formControlName="username" [attr.data-empty]="!signUpForm.value.username">
+            <label for="username">Username</label>
+            <span *ngIf="signUpForm.controls.username.errors && showFormErrors" class="validate-message">
+              <span *ngIf="signUpForm.controls.username.errors.required">The username is required.</span>
+              <span *ngIf="signUpForm.controls.username.errors.usernameUniqueInvalid">This username is already in use.</span>
+              <span *ngIf="signUpForm.controls.username.errors.maxlength">Username needs to be 150- characters.</span>
+              <span *ngIf="signUpForm.controls.username.errors.pattern">Username is wrong.</span>
+            </span>
+          </div>
+          <div class="field field_placeholder" [ngClass]="{'is-validate': signUpForm.controls.password.invalid && showFormErrors}">
+            <input name="password"  type="password" value="" formControlName="password" [attr.data-empty]="!signUpForm.value.password">
+            <label for="password">Password</label>
+            <span *ngIf="signUpForm.controls.password.errors && showFormErrors" class="validate-message">
+              <span *ngIf="signUpForm.controls.password.errors.required">The password is required.</span>
+              <span *ngIf="signUpForm.controls.password.errors.minlength">Password needs to be 8+ characters.</span>
+              <span *ngIf="signUpForm.controls.password.errors.maxlength">Password needs to be 128- characters.</span>
+            </span>
+          </div>
+          <div class="control-button">
+            <button type="button" (click)="doSignUp()" class="btn">SIGN UP</button>
+          </div>
+        </form>
+        <div class="account-message">
+          <span>Already have an account?</span>
+          <span class="link" [routerLink]="['/login']">Sign in.</span>
+        </div>
+      </div>
+      <!-- end body -->
+    </div>
+    <div class="board__right">
+      <div class="bg-img" style="background-image: url('assets/img/computer_shoot_more_work_less.png')"></div>
+    </div>
+  </div>
+</div>

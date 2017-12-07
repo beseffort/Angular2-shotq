@@ -1,0 +1,141 @@
+<div *ngIf="selectedProductIds.length > 0" class="btn-group itemList-actions">
+    <button type="button" class="btn btn-default delete"
+      tooltip="Archive"
+      container="body"
+      *ngIf="category.filter_params.status !== 'archived'"
+      (click)="showConfirmation('archive', selectedProductIds)">
+      <span placement="bottom" class="action-option action-option-archive"><i class="icon-archive"></i></span>
+    </button>
+    <button type="button"
+      class="btn btn-default second"
+      *ngIf="category.filter_params.status === 'archived'"
+      tooltip="Delete" container="body"
+      (click)="showConfirmation('delete', selectedProductIds)">
+      <span placement="bottom" class="action-option action-option-delete"><i class="icon-trash"></i></span>
+    </button>
+    <!--button type="button" class="btn btn-default third" tooltip="Categories" container="body">
+      <div class="action-option">
+        <div class="btn-group no-shadow p-b-10 categories-dropdown" dropdown>
+          <a dropdownToggle class="dropdown-toggle" stop-click>
+            <i class="icon-folder"></i>
+          </a>
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem" *ngFor="let cat of realCategories">
+              <a class="dropdown-item" href="">{{ cat.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </button-->
+</div>
+<span class="item-qty-selected" *ngIf="selectedProductIds.length > 0">{{ selectedProductIds.length }} item(s) selected</span>
+<div class="row contact-list position-relative">
+  <div class="col-md-12">
+    <div class="text-center m-t-20 m-b-20" *ngIf="itemsCount === 0">There are no items to display</div>
+    <table class="table table-hover table-responsive" *ngIf="items.length > 0">
+      <thead>
+        <tr>
+          <th>
+            <div class="checkbox-custom checkbox-default select-checkbox">
+              <input type="checkbox" (click)="toggleSelectedAll()" [checked]="selectedProductIds.length === items.length" />
+              <label></label>
+            </div>
+          </th>
+          <th (click)="changeSortBy()" class="column-with-sort">
+            Name <span class="icon" [ngClass]="{'icon-up-arrow': this.searchParams.ordering === '-name', 'icon-down-arrow': this.searchParams.ordering === 'name'}"></span>
+          </th>
+          <ng-template [ngIf]="product === 'item-template'">
+            <th>Type</th>
+            <th>Price</th>
+            <th>Sold</th>
+          </ng-template>
+          <ng-template [ngIf]="product === 'package-template'">
+            <th>Price</th>
+            <th>Ordered</th>
+          </ng-template>
+          <th class="text-middle">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items; let i = index">
+          <td class="text-middle">
+            <div class="checkbox-custom checkbox-default select-checkbox">
+              <input type="checkbox" (click)="toggleCheckItem(item)" [checked]="selectedProductIds.indexOf(item.id) !== -1"/>
+              <label></label>
+            </div>
+          </td>
+          <td class="text-middle">{{ item.name }}<span *ngIf="item.status === 'archived' && category.filter_params.status !== 'archived'"> (Archived)</span></td>
+          <ng-template [ngIf]="product === 'item-template'">
+            <td class="text-middle text-capitalize">{{ item.item_type }}</td>
+            <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+            <td class="text-middle">{{ item.item_count }}</td>
+          </ng-template>
+          <ng-template [ngIf]="product === 'package-template'">
+            <td class="text-middle text-green-600">{{ item.price | currency:'USD':true:'1.2-2' }}</td>
+            <td class="text-middle">{{ item.package_count }}</td>
+          </ng-template>
+          <td class="text-middle">
+            <div class="btn-group no-shadow blue-circle pad product-actions-dropdown" dropdown #actionsDropdown="bs-dropdown">
+              <a dropdownToggle class="dropdown-toggle" stop-click>
+                <i class="icon-more-icon-o font-size-10"></i>
+              </a>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <ng-template [ngIf]="category.filter_params.status !== 'archived'">
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="" [routerLink]="[baseProductUrl, 'edit', item.id]">
+                      <span class="color-icon-edit">Edit</span>
+                      <i class="icon-edit"></i>
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="" (click)="doAction({action: 'copy', products: [item.id]}, actionsDropdown)" stop-click>
+                      <span class="color-icon-document-text-empty">Copy</span>
+                      <i class="icon-document-text-empty"></i>
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="" (click)="showConfirmation('archive', [item.id], actionsDropdown)" stop-click>
+                      <span class="color-icon-archive">Archive</span>
+                      <i class="icon-archive"></i>
+                    </a>
+                  </li>
+                </ng-template>
+                <ng-template [ngIf]="category.filter_params.status === 'archived'">
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="" (click)="showConfirmation('continue', [item.id], actionsDropdown)" stop-click>
+                      <span class="color-fa-fa-refresh">Restore</span>
+                      <i class="fa fa-refresh"></i>
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" href="" (click)="showConfirmation('delete', [item.id], actionsDropdown)" stop-click>
+                      <span class="color-icon-trash">Trash</span>
+                      <i class="icon-trash"></i>
+                    </a>
+                  </li>
+                </ng-template>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pagination-container" *ngIf="itemsCount > 5">
+  <label class="inline-block p-t-5 m-r-5">Rows per page</label>
+  <form class="inline-block m-r-10" [formGroup]="rowsForm">
+    <div class="form-group">
+      <app-dropdown-select formControlName="page_size" [options]="pageSizeChoices"></app-dropdown-select>
+    </div>
+  </form>
+  <pagination class="pagination-sm inline-block"
+    [totalItems]="itemsCount"
+    [(ngModel)]="currentPage"
+    [itemsPerPage]="searchParams.page_size"
+    (pageChanged)="pageChanged($event)"
+    *ngIf="itemsCount > items.length"></pagination>
+</div>
+<app-confirm-dialog #archiveModal (confirmed)="doAction($event)"></app-confirm-dialog>
+<app-confirm-dialog #continueModal (confirmed)="doAction($event)"></app-confirm-dialog>
+<app-confirm-dialog #deleteModal [actionBtnMode]="'btn_red'" (confirmed)="doAction($event)"></app-confirm-dialog>

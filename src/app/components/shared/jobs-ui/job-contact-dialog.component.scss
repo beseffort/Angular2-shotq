@@ -1,0 +1,140 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.job-contact-dialog__header {
+  @include sq-dialog-header();
+}
+
+.job-contact-dialog__title {
+  @include sq-dialog-title;
+}
+
+.job-contact-dialog__body {
+  @include sq-dialog-body;
+}
+
+.job-contact-dialog__footer {
+  @include sq-dialog-footer();
+}
+
+/deep/ .modal-dialog--job-contact {
+  @include sq-modal-dialog(md);
+
+  .field {
+    position: relative;
+    margin-bottom: $spacer-y;
+
+    label {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      z-index: 2;
+      color: $input-color-placeholder;
+      transform: translate3d(0, 0, 0);
+      transition: all 0.2s ease-in-out;
+      user-select: none;
+      pointer-events: none;
+      &.is-selected {
+        color: $input-color-placeholder;
+        font-size: 0.714rem;
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    .form-control {
+      width: 100%;
+      height: 44px;
+      border-radius: $border-radius;
+      background-color: $input-bg;
+      border: solid 1px $input-border-color;
+      padding: 15px 15px 0 20px;
+      font-size: $font-size-base;
+      color: $input-color;
+      outline: none !important;
+
+      &:-webkit-autofill {
+        border-color: $input-border-focus;
+        -webkit-box-shadow: 0 0 0 1000px white inset;
+        color: $input-color;
+      }
+      &:focus, &:active {
+        border-color: $input-border-focus;
+      }
+      &[data-empty="false"] + label,
+      &[data-empty="false"] + /deep/ngx-my-date-picker + label,
+      &:focus + label {
+        color: $input-color-placeholder;
+        font-size: 0.714rem;
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    .form-control--job-role {
+      &[data-empty="false"] + label,
+      &:focus + label {
+        color: $input-color-placeholder;
+        font-size: 0.714rem;
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    .dropdown-datepicker_wrap {
+      height: 44px;
+      border-radius: $border-radius;
+      background-color: $body-bg;
+      border: solid 1px $input-border-color;
+    }
+  }
+  .field.has-error {
+    input + label,
+    input + /deep/ngx-my-date-picker + label {
+      color: $input-color-placeholder;
+      font-size: 0.714rem;
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+}
+.important-dates {
+  /deep/ngx-my-date-picker {
+    background-color: #000;
+    /deep/.ngxmdp {
+      bottom: 290px;
+      left: 210px;
+    }
+    /deep/.ngxmdp .monthinput,
+    /deep/.ngxmdp .yearinput {
+      width: 40px;
+      height: 22px;
+      padding: 0;
+    }
+    /deep/ table.header .headerbtncell {
+      padding: 0 12px;
+    }
+  }
+  .field.input-group + div {
+    position: relative;
+    top: -8px;
+  }
+  .form-control {
+    border-right: 0;
+    position: static;
+    &:focus + label + .input-group-btn > .btn-calendar {
+      border: 1px solid $gray-border;
+      border-left: 0;
+    }
+  }
+}
+
+.btn-calendar {
+  transition: all 0.2s ease-in-out;
+  width: 44px;
+  height: 44px;
+  border: 1px solid $input-border-color;
+  border-left: none;
+  background-color: transparent;
+  @include appearance(none);
+  outline: none;
+}
+.icon-ios-calendar {
+  font-size: 16px;
+}

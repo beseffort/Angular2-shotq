@@ -1,0 +1,209 @@
+// Form global styles
+// form group is usually contains label and input for a field
+.sq-form-group {
+  position: static;
+  margin-bottom: $form-group-margin-bottom;
+}
+
+// form control is a field control where the user changes the form field value
+.sq-form-control {
+  @include sq-base-form-control;
+
+  // make room for the label inside the input control
+  &[data-empty] {
+    padding: 15px 15px 0 20px;
+    height: 44px;
+  }
+
+  // For form controls with `data-empty` property is present, the label acts like
+  // a placeholder when the property is `true`. When the property set to `false`
+  // the label is placed above the field value within the input bounds.
+  &[data-empty="false"] + /deep/ngx-my-date-picker + label,
+  &[data-empty="false"] + label,
+  &:focus + label {
+    color: #898c9d;
+    font-size: 10px;
+    transform: translate3d(0, -10px, 0);
+  }
+
+  & + label {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    z-index: 2;
+    color: #9da0ad;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    pointer-events: none;
+    &.is-selected {
+      color: $input-color-placeholder;
+      font-size: 10px;
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+
+}
+
+.sq-input-group {
+  margin-bottom: $form-group-margin-bottom;
+  position: relative;
+  display: table;
+  border-collapse: separate;
+
+  &.has-error {
+    border: solid $border-width $brand-danger;
+    border-radius: $border-radius;
+    @include box-shadow(0 0 4px 1px transparentize($brand-danger, 0.5));
+    //@include sq-form-control-validation($brand-danger);
+
+    [class^="sq-form-control"],
+    [class*="sq-form-control"],
+    .sq-input-group-addon {
+      @include sq-form-control-validation(transparent);
+    }
+    .input-group-addon {
+      color: inherit;
+      border-color: transparent;
+    }
+  }
+}
+
+// begin -- global styles for custom sq-input
+// field structure: div.sq-form-field > input + label + validation-messages
+
+.sq-form-field {
+  position: relative;
+  margin-bottom: 10px;
+  input {
+    background-color: #fff;
+    color: $gray-dark;
+    border-radius: 2px;
+    border: 1px solid $gray-border;
+    width: 100%;
+    height: 44px;
+    font-size: 1rem;
+    padding: 12px 12px 0;
+    @include appearance(none);
+    &:focus {
+      outline: none;
+      border-color: $brand-primary;
+    }
+    &:focus + label {
+      font-size: 10px;
+      transform: translate3d(0, -10px, 0);
+    }
+    &[data-empty="false"] + label {
+      font-size: 10px;
+      transform: translate3d(0, -10px, 0);
+    }
+  }
+  label {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    left: 12px;
+    color: $input-color-placeholder;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    transform: translate3d(0, 0, 0);
+  }
+  .error {
+    font-size: 0.85rem;
+    color: $brand-danger;
+    text-align: left;
+    padding-left: 5px;
+  }
+}
+// end -- global styles for custom sq-input
+
+// begin -- global styles for custom checkbox
+// checkbox structure: div.sq-checkbox > input[type="checkbox"] + label
+
+.sq-checkbox {
+  position: relative;
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  input[type="checkbox"] {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $checkbox-width;
+    height: $checkbox-height;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    &:checked {
+      & + label:after {
+        content: '\f26b';
+        font-family: Material-Design-Iconic-Font;
+        background: linear-gradient(135deg, #e75050, $squash);
+        padding: 0 3px;
+        color: #fff;
+      }
+    }
+  }
+  label {
+  display: block;
+  padding-left: 25px;
+  line-height: 1.2;
+    &:before, &:after {
+      font-size: 14px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: $checkbox-width;
+      height: $checkbox-height;
+      border-radius: $checkbox-border-radius;
+      font-size: $font-size-base;
+    }
+    &:before {
+      content: '';
+      border: 1px solid $gray-border;
+    }
+  }
+  &_blue {
+    input[type="checkbox"]:checked + label:after {
+      background: $bright-blue;
+      @include box-shadow(0 1px 3px 0 $bright-blue);
+    }
+  }
+  &_empty {
+    max-width: $checkbox-width;
+    label {
+      padding-left: 0;
+      width: $checkbox-width;
+      height: $checkbox-height;
+    }
+  }
+}
+// end -- global styles for custom checkbox
+
+// begin -- global styles for custom sq-select
+// select structure: div.sq-form-select > label + div.sq-dropdown > app-dropdown-select
+.sq-form-select {
+  position: relative;
+  margin-bottom: 10px;
+  label {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 12px;
+    color: $input-color-placeholder;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+  }
+  &.is-selected {
+    .sq-dropdown {
+      // to be added...
+    }
+  }
+}
+// end -- global styles for custom sq-select

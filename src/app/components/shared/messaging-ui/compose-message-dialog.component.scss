@@ -1,0 +1,491 @@
+$message-view-dialog-padding-x: 40px;
+$message-compose-dialog-padding-x: 25px;
+// Override the theme variables as this dialog has different look
+$modal-padding-x: $message-compose-dialog-padding-x;
+$modal-padding-y: 8px;
+$modal-header-bg: #f7f7f7; // we cannot use $white before the 'variables' is imported
+$modal-title-font-size: 1.285rem;
+$modal-footer-padding: 18px $message-compose-dialog-padding-x;
+$close-font-weight: 100;
+$close-text-shadow: none;
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+@import "../../../../assets/css/forms";
+@import "../../../../assets/css/dropdown";
+
+
+//<editor-fold desc="ng2-tag-input theme">
+@import "~ng2-tag-input/dist/modules/core/styles/core/_core.scss";
+
+// this is the container's theme
+$sc-theme: (
+  container-border-bottom: none,
+  container-border-bottom-focused: none,
+  container-border-bottom-invalid: none,
+);
+
+// this is the tag's theme
+$sq-tag-theme: (
+  background: $brand-primary,
+  background-focused: $brand-primary,
+  background-active: $brand-primary,
+  background-hover: $brand-primary,
+  color: #fff,
+  color-hover: #fff,
+  border-radius: 100px,
+  font-family: $font-family-base,
+  font-size: $font-size-base,
+  height: 1.7rem,
+  line-height: 1.7rem,
+  padding: 0 0.75rem
+);
+
+// this is the delete icon's theme
+$sq-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: none,
+  height: 1.7rem,
+  width: 1.7rem
+);
+
+$sq-tag-form-theme: ();
+
+.sq-form-control--recipients {
+  tag-input-dropdown /deep/ {
+    .ng2-dropdown-menu {
+      width: auto;
+      max-width: (2 * $modal-lg / 3);
+    }
+  }
+
+  /deep/ .ng2-tag-input.sq {
+    font-family: $font-family-base;
+    border: none;
+    padding: 0.25rem 0;
+
+    :focus {
+      border-bottom: none;
+    }
+
+    /deep/ tag {
+      @include tag-theme($sq-tag-theme);
+
+      delete-icon {
+        @include icon-theme($sq-icon-theme);
+        svg {
+          height: 1.7rem;
+        }
+      }
+
+      delete-icon:hover {
+        transform: scale(1.1) translateY(0px);
+      }
+    }
+
+    .ng2-tag-input__text-input {
+      height: 1.7rem;
+      font-size: $font-size-base;
+      font-family: $font-family-base;
+      background-color: $gray-lightest;
+    }
+  }
+}
+
+//</editor-fold>
+
+/deep/ .sq-compose-message-dialog {
+  @include sq-dialog-content(lg);
+}
+
+:host /deep/ ng2-dropdown-menu div {
+  left: inherit !important;
+  top: inherit !important;
+}
+
+.message-dialog__close-btn {
+  @include dialog-close-button;
+  margin-top: -2px;
+  font-size: 2rem;
+  opacity: 1;
+}
+
+//<editor-fold desc="View message mode">
+.message-view-dialog__header {
+  @include sq-dialog-header();
+  background-color: $white;
+
+  .close {
+    font-size: 2rem;
+    font-weight: inherit;
+  }
+}
+
+.message-view-dialog__title {
+  @include sq-dialog-title;
+  line-height: 1;
+  .icon-letter {
+    font-size: 1.5rem;
+    color: lighten($gray-light, 20%);
+  }
+}
+
+.message-view-dialog__body {
+  @include sq-dialog-body;
+  max-height: 430px;
+  height: 430px;
+  overflow: auto;
+  padding: 16px $message-view-dialog-padding-x;
+}
+
+.message-view-dialog__footer {
+  @include sq-dialog-footer;
+  min-height: 80px;
+}
+
+.u-photo {
+  @include sq-avatar(md);
+}
+
+.message-dialog__reply-btn {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: 1.25rem;
+  color: #b5c1cf;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.message-dialog__meta {
+  display: table-cell;
+  vertical-align: text-top;
+  width: 100%;
+}
+
+.message-header__border-bottom {
+  height: 0;
+  margin: 0 (-$message-view-dialog-padding-x);
+  border: 0;
+  border-top: 1px solid $gray-lighter;
+}
+
+.message-dialog__sender,
+.message-dialog__recipient {
+  margin-right: $spacer-x;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: normal;
+  color: #2c3049;
+}
+
+.message-dialog__recipient {
+  color: rgba(44, 48, 73, 0.5);
+}
+
+.message-dialog__subject {
+  font-size: 1.75rem;
+  font-family: $font-family-base;
+  color: $gray-dark;
+}
+
+.message-dialog__body {
+  padding: $modal-padding-y 0;
+  line-height: $line-height-base;
+}
+
+.message-dialog__sender-picture {
+  display: table-cell;
+  vertical-align: top;
+  padding-right: 20px;
+}
+
+//</editor-fold>
+
+// Compose message mode
+
+//<editor-fold desc="Compose message mode">
+.message-compose-dialog__header {
+  @include sq-dialog-header();
+}
+
+.message-compose-dialog__title {
+  @include sq-dialog-title;
+}
+
+.message-compose-dialog__body {
+  @include sq-dialog-body;
+}
+
+// the container for template selector, 'Save as a new template' and 'Send me a copy'
+.message-compose-dialog__template {
+  padding: 12px $modal-padding-x;
+  border-bottom: $modal-content-border-width solid $modal-content-border-color;
+}
+
+.message-compose-dialog__select-template-btn {
+  @include sq-caret;
+  outline: none;
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-size: $font-size-h3;
+  font-weight: bold;
+  text-transform: capitalize;
+  background: transparent;
+}
+
+.message-compose-dialog__select-template-menu {
+  @include sq-dropdown-menu;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+// the container for recipients and the subject of the message
+.message-compose-dialog__message-head {
+  padding: 20px $modal-padding-x;
+  border-bottom: $modal-content-border-width solid $modal-content-border-color;
+}
+
+.message-view-dialog__expand-head-btn,
+.message-view-dialog__expand-head-btn--open,
+.message-compose-dialog__expand-head-btn,
+.message-compose-dialog__expand-head-btn--open {
+  @include sq-button-base;
+  @include sq-button-variant($input-color, $input-bg, $input-border-color);
+  position: relative;
+  float: right;
+  margin: 0 0 0 $spacer-x;
+  // make the height of the button same as the height of
+  // the '.sq-form-control--recipients'
+  padding: 0.4rem 0.785rem 0.6rem;
+  width: 2.75rem;
+
+  // Generate the caret automatically
+  &::after {
+    //noinspection CssNoGenericFontName
+    font-family: 'icomoon' !important;
+    font-size: $font-size-base / 2;
+    width: 1em;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.message-view-dialog__expand-head-btn,
+.message-view-dialog__expand-head-btn--open {
+  padding: 0.4rem 0 0.6rem;
+  width: 2.125rem;
+}
+
+.message-view-dialog__expand-head-btn,
+.message-compose-dialog__expand-head-btn {
+  &::after {
+    content: "\e912";
+  }
+}
+
+.message-view-dialog__expand-head-btn--open,
+.message-compose-dialog__expand-head-btn--open {
+  &::after {
+    content: "\e913";
+  }
+}
+
+.sq-form-group--recipients {
+  @extend .sq-form-group;
+
+  .sq-form-control--recipients {
+    @extend .sq-form-control;
+    border-left: none;
+    padding: 0;
+  }
+
+  .input-group-addon {
+    font-weight: 600;
+    padding-top: 0.85rem;
+    vertical-align: top;
+  }
+
+  .input-group-addon,
+  .sq-form-control--recipients {
+    background-color: $gray-lightest;
+    &:focus {
+      background-color: $gray-lightest;
+    }
+  }
+}
+
+.message-compose-dialog__subject {
+  @include sq-base-form-control;
+  font-size: 1.75rem;
+  background-color: $gray-lightest;
+  &:focus {
+    background-color: $gray-lightest;
+  }
+}
+
+.message-compose-dialog__editor {
+  margin: 0;
+  padding: 0 1rem; // $modal-padding-x - $input-padding-x;
+  textarea {
+    height: 294px;
+    width: 100%;
+    outline: none;
+    border: none;
+    resize: none;
+  }
+  .sq-form-group {
+    margin-bottom: 0;
+  }
+}
+
+// File attachments
+.message-compose-dialog__attachments {
+  margin: 20px 0 0;
+  padding: 0 $modal-padding-x;
+  font-size: $font-size-xs;
+}
+
+.message-compose-dialog__attachment-list {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.message-compose-dialog__attachments-title {
+  margin: 0 0 ($grid-gutter-width / 2) 0;
+  font-family: $font-family-base;
+  font-size: $font-size-xs;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $gray-dark;
+}
+
+.message-compose-dialog__attachment-list-item {
+  list-style-type: none;
+  display: block;
+  width: auto;
+  margin: 0 5px 5px 0;
+  border-radius: $border-radius;
+  border: solid 1px $gray-lighter;
+  padding: 4px 5px;
+  line-height: 0;
+  background-color: $white;
+  @include clearfix;
+}
+
+.email-template__remove-attachment-btn {
+  display: inline-block;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  outline: none;
+  margin-right: 5px;
+  border: none;
+  padding: 0;
+  vertical-align: middle;
+  background-color: $white;
+
+  i {
+    font-size: 7px;
+  }
+}
+
+.message-compose-dialog__attachment-name {
+  display: inline-block;
+  vertical-align: middle;
+  color: $gray-dark;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.message-compose-dialog__footer {
+  @include sq-dialog-footer;
+  text-align: left; // left align buttons
+}
+
+.message-dialog__send-btn {
+  @include sq-button-base();
+  @include sq-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include sq-button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-base, $btn-border-radius-lg);
+}
+
+.message-dialog__attach-btn {
+  @include sq-button-base;
+  @include sq-button-link;
+  text-transform: uppercase;
+  font-size: $font-size-sm;
+}
+
+.message-compose-dialog__editor-form-control {
+  height: 200px;
+  padding: 0;
+  border: none;
+}
+
+.message-compose-dialog__editor-toolbar /deep/ {
+  display: inline-block;
+  vertical-align: middle;
+
+  .mce-tinymce {
+    .mce-btn {
+      background: $modal-footer-bg;
+    }
+  }
+  .mce-panel, .mce-tinymce {
+    background: $modal-footer-bg;
+    border: none;
+  }
+
+}
+
+//</editor-fold>
+
+.checkbox {
+  input {
+    display: none;
+    & + label {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      &:before {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 0;
+        top: 50%;
+        margin-top: -0.85rem;
+        border: solid 1px $input-border-focus;
+        border-radius: 2px;
+        background-color: $input-bg;
+        content: '';
+      }
+    }
+    &:checked + label {
+      &:after {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 0;
+        top: 50%;
+        margin-top: -0.85rem;
+        border-radius: 2px;
+        text-align: center;
+        //noinspection CssNoGenericFontName
+        font-family: Material-Design-Iconic-Font;
+        font-size: 0.85rem;
+        color: $input-color-focus;
+        background-image: linear-gradient(135deg, #e75050, #f7ae18);
+        content: '\f26b';
+      }
+    }
+  }
+}

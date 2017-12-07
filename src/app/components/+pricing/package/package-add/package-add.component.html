@@ -1,0 +1,8 @@
+<form (ngSubmit)="createNewPackage()">
+	<div class="row margin-left-50 margin-right-50">
+		<form-field label="Package Name" [(ngValue)]="packageModel.name" [type]="text" [required]="true"></form-field>
+	</div>
+    <div class="row text-center">
+      <button type="submit" class="btn btn-success">CREATE PACKAGE</button>
+    </div>
+</form>

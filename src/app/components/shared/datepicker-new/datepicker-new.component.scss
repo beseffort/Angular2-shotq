@@ -1,0 +1,121 @@
+.contactStyle {
+    width:100%;
+    .input-group-addon {
+        label {
+            margin-bottom: 0px;
+            width: 100%;
+            display: block;
+            color: #fff;
+            font-family: 'Titillium Web',sans-serif;
+            font-weight: 600;
+        }
+    }
+    .icon-down-arrow {
+        cursor: pointer;
+    }
+    .icon-up-arrow {
+        display:none;
+    }
+    .datepicker-open {
+        .icon-up-arrow {
+            display:inline-block;
+            cursor: pointer;
+        }
+        .icon-down-arrow {
+            display:none;
+        }
+        .input-group-addon {
+            label {
+                color:#3a405b;
+            }
+        }
+    }
+    &.invalidDate {
+        border-bottom-color: #fd245f;
+        border-bottom-style: solid;
+        border-radius: 2px 2px 3px 3px!important;
+    }
+}
+
+.addEvent {
+    &.invalidDate {
+        .input-group {
+            .inputContainer {
+                input.selection {
+                    border: solid .9px #fd245f !important;
+                }
+            }
+        }
+    }
+    width: 100%;
+    .input-group {
+        width: 100%;
+        .inputContainer {
+            input.selection {
+                color: #3a405b !important;
+                border: 2px solid #e6e6e6;
+                height: 30px !important;
+                padding-left: 10px;
+            }
+        }
+        span.caret {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 6px;
+            border: none;
+            color: #3a405b;
+        }
+    }
+    .icon-down-arrow {
+        cursor: pointer;
+    }
+    .icon-up-arrow {
+        display:none;
+    }
+    .datepicker-open {
+        .icon-up-arrow {
+            display:inline-block;
+            cursor: pointer;
+        }
+        .icon-down-arrow {
+            display:none;
+        }
+        .input-group-addon {
+            label {
+                color:#3a405b;
+            }
+        }
+        my-date-picker {
+            position: absolute;
+            left: 165px;
+            top: 35px;
+            .mydp {
+                .inlinedp {
+                    width: 242px;
+                }
+            }
+        }
+    }
+}
+
+// .caltable {
+//     tbody {
+//         tr {
+//             td {
+//                 background: #FFF;
+//                 cursor: pointer;
+//                 height: 30px;
+//                 color: #036;
+//                 line-height: 1.1;
+//                 padding: 5px;
+//                 text-align: center;
+//             }
+//         }
+//     }
+// }
+.ngxmdp {
+    .currmoth {
+        background: #FFF;
+    }
+}

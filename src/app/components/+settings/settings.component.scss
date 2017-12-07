@@ -1,0 +1,224 @@
+.settings-component {
+	min-height: 100%;
+  padding-bottom: 10px;
+	&.page {
+	    padding-left: 80px;
+	    padding-right: 80px;
+		.page-header {
+			margin-top: 10px;
+			padding: 0;
+			padding-left: 0 !important;
+		    padding-top: 35px;
+		    @media (max-width: 767px) {
+		    	padding-top: 75px;
+		    }
+		    .page-title {
+			  	font-style: normal;
+			  	line-height: normal;
+			  	font-size: 40px;
+			  	font-weight: bold;
+		    }
+		}
+		.page-content {
+			padding: 0;
+			padding-top: 35px;
+			.panel {
+				border-radius: 0;
+				margin-bottom: 10px;
+			    max-width: 700px;
+			    min-height: 84px;
+			    background-color: transparent;
+			    .panel-body {
+			    	padding: 12px;
+			    	background-color: #fff;
+			    	a, span {
+			    		color: #3a405b;
+			    		font-stretch: normal;
+					  	letter-spacing: normal;
+					  	font-style: normal;
+					  	line-height: normal;
+					  	font-weight: normal;
+				  	    margin-bottom: 0;
+				    	&.category-name {
+				    		font-size: 24px;
+			    		    padding-left: 68px;
+			    		    &:hover {
+				    			text-decoration: none;
+				    		}
+				    	}
+				    	&.category-info {
+				    		opacity: 0.54;
+						  	font-size: 14px;
+					  	    display: block;
+				  	        padding-left: 68px;
+				    	}
+				    	&.action-name {
+				    		font-size: 18px;
+				    		padding-left: 40px;
+				    	}
+			    	}
+			    	i.setting-icon {
+			    		font-size: 24px;
+					    opacity: 0.5;
+					    color: #b6c1cf;
+					    position: absolute;
+					    top: 28px;
+					    left: 18px;
+					    &.action-icon {
+					    	font-size: 25px;
+					    	top: 18px;
+					    }
+			    	}
+			    	i.icon-email-template-settings {
+					  font-size: 19px !important;
+					  top: 22px !important;
+			    	}
+			    	i.icon-user-list {
+			    	  font-size: 18px !important;
+			    	  padding-top: 4px;
+	    			  padding-left: 7px;
+			    	}
+			    	i.icon-planbilling-settings {
+			    	  font-size: 22px !important;
+			    	  padding-left: 6px;
+			    	}
+			    	i.icon-cal-email-settings {
+			    	  font-size: 26px !important;
+			    	  padding-left: 9px;
+			    	}
+			    	i.icon-productspricing-settings {
+			    	  font-size: 26px !important;
+			    	  padding-left: 11px;
+			    	}
+			    	i.icon-team-settings {
+			    	  font-size: 21px !important;
+			    	  padding-left: 4px;
+			    	}
+			    	i.icon-client-access-settings {
+			    	  font-size: 30px !important;
+			    	  padding-left: 9px;
+			    	}
+			    	i.icon-tree {
+		              padding-left: 5px;
+			    	  font-size: 30px !important;
+			    	}
+			    	i.icon-calendar-blank {
+			    	  font-size: 32px !important;
+			    	  padding-left: 7px;
+			    	}
+			    	i.icon-template {
+			    	  padding-left: 9px;
+			    	}
+			    	i.icon-payment-settings {
+			    	  padding-left: 11px;
+			    	}
+			    	i.md-camera {
+			    		font-size: 30px;
+			    		padding-left: 8px;
+			    	}
+
+			    	img.icon-open, i.icon-close {
+			    		padding: 10px;
+			    		position: absolute;
+					    top: 26px;
+					    right: 8px;
+					    cursor: pointer;
+					    &.action {
+					    	top: 26px;
+					    }
+			    	}
+			    	i.icon-close {
+			    		color: #b6c1cf;
+			    	}
+			    	@media (max-width: 500px) {
+			    		.icon-open, .icon-close {
+			    			top: 60px !important;
+			    			&.action {
+			    				top: 38px !important;
+			    			}
+			    		}
+			    	}
+			    }
+			    .actions-list {
+				    position: absolute;
+				    top: 0;
+				    left: 101%;
+				    width: 100%;
+				    max-width: 400px;
+				    .panel {
+				    	min-height: 60px;
+				    	max-width: 400px;
+				    	.panel-body {
+				    		cursor: pointer;
+				    		padding: 17px;
+				    		img.icon-open {
+								padding-top: 0;
+				    		}
+				    	}
+				    }
+				    @media (max-width: 1300px) {
+			    		position: static;
+			    		max-width: none;
+			    		.panel {
+			    			max-width: 700px;
+			    			margin-top: 10px;
+			    			background-color: transparent;
+			    			.panel-body {
+			    				padding-left: 72px;
+			    				span.action-name {
+			    					padding-left: 45px;
+			    				}
+			    				i.setting-icon {
+								    &.action-icon {
+								    	left: 80px;
+								    }
+						    	}
+			    			}
+			    		}
+				    }
+				    @media (max-width: 500px) {
+				    	.panel {
+				    		.panel-body {
+				    			padding: 12px;
+				    			.content-container {
+				    				.text-container {
+				    					.action-name {
+				    						padding-left: 12px;
+				    					}
+				    				}
+				    			}
+				    		}
+				    	}
+				    }
+			    }
+			    @media (max-width: 500px) {
+					.content-container {
+						.icon-container {
+							text-align: center;
+							i.setting-icon {
+								position: static;
+								padding-left: 12px;
+							}
+						}
+						.text-container {
+							text-align: center;
+							padding-top: 10px;
+							.category-name, .category-info {
+							    padding-left: 10px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.content-container {
+	width: 90% !important;
+}
+.cursorPointer{
+	cursor: pointer !important;
+}
+.openedPanel {
+	box-shadow: 0 0 20px 0 rgba(181, 193, 207, 0.5) !important;
+}

@@ -1,0 +1,39 @@
+<div class="booking-addon-form">
+  <table class="booking-addon-form-fields">
+    <tr class="field-container">
+      <td><label>Quantity</label></td>
+      <td>
+        <div class="field-control">
+          <app-spinner [(ngModel)]="addon.quantity"
+                       (ngModelChange)="updateTotal(); onChange.emit()"
+                       [minValue]="1"></app-spinner>
+        </div>
+      </td>
+      <td></td>
+    </tr>
+    <tr class="field-container" *ngFor="let optionGroup of addon.option_groups">
+      <td><label>{{ optionGroup.name }}</label></td>
+      <td>
+        <div class="field-control">
+          <app-dropdown-select [(ngModel)]="optionGroup.selected"
+                               [options]="optionGroup.options"
+                               [valueKey]="'id'"
+                               [labelKey]="'name'"
+                               [allowNull]="!optionGroup.required"
+                               (optionSelected)="onOptionSelected(optionGroup, $event)">
+          </app-dropdown-select>
+        </div>
+      </td>
+      <td align="right">
+        <div class="field-additional-info" *ngIf="optionGroup.selected_data">
+          <span class="price">${{optionGroup.selected_data.extra_price | number:'1.2-2' }}</span>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <div class="booking-addon-form-summary">
+    <span>Total</span>
+    <span>${{ addon.total_price * addon.quantity | number:'1.2-2' }}</span>
+  </div>
+</div>

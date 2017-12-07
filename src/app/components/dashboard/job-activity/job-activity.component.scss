@@ -1,0 +1,49 @@
+.job-activity {
+	&__header {
+		margin-bottom: 19px;
+	}
+	&__body {
+		background-color: #f0f0f0;
+		padding: 41px 30px 36px;
+	}
+	&__title {
+		font-family: 'Titillium Web', sans-serif;
+	  	font-size: 24px;
+	  	font-weight: 600;
+	  	line-height: 1.17;
+	  	margin: 0;
+	  	display: inline-block;
+	}
+}
+
+.no-activity {
+	text-align: center;
+	img {
+		width: 128px;
+		height: 128px;
+		border-radius: 50%;
+	}
+	p {
+		font-size: 24px;
+	 	font-weight: 300;
+	 	line-height: 1.17;
+	 	margin-bottom: 0;
+	}
+}
+
+.oi-pulse {
+	display: inline-block;
+	font-size: 16px;
+	color: #f7f7f7;
+	background-color: #3a405b;
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	margin-right: 11px;
+	position: relative;
+	&:before {
+		position: absolute;
+		top: -3px;
+		left: 2px;
+	}
+}

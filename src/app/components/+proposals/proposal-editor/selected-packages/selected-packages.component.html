@@ -1,0 +1,61 @@
+<div class="proposal-packages bg">
+  <div class="proposal-packages-header border">
+    <div class="title">Added to Proposal</div>
+  </div>
+  <div class="proposal-packages-text border" *ngIf="packages.length === 0">
+    Click the plus icon on the package to add it to your proposal.
+  </div>
+  <ul class="proposal-packages-list">
+    <li *ngFor="let packageItem of packages" [ngClass]="{'hide': displayPackages.indexOf(packageItem.id) === -1}">
+      <div class="proposal-package" [ngClass]="{'active': packageItem.id === expandedPackageId}"
+        (click)="expandPackage(packageItem)">
+        <div class="proposal-package-head">
+          <div class="proposal-package-delete-btn">
+            <button type="button" (click)="deletePackage($event, packageItem)">
+              <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="proposal-package-info-wrap">
+            <div class="proposal-package-info">
+              <span class="package-name">{{ packageItem.name }}</span>
+              <span class="package-price">${{ packageItem.price }}</span>
+            </div>
+            <div class="proposal-package-edit">
+              <a type="button" href="" [routerLink]="['edit-package', packageItem.id]">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="proposal-package-items">
+          <ul class="package-items-list">
+            <li *ngFor="let item of packageItem.items">
+              <div class="row">
+                <div class="col-sm-6"><div class="item-name">{{ item.item_data.name }}</div></div>
+                <div class="col-sm-6">
+                  <div class="text-right">
+                    <div class="item-price">${{ item.item_data.price }}</div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="package-total">
+            <div class="row">
+              <div class="col-sm-6">
+                <strong>
+                  <span>TOTAL</span>
+                </strong>
+              </div>
+              <div class="col-sm-6">
+                <div class="text-right">
+                  <span class=""><strong>${{ packageItem.price }}</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

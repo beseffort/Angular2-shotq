@@ -1,0 +1,341 @@
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+// .page {
+// 	margin-left: 0 !important;
+// 	.page-content {
+// 		padding-left: 130px;
+// 		padding-right: 130px;
+
+.info-stripe {
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	padding: 12px 48px;
+	background-image: $linear-green;
+	position: relative;
+	top: -1px;
+}
+.invoice-info {
+	padding: 0 33px 0 48px;
+}
+.row {
+    margin: 0;
+}
+
+.panel-shadow {
+    margin-top: 0!important;
+    border: 0;
+    .client-invoice-info {
+        padding: 0 !important;
+        .row {
+            h2 {
+                font-size: 24px;
+                font-weight: bold;
+                color: #3a405b;
+                font-family: 'Titillium Web';
+                padding-top: 20px;
+                padding-left: 25px;
+            }
+        }
+        .no-items-message {
+            padding-bottom: 30px;
+        }
+        .package-name {
+            padding-left: 50px;
+            padding-right: 0px;
+            margin-bottom: 20px;
+        }
+        .package-info {
+            padding: 19px 17px 22px 0px;
+            .package-description {
+                // margin-top: 35px;
+                //padding: 20px 0 30px 50px;
+                margin-left: 50px;
+                margin-bottom: 34px;
+                width: 70%;
+                p {
+                    font-family: 'Titillium Web';
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: #3a405b;
+                }
+            }
+        }
+        span {
+            font-family: 'Titillium Web';
+            font-size: 24px;
+            font-weight: 900;
+            color: #3a405b;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+        }
+        span.title-data,
+        .property-title {
+            opacity: 0.5;
+            font-size: 14px;
+            font-weight: normal;
+            color: #3a405b;
+        }
+        span.event-data,
+        .property-value {
+            color: #3a405b;
+            font-size: 14px;
+            font-weight: normal;
+            display: block;
+            padding-top: 5px;
+            padding-bottom: 22px;
+        }
+        span.data {
+            color: #3a405b;
+            font-size: 14px;
+            font-weight: normal;
+        }
+        p {
+            font-family: 'Titillium Web';
+            font-size: 14px;
+            color: #3a405b
+        }
+        .detail {
+            margin-bottom: 5px;
+            .add-on-title {
+                font-family: 'Titillium Web';
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                color: #3a405b;
+                margin-bottom: 1rem;
+            }
+            .add-on-container,
+            .shipping,
+            .tax {
+                display: inline-block;
+                padding-left: 50px;
+                padding-right: 0px;
+            }
+            .add-on-container {
+                padding-left: 0;
+                margin-bottom: 1rem;
+            }
+            .shipping-container,
+            .tax-container,
+            .total-amount-container {
+                display: inline-block;
+            }
+            .row {
+                margin: 0;
+            }
+            span {
+                font-family: 'Titillium Web';
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                color: #3a405b;
+                &.tax,
+                &.shipping {
+                    font-size: 18px;
+                    font-weight: normal;
+                }
+            }
+            p.add-on-description {
+                border-left: 2px solid #086aff;
+                padding-left: 10px;
+                margin: 0;
+            }
+            p.add-on-price {
+                font-weight: normal;
+                font-size: 18px;
+            }
+        }
+        .detail-items {
+            padding-left: 10px;
+            font-family: 'Titillium Web';
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            color: #3a405b;
+        }
+        .total-container {
+            .total {
+                padding-left: 50px;
+            }
+            span {
+                font-family: 'Titillium Web';
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                color: #57cd75;
+            }
+            span.total-amount {
+                font-size: 18px;
+            }
+        }
+    }
+    .payment {
+        padding: 30px 15px 0 15px !important;
+        h2 {
+            font-family: 'Titillium Web';
+            font-size: 24px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #3a405b;
+            padding-left: 35px;
+            padding-bottom: 8px;
+        }
+        .pay-button {
+            cursor: pointer;
+            max-width: 80px;
+            height: 34px;
+            border-radius: 4px;
+            background-color: #57cd75;
+            text-align: center;
+            padding-top: 6px;
+            margin-right: 10px;
+            i {
+                font-family: 'Titillium Web';
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                color: #ffffff;
+            }
+        }
+        .gray {
+            color: #37394c;
+            opacity: 0.5;
+        }
+        div.table-responsive {
+            overflow-x: hidden;
+            table {
+                margin-bottom: 0px;
+                thead {
+                    white-space: nowrap;
+                    tr {
+                        th:nth-child(2) {
+                            padding-left: 0px !important;
+                        }
+                        th {
+                            padding-left: 25px;
+                        }
+                        th:nth-child(5) {
+                            border-right: none !important;
+                        }
+                        th:last-child {
+                            border-right: none !important;
+                        }
+                    }
+                }
+                tbody {
+                    white-space: nowrap;
+                    tr:first-child {
+                        td {
+                            border-top: none !important;
+                        }
+                    }
+                    tr {
+                        height: 63px;
+                        td:first-child {
+                            border-top: none !important;
+                            padding-left: 40px !important;
+                        }
+                        td:nth-child(2) {
+                            padding-left: 0px !important;
+                        }
+                        td {
+                            padding-top: 25px;
+                            font-size: 14px;
+                            color: #3a405b;
+                            padding-left: 25px;
+                            border-top: 1px solid #e0e0e0 !important;
+                        }
+                        td:last-child {
+                            &:after {
+                                border-right: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 	}
+// }
+@media (max-width: 869px) {
+    .page {
+        .page-content {
+            .panel {
+                .panel-body {
+                    .row {
+                        div.table-responsive {
+                            overflow-x: hidden;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 830px) {
+    .page {
+        .page-content {
+            .panel {
+                .panel-body {
+                    .row {
+                        div.table-responsive {
+                            overflow-x: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.invoice-info-container,
+.event-info-container {
+    padding: 15px 0 0 0;
+}
+
+.event-info-container {
+    border-right: 1px solid #e4e8f0;
+    padding-left: 48px;
+}
+
+.invoice-info-container {
+    border-bottom: 1px solid #e4e8f0;
+    h2 {
+        font-weight: 900;
+        color: #3a405b;
+        margin-bottom: 1rem;
+        padding: 0!important;
+    }
+}
+
+.event-name,
+.event-date,
+.event-due-date,
+.property {
+    padding-right: 3rem;
+}
+
+.add-on {
+  padding-left: 50px;
+  margin-bottom: 1rem!important;
+  .no-addons,
+  &__option {
+    font-weight: normal!important;
+  }
+}

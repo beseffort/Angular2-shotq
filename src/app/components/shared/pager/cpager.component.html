@@ -1,0 +1,14 @@
+<div class="row text-right" [hidden]="totalItems < perPageOptions[0]">
+  <div class="col-lg-3 col-md-4 col-sm-5 text-right rows-per-page">
+    <div class="select-title">Rows <span class="hidden-xs hidden-sm">per page</span></div>
+    <div class="select-container">
+      <select class="form-control" [ngModel]="perPage" (ngModelChange)="onPerPageChanged($event)">
+        <option *ngFor="let p of perPageOptions" [ngValue]="p">{{p}}</option>
+      </select>
+    </div>
+  </div>
+  <div [hidden]="totalItems <= perPage">
+    <pagination [totalItems]="totalItems" [itemsPerPage]="paginationPerPage" [(ngModel)]="currentPage" (pageChanged)="onPageChanged($event)"
+      [rotate]="false" [maxSize]="5"></pagination>
+  </div>
+</div>

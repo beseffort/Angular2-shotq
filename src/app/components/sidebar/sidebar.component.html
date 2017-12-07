@@ -1,0 +1,50 @@
+<div class="sidebar">
+  <nav class="sidebar__nav" [class.collapsed]="collapsed">
+    <ul class="sidebar__list">
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link" [routerLink]="['/dashboard']">
+          <i class="sidebar__icon sb-icon-dashboard" aria-hidden="true"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link">
+          <i class="sidebar__icon sb-icon-briefcase" aria-hidden="true">
+
+          </i>
+          <span>Sales</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link" [routerLink]="['/jobs']">
+          <i class="sidebar__icon sb-icon-camera" aria-hidden="true"></i>
+          <span>Jobs</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link" [routerLink]="['/contacts']">
+          <i class="sidebar__icon sb-icon-person" aria-hidden="true"></i>
+          <span>Contacts</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link" [routerLink]="['/calendar']">
+          <i class="sidebar__icon sb-icon-calendar" aria-hidden="true"></i>
+          <span>Calendar</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link">
+          <i class="sidebar__icon sb-icon-reports" aria-hidden="true"></i>
+          <span>Reports</span>
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive="active">
+        <a class="sidebar__link" [routerLink]="['/settings']">
+          <i class="sidebar__icon sb-icon-settings" aria-hidden="true"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

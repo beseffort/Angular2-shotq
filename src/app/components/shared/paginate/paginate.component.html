@@ -1,0 +1,25 @@
+<div class="row" [hidden]="totalItems <= perPage" *ngIf="!newDesign">
+  <div class="col-lg-2 col-md-3 col-sm-4 text-right">
+    <select class="form-control" [ngModel]="perPage" (ngModelChange)="onPerPageChanged($event)" *ngIf="showPageSize">
+      <option *ngFor="let p of perPageOptions" [ngValue]="p">Show {{p}} per page</option>
+    </select>
+  </div>
+  <div class="col-lg-10 col-md-9 col-sm-8 text-right" *ngIf="!(totalItems <= perPage || perPage === 0)">
+    <pagination #paginator [totalItems]="totalItems" [itemsPerPage]="paginationPerPage" [(ngModel)]="currentPage" (pageChanged)="onPageChanged($event)"
+      [rotate]="false" [maxSize]="5"></pagination>
+  </div>
+</div>
+
+<div *ngIf="newDesign" class="pagination-styles {{customClass}}">
+  <div class="paginate-size" [class.option-all]="(totalItems <= perPage || perPage === 0)" *ngIf="showPageSize">
+    <ul>
+    	<li>Show</li>
+		<li *ngFor="let p of perPageOptions" (click)="selectPagineSize($event,p)" [class.selected]="p == perPage">{{p}}</li>
+		<li (click)="selectPagineSize($event,'all')" [class.selected]="perPage === 0">All</li>
+	</ul>
+  </div>
+  <div class="text-center paginate paginate-num" *ngIf="!(totalItems <= perPage || perPage === 0)">
+    <pagination #paginator [totalItems]="totalItems" [itemsPerPage]="paginationPerPage" [(ngModel)]="currentPage" (pageChanged)="onPageChanged($event)"
+      [rotate]="true" [maxSize]="maxSize" previousText="<" nextText=">"></pagination>
+  </div>
+</div>

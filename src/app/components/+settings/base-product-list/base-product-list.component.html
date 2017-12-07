@@ -1,0 +1,37 @@
+<div class="top-actions text-right">
+  <a class="btn btn-success" [routerLink]="[baseProductUrl, 'add']">
+    <span class="btn-name">Add New</span>
+  </a>
+  <a class="btn btn-white" (click)="openManageCategoriesModal()" >
+    <span class="btn-name">Manage Categories</span>
+  </a>
+  <products-search-form [value]="searchParams.search" (updateSearchParams)="updateSearchParams($event)"></products-search-form>
+  <div class="clearfix"></div>
+</div>
+<div class="panel panel-shadow products-list">
+  <div class="panel-body pl-pr0">
+    <accordion [closeOthers]="true">
+      <div class="accordion-group-container">
+        <accordion-group heading="{{category.name | humanize}} ({{category[categoryItemsCountFieldName]}})"
+          [isOpened]="openedCategoryIndex === i"
+          (onOpen)="openCategory(category)"
+          *ngFor="let category of categories; let i = index">
+          <div class="rippleContainer" *ngIf="isLoading">
+              <div class="loading-ripple"></div>
+          </div>
+          <category-items [items]="products"
+            [itemsCount]="productsCount"
+            [searchParams]="searchParams"
+            [category]="category"
+            [allCategories]="categories"
+            [realCategories]="realCategories"
+            [product]="product"
+            [baseProductUrl]="baseProductUrl"
+            (updateSearchParams)="updateSearchParams($event)"
+            (doProductsAction)="doProductsActions($event)"
+            *ngIf="products && openedCategoryIndex === i && !isLoading"></category-items>
+        </accordion-group>
+      </div>
+    </accordion>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-4 padding-right-10">
+    <event-workflow [eventGroups]="job.eventgroups"
+      [mainEvent]="job.main_event_group"
+      [selected]="currentGroup"
+      (onEditGroup)="editGroup($event)"
+      (onAddGroup)="addNewGroup($event)"></event-workflow>
+  </div>
+  <div class="col-md-8 padding-left-10" *ngIf="currentGroup && eventTypes">
+    <event-group-form [eventGroup]="currentGroup"
+      [isMainEvent]="job.main_event_group?.id === currentGroup.id"
+      [eventTypes]="eventTypes"
+      (onCloseForm)="closeGroupForm()"
+      (onSave)="saveGroup($event)"
+      (onDeleteGroup)="deleteGroup($event)"
+      (onMainGroup)="setMainEventGroup($event)"></event-group-form>
+    <group-events [eventGroup]="currentGroup"
+      (saveEvent)="saveEventItem($event)"
+      (addNewEvent)="addNewEventItem($event)"
+      (deleteEvent)="deleteEventItem($event)"
+      *ngIf="currentGroup.start && currentGroup.end"></group-events>
+  </div>
+</div>

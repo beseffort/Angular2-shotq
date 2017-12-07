@@ -1,0 +1,118 @@
+<div>
+  <section class="package-grid">
+    <div class="no-packages" *ngIf="packages.length === 0">
+      <div class="text-center">
+        <div class="title">No Package Templates Available</div>
+      </div>
+    </div>
+    <div class="package is-scooter"
+      *ngFor="let package of packages"
+      [ngClass]="{'is-collapsed': package.id !== expandedPackageId, 'is-active is-expanden': package.id === expandedPackageId}"
+      (click)="togglePackage(package)">
+      <div class="package--basic">
+        <div class="package-content">
+          <div class="package-content-header">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="last-edited">
+                  <span class="last-edited-title">Last edited</span>
+                  <span class="last-edited-date">{{ package.modified | date:'mediumDate' }}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="package-add-btn-container">
+                  <div class="text-right">
+                    <button type="button"
+                      class="package-add-btn"
+                      (click)="addToProposal($event, package)"
+                      *ngIf="selectedTemplatesIds.indexOf(package.id) === -1"></button>
+                    <div class="package-add-btn-check"
+                      *ngIf="selectedTemplatesIds.indexOf(package.id) !== -1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="package-content-body">
+            <div class="package-name title">{{ package.name }}</div>
+          </div>
+          <div class="package-content-footer">
+            <div class="package-price">${{ package.price }}</div>
+          </div>
+        </div>
+        <div class="arrow--up"></div>
+      </div>
+      <div class="package--expand">
+        <div class="package--expand-in">
+          <div class="package-description">
+              <div class="package-description-title">
+                  {{ package.name }}
+              </div>
+              <div class="package-description-text">
+                  {{ package.description }}
+              </div>
+              <div class="package-description__addons package-description-text">
+                  <span>Add-On Options</span>
+                  <p *ngIf="!package.addons_data?.length">No add-ons selected.</p>
+                  <ul *ngIf="package.addons_data?.length">
+                      <li *ngFor="let addon of package.addons_data">{{ addon.name }}</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="package-line"></div>
+          <div class="package-items">
+            <div class="package-items-btns">
+              <div class="text-right">
+                <button type="button" class="btn is-black"
+                  [routerLink]="['/proposals', 'package-template', 'edit', package.id]" [queryParams]="{next: currentPath}">Edit</button>
+                <button type="button" class="btn is-black"
+                  (click)="addToProposalAndEditPackage($event, package)"
+                  *ngIf="selectedTemplatesIds.indexOf(package.id) === -1">Customize</button>
+                <button type="button"
+                  class="btn is-blue"
+                  (click)="addToProposal($event, package)"
+                  *ngIf="selectedTemplatesIds.indexOf(package.id) === -1">Add</button>
+              </div>
+            </div>
+            <div class="package-items-list">
+              <div class="package-items-list-item" *ngFor="let item of package.items">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <div class="name">{{ item.item_template_data.name }}<span *ngIf="item.quantity > 1">(x{{ item.quantity }})</span></div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="text-right">
+                      <div class="price">${{ (item.item_template_data.price * 1 + item.addons_price * 1) * item.quantity }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="package-items-total">
+                <!--div class="row">
+                  <div class="col-sm-8">
+                    <div class="name">Tax</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="text-right">
+                      <div class="price">$100.00</div>
+                    </div>
+                  </div>
+                </div-->
+                <div class="row">
+                  <div class="col-sm-8">
+                    <div class="name">Total</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="text-right">
+                      <div class="price">${{ package.price }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

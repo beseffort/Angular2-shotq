@@ -1,0 +1,44 @@
+<form class="anotherPayment" [formGroup]="form">
+  <div class="anotherPayment">
+    <div class="selectBlock">
+      <div class="m-b-s">
+        <app-dropdown-select formControlName="amount_type"
+                             [options]="amountTypes">
+        </app-dropdown-select>
+      </div>
+      <div class="inputStyle percentage" *ngIf="item.amount_type !== 'all_remaining'">
+        <input type="number" class="" formControlName="amount"/>
+      </div>
+      <span class="" *ngIf="percentTypes.indexOf(item.amount_type) != -1">%</span>
+    </div>
+
+    <div class="due">
+      <p>Due</p>
+      <div class="inputStyle" *ngIf="dueDateWithOffset.indexOf(item.due_date_type) !== -1">
+        <input type="number" formControlName="due_date_offset">
+      </div>
+      <div class="offset-type" *ngIf="dueDateWithOffset.indexOf(item.due_date_type) !== -1">
+        <app-dropdown-select formControlName="due_date_offset_type" [options]="dueDateOffsetType"></app-dropdown-select>
+      </div>
+      <div class="day">
+        <app-dropdown-select formControlName="due_date_type" [options]="dueDateChoices"></app-dropdown-select>
+      </div>
+      <div class="after inputStyle" *ngIf="form.value.due_date_type === 'exact_date'">
+        <input placeholder="Select a date"
+          ngx-mydatepicker
+          formControlName="due_date"
+          [options]="dueDatePickerOptions"
+          #dp="ngx-mydatepicker"
+          (focus)="dp.toggleCalendar();$event.stopPropagation()"/>
+      </div>
+      <div class="buttons buttons_transparent">
+        <a href="" class="saveNew btn cancel delete-btn" (click)="deletePayment()" *ngIf="displayDelete" stop-click>Delete</a>
+        <a href="" class="saveNew btn cancel" (click)="cancel()" stop-click>Cancel</a>
+        <a href="" class="save btn"
+          (click)="save()"
+          [ngClass]="{'disabled': formHasErrors || form.status === 'INVALID'}"
+          stop-click>Save</a>
+      </div>
+    </div>
+  </div>
+</form>

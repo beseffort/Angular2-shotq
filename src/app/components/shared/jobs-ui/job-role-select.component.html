@@ -1,0 +1,22 @@
+<div class="dropdown-select_wrap">
+  <div class="dropdown-parent" [class.open]="isOpen">
+    <button class="dropdown" (click)="toggle()">
+        {{ value }}
+        <i class="icon-down-arrow"></i>
+    </button>
+    <div class="dropdown-menu">
+      <div class="dropdown-menu__in">
+        <div class="dropdown-menu__item" *ngFor="let role of roles"
+             (click)="selectItem(role)">
+          <div class="option-label">{{ role }}</div>
+        </div>
+      </div>
+      <div class="dropdown-menu__add">
+        <button class="add-new" (click)="addNewRole()">
+          <span class="icon glyphicon glyphicon-plus"></span>
+          Add New Role
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

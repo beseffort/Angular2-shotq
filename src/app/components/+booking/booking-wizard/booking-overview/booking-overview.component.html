@@ -1,0 +1,83 @@
+<div class="booking-overview">
+
+  <div class="booking-wizard-step-header">
+    <div class="text-center">
+      <h1>Proposal Overview</h1>
+      <div class="title" *ngIf="proposal.expiration_date">
+        This Proposal Expires on <span>{{ proposal.expiration_date | date: 'longDate' }}</span>
+      </div>
+      <hr class="split-line"/>
+    </div>
+  </div>
+
+
+  <div class="proposal-overview is-green">
+    <div class="proposal-pricing-wrap">
+      <div class="proposal-pricing">
+        <div class="item">
+          <div class="item-description">{{ proposal.approved_package_data.name }}</div>
+          <div class="item-price">${{ overview.packagePrice | number:'1.2-2' }}</div>
+        </div>
+        <div class="item black" *ngIf="overview.shipping">
+          <div class="item-description">SHIPPING</div>
+          <div class="item-price">${{ overview.shipping | number:'1.2-2' }}</div>
+        </div>
+        <ng-container *ngIf="overview.selectedAddons.length > 0">
+          <div class="item item_no-border">
+            <div class="item-description">ADD ONS</div>
+            <div class="item-price"></div>
+          </div>
+          <div class="item normal" *ngFor="let addon of overview.selectedAddons">
+            <div class="item-description">
+              <div class="item-line">
+                {{ addon.quantity }} {{ addon.name }}
+              </div>
+            </div>
+            <div class="item-price">${{ addon.total_price * addon.quantity | number:'1.2-2' }}</div>
+          </div>
+        </ng-container>
+
+        <div class="item black" *ngIf="overview.discounts">
+          <div class="item-description">DISCOUNT</div>
+          <div class="item-price">-${{ overview.discounts | number:'1.2-2' }}</div>
+        </div>
+        <div class="item black" *ngIf="overview.tax">
+          <div class="item-description">TAX</div>
+          <div class="item-price">${{ overview.tax | number:'1.2-2' }}</div>
+        </div>
+        <div class="item final">
+          <div class="item-description">TOTAL</div>
+          <div class="item-price">${{ overview.totalPrice | number:'1.2-2' }}</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="proposal-items">
+      <div class="booking-package-caption">PACKAGE CONTENTS</div>
+      <ul class="booking-package-product-list">
+        <li *ngFor="let item of proposal.approved_package_data.items" class="booking-package-product">
+          {{ item.quantity }} {{ item.item_data.name }}
+          <ul class="booking-package-product-list-in">
+            <ng-container *ngFor="let option of item.item_data.option_groups">
+              <li *ngIf="option.selected_data">{{ option.name }}: {{ option.selected_data?.name }}</li>
+            </ng-container>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr class="split-line"/>
+
+  <div class="payment-schedule-wrap">
+    <div class="payment-schedule-title title title_bold ">
+      Payment Schedule
+    </div>
+    <schedule-payment-table [proposal]="proposal"
+                            [subtotalPrice]="overview.subtotal"
+                            [totalPrice]="overview.totalPrice"
+                            [shippingPrice]="overview.shipping">
+
+    </schedule-payment-table>
+  </div>
+</div>

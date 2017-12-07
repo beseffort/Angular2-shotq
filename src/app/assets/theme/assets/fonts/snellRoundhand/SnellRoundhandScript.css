@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SnellRoundhandScript';
+    src: url('SnellRoundhandScript.eot');
+    src: url('SnellRoundhandScript.eot') format('embedded-opentype'),
+         url('SnellRoundhandScript.woff2') format('woff2'),
+         url('SnellRoundhandScript.woff') format('woff'),
+         url('SnellRoundhandScript.ttf') format('truetype'),
+         url('SnellRoundhandScript.svg#SnellRoundhandScript') format('svg');
+}

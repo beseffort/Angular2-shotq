@@ -1,0 +1,148 @@
+<div class="modal fade " bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-header">
+            <button type="button" class="close"
+                    aria-label="Close" (click)="hide()">
+                <i class="icon-close"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+
+            <div class="email-template">
+                <div class="email-template__header border-bottom">
+                    <div class="row m-0">
+                        <div class="col-sm-6">
+                            <div class="email-template__dropdown">
+                                <input *ngIf="mode === 'edit'" type="text" [(ngModel)]="template.name"
+                                       placeholder="Email Template Title" class="h3">
+                                <h3 *ngIf="mode === 'view'">{{ template.name }}</h3>
+                                <!--<p class="info-text">Active in 7 Jobs</p>-->
+                            </div>
+                        </div>
+                        <div class="col-sm-6 p-r-0">
+                            <div class="text-right">
+                                <div class="checkbox" *ngIf="!readOnly">
+                                    <input type="checkbox" [(ngModel)]="template.send_me_copy"
+                                            name="copy" id="copy">
+                                    <label for="copy">Send Me a Copy</label>
+                                </div>
+                                <button *ngIf="readOnly" type="button" class="btn btn_sm btn_grey"
+                                        (click)="enterEditMode()">
+                                    Edit Template
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="email-template__header-line border-bottom">
+                    <div class="edit-block">
+                        <div class="edit-block__item edit-block__item_width">
+                            <button class="edit-block__btn extand-btn" (click)="toggleContacts()">
+                                <i class="extand-btn__icon"
+                                   [ngClass]="{'icon-down-arrow': !isContactsActive, 'icon-up-arrow': isContactsActive}">
+                                </i>
+                            </button>
+                            <div class="edit-block__line edit-block__line_title sm"
+                                 [ngClass]="{'is-active': !isContactsActive}">
+                                <div class="edit-block__name">To</div>
+                                <span>{{ template.to }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                            <div *ngIf="isContactsActive" class="edit-block__line edit-block__line_title sm">
+                                <div class="edit-block__name">Cc</div>
+                                <span>{{ template.cc }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                            <div *ngIf="isContactsActive" class="edit-block__line edit-block__line_title sm">
+                                <div class="edit-block__name">Bcc</div>
+                                <span>{{ template.bcc }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                        </div>
+                        <div class="edit-block__item">
+                            <div class="edit-block__line md is-active">
+                                <div class="input input_placeholder">
+                                    <input *ngIf="!readOnly" type="text" [(ngModel)]="template.subject"
+                                           placeholder="Email Template Subject">
+                                    <span *ngIf="readOnly">{{ template.subject }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="email-template__body border-bottom">
+                    <tinymce [elementId]="'email-template-contents'"
+                            [noteBody]="tempContents"
+                            [editableMode]="editableMode"
+                            [class]="'wrap-editor template-contents-body'"
+                            [name]="'email-template-contents'"
+                            [readonly]="false"
+                            [templateVariables]="variablesList"
+                            [canReceiveVariable]="!readOnly"
+                            [hideErrors]="true"
+                            [toolbar]="'bold italic bullist | numlist | fontsizeselect | link image |'"
+                            [theme]="'modern'"
+                            [inline]="true"
+                            [fixed_toolbar_container]="'#externalEditorToolbar'"
+                            [placeholder]="'Begin typing here'"
+                            [blurEvent]="true">
+                    </tinymce>
+                    <div class="email-template__attachments" *ngIf="template?.attachments_data?.length">
+                        <h3 class="email-template__attachments-ttl">ATTACHED</h3>
+                        <ul class="email-template__attachments-list">
+                            <li class="email-template__attachment" *ngFor="let attach of template.attachments_data">
+                                <button *ngIf="!readOnly" class="email-template__attachment-rm">
+                                    <i class="icon icon-close" (click)="removeAttachment(attach)"></i>
+                                </button>
+
+                                <span class="email-template__attachment-name">
+                                    {{ attach.filename }}: {{ generalFunctions.formatFileSize(attach.file_size) }}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="email-template__footer" [ngClass]="{hidden: readOnly}">
+                    <div class="email-template__footer-item" *ngIf="!readOnly">
+                        <button type="button" class="btn btn_sm btn_blue"
+                                (click)="save()">Save Email</button>
+                    </div>
+                    <div class="email-template__footer-item" id="externalEditorToolbar">
+                        <!-- here editor -->
+                    </div>
+                    <div class="email-template__footer-item" *ngIf="!readOnly">
+                        <div class="attach-block">
+                            <label class="attach-block__text">
+                                <div class="attach-block__icon"><i class="icon-attach"></i></div>
+                                ADD ATTACHMENTS
+                                <input type="file" ng2FileSelect multiple
+                                   style="display: none"
+                                   [uploader]="uploader" (change)="onAttachmentsChange($event)">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="email-template__footer-item" *ngIf="!readOnly" appClickOutside
+                             (clickOutside)="onClickOutsideVariables($event);">
+                        <div class="search-block" (click)="showVariablesBlock = true;">
+                            <div class="search-block__input">
+                                Variables
+                            </div>
+                            <div class="search-block__icon"><i class="icon-down-arrow"></i></div>
+                        </div>
+                        <div [ngClass]="{hidden: !showVariablesBlock}">
+                            <app-template-variables [variables]="variablesList"
+                                                    [hideErrors]="true" [showCloseIcon]="true"
+                                                    (onClose)="showVariablesBlock = false;"
+                                                    (variablesChange)="onTemplateVariablesChange($event)">
+                            </app-template-variables>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

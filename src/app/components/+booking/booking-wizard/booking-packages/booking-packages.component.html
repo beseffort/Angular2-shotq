@@ -1,0 +1,68 @@
+<div class="booking-packages" >
+
+  <div class="booking-wizard-step-header">
+    <div class="text-center">
+      <h1>Packages</h1>
+      <div class="booking-wizard-step-header-subtitle sub-title">(Choose 1)</div>
+    </div>
+  </div>
+
+
+  <div class="booking-packages-list">
+    <div class="booking-package-item is-black"
+         *ngFor="let pack of packages">
+      <div class="booking-package-item-header">
+        <div class="booking-package-item-type">
+          <div class="text-trancate sub-title">{{ pack.name }} <!-- 2016 Fall Wedding --></div>
+        </div>
+      </div>
+      <div class="booking-package-item-body">
+        <div *ngIf="pack.description" class="booking-package-caption"> PACKAGE DESCRIPTION</div>
+        <p *ngIf="pack.description" class="text-trancate text-left">{{ pack.description }}</p>
+        <div class="booking-package-caption"> PACKAGE CONTENTS</div>
+        <ul class="booking-package-product-list">
+          <li class="booking-package-product"
+              *ngFor="let item of pack.items">
+
+            <span *ngIf="item.quantity > 1">({{ item.quantity }}) </span>{{item.item_data.name}}
+            <!--<span class="booking-package-product-price">-->
+              <!--${{ item.item_data.total_price * item.item_data.quantity | number: '1.2-2' }}-->
+            <!--</span>-->
+            <ul class="booking-package-product-list-in">
+              <ng-container *ngFor="let option of item.item_data.option_groups">
+                  <li *ngIf="option.selected_data">{{ option.name }}: {{ option.selected_data?.name }}</li>
+              </ng-container>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="booking-package-item-underside">
+        <div class="booking-package-item-text"
+             *ngIf="pack.shipping || pack.discount || pack.tax">
+          ${{ pack.price | number: '1.2-2'}}
+        </div>
+
+        <div class="booking-package-item-text grey"
+             *ngIf="pack.shipping">
+          Shipping ${{ pack.shipping | number: '1.2-2'}}
+        </div>
+
+        <div class="booking-package-item-text grey"
+             *ngIf="pack.discount">
+          Discount (${{ pack.discount | number: '1.2-2'}})
+        </div>
+
+        <div class="booking-package-item-text grey"
+             *ngIf="pack.tax">
+          Tax ${{ pack.tax | number: '1.2-2'}}
+        </div>
+
+        <div class="booking-package-item-price">${{ pack.total | number: '1.2-2'}}</div>
+      </div>
+      <div class="booking-package-item-footer">
+        <button type="button" class="booking-package-item-select-btn"
+                (click)="packageSelect(pack)">select package</button>
+      </div>
+    </div>
+  </div>
+</div>

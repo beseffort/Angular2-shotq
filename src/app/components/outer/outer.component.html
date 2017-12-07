@@ -1,0 +1,7 @@
+<div id="wrapper"  [class.show-blur]="blur">
+	<top-navbar [sidebarCollapsed]="isSidebarCollapsed" [sidebarClientAccess]="isClientAccessSidebar" (toggleSidebar)="changeSidebarCollapsed()" [class.hide]="hideTopnavbar" >
+	</top-navbar>
+	<router-outlet></router-outlet>
+	<footer></footer>
+</div>
+<modal></modal>

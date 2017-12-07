@@ -1,0 +1,136 @@
+<div class="custom-fc-sidebar">
+  <div class="custom-fc-sidebar__options">
+    <h2 class="custom-fc-sidebar__title">Time Zone</h2>
+    <div class="custom-fc-sidebar__dropdown">
+      <app-dropdown-select [options]="choices.timezoneChoices"
+                           [(ngModel)]="timezone"
+                           (ngModelChange)="timezoneChanged($event)"
+                           [allowNull]="true"
+                           [valueKey]="'key'"
+                           [labelKey]="'value'">
+      </app-dropdown-select>
+    </div>
+  </div>
+  <!-- begin option block -->
+  <div class="custom-fc-sidebar__options">
+    <h2 class="custom-fc-sidebar__title">Event Type Filters</h2>
+    <ul class="custom-fc-option-list">
+      <!-- begin option -->
+      <li class="custom-fc-option">
+        <div class="custom-fc-option__text">
+          <span>Toggle All</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemsChecked('eventTypes')"
+                   (click)="toggleFilterItems('eventTypes')">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <li class="custom-fc-option" *ngFor="let eventType of eventTypes">
+        <div class="custom-fc-option__text">
+          <div class="custom-fc-circle default"
+               [ngStyle]="{'background-color': eventType.color}"></div>
+          <span>{{ eventType.name }}</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemChecked('eventTypes', eventType)"
+                   (click)="toggleFilterItem('eventTypes', eventType)">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <!-- end option -->
+    </ul>
+  </div>
+  <!-- end option block -->
+
+  <!-- begin option block -->
+  <div class="custom-fc-sidebar__options">
+    <h2 class="custom-fc-sidebar__title">Personnel Filters</h2>
+    <ul class="custom-fc-option-list">
+      <!-- begin option -->
+      <li class="custom-fc-option">
+        <div class="custom-fc-option__text">
+          <span>Toggle All</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemsChecked('jobWorkers')"
+                   (click)="toggleFilterItems('jobWorkers')">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <li class="custom-fc-option" *ngFor="let jobWorker of jobWorkers">
+        <div class="custom-fc-option__text">
+          <span>{{ jobWorker.name }}</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemChecked('jobWorkers', jobWorker)"
+                   (click)="toggleFilterItem('jobWorkers', jobWorker)">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <li class="custom-fc-option">
+        <div class="custom-fc-option__text">
+          <span>Unassigned</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemChecked('unassigned', true)"
+                   (click)="toggleFilterItem('unassigned', true)">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <!-- end option -->
+    </ul>
+  </div>
+  <!-- end option block -->
+
+  <!-- begin option block -->
+  <div class="custom-fc-sidebar__options">
+    <h2 class="custom-fc-sidebar__title">Job Filters</h2>
+    <ul class="custom-fc-option-list">
+      <!-- begin option -->
+      <li class="custom-fc-option">
+        <div class="custom-fc-option__text">
+          <span>Booked events</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemChecked('booked', true)"
+                   (click)="toggleFilterItem('booked', true)">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <li class="custom-fc-option">
+        <div class="custom-fc-option__text">
+          <span>Lead events</span>
+        </div>
+        <div class="custom-fc-option__checkbox">
+          <div class="sq-checkbox sq-checkbox_blue sq-checkbox_empty">
+            <input type="checkbox"
+                   [checked]="isItemChecked('lead', true)"
+                   (click)="toggleFilterItem('lead', true)">
+            <label for=""></label>
+          </div>
+        </div>
+      </li>
+      <!-- end option -->
+    </ul>
+  </div>
+  <!-- end option block -->
+</div>

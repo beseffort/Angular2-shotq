@@ -1,0 +1,101 @@
+<div appClickOutside (clickOutside)="clearSearchInput()">
+  <!-- begin global search -->
+  <div class="global-search">
+    <!-- begin searchbar -->
+    <div class="global-searchbar">
+      <i class="global-searchbar__icon icon-search"></i>
+      <input id="search-box" type="text"
+        name="search_box" placeholder="Search"
+        [(ngModel)]="search_box"
+        (ngModelChange)="isLoading = !!$event;"
+        (keyup)="sendSearch($event)">
+      <button type="button" *ngIf="search_box"
+        class="global-searchbar__icon icon-close"
+        (click)="clearSearchInput()" aria-label="Close"></button>
+    </div>
+    <!-- end searchbar -->
+    <!-- begin search results -->
+    <div class="search-results" *ngIf="search_box">
+      <div class="loading-ripple position-relative" *ngIf="isLoading"></div>
+
+      <ng-container *ngIf="!isLoading">
+        <!-- begin no items -->
+        <ng-container *ngIf="!contactResults.length && !jobResults.length">
+          <div class="no-items">There are no results to display.</div>
+        </ng-container>
+        <!-- end no items -->
+        <ng-container *ngIf="contactResults.length || jobResults.length">
+          <!-- begin list -->
+          <div class="results-list">
+            <!-- begin left -->
+            <div class="results-list__left">
+              <h5 class="results-list__category" *ngIf="contactResults.length" [class.hide]="!contactResults.length">Contacts</h5>
+              <!-- begin item list -->
+              <ul class="results-list__items">
+                <ng-template ngFor let-contact [ngForOf]="contactResults">
+                    <li class="results-list__item" 
+                        (mouseover)="modifyEntityInfo(contact)"
+                        (click)="doContactAction(contact)">
+                        {{ getContactFullName(contact) }}
+                    </li>
+                </ng-template>
+              </ul>
+              <!-- end item list -->
+              <h5 class="results-list__category" *ngIf="jobResults.length" [class.hide]="!jobResults.length">Jobs</h5>
+              <!-- begin item list -->
+              <ul class="results-list__items">
+                <ng-template ngFor let-job [ngForOf]="jobResults">
+                  <li class="results-list__item"
+                      (mouseover)="modifyEntityInfo(job)"
+                      (click)="doJobAction(job)">{{ job.name }}
+                  </li>
+                </ng-template>
+              </ul>
+              <!-- end item list -->
+            </div>
+            <!-- end left -->
+
+            <!-- begin right -->
+            <div class="results-list__right">
+              <!-- begin result info -->
+              <div class="result-info">
+                <div *ngIf="entityInfo" class="result-info__avatar result-info__avatar_online">
+                  <div class="result-info__image">
+  		              <img alt="user-image" [src]="entityInfo.avatar_url || 'assets/img/avatar.png'">
+  		            </div>
+                </div>
+                <div class="result-info__list" *ngIf="entityInfo" >
+                  <ul>
+                    <li>{{ getJobName(entityInfo) }}</li>
+                    <li class="result-info__name">{{ getContactFullName(entityInfo) }}</li>
+                    <li class="result-info__email">{{ getContactEmailAddress(entityInfo) }}</li>
+                    <li>{{ getContactPhoneNumber(entityInfo) }}</li>
+                    <li class="result-info__status">{{ getJobStatus(entityInfo) }}</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- end result info -->
+              <!-- begin result meta -->
+              <div *ngIf="entityInfo" class="result-meta">
+                <div class="result-meta__in">
+                  <div>
+                    <span class="result-meta__label">Created</span>
+                    <span class="result-meta__content">{{ entityInfo.created  | date: 'fullDate' }}</span>
+                  </div>
+                  <div>
+                    <span class="result-meta__label">Modified</span>
+                    <span class="result-meta__content">{{ entityInfo.modified | date: 'fullDate' }}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- end result meta -->
+            </div>
+            <!-- end right -->
+          </div>
+          <!-- end list -->
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <!-- end global search -->
+</div>

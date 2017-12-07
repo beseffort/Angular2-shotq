@@ -1,0 +1,80 @@
+<div class="modal fade " bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm bg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-in">
+                    <div class="h3">
+                        {{ !!template.id ? 'Edit Discount Template' : 'Add New Discount Template' }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="loading-ripple" *ngIf="isLoading"></div>
+
+                <form [formGroup]="form">
+                    <div class="nameBlock inputStyle">
+                        <input type="text" formControlName="name" placeholder="Discount Title"/>
+                        <validation-messages class="errors" [control]="form.controls.name"></validation-messages>
+                    </div>
+                    <div>
+                        <div class="m-b-s">
+                            <app-dropdown-select formControlName="amount_by"
+                                                 [options]="amountChoices">
+                            </app-dropdown-select>
+                        </div>
+                        <div *ngIf="form.value.amount_by === _AMOUNT_CHOICE_PERCENTAGE_RATE">
+                            <div class="inputStyle">
+                                <input type="number" placeholder="% rate" formControlName="rate"/>
+                                <validation-messages class="errors" [control]="form.controls.rate"></validation-messages>
+                            </div>
+
+                            <div class="m-b-s">
+                                <app-dropdown-select formControlName="apply_rule"
+                                                     [options]="applyRuleChoices">
+                                </app-dropdown-select>
+                            </div>
+                            <ng-container *ngIf="form.value.apply_rule === _APPLY_RULE_BEFORE_TAXES">
+                                <div class="m-b-s">
+                                    <app-dropdown-select formControlName="calculate_settings"
+                                                         [options]="calculationSettingsChoices">
+                                    </app-dropdown-select>
+                                </div>
+                                <ng-container *ngIf="form.value.calculate_settings === _RETAIL_PRICE">
+                                    <label for="">​Calculate against retail price of</label>
+                                    <div class="radioBlock margin-bottom-0">
+                                        <div class="radioStyle" *ngFor="let option of calculationChoices">
+                                            <label>
+                                                <input type="radio" [value]="option.value" name="calculate_against"
+                                                       formControlName="calculate_against"/>
+                                                <span>{{ option.label }}</span>
+                                            </label>
+                                        </div>
+                                        <validation-messages class="errors" [control]="form.controls.calculate_against"></validation-messages>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+
+                        </div>
+
+                        <div class="inputStyle inputStyle_mod margin-bottom-0"
+                             *ngIf="form.value.amount_by === 'Fixed Dollar Amount'">
+                            <input type="number" placeholder="Amount" formControlName="total_amount"/>
+                            <validation-messages class="errors" [control]="form.controls.total_amount"></validation-messages>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg">
+                <button type="button" class="sq-btn-dismiss" data-dismiss="modal"
+                        (click)="hide()">Cancel
+                </button>
+                <button type="button" class="sq-btn-submit"
+                        [disabled]="form.invalid"
+                        (click)="save()">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

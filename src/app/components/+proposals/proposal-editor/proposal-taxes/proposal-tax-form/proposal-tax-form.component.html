@@ -1,0 +1,82 @@
+<div *ngIf="tax.editing || !tax.id">
+  <form [formGroup]="taxForm">
+    <div class="nameBlock inputStyle">
+      <input type="text" formControlName="name" placeholder="Tax Name" required/>
+    </div>
+    <div>
+      <div class="m-b-s">
+        <app-dropdown-select formControlName="amount_by"
+                             [options]="amountChoices">
+        </app-dropdown-select>
+      </div>
+      <div class="inputStyle" *ngIf="taxForm.value.amount_by === 'Percentage Rate'">
+        <input type="number" placeholder="% rate" formControlName="rate"/>
+      </div>
+      <div *ngIf="taxForm.value.amount_by === _AMOUNT_CHOICE_PERCENTAGE_RATE">
+        <div class="m-b-s m-b-s_mod ">
+          <div formArrayName="additional_rates">
+            <div *ngFor="let rate of taxForm.controls.additional_rates.controls; let i=index">
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="% rate" [formControlName]="i"/>
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default" (click)="removeAdditionalRate(i)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center">
+            <button type="button" class="btn btn-link" (click)="addAdditionalRate()">Add additional rate</button>
+          </p>
+          <app-dropdown-select formControlName="calculate_settings"
+                               [options]="calculationAgainstChoices">
+          </app-dropdown-select>
+        </div>
+
+        <ng-container *ngIf="taxForm.value.calculate_settings === _RETAIL_PRICE">
+          <label>​Calculate against retail price of</label>
+          <div class="radioBlock margin-bottom-0" formGroupName="calculate_against">
+            <div class="row margin-bottom-5">
+              <div class="checkStyle col-sm-6" *ngFor="let option of calculationChoices">
+                <label>
+                  <input type="checkbox" [formControlName]="option.value"/>
+                  <span>{{ option.label }}</span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="m-b-s m-b-s_mod ">
+          <app-dropdown-select formControlName="schedule_settings"
+                               [options]="paymentScheduleSettings">
+          </app-dropdown-select>
+        </div>
+
+        <div class="checkStyle row">
+          <div class="col-sm-6">
+            <label>
+              <input type="checkbox" formControlName="apply_to_shipping_cost"/>
+              <span>Apply tax on shipping cost</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="inputStyle inputStyle_mod margin-bottom-0"
+           *ngIf="taxForm.value.amount_by === _AMOUNT_CHOICE_FIXED">
+        <input type="number" placeholder="Amount" formControlName="total_amount"/>
+      </div>
+
+    </div>
+  </form>
+  <div class="buttons pointer buttons_bg-white" style="padding-top: 15px;">
+    <a class="delete" (click)="cancel()">CANCEL</a>
+    <a class="delete" (click)="delete()" *ngIf="forTemplate">DELETE</a>
+    <a class="saveNew" (click)="saveAsNew()" *ngIf="!forTemplate && taxForm.valid">SAVE AS PRESET</a>
+    <a class="save" (click)="save()" *ngIf="taxForm.valid">SAVE</a>
+  </div>
+
+</div>

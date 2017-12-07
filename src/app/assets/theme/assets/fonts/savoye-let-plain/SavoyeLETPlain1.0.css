@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'SavoyeLetPlain';
+    src: url('SavoyeLETPlain1.0.eot');
+    src: url('SavoyeLETPlain1.0.eot') format('embedded-opentype'),
+         url('SavoyeLETPlain1.0.woff') format('woff'),
+         url('SavoyeLETPlain1.0.ttf') format('truetype');
+}

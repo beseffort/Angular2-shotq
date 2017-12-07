@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <div class="modal-header-in">
+        <div class="h3">Manage Categories</div>
+        <div class="clearfix">
+            <div class="clearfix__msg">
+                <span>Create or delete categories.</span>
+            </div>
+            <div class="clearfix__btn">
+                <button class="btn btn_xs btn_transparent pull-right"
+                    (click)="isEditing = true;">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="category" [ngClass]="{'is-edited': isEditing || !category.id, 'is-created': !category.id}"
+         *ngFor="let category of categories">
+        <input class="category__checkbox" type="checkbox"
+               [(ngModel)]="category.checked" (ngModelChange)="checkCanDelete();"/>
+        <label class="category__label">
+            <input type="text" [disabled]="!isEditing && category.id"
+                   [ngClass]="{'has-error': category.invalid}"
+                   (blur)="validateUnique(category)"
+                   [(ngModel)]="category.name" (ngModelChange)="onCategoryModified(category)"/>
+        </label>
+        <div class="buttons pull-right" *ngIf="!category.id">
+            <a class="btn cancel"
+                    (click)="removeFromList(category)">DELETE</a>
+            <a class="btn save"
+                    (click)="create(category)">SAVE</a>
+        </div>
+    </div>
+    <button class="btn_add btn btn_xs btn_transparent" (click)="addCategory()">Add a Category</button>
+</div>
+<div class="modal-footer bg clearfix">
+    <button class="btn_delete btn btn_xs btn_transparent pull-left"
+            *ngIf="canDelete"
+            (click)="confirmDelete()">Delete</button>
+    <button type="button" class="sq-btn-dismiss"
+            data-dismiss="modal" (click)="close()">Cancel</button>
+    <button type="button" class="sq-btn-submit"
+            [disabled]="!valid()"
+            (click)="save()">Done</button>
+</div>

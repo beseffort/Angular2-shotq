@@ -1,0 +1,159 @@
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+
+.page {
+  background: $body-bg !important;
+}
+
+.page-content.page-content_mod {
+  background: $gray-lightest !important;
+  padding-top: 0 !important;
+  span#mce_4_start {
+    display: none;
+  }
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 600;
+  color: $body-color;
+  margin-bottom: 20px;
+}
+
+.heading {
+  padding: 24px 80px 22px 30px;
+  box-shadow: 0 2px 10px 0 rgba(181, 193, 207, 0.5);
+  background: $body-bg;
+  margin-top: 13px;
+
+
+  @media screen and (max-width: breakpoint-max(lg)) {
+    padding: 24px 30px 22px 30px;
+  }
+}
+
+.back {
+  font-style: normal;
+  color: $bright-blue;
+  font-size: $font-size-h5;
+  font-weight: 600;
+  float: left;
+  line-height: 19px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  .icon-up-arrow {
+    color: $bright-blue;
+    margin-right: 9px;
+    display: inline-block;
+    font-size: $font-size-h5;
+    transform: rotate(-90deg);
+  }
+}
+
+.btn {
+  &_preview {
+    font-size: 1rem;
+    text-align: center;
+    color: $body-color;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.06);
+    border: solid 1px #cfcfcf;
+    font-weight: 500;
+    &:hover {
+      opacity: .8;
+    }
+  }
+  &_delete {
+    background: transparent;
+    position: absolute;
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+    i {
+      color: rgba($body-color, .4);
+      font-size: 20px;
+      &:hover {
+        color: rgba($body-color, .5);
+      }
+    }
+  }
+}
+
+.signatures {
+  .iinput,
+  .select {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+}
+
+.added {
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  background: $pale-grey-two;
+  border: dashed 1px rgba(58, 64, 91, 0.5);
+  padding: 2px 10px;
+  &:hover {
+    opacity: .9;
+  }
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $body-color;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(#3A405B, .5);
+    margin-right: 7px;
+    &:before {
+      content: "+";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -5px;
+      margin-top: -14px;
+      font-size: 17px;
+      color: rgba(#3A405B, .5);
+    }
+  }
+}
+
+.contract-send-hr {
+  background: $gray-lighter;
+  margin: 0px -65px 18px -30px;
+  // padding: 30px 0 18px 0;
+}
+
+.contract-send {
+  &_mod {
+    display: block !important;
+  }
+}
+
+.proposal-send__email-text {
+  @include sq-base-form-control;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.proposal-send__email-editor-form-control {
+  height: 200px;
+}

@@ -1,0 +1,20 @@
+.panel {
+	margin: 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(181,193,207,.5);
+    box-shadow: 0 1px 2px 0 rgba(181,193,207,.5);
+    max-width: 849px;
+    margin: 0 auto;
+}
+.panel-header {
+	border-bottom: solid 1px #e4e8f0;
+}
+.panel-title {
+	font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+    line-height: normal;
+    color: #3a405b;
+    letter-spacing: normal;
+}

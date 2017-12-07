@@ -1,0 +1,5 @@
+<form class="input-search form-group" [formGroup]="form">
+  <i aria-hidden="true" class="input-search-icon icon-search"></i>
+  <input type="text" class="form-control search-box" placeholder="Search" formControlName="search">
+  <button type="button" class="input-search-close icon md-close" (click)="clearSearchInput()" aria-label="Close"></button>
+</form>

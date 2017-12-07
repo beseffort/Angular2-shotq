@@ -1,0 +1,142 @@
+<script src="../../../+proposals/proposal-editor/proposal-editor.component.ts"></script>
+<div class="page">
+  <div class="loading-ripple" *ngIf="isLoading"></div>
+
+  <div *ngIf="worker">
+    <div class="block-content block-content_sm block-content_image box-shadow margin-bottom-40">
+      <div class="block-content__pic">
+
+        <div class="upload-block__in upload-block__in_width"
+             *ngIf="!workerForm.controls['avatar'].value">
+          <label class="upload-block upload-block_shadow"
+                 for="avatar">
+            <div class="upload-block__vertical">
+              <i class="icon-quick"></i>
+              <div class="upload-block__text text-grey">Upload a photo</div>
+            </div>
+          </label>
+        </div>
+        <div class="upload-block__in upload-block__in_width"
+             *ngIf="workerForm.controls['avatar'].value">
+          <span class="upload-delete"
+                (click)="patchFormValue(workerForm, {avatar: ''}, true);">
+            <i class="icon-close"></i>
+          </span>
+          <img [src]="workerForm.controls['avatar'].value">
+          <label class="upload-tip text-center"
+                 for="avatar">Edit Photo</label>
+        </div>
+        <input type="file" ng2FileSelect style="display: none" id="avatar"
+               accept="image/x-png, image/png, image/jpeg"
+               [uploader]="uploader" (change)="onFileChange($event)">
+      </div>
+
+      <div class="block-content__in">
+        <div class="h3">
+          <span class="d-inline-block" contenteditable="true"
+                [textContent]="worker?.first_name" placeholder="First name"
+                (input)="patchFormValue(workerForm, {'first_name':$event.target.textContent}, true)"></span>
+          <span class="d-inline-block" contenteditable="true"
+                [textContent]="worker?.last_name" placeholder="Last name"
+                (input)="patchFormValue(workerForm, {'last_name':$event.target.textContent}, true)"></span>
+          <validation-messages class="error" [control]="workerForm.controls.first_name"></validation-messages>
+          <validation-messages class="error" [control]="workerForm.controls.last_name"></validation-messages>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="workerForm">
+      <div class="block-content block-content_sm block-content_border margin-bottom-40">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block-content__title">Additional Info</div>
+          </div>
+        </div>
+        <div class="row block-content__line">
+          <div class="col-md-12">
+            <div class="field">
+              <label class="is-selected">Account Role</label>
+              <div class="dropdown-select_wrap">
+                <app-dropdown-select [options]="choices.roleChoices"
+                                     formControlName="role"
+                                     [valueKey]="'value'"
+                                     [readOnly]="worker.role == choices.OWNER"
+                                     [readOnlyOption]="choices.OWNER_CHOICE"
+                                     [labelKey]="'label'">
+                </app-dropdown-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row block-content__line" *ngIf="workerForm.controls.role.value == choices.CONTRACTOR || workerForm.controls.role.value == choices.EMPLOYEE">
+          <div class="col-md-12">
+            <div class="new-field">
+              <div class="sq-checkbox">
+                <input id="hide_billing_details" type="checkbox" formControlName="hide_billing_details" [checked]="worker.hide_billing_details"/>
+                <label for="hide_billing_details">Hide Billing/Financial Details</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row block-content__line" *ngIf="workerForm.controls.role.value == choices.CONTRACTOR || workerForm.controls.role.value == choices.EMPLOYEE">
+          <div class="col-md-12">
+            <div class="new-field">
+              <div class="sq-checkbox">
+                <input id="disable_client_correspondence" type="checkbox" formControlName="disable_client_correspondence" [checked]="worker.disable_client_correspondence"/>
+                <label for="disable_client_correspondence">Disable Client Correspondence</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row block-content__line">
+          <div class="col-md-12">
+            <div class="field">
+              <label class="is-selected">Job Role</label>
+              <div class="dropdown-select_wrap">
+                <app-dropdown-select [options]="choices.jobRoleChoices"
+                                     formControlName="job_role"
+                                     [valueKey]="'value'"
+                                     [labelKey]="'label'">
+                </app-dropdown-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row block-content__line" *ngIf="workerForm.controls.job_role.value == choices.CUSTOMIZE">
+          <div class="col-md-12">
+            <div class="field">
+              <input name="custom_job_role" type="email" formControlName="custom_job_role"
+                     [attr.data-empty]="!workerForm.controls['custom_job_role'].value">
+              <label for="custom_job_role">Custom Job Role</label>
+              <validation-messages class="error" [control]="workerForm.controls['custom_job_role']"></validation-messages>
+            </div>
+          </div>
+        </div>
+        <div class="row block-content__line" *ngIf="worker.role !== choices.OWNER">
+          <div class="col-md-12">
+            <div class="new-field">
+              <div class="sq-checkbox">
+                <input id="active" type="checkbox" formControlName="active" [checked]="worker.active"/>
+                <label for="active">Active</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="modal-footer modal-footer_border">
+      <div class="row">
+        <div class="col-sm-12">
+          <button class="btn btn_md btn_white" type="button"
+                  (click)="cancel()">CANCEL</button>
+          <button class="btn btn_md btn_blue" type="button"
+                  (click)="save()"
+                  [disabled]="!(workerForm.dirty && workerForm.valid)">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

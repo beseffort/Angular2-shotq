@@ -1,0 +1,92 @@
+<div class="loading-ripple" *ngIf="isLoading && variants === undefined"></div>
+<div class="modal fade " bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-header">
+            <button type="button" class="close"
+                    aria-label="Close" (click)="hide()">
+                <i class="icon-close"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="loading-ripple" *ngIf="isLoading"></div>
+
+            <div class="email-template">
+                <div class="email-template__header border-bottom">
+                    <div class="email-template__col">
+                        <div class="email-template__dropdown">
+                            <app-dropdown-select
+                                    [placeholder]="'Choose Template'"
+                                    [allowNull]="true"
+                                    [(ngModel)]="selectedTemplate"
+                                    (optionSelected)="loadTemplate($event?.id)"
+                                    [labelKey]="'name'"
+                                    [valueKey]="'id'"
+                                    [options]="variants">
+                            </app-dropdown-select>
+                        </div>
+                    </div>
+                    <div *ngIf="template" class="email-template__col text-right">
+                        <div class="sq-checkbox">
+                            <input type="checkbox" [(ngModel)]="template.send_me_copy"
+                                [disabled]="true" name="copy" id="copy">
+                            <label for="copy">Send Me a Copy</label>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="template" class="email-template__header-line border-bottom">
+                    <div class="edit-block">
+                        <div class="edit-block__item edit-block__item_width">
+                            <button class="edit-block__btn extand-btn" (click)="toggleContacts()">
+                                <i class="extand-btn__icon"
+                                   [ngClass]="{'icon-down-arrow': !isContactsActive, 'icon-up-arrow': isContactsActive}">
+                                </i>
+                            </button>
+                            <div class="edit-block__line edit-block__line_title sm"
+                                 [ngClass]="{'is-active': !isContactsActive}">
+                                <div class="edit-block__name">To</div>
+                                <span>{{ template.to }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                            <div *ngIf="isContactsActive" class="edit-block__line edit-block__line_title sm">
+                                <div class="edit-block__name">Cc</div>
+                                <span>{{ template.cc }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                            <div *ngIf="isContactsActive" class="edit-block__line edit-block__line_title sm">
+                                <div class="edit-block__name">Bcc</div>
+                                <span>{{ template.bcc }}</span>
+                                <!--<span class="highlighted light-green">Primary Contact</span>-->
+                            </div>
+                        </div>
+                        <div class="edit-block__item">
+                            <div class="edit-block__line md is-active">
+                                <div class="input input_placeholder">
+                                    <span>{{ template.subject }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="email-template__body border-bottom">
+                    <tinymce *ngIf="template" [elementId]="'email-template-preview'"
+                            [noteBody]="tempContents"
+                            [editableMode]="'inactive'"
+                            [class]="'wrap-editor template-contents-body'"
+                            [name]="'email-template-preview'"
+                            [readonly]="true"
+                            [templateVariables]="variablesList"
+                            [canReceiveVariable]="false"
+                            [toolbar]="'bold italic bullist | numlist | fontsizeselect | link image |'"
+                            [theme]="'modern'"
+                            [blurEvent]="true">
+                    </tinymce>
+                    <p *ngIf="!template">No template selected.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-confirm-dialog #confirmModal (confirmed)="onConfirmed()"></app-confirm-dialog>

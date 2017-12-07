@@ -1,0 +1,21 @@
+<div class="activity">
+    <div class="activity__in">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+        <div *ngIf="!feed.length" class="no-activities">
+            <span>There are no activities to display.</span>
+        </div>
+        <ul *ngIf="feed.length" class="activity-list">
+            <!-- begin list item -->
+            <li class="activity-item" *ngFor="let activity of feed | slice:0:10">
+                <activity-item [item]="activity"></activity-item>
+            </li>
+            <!-- end list item -->
+        </ul>
+    </div>
+    <!-- begin footer -->
+    <div *ngIf="feed.length" class="activity__footer">
+        <a (click)="seeAll()"
+           class="see-all">See all activities (<span>{{ feed.length }}</span>)</a>
+    </div>
+    <!-- end footer -->
+</div>

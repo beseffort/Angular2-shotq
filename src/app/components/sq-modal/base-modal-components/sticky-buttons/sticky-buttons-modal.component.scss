@@ -1,0 +1,36 @@
+.sticky-footer {
+	background: #fff;
+    border-top: 1px solid #f0f2f7;
+    text-align: right;
+    padding: 8px 64px 8px 0!important;
+    button {
+    	display: inline-block;
+    	vertical-align: middle;
+    	border: none;
+    	-webkit-appearance: none;
+    	-moz-appearance: none;
+    	appearance: none;
+    	padding: 15px 0;
+    	text-transform: uppercase;
+    	&:first-child {
+    		width: 180px;
+		    font-size: 14px;
+		    font-style: normal;
+		    font-stretch: normal;
+		    font-weight: bold;
+		    color: #e94e4c;
+		    letter-spacing: .7px;
+		    background-color: transparent;
+    	}
+    	&:last-child {
+    		width: 190px;
+		    font-size: 14px;
+		    font-style: normal;
+		    font-stretch: normal;
+		    font-weight: bold;
+		    color: #fff;
+		    letter-spacing: .7px;
+		    background-color: #086aff;
+    	}
+    }
+}

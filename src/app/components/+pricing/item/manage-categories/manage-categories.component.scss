@@ -1,0 +1,9 @@
+button.action-add-category {
+	&:focus {
+		outline: 0;
+	}
+}
+.categories {
+  max-height: 300px;
+  overflow-y: auto;
+}

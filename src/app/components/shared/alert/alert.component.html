@@ -1,0 +1,5 @@
+<button *ngIf="isAlert" type="button" class="{{btnClass}}" [id]="id" (click)="onClick()" [disabled]="disabled">{{name}}</button>
+
+<button *ngIf="isConfirm" type="button" class="{{btnClass}}" [id]="id" (click)="onClick()" [disabled]="disabled">{{name}}</button>
+
+<button *ngIf="isPrompt" type="button" class="{{btnClass}}" [id]="id" (click)="onClick()" [disabled]="disabled">{{name}}</button>

@@ -1,0 +1,171 @@
+// Override margin-top with padding-top for form-groups with floating labels, to add space between inputs
+// ('site.css' does it by adding additional margins, but it won't work for us, as we have components wrappers)
+.form-material {
+  &.floating {
+    padding-top: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    & ~ .floating-label {
+      top: 28px;
+    }
+
+    &.focus, &:focus, &:not(.empty) {
+      & ~ .floating-label {
+        top: 7px;
+      }
+    }
+  }
+}
+
+// Override styles for floating labels to enable highlight on focus (label should be placed after input for this to work)
+.form-group.form-material.floating {
+  // Margins are written in 'site.css'
+
+  // No highlight by default even for colored inputs
+  &.has-success, &.has-info, &.has-warning, &.has-error {
+    .form-control:not(.focus):not(:focus).empty ~ .floating-label,
+    .form-control:not(.focus):not(:focus):not(.empty) ~ .floating-label {
+      color: #757575;
+    }
+  }
+
+  // Highlight when focused are written in 'site.css'
+}
+
+// Override styles for not-floating labels to enable highlight on focus (label should be placed after input for this to work)
+.form-group.form-material:not(.floating) {
+  padding-top: 22px;
+
+  .control-label {
+    position: absolute;
+    top: 0;
+  }
+
+  // No highlight by default even for colored inputs
+  &.has-success, &.has-info, &.has-warning, &.has-error {
+    .form-control ~ .control-label {
+      color: #757575;
+    }
+  }
+
+  // Highlight when focused
+  .form-control {
+    &.focus ~ .control-label, &:focus ~ .control-label {
+      color: #3f51b5;
+    }
+  }
+
+  &.has-success .form-control {
+    &.focus ~ .control-label, &:focus ~ .control-label {
+      color: #4caf50;
+    }
+  }
+
+  &.has-info .form-control {
+    &.focus ~ .control-label, &:focus ~ .control-label {
+      color: #00bcd4;
+    }
+  }
+
+  &.has-warning .form-control {
+    &.focus ~ .control-label, &:focus ~ .control-label {
+      color: #ff9800;
+    }
+  }
+
+  &.has-error .form-control {
+    &.focus ~ .control-label, &:focus ~ .control-label {
+      color: #f44336;
+    }
+  }
+}
+
+// Always highlight input for colored inputs
+.form-material {
+  &.has-success .form-control {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#4caf50), to(#4caf50)), -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e0e0e0));
+    background-image: -webkit-linear-gradient(#4caf50, #4caf50), -webkit-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: -o-linear-gradient(#4caf50, #4caf50), -o-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: linear-gradient(#4caf50, #4caf50), linear-gradient(#e0e0e0, #e0e0e0);
+    -webkit-background-size: 100% 2px, 100% 1px;
+    background-size: 100% 2px, 100% 1px;
+  }
+
+  &.has-info .form-control {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#00bcd4), to(#00bcd4)), -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e0e0e0));
+    background-image: -webkit-linear-gradient(#00bcd4, #00bcd4), -webkit-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: -o-linear-gradient(#00bcd4, #00bcd4), -o-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#e0e0e0, #e0e0e0);
+    -webkit-background-size: 100% 2px, 100% 1px;
+    background-size: 100% 2px, 100% 1px;
+  }
+
+  &.has-warning .form-control {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ff9800), to(#ff9800)), -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e0e0e0));
+    background-image: -webkit-linear-gradient(#ff9800, #ff9800), -webkit-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: -o-linear-gradient(#ff9800, #ff9800), -o-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: linear-gradient(#ff9800, #ff9800), linear-gradient(#e0e0e0, #e0e0e0);
+    -webkit-background-size: 100% 2px, 100% 1px;
+    background-size: 100% 2px, 100% 1px;
+  }
+
+  &.has-error .form-control {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f44336), to(#f44336)), -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e0e0e0));
+    background-image: -webkit-linear-gradient(#f44336, #f44336), -webkit-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: -o-linear-gradient(#f44336, #f44336), -o-linear-gradient(#e0e0e0, #e0e0e0);
+    background-image: linear-gradient(#f44336, #f44336), linear-gradient(#e0e0e0, #e0e0e0);
+    -webkit-background-size: 100% 2px, 100% 1px;
+    background-size: 100% 2px, 100% 1px;
+  }
+
+  // Override styles for :invalid input - we will set has-error manually
+  &:not(.has-error) {
+    .form-control:invalid {
+      &.focus ~ .floating-label, &:focus ~ .floating-label {
+        color: #3f51b5;
+      }
+    }
+
+    .form-control:invalid {
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#3f51b5), to(#3f51b5)), -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#e0e0e0));
+      background-image: -webkit-linear-gradient(#3f51b5, #3f51b5), -webkit-linear-gradient(#e0e0e0, #e0e0e0);
+      background-image: -o-linear-gradient(#3f51b5, #3f51b5), -o-linear-gradient(#e0e0e0, #e0e0e0);
+      background-image: linear-gradient(#3f51b5, #3f51b5), linear-gradient(#e0e0e0, #e0e0e0);
+    }
+  }
+}
+
+// Fixes for disabled colored inputs
+.form-material {
+  &.has-success .form-control {
+    &:disabled, &[disabled] {
+      background: none !important;
+      border-color: #4caf50;
+    }
+  }
+
+
+  &.has-info .form-control {
+    &:disabled, &[disabled] {
+      background: none !important;
+      border-color: #00bcd4;
+    }
+  }
+
+  &.has-warning .form-control {
+    &:disabled, &[disabled] {
+      background: none !important;
+      border-color: #ff9800;
+    }
+  }
+
+  &.has-error .form-control {
+    &:disabled, &[disabled] {
+      background: none !important;
+      border-color: #f44336;
+    }
+  }
+}

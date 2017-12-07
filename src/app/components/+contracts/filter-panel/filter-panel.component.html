@@ -1,0 +1,13 @@
+<div class="filter-contracts">
+  <div class="filter-contracts__caption">{{ title }}</div>
+  <div class="filter-contracts__row" *ngFor="let filter of filterParams">
+    <div class="filter-contracts__title">{{ filter.title }}</div>
+    <div class="filter-contracts__group">
+      <button *ngFor="let choice of filter.choices"
+              [ngClass]="{'is-active': !!choice.selected}"
+              (click)="toggleChoice(filter, choice)">
+        {{ choice.title }}
+      </button>
+    </div>
+  </div>
+</div>

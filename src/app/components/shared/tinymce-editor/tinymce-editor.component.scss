@@ -1,0 +1,31 @@
+
+.template-contents-body {
+  position: relative;
+  min-height: 200px;
+  outline: none;
+  font-size: 18px;
+  line-height: 32px;
+  color: #3a405b;
+  &.is-active {
+  	&:before {
+  		display: none;
+  	}
+  }
+  &:before {
+  	position: absolute;
+  	left: 0;
+  	top: 0;
+  	content: attr(placeholder);
+  	display: block;
+  	color: #9da0ad;
+  }
+  &:focus {
+  	&:before {
+  		display: none;
+  	}
+  }
+  em {
+    color: #3a405b;
+  }
+  // &::-webkit-input-placeholder {color: #9da0ad;}
+}

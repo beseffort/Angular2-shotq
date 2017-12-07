@@ -1,0 +1,237 @@
+.list-group-item {
+  border: 1px solid rgba(0,0,0,.125);
+}
+.list-group {
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 15px;
+	&-item {
+		position: relative;
+		padding-left:30px;
+		padding-right:28px;
+		border: none;
+		border-top: solid 1px #e4e8f0;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+		&:after {
+			width: 10px;
+			height: 7px;
+			background-repeat: no-repeat;
+			background-position: left top;
+			content: "";
+			display: inline-block;
+			position: absolute;
+			right: 28px;
+			top: 19px;
+			background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AsJDSI6uS7DeAAAANVJREFUKM9jYKAFqG2c/H/GnJX/0cUvXb75P7+47f/e/Scw5OYv2vC/un7i/0tXbqHIsTAwMDDISIkxrF63i2HqjOX/szMiGRkYGBguXrrxv7NvHgMDAwODlKQYimFTZyz/v3TFZgYmJiaGR4+fM1y8dOO/vp4GIwMDAwMjsqL1m/YwBPm7MBgbaTNMnraU4T8DA0NZYSIDTDEx6hjRbV6/aQ8DExMTg7iYMENJQQKKYTNnr/y/ev0uhkA/FwZkn3T1z2dgYGBgqClPxwxPXGFDblhTDADS0XEHJMaJFAAAAABJRU5ErkJggg==");
+			
+		} 
+		&:last-child {
+			border-bottom: solid 1px #e4e8f0;
+		}
+		&:hover {
+			cursor: pointer;
+		}
+		.list-group {
+			margin-bottom: 0;
+			li {
+				border: none;
+				padding: 5px 25px;
+				color: rgba(#3a405b, .5);  
+				&:after {
+					display: none;
+				}
+			}
+			
+		}
+		.buttons {
+			padding-right: 0 !important;
+			margin-right: -18px;
+		}
+		.btn {
+			background: transparent;
+			border: none;
+			text-transform: uppercase;
+		    color: #086aff;
+		}
+	}
+	&-title {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		font-style: normal;
+		color: #3a405b;
+		font-size: 14px;
+		font-weight: normal;
+		user-select: none;
+		
+	}
+	
+} 
+.btn-check {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+	background: transparent;
+	border: none;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAQCAYAAACYwhZnAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4AwTDQIvzPNo2gAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAOHSURBVEjHtZXPa1xVGIaf7zvnzp0598cksRMSEyVpdWGEulAKEYS4yz8wIOIiKlVx1+IfEFyKmKKg4ELiolDIohtxJZiNBAUXBk2bUmUWhaYZMNUkN5mZm3tcTBMnbWJT0W93Dpf3POe93/ce4Zj6CSKBEoCH9nPeZ4h4TloeQWYFfpHuxrMeP+sRHtCQ+9c/wxMBvGhgwqOn0AKJ2NAq13SA78aWaXS5ji2BtyzP9zvWtiwVVQB2ioKhOOfHjQw+z3s1DiC+BTsMLxmoAyMginivFVSrBNqH0ZjbRFy+Cd+8vEh+JMDZ9xxZy5GbDsPSor3d/a4UWW77ELsX4MKM5Q+zfZB9CLkOUwbe9JCCeBHv1WE0xZoEI1UCTQlNzKav8PHwFb6+z5EegM1NGvOtIxwTxmZCbJL0gijACjypUPeQChS9ANqHlZRAEsTEoAk1m3B+/QJnDslP1AOylqNmt2jM7x7zyzyN+V1qdous5ZioBwA6C2pgUmBEoEBAHUYTjFaxGhNoQgvHFU1YkS7c09YxPTuLHtxwbahMbjosze0+tGmX5nbJTYe1oTIgOgmVbhMiAmgFI10HAk3uAYR8aQZYlYQhjTDqCEzEuVcyoq5qXRksAnJpPaRp/3YklxaDRQB11WEoeTglAuLw0kdh0h6AEvM6yJp1XNQK4xJjJMJIxOhIjQoAU00hV+XWdn7iEb61nZOrMtWUrp0K6rASc1McX5g+7mpC+xCA47TpumCNw4rDZn0PjPi/KvXQvpcDVgcY136KPcdnYvm0F0AiVBxGIwIqBFrmjt1hB4DFmscWBaORPfHJo5HFFgWLNa9XYSeock0T1KTUgoR3giqJPM7dXgDjsDislrFaRr3y/Se/s9VVXChY1w7Wh0cE4NGBZn3IunZgoRCAxlnGTcj7mnDapFiNyCTFa4VBiTD79qvDElISw697whvpq1zvGdES7aEqNbvF0tzOPyJMXqjQzGNKa3+wstBWgLFlGqRcNinbGhNITL9WGDRR92CJCNQRUCZUw0ZRcOmjG9w4JLyy0MGFGc08ZmymfIwjwthMmWYe48KMlYXO4diewj4zwrSJOK8JT6kjEIcRh9WIkoYIym9FwaXVjKsvvE3nv47tA5H1dzlj+5k2EeckYlQcRkPueMMPRZuv0tdZ/d8esMNR4qX5gcTltJsD7YTdx17jz0eau0d4yv8CkE4xx4KHN9AAAAAASUVORK5CYII=');
+	&:focus {
+		outline: none;
+	}
+	&.is-active, 
+	&_active {
+		background-position: left center;
+	}
+}
+.list-payment {
+	list-style: none;
+	padding-left: 0px;
+	margin: 0;
+	&-item {
+		position: relative;
+		// padding-left: 55px;
+		// padding-right: 27px;
+		padding-bottom: 15px;
+		
+	}
+	.left {
+		span {
+			color: rgba(#3a405b, .5);
+		}
+	}
+}
+.paid {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 0px;
+    margin: 3px 0;
+    &__title {
+        font-style: normal;
+        color: rgba(58, 64, 91,0.5);
+        font-size: 10px;
+        font-weight: normal;
+        display:inline-block;
+        vertical-align: top;
+        position: relative;
+        top:2px;
+        margin-right: 6px;
+    }
+    label {
+        display:inline-block;
+        width:82px;
+        border-radius: 2px;
+        background-color: rgb(255, 255, 255);
+        border: solid 1px rgb(228, 231, 239);
+        height:20px;
+        position:relative;
+        padding-left:25px;
+        padding-top:2px;
+        padding-bottom:2px;
+        i.icon-ios-calendar {
+            position:absolute;
+            top:1px;
+            left:3px;
+            font-size:16px;
+            color: rgba(58, 64, 91,1);
+        }
+        input {
+            color: rgb(58, 64, 91);
+            font-size: 10px;
+            height: 15px;
+            padding-top:2px;
+            padding-bottom:2px;
+            width:100%;
+            border:none;
+            vertical-align:top;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+.edit {
+	.selectStyle {
+		max-width: 140px;
+		height: 27px;
+		display: inline-block;
+		margin-right: 15px;
+		vertical-align: middle;
+		select {
+			height: auto;
+		}
+		&:after {
+			top: 10px;
+		}
+		& + span {
+			display: inline-block;
+			vertical-align: text-top;
+			font-style: normal;
+			color: #3a405b;
+			font-size: 12px;
+			font-weight: normal
+		}
+	}
+	.inputSelect {
+		input {
+			font-size: 12px;
+			line-height: 19px;
+			padding-top: 2px;
+			padding-bottom: 3px;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	}
+	
+}
+.buttons {
+	&_schedule {
+		// margin-bottom: 20px;
+		padding-right: 11px !important;
+		.btn {
+			letter-spacing: 0.8px;
+			font-style: normal;
+			color: #086aff;
+			font-size: 14px;
+			font-weight: 600;
+			background: transparent;
+			text-transform: uppercase;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		
+	}
+}
+.payment-text-wrap {
+	padding: 10px 30px 0 30px;
+}
+.payment-title {
+	margin-bottom: 0;
+	color: #3a405b; 
+}
+.payment-about {
+	position: relative;
+	color: #3a405b;
+	text-transform: capitalize;
+	display: inline-block;
+	vertical-align: middle;
+}
+.list-group {
+	&-item {
+		&.is-active {
+			&:after {
+				transform: rotate(180deg);
+			}
+		}
+	}
+}
+
+
+
+

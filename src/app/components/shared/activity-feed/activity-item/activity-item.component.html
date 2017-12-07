@@ -1,0 +1,116 @@
+<ng-container [ngSwitch]="item.verb">
+    <div class="activity-item__icon">
+        <!--<i class="icon icon-money-dollar-cash"></i>
+        <i class="icon icon-document-text"></i>
+        <i class="icon icon-help"></i>
+        <i class="icon icon-person"></i>-->
+        <i class="icon" [ngClass]="getIcon(item.verb)"></i>
+    </div>
+    <div class="activity-item__in">
+        <div class="activity-item__text">
+            <!-- Proposal -->
+            <ng-container *ngSwitchCase="'sent proposal'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{proposal: item.object.id}">Proposal</a>
+                has been sent to the client and is awaiting their review.
+            </ng-container>
+            <ng-container *ngSwitchCase="'accepted proposal'">
+                The client has accepted the
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{proposal: item.object.id}">proposal</a>.
+                Click <a (click)="previewContract(item.data.contract.id)">here</a> to view the contract.
+            </ng-container>
+            <ng-container *ngSwitchCase="'expired proposal'">
+                The most recent <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{proposal: item.object.id}">proposal</a>
+                for {{ item.target.displayName }} has expired.
+            </ng-container>
+            <ng-container *ngSwitchCase="'archived proposal'">
+                The most recent <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{proposal: item.object.id}">proposal</a>
+                for {{ item.target.displayName }} has been archived.
+            </ng-container>
+            <ng-container *ngSwitchCase="'deleted proposal'">
+                The most recent proposal for {{ item.target.displayName }} has been deleted.
+            </ng-container>
+
+            <!-- Contract -->
+            <ng-container *ngSwitchCase="'sent contract'">
+                <a (click)="previewContract(item.object.id, false)">The contract</a> has been sent to the client
+                and is awaiting their review.
+            </ng-container>
+            <ng-container *ngSwitchCase="'signed contract'">
+                The client has signed the contract. Click <a (click)="previewContract(item.object.id)">here</a>
+                to review and countersign.
+            </ng-container>
+            <ng-container *ngSwitchCase="'archived contract'">
+                The <a (click)="previewContract(item.object.id, false)">contract</a> for {{ item.target.displayName }}
+                has been archived.
+            </ng-container>
+
+            <!-- Job -->
+            <ng-container *ngSwitchCase="'created job'">
+                <a [routerLink]="['/jobs', item.object.id]">{{ item.object.displayName }}</a> has been created.
+            </ng-container>
+            <ng-container *ngSwitchCase="'deleted job'">
+                The studio has deleted {{ item.object.displayName }}.
+            </ng-container>
+            <ng-container *ngSwitchCase="'archived job'">
+                The <a [routerLink]="['/jobs', item.object.id]">{{ item.object.displayName }}</a> has been archived.
+            </ng-container>
+
+            <!-- Event -->
+            <ng-container *ngSwitchCase="'scheduled event'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{eventgroup: item.object.id}">{{ item.object.displayName }}</a>
+                has been scheduled.
+            </ng-container>
+            <ng-container *ngSwitchCase="'deleted event'">
+                {{ item.object.displayName }} has been deleted.
+            </ng-container>
+            <ng-container *ngSwitchCase="'changed event'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{eventgroup: item.object.id}">{{ item.object.displayName }}</a>
+                has been changed.
+            </ng-container>
+
+            <!-- Invoice/Payment -->
+            <ng-container *ngSwitchCase="'sent invoice'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{invoice: item.object.id}">Invoice</a> Sent -
+                <a [routerLink]="['/contacts/profile', item.actor.id]">{{ item.actor.displayName }}</a>
+                [<a [routerLink]="['/jobs', item.target.id]">{{ item.target.displayName }}</a>].
+            </ng-container>
+            <ng-container *ngSwitchCase="'paid invoice'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{invoice: item.object.id}">Invoice</a> Paid In Full -
+                ${{ item.data.paid }} paid by
+                <a [routerLink]="['/contacts/profile', item.actor.id]">{{ item.actor.displayName }}</a>
+                [<a [routerLink]="['/jobs', item.target.id]">{{ item.target.displayName }}</a>].
+            </ng-container>
+            <ng-container *ngSwitchCase="'overdue invoice'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{invoice: item.object.id}">Invoice</a> Overdue -
+                ${{ item.data.balance }} owed by
+                <a [routerLink]="['/contacts/profile', item.actor.id]">{{ item.actor.displayName }}</a>
+                [<a [routerLink]="['/jobs', item.target.id]">{{ item.target.displayName }}</a>].
+            </ng-container>
+            <ng-container *ngSwitchCase="'received payment'">
+                <a [routerLink]="['/jobs', item.target.id]"
+                   [queryParams]="{invoice: item.object.id}">Payment</a> Received -
+                ${{ item.data.paid }} paid by
+                <a [routerLink]="['/contacts/profile', item.actor.id]">{{ item.actor.displayName }}</a>
+                [<a [routerLink]="['/jobs', item.target.id]">{{ item.target.displayName }}</a>].
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                {{ item.title }}
+            </ng-container>
+        </div>
+        <div class="activity-item__meta">
+            <span *ngIf="item.actor">By {{ item.actor.displayName }} – </span>
+            <span>{{ item.published | date: 'MMMMd' }} at {{ item.published | date: 'shortTime' }}</span>
+        </div>
+        <div class="activity-item__status" *ngSwitchCase="'paid invoice'">Paid</div>
+    </div>
+
+</ng-container>

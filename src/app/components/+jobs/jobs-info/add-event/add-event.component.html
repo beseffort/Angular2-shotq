@@ -1,0 +1,146 @@
+<div class="jobInfo">
+  <div class="job-name">
+    <editable-label
+        *ngIf="!isLoadingHeader"
+        [value]="jobData.name"
+        [editOnClick] = "true"
+        [truncateWords]="'4'"
+        [required]="false"
+        (valueChange)="jobNameChanged($event)"
+        (onBlurEvent)="jobNameBlur($event)"
+        placeholder="Job Name">
+    </editable-label>
+    <div class="loading-ripple rippleHeader" *ngIf="isLoadingHeader"></div>
+  </div>
+  <div class="no-events-to-display" *ngIf="!isLoading && eventGroups.length === 0">
+    There are no events to display
+  </div>
+  <div class="loading-ripple divRipple" *ngIf="isLoading"></div>
+  <div *ngIf="!isLoading">
+    <div class="simpleButton">
+      <a class="btn btn-simple" (click)="addNewEventGroup()" *ngIf="!isLoading">ADD EVENT</a>
+    </div>
+    <accordion *ngIf="eventGroups.length > 0" class="event">
+      <accordion-group (onOpen)="iterateOpenAccordion(i, 1)" (onClose)="iterateCloseAccordion(1)" [isOpened]="eventGroup.isOpenEvGroup" *ngFor="let eventGroup of eventGroups; let i = index ">
+        <accordion-heading>
+          <accordion-toggle>
+          <i class="icon-hamburger"></i>
+          </accordion-toggle>
+          <editable-label
+              [value]="eventGroup.name"
+              [editOnClick] = "true"
+              [truncateWords]="'4'"
+              [required]="false"
+              [forceEditable]="editOnEvGroupCreate[i]"
+              (valueChange)="eventTitleChanged($event, i)"
+              (onBlurEvent)="eventTitleBlur($event, i)"
+              placeholder="Event Name">
+          </editable-label>
+          <span class="trash">
+            <i class="icon-trash" (click)="onDeleteEventGroup(eventGroup, i)"></i>
+          </span>
+          <accordion-toggle>
+          <i class="arrow icon-down-arrow" *ngIf="!eventGroup.isOpenEvGroup"></i>
+          <i class="arrow icon-up-arrow" *ngIf="eventGroup.isOpenEvGroup"></i>
+          </accordion-toggle>
+        </accordion-heading>
+        <accordion *ngIf="events.length > 0" class="appointment">
+          <accordion-group (onOpen)="iterateOpenAccordion(j, 2)" (onClose)="iterateCloseAccordion(2)" [isOpened]="event.isOpen" *ngFor="let event of events[i]; let j = index ">
+            <accordion-heading>
+              <i class="icon-hamburger"></i>
+                <span class="appointment-name">{{ event.name | truncate: 17 }}</span>
+                <!--<label class="main-event-label" *ngIf="event.isMainEvent">Main event</label>-->
+                <span class="trash">{{ event.fullDate }}
+                  <i class="icon-trash" (click)="onDeleteEvent(event, i, j)"></i>
+                </span>
+              <i class="arrow icon-down-arrow" *ngIf="!event.isOpen"></i>
+              <i class="arrow icon-up-arrow" *ngIf="event.isOpen"></i>
+            </accordion-heading>
+            <div class="content">
+            <div class="field">
+                <label>Appointment Type</label>
+                <div class="default-dropdown">
+                  <form-field [onlySelect]="true" [(ngSelectValue)]="event.event_type" [options]="eventTypes"></form-field>
+                </div>
+            </div>
+              <div class="field">
+                <label>Appointment name</label>
+                <input type="text" id="appointment-name" [(ngModel)]="event.name" [class.has-error]="event.nameError"/>
+                <p class="msg-error custom-pos" *ngIf="event.nameError">The above field is required. Please, enter Appointment Name.</p>
+              </div>
+              <div class="row margin-bottom-0">
+                <div class="col-sm-6">
+                  <div class="field dp-container" [class.has-error]="event.startDateError && event.startDateError.error">
+                    <label>Start date</label>
+                    <datepicker-new [showDeleteIcon]="false" addClass="addEvent" idBlock="startDate-{{i}}-{{j}}" [options]="myDatePickerOptions" [(data)]="event.auxStartDate"></datepicker-new>
+                  </div>
+                  <p class="msg-error custom-pos" *ngIf="event.startDateError && event.startDateError.error">{{event.startDateError.message}}</p>
+                </div>
+                <div class="col-sm-6 padding-left-15">
+                  <div class="field dp-container" [class.has-error]="event.endDateError && event.endDateError.error">
+                    <label>End date</label>
+                    <datepicker-new [showDeleteIcon]="false" addClass="addEvent" idBlock="endDate" idBlock="endDate-{{i}}-{{j}}" [options]="myDatePickerOptions" [(data)]="event.auxEndDate"></datepicker-new>
+                  </div>
+                  <p class="msg-error custom-pos" *ngIf="event.endDateError && event.endDateError.error">{{event.endDateError.message}}</p>
+                </div>
+              </div>
+              <div class="row margin-bottom-0" *ngIf="!event.all_day">
+                <div class="col-sm-6">
+                  <div class="field timepicker" [class.has-error]="event.timeError">
+                    <label>Start time</label>
+                    <timepicker cssClass="time-input" [(value)]="event.auxStartTime"></timepicker>
+                  </div>
+                </div>
+                <div class="col-sm-6 padding-left-15">
+                  <div class="field timepicker" [class.has-error]="event.timeError">
+                    <label>End time</label>
+                    <timepicker cssClass="time-input" [(value)]="event.auxEndTime"></timepicker>
+                  </div>
+                </div>
+                <p class="msg-error" *ngIf="event.timeError">Start time cannot be greater than end time.</p>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="checkboxBlock">
+                    <label>
+                      <input value="" type="checkbox" (click)="checkOption(event, 'all_day')" [checked]="event.all_day" /> <span>All day</span>
+                    </label>
+                  </div>
+                  <div class="checkboxBlock">
+                    <label>
+                      <input value="" type="checkbox" (click)="setMainEvent(i, j)" [checked]="event.isMainEvent" /> <span>Main Event</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6 pl3">
+                  <div class="checkboxBlock">
+                    <label>
+                      <input value="" type="checkbox" (click)="checkOption(event, 'confirmed')" [checked]="event.confirmed" /> <span>Confirmed</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Location Name</label>
+                <input type="text" id="location-name" [(ngModel)]="event.location.name" [class.has-error]="event.locationNameError"/>
+                <p class="msg-error pl-0" *ngIf="event.locationNameError">The above field is required. Please, enter Location Name.</p>
+              </div>
+              <div class="field event-address">
+                <label>Location Address</label>
+                <form-field-address [(ngValue)]="event.location" [required]="true"></form-field-address>
+              </div>
+            </div>
+          </accordion-group>
+        </accordion>
+        <div class="simpleButton appointment">
+          <a class="btn btn-simple" (click)="addNewEvent()" >ADD APPOINTMENT</a>
+        </div>
+      </accordion-group>
+    </accordion>
+  </div>
+  <div class="buttonsButtom">
+    <button [class.hide]="isLoading" type="button" class="btn cancel-button" id="cancelButton" (click)="cancel()">CANCEL</button>
+    <button *ngIf="isSaving" type="button" class="btn save-button">SAVING...</button>
+    <button *ngIf="!isSaving" type="button" class="btn save-button" (click)="save()">SAVE</button>
+  </div>
+</div>

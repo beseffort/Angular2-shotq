@@ -1,0 +1,69 @@
+<div class="modal-body-row" *ngIf="initialized && contactForm.enabled">
+  <div class="form-group" [formGroup]="contactForm">
+    <label class="form-group__label">Primary Contact</label>
+    <div class="form-group__fields">
+      <div class="form-select is-selected" [ngClass]="{'has-error': contactForm.controls.id.errors && showErrorsWhen}">
+        <label for="">{{ required ? 'Contact Name *' : 'Contact Name' }}</label>
+        <div class="dropdown-select_wrap">
+          <app-dropdown-select [options]="contacts"
+                               formControlName="id"
+                               [valueKey]="'value'"
+                               [labelKey]="'label'"
+                               [customActions]="dropdownSelectCustomActions"
+                               [enableSearch]="true"
+                               [selectFirstAsDefault]="false">
+          </app-dropdown-select>
+        </div>
+      </div>
+      <validation-messages class="error" [showWhen]="showErrorsWhen" [control]="contactForm.controls.id"></validation-messages>
+    </div>
+  </div>
+</div>
+<div class="modal-body-row" *ngIf="initialized && newContactForm.enabled">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-4 form-group__col">
+        <label class="form-group__label">{{ required ? 'New Contact *' : 'New Contact' }}</label>
+      </div>
+      <div class="col-sm-8 form-group__col form-group__col_right">
+        <div class="checkbox-custom checkbox-custom_top checkbox-default">
+          <span (click)="hideNewContactForm()" class="icon-close cursor-pointer"></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group__fields" [formGroup]="newContactForm">
+      <div class="row">
+        <div class="form-group__col col-sm-6">
+          <div class="field" [ngClass]="{'has-error': newContactForm.controls.first_name.errors && showErrorsWhen}">
+            <input id="id_contact_first_name" type="text"
+                   [class.has-error]="newContactForm.controls.first_name.touched && newContactForm.controls.first_name.errors"
+                   [attr.data-empty]="!newContactForm.controls.first_name.value"
+                   formControlName="first_name">
+            <label for="id_contact_first_name">First name *</label>
+            <validation-messages class="error" [showWhen]="showErrorsWhen" [control]="newContactForm.controls.first_name"></validation-messages>
+          </div>
+        </div>
+        <div class="form-group__col form-group__col_right col-sm-6">
+          <div class="field" [ngClass]="{'has-error': newContactForm.controls.last_name.errors && showErrorsWhen}">
+            <input id="id_contact_last_name" type="text"
+                   [class.has-error]="newContactForm.controls.last_name.touched && newContactForm.controls.last_name.errors"
+                   [attr.data-empty]="!newContactForm.controls.last_name.value"
+                   formControlName="last_name">
+            <label for="id_contact_last_name">Last name *</label>
+            <validation-messages class="error" [showWhen]="showErrorsWhen" [control]="newContactForm.controls.last_name"></validation-messages>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field" [ngClass]="{'has-error': newContactForm.controls.default_email.errors && showErrorsWhen}">
+          <input id="id_contact_default_email" type="text"
+                 [class.has-error]="newContactForm.controls.default_email.touched && newContactForm.controls.default_email.errors"
+                 [attr.data-empty]="!newContactForm.controls.default_email.value"
+                 formControlName="default_email">
+          <label for="id_contact_default_email">Email *</label>
+          <validation-messages class="error" [showWhen]="showErrorsWhen" [control]="newContactForm.controls.default_email"></validation-messages>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

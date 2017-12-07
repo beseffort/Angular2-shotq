@@ -1,0 +1,20 @@
+.event-location {
+  .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 12px);
+    height: 20px;
+    border: 0;
+    background-color: transparent;
+    font-size: 11px;
+    &::placeholder {
+      font-style: italic;
+    }
+  }
+  .fa-map-marker {
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.5;
+    font-size: 12px;
+  }
+}

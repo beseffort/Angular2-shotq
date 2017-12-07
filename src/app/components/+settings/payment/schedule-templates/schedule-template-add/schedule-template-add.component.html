@@ -1,0 +1,22 @@
+<div class="modal fade " bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm bg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-in">
+                    <div class="h3">
+                        {{ !!template?.id ? 'Edit Schedule Template' : 'Add New Schedule Template' }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="loading-ripple" *ngIf="isLoading"></div>
+                <schedule-preset-form [schedule]="template"
+                                      [proposalHasEvent]="true"
+                                      [canDelete]="false" [canSavePreset]="false"
+                                      (saved)="save($event)"
+                                      (canceled)="hide()"></schedule-preset-form>
+            </div>
+        </div>
+    </div>
+</div>

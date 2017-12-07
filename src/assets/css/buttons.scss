@@ -1,0 +1,121 @@
+// Global button styles
+
+.sq-btn-add {
+  @include sq-button-base;
+  @include sq-button-variant($gray-dark, $gray-lightest, #d8d8d8);
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  text-transform: capitalize;
+  min-width: 120px;
+  &:hover {
+    background-color: $gray-lightest;
+  }
+}
+
+.sq-btn-default {
+  @include sq-button-base;
+  @include sq-button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  min-width: 120px;
+  text-transform: capitalize;
+}
+
+// The default dialog of page button which starts some destructive action,
+// which usually cannot be undone.
+.sq-btn-danger {
+  @include sq-button-base;
+  @include sq-button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  min-width: 120px;
+  text-transform: capitalize;
+}
+
+// The dialog button that closes the dialog.
+.sq-btn-dismiss {
+  @include sq-button-base;
+  @include sq-button-link;
+  @include hover-focus {
+    color: $btn-secondary-color;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  &:disabled {
+    @include hover-focus {
+      color: $btn-secondary-color;
+      text-decoration: none;
+    }
+  }
+  color: $btn-secondary-color;
+  text-decoration: none;
+  text-transform: capitalize;
+  opacity: 0.6;
+  min-width: 90px;
+}
+
+// A button which offers the user alternative version of the default action.
+// Currently it has green color.
+.sq-btn-secondary {
+  @include sq-button-base;
+  @include sq-button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  min-width: 120px;
+  text-transform: capitalize;
+}
+
+// The button for the default action at the dialog or the page. Currently it has blue color.
+.sq-btn-submit {
+  @include sq-button-base;
+  @include sq-button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include sq-button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
+  min-width: 90px;
+  text-transform: capitalize;
+}
+
+
+.btn-default-blue {
+  background-color: #fff;
+  border-color: #5b94a2;
+  color: #5b94a2;
+
+  &:hover, &:active, &:focus {
+    border-color: #4e8592;
+    color: #4e8592;
+  }
+
+  &:disabled {
+    border-color: #5b94a2;
+    color: #5b94a2;
+  }
+}
+
+.btn-default-red {
+  background-color: #fff;
+  border-color: #ff6d6d;
+  color: #ff6d6d;
+
+  &:hover, &:active, &:focus {
+    border-color: #ff4747;
+    color: #ff4747;
+  }
+
+  &:disabled {
+    border-color: #ff6d6d;
+    color: #ff6d6d;
+  }
+}
+
+.btn-group label.btn {
+  border-radius: 2px;
+
+  &.btn-info {
+    background-color: #a1dced;
+    border-color: #a1dced;
+    color: #fff;
+    font-weight: normal;
+
+    &.active {
+      background-color: #fff;
+      border-color: #a1dced;
+      color: #a1dced;
+    }
+  }
+}

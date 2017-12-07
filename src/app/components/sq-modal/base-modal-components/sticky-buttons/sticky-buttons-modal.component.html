@@ -1,0 +1,17 @@
+<div [ngClass]="dialog.context.dialogClass"
+     [class.modal-lg]="dialog.context.size == 'lg'"
+     [class.modal-sm]="dialog.context.size == 'sm'">
+  <div class="modal-content" style="display:block" role="document" overlayDialogBoundary>
+    <ng-content></ng-content>
+  </div>
+</div>
+<div class="modal-footer sticky-footer">
+  <button *ngFor="let button of dialog.context.buttons"
+          class="btn"
+          [ngClass]="button.classes"
+          [disabled]="button.disabled"
+          (click)="button.action()">
+    {{button.label}}
+  </button>
+
+</div>

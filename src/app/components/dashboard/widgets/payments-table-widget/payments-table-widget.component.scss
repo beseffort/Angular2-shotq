@@ -1,0 +1,67 @@
+.payments-table-widget {
+	box-shadow: 0px 3px 6px 1px rgba(181, 193, 207, 0.5);
+	background-color: #fff;
+	max-width: 380px;
+	height: 180px;
+	display: inline-block;
+	min-width: 380px;
+	text-align: left;
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+.main-info {
+	padding: 10px 20px;
+	float: left;
+	width: 35%;
+	min-height: 100%;
+	border-right: 1px solid #e4e8f0;
+	&__date {
+		font-size: 12px;
+	  	font-weight: bold;
+	  	letter-spacing: 0.9px;
+	  	text-transform: uppercase;
+	  	opacity: .7;
+	  	margin-bottom: 8px;
+	}
+	&__amount {
+		font-size: 18px;
+		padding-top: 9px;
+		position: relative;
+		display: inline-block;
+		&:before {
+	  		content: '';
+	  		position: absolute;
+	  		left: 0;
+	  		top: 0;
+	  		width: 100%;
+	  		height: 1px;
+	  		background-color: #e4e8f0;
+	  	}
+	}
+  &__changes {
+    font-size: 10px;
+    strong {
+      font-size: 14px;
+    }
+    &.increase {
+      color: #52b36d;
+    }
+    &.decrease {
+      color: #e94e4c;
+    }
+  }
+}
+
+.payments {
+	float: right;
+	width: 65%;
+  height: 180px;
+  income-payments-chart {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}

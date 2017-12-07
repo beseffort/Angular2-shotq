@@ -1,0 +1,21 @@
+.chartAxis {
+  line, path {
+    stroke: #757575;
+  }
+  text {
+    fill: #757575;
+    font-size: 10px;
+    font-family: 'Titillium Web';
+  }
+}
+.axisY line {
+  opacity: 0.2;
+}
+.axisX {
+  text {
+    font-size: 12px;
+  }
+  > .tick:last-child text {
+    font-weight: bold;
+  }
+}

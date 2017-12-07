@@ -1,0 +1,31 @@
+<div class="custom-fc-topbar">
+  <!-- begin tabs -->
+  <!--<ul class="custom-fc-topbar__tabs">
+    <li class="custom-fc-tab" [ngClass]="{'is-active': view == 'agendaWeek'}">
+      <a (click)="changeView('agendaWeek')">Week</a>
+    </li>
+    <li class="custom-fc-tab" [ngClass]="{'is-active': view == 'month'}">
+      <a (click)="changeView('month')">Month</a>
+    </li>
+  </ul>-->
+  <!-- end tabs -->
+
+  <!-- begin switcher -->
+  <div class="custom-fc-topbar__switcher">
+    <div class="custom-fc-switcher">
+      <a class="custom-fc-btn custom-fc-btn_prev" (click)="prev()">	<i class="md md-chevron-left"></i>
+      </a>
+      <p class="custom-fc-period">{{ title }}</p>
+      <a class="custom-fc-btn custom-fc-btn_next" (click)="next()">
+        <i class="md md-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+  <!-- end switcher -->
+
+  <!-- begin button -->
+  <!-- <div class="custom-fc-topbar__btn">
+        <button class="sq-btn-secondary">New Event</button>
+    </div> -->
+  <!-- end button -->
+</div>

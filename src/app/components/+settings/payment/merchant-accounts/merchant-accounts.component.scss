@@ -1,0 +1,221 @@
+// .block-content {
+//     background: #fff;
+//     margin: 20px 0;
+//     &:last-child {
+//         margin-bottom: 0;
+//     }
+//     &__header {
+//         padding: 20px 80px;
+//         border-bottom: 1px solid #e4e8f0;
+//     }
+//     &__body {
+//         padding: 30px 80px;
+//         &_md {
+//             padding: 80px;
+//         }
+//     }
+//     &__title {
+//         font-size: 26px;
+//         font-weight: 600;
+//         color: #3a405b;
+//     }
+// }
+.page {
+    &-in {
+        //margin: 20px 0;
+        margin-bottom: 20px;
+    }
+    &-header {
+        background: #FFF;
+        padding: 20px 80px !important;
+        margin: 0;
+        &_border {
+            border-bottom: 1px solid #e4e8f0;
+        }
+    }
+    &-header-title {
+        font-size: 26px;
+        font-weight: 600;
+        color: #3a405b;
+    }
+    &-content {
+        background: #FFF;
+        padding: 30px 80px;
+        &_md {
+            padding: 80px;
+        }
+    }
+}
+
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    background: transparent;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    transition: opacity .3s;
+    &:hover {
+        opacity: .8;
+    }
+    &_sm {
+        min-width: 220px;
+        padding: 10px 26px;
+    }
+    &_green {
+        background-color: #57cd75;
+        box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5);
+        color: #fff;
+        font-weight: 300;
+    }
+    &_grey {
+        color:  #3a405b;
+        background-color: #fafbfb;
+        box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5);
+        border-color: #e4e8f0;
+        font-weight: 300;
+    }
+}
+
+.imgBlock-wrap {
+    margin: 0 -20px;
+}
+.imgBlock {
+    display: inline-block;
+    width:90px;
+    height:90px;
+    position:relative;
+    background-color:#fff;
+    margin: 0 20px 20px 20px;
+    opacity: .6;
+    border-radius: 50%;
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+        .imgBlock__icon {
+           background-color: #fd245f;
+            &:after {
+                content: '\f136';
+            }
+        }
+
+    }
+    &:before {
+        content:"";
+        display:block;
+        left:50%;
+        top:50%;
+        position:absolute;
+        -moz-transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        width:calc(100% + 4px);
+        height:calc(100% + 4px);
+        background: rgb(238,238,238);
+        background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(216,216,216,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(216,216,216,1) 100%);
+        background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(216,216,216,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#d8d8d8',GradientType=0 );
+        z-index:1;
+        border-radius: 100px;
+    }
+    &:after {
+        width:90px;
+        height:90px;
+        background-color:#fff;
+        left:50%;
+        top:50%;
+        position:absolute;
+        -moz-transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        z-index:2;
+        content:"";
+        display:block;
+        border-radius: 100px;
+    }
+    img {
+        position:absolute;
+        left:50%;
+        top:50%;
+        // -moz-transform: translate(-50%,-50%);
+        // -webkit-transform: translate(-50%,-50%);
+        // -o-transform: translate(-50%,-50%);
+        // -ms-transform: translate(-50%,-50%);
+        // transform: translate(-50%,-50%);
+        z-index:3;
+        &.authorize_gateway {
+            margin-top: -5px;
+            margin-left: -38px;
+            max-width: 80px;
+        }
+        &.braintree_gateway {
+            margin-top: -10px;
+            margin-left: -40px;
+            max-width: 80px;
+        }
+        &.stripe_gateway {
+            margin-top: -13px;
+            margin-left: -32px;
+        }
+        &.paypal_gateway {
+            margin-top: -25px;
+            margin-left: -25px;
+        }
+        &.square_gateway {
+            margin-top: -10px;
+            margin-left: -44px;
+        }
+        &.payjunction_gateway {
+            margin-top: -17px;
+            margin-left: -30px;
+        }
+    }
+    &.is-active {
+        opacity: 1;
+        box-shadow: 0 5px 30px 0 rgba(181, 193, 207, 0.5);
+        &:before {
+            background: rgb(231,80,80);
+            background: -moz-linear-gradient(-45deg, rgba(231,80,80,1) 0%, rgba(247,174,24,1) 100%);
+            background: -webkit-linear-gradient(-45deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+            background: linear-gradient(135deg, rgba(231,80,80,1) 0%,rgba(247,174,24,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e75050', endColorstr='#f7ae18',GradientType=1 );
+        }
+    }
+    &__icon {
+        position: absolute;
+        right: 2px;
+        top: 5px;
+        z-index: 5;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #57cd75;
+        text-align: center;
+        // transition: background-color .3s;
+        &:after {
+            font-family: Material-Design-Iconic-Font;
+            content: '\f26b';
+            color: #fff;
+            border: none !important;
+            font-size: 14px;
+            line-height: normal;
+            // vertical-align: top;
+            // display: inline-block;
+            // margin-top: 3px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            // margin-top: -6px;
+            // margin-left: -4px;
+        }
+    }
+
+}

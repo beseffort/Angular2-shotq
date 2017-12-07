@@ -1,0 +1,216 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?8sxkme');
+  src:  url('fonts/icomoon.eot?8sxkme#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?8sxkme') format('truetype'),
+    url('fonts/icomoon.woff?8sxkme') format('woff'),
+    url('fonts/icomoon.svg?8sxkme#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-disable-contact:before {
+  content: "\e93e";
+}
+.icon-template:before {
+  content: "\e93d";
+}
+.icon-client-access-settings:before {
+  content: "\e93c";
+}
+.icon-invoices-template-settings:before {
+  content: "\e92e";
+}
+.icon-contract-template-settings:before {
+  content: "\e92f";
+}
+.icon-proposals-templates-settings:before {
+  content: "\e930";
+}
+.icon-questionnaire-template-settings:before {
+  content: "\e931";
+}
+.icon-email-template-settings:before {
+  content: "\e932";
+}
+.icon-payment-settings:before {
+  content: "\e933";
+}
+.icon-productspricing-settings:before {
+  content: "\e934";
+}
+.icon-tree:before {
+  content: "\e935";
+}
+.icon-job-types-settings:before {
+  content: "\e936";
+}
+.icon-team-settings:before {
+  content: "\e937";
+}
+.icon-notifications-settings:before {
+  content: "\e938";
+}
+.icon-cal-email-settings:before {
+  content: "\e939";
+}
+.icon-planbilling-settings:before {
+  content: "\e93a";
+}
+.icon-user-list:before {
+  content: "\e93b";
+}
+.icon-right-arrow:before {
+  content: "\e92d";
+}
+.icon-merge:before {
+  content: "\e926";
+}
+.icon-export:before {
+  content: "\e92a";
+}
+.icon-filter:before {
+  content: "\e92c";
+}
+.icon-photo_camera:before {
+  content: "\e92b";
+}
+.icon-reports:before {
+  content: "\e929";
+}
+.icon-settings:before {
+  content: "\e928";
+}
+.icon-file-account:before {
+  content: "\e925";
+}
+.icon-filter-outline:before {
+  content: "\e927";
+}
+.icon-account:before {
+  content: "\e924";
+}
+.icon-calendar-blank:before {
+  content: "\e91b";
+}
+.icon-checkbox-marked-circle:before {
+  content: "\e923";
+}
+.icon-gift:before {
+  content: "\e922";
+}
+.icon-folder:before {
+  content: "\e920";
+}
+.icon-cancel:before {
+  content: "\e91a";
+}
+.icon-confirm:before {
+  content: "\e91f";
+}
+.icon-archive:before {
+  content: "\e91d";
+}
+.icon-ic-email:before {
+  content: "\e919";
+}
+.icon-phone:before {
+  content: "\e921";
+}
+.icon-letter:before {
+  content: "\e91e";
+}
+.icon-ic-export:before {
+  content: "\e91c";
+}
+.icon-hamburger:before {
+  content: "\e918";
+}
+.icon-search:before {
+  content: "\e917";
+}
+.icon-user-add:before {
+  content: "\e914";
+}
+.icon-open-eye:before {
+  content: "\e915";
+}
+.icon-trash:before {
+  content: "\e916";
+}
+.icon-up-arrow:before {
+  content: "\e913";
+}
+.icon-down-arrow:before {
+  content: "\e912";
+}
+.icon-document-text-empty:before {
+  content: "\e908";
+}
+.icon-checkbox-todo-done:before {
+  content: "\e909";
+}
+.icon-log-out:before {
+  content: "\e90a";
+}
+.icon-desk-support-help:before {
+  content: "\e90b";
+}
+.icon-shape:before {
+  content: "\e90c";
+}
+.icon-money-dollar-cash:before {
+  content: "\e90d";
+}
+.icon-document-text:before {
+  content: "\e90e";
+}
+.icon-help:before {
+  content: "\e90f";
+}
+.icon-briefcase:before {
+  content: "\e910";
+}
+.icon-edit:before {
+  content: "\e911";
+}
+.icon-close:before {
+  content: "\e907";
+}
+.icon-more-icon-o:before {
+  content: "\e905";
+}
+.icon-dots-horizontal:before {
+  content: "\e906";
+}
+.icon-ios-calendar:before {
+  content: "\e901";
+}
+.icon-camera:before {
+  content: "\e900";
+}
+.icon-person:before {
+  content: "\e902";
+}
+.icon-task:before {
+  content: "\e903";
+}
+.icon-dashboard-o:before {
+  content: "\e904";
+}
+

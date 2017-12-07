@@ -1,0 +1,326 @@
+.jobs-info-contacts-dialog__container {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  overflow: hidden !important;
+
+  .modal-dialog {
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .2);
+    width: 1180px !important;
+    max-width: 1180px !important;
+    margin: 150px auto !important;
+
+    h1 {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      height: 36px;
+      font-size: 24px;
+      font-family: 'Titillium Web', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-stretch: normal;
+      color: #3a405b;
+    }
+  }
+
+  .modal-header {
+    padding: 30px 25px !important;
+  }
+
+  .modal-content {
+    width: 100%;
+  }
+
+  .modal-body {
+    padding: 0;
+    position: relative;
+    z-index: 5000;
+  }
+
+  .modal-footer {
+    position: relative;
+    border-top: 1px solid #e4e8f0;
+    height: 50px;
+    padding: 7px 40px;
+    background-color: #fafbfb;
+    box-shadow: inset 0 1px 0 0 #e4e8f0;
+
+    .btn {
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.jobs-info-contacts-dialog__search-contact {
+  float: right;
+  height: 30px;
+  width: 150px;
+  margin: 0;
+
+  i {
+    color: #3a405b;
+    font-size: 12px;
+    top: 10px;
+    width: auto;
+    margin: 0px;
+    -moz-transform: inherit;
+    -webkit-transform: inherit;
+    -o-transform: inherit;
+    -ms-transform: inherit;
+    transform: inherit;
+    left: 10px;
+  }
+
+  input {
+    line-height: 21px;
+    background-color: #fff;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 30px !important;
+    height: auto;
+    border: none;
+    letter-spacing: normal;
+  }
+}
+
+.jobs-info-contacts-dialog__new-contact {
+  float: right;
+  width: 140px;
+  height: 34px;
+  margin: 0;
+  border: solid 1px #e4e8f0;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.06);
+  background-color: #fafbfb;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #3a405b;
+}
+
+.jobs-info-contacts-dialog__contact-list {
+  table {
+    margin-bottom: 0;
+  }
+  thead, tbody {
+    display: block;
+
+    .select-col {
+      width: 0;
+      vertical-align: middle !important;
+    }
+    .name-col {
+      width: 250px;
+    }
+    .email-col {
+      width: 315px;
+    }
+    .phone-col {
+      width: 300px;
+    }
+    .role-col {
+      width: 200px;
+    }
+    .actions-col {
+      width: 115px;
+    }
+  }
+
+  thead {
+    background-color: #fafbfb;
+
+    th {
+      height: 30px;
+      border-right: 1px solid #e4e7ef;
+      border-bottom: 1px solid #eee;
+      padding: 0 25px;
+      vertical-align: middle;
+      font-weight: bolder;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #3a405b;
+    }
+
+    .select-col {
+      border-right: none;
+      padding: 0;
+    }
+    .role-col {
+      width: 325px;
+    }
+  }
+
+  tbody {
+    height: 265px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    td {
+      height: 50px;
+      border-top: 1px solid #eee;
+      padding-left: 25px;
+      vertical-align: middle;
+    }
+
+    td:first-child {
+      //padding-left: 25px;
+      padding-right: 0;
+      border-top: 1px solid #eee;
+    }
+
+    tr:first-child td {
+      border-top: none;
+
+    }
+
+
+    .select-col {
+      border-top: none;
+      width: 0;
+      padding: 0;
+    }
+
+    .role-col /deep/ {
+      .input-group button {
+        padding: 0;
+        font-family: "Titillium Web", sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        font-stretch: normal;
+        color: #37394c;
+        text-align: left;
+        border-radius: 0;
+        background: transparent;
+        span {
+          position: absolute;
+          top: 50%;
+          margin-top: -2px;
+          font-size: 6px;
+
+        }
+      }
+      .form-field {
+        &__text {
+          max-width: 120px;
+          overflow: hidden;
+        }
+      }
+      .dropdown-menu {
+        padding: 0px;
+        &:focus {
+          outline: none;
+        }
+        li {
+          padding: 2px 5px;
+          color: #3a405b;
+          &:focus {
+            outline: none;
+          }
+          &:hover {
+            background: #fafbfb;
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+
+    .actions-col {
+      padding-left: 0;
+      padding-right: 5px;
+      i {
+        margin-right: 4px;
+        border-radius: 50%;
+        font-size: 20px;
+        background-color: #fff;
+        cursor: pointer;
+
+        &.icon-confirm {
+          color: #57cd75;
+        }
+        &.icon-cancel {
+          color: #c8c8c8;
+        }
+      }
+      /deep/ .dropdown-menu {
+        left: auto;
+        right: 100%;
+      }
+    }
+  }
+}
+
+.jobs-info-contacts-dialog__contact {
+  .fn {
+    font-weight: 600;
+  }
+  .email {
+  }
+  .tel {
+  }
+  .role {
+  }
+  .fn, .email, .tel, .role {
+    font-size: 14px;
+    color: #3a405b;
+  }
+}
+
+.jobs-info-contacts-dialog__primary-contact-label {
+  display: block;
+  height: 15px;
+  margin: 0;
+  opacity: 0.5;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  text-transform: uppercase;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #3a405b;
+}
+
+.jobs-info-contacts-dialog__contact--primary {
+}
+
+.jobs-info-contacts-dialog__contact--archived {
+  font-style: italic;
+  color: #999;
+  text-decoration: line-through;
+}
+
+i.icon-more-vert {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  vertical-align: middle;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xMiA4YzEuMSAwIDItLjkgMi0ycy0uOS0yLTItMi0yIC45LTIgMiAuOSAyIDIgMnptMCAyYy0xLjEgMC0yIC45LTIgMnMuOSAyIDIgMiAyLS45IDItMi0uOS0yLTItMnptMCA2Yy0xLjEgMC0yIC45LTIgMnMuOSAyIDIgMiAyLS45IDItMi0uOS0yLTItMnoiLz4KPC9zdmc+;');
+  background-size: cover;
+}
+
+.jobs-info-contacts-dialog__close-button {
+  width: auto;
+  padding: 5px 30px;
+  font-size: 14px;
+  font-weight: normal;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 4px;
+  text-transform: capitalize;
+  color: rgba(55, 57, 76, 0.5);
+}

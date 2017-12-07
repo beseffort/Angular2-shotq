@@ -1,0 +1,113 @@
+.booking-welcome-screen {
+  width: 100%;
+  height: calc(100vh);
+  background: url('/assets/img/shootq-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  text-align: center;
+  font-size: 0;
+
+}
+
+.booking-welcome-screen:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+}
+
+.proposal-information {
+  display: inline-block;
+  vertical-align: middle;
+  color: #fff;
+  width: 650px;
+}
+
+h1 {
+  font-family: 'Titillium Web';
+  font-size: 42px;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 44px;
+}
+
+h3 {
+  font-family: 'Titillium Web';
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+p {
+  font-family: 'Titillium Web';
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 1.67;
+  text-align: center;
+  color: #fff;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.continue-container {
+  margin-top: 50px;
+}
+
+.continue-container-btn {
+  position: relative;
+  padding: 16px 55px 13px 55px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  background: transparent;
+  border: none;
+  font-family: 'Titillium Web';
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #fff;
+}
+
+.continue-container-btn:focus {
+  outline: none;
+}
+
+.continue-container-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFF;
+  opacity: .2;
+}
+
+.continue-container-btn:hover:before {
+  opacity: .3;
+}
+
+@media screen and (max-width: 960px) {
+  .booking-welcome-screen:before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    width: 0;
+    height: auto;
+  }
+  .proposal-information {
+    margin-top: 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .proposal-information {
+    margin-left: 0;
+    width: 100%;
+    padding: 0 20px;
+  }
+}
+

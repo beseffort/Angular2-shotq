@@ -1,0 +1,79 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.rippleContainer {
+	.loading-ripple {
+		margin-top: 130px;
+	}
+	min-height: 200px;
+}
+
+.infoblock {
+    background-color: #fff;
+    @include box-shadow (0 1px 2px 0 rgba(181, 193, 207, 0.2));
+    margin-bottom: 20px;
+    color: $gray-dark;
+    &__header {
+        padding: 18px 37px 16px 49px;
+        border-bottom: 1px solid $gray-lighter;
+        position: relative;
+        &_lg {
+            padding: 30px 50px;
+        }
+    }
+    &__title {
+        font-family: $font-family-base;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+    }
+    &__body {
+        padding: 13px 37px 23px 49px;
+    }
+    &__edit-btn {
+        color: $bright-blue;
+        background-color: transparent;
+        @include appearance(none);
+        border: 0;
+        outline: 0;
+        position: absolute;
+        top: 23px;
+        right: 37px;
+        font-weight: 600;
+        letter-spacing: 0.8px;
+    }
+}
+
+
+.no-items-message {
+	text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.table {
+	margin: 0;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    th {
+    	max-height: 20px;
+        padding: 5px;
+	    font-family: 'Titillium Web';
+	    font-size: 12px;
+	    font-weight: 700;
+	    color: #3a405b;
+	    border-bottom: none;
+    }
+    td {
+    	max-width: 270px;
+        padding: 5px;
+	    font-family: 'Titillium Web';
+	    font-size: 14px;
+	    font-weight: 400;
+	    color: #3a405b;
+	    text-align: left;
+	    border-top: none;
+    }
+}
+

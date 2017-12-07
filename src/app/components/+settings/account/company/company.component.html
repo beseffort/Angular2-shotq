@@ -1,0 +1,246 @@
+<div class="page">
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+
+    <div *ngIf="account">
+        <div class="l">
+            <div class="l__col">
+                <div class="block-content block-content_sm block-content_image box-shadow margin-bottom-40">
+                    <div class="block-content__pic">
+                        <!-- <img src="assets/img/shootq-background.jpg"> -->
+                        <div class="upload-block upload-block_shadow">
+                            <div class="upload-block__in upload-block__in_width"
+                                 *ngIf="!form.controls['logo'].value">
+                                <label for="logo">
+                                    <div class="upload-block__vertical cursor-pointer">
+                                        <i class="icon-quick"></i>
+                                        <div class="upload-block__text text-grey">Upload a logo</div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="upload-block__in cursor-pointer" *ngIf="form.controls['logo'].value">
+                                <img [src]="form.controls['logo'].value"/>
+                                <span class="upload-tip text-center">
+                                    <label class="cursor-pointer" for="logo">Change</label>
+                                    <i class="fa fa-circle"></i>
+                                    <span (click)="clearFileInput(logo, form, 'logo')">
+                                        Clear
+                                    </span>
+                                </span>
+
+                            </div>
+
+                            <input type="file" #logo ng2FileSelect style="display: none"
+                                   accept="image/x-png, image/jpeg, image/png" id="logo"
+                                   [uploader]="uploader" (change)="onLogoChange($event)">
+
+                        </div>
+                    </div>
+                    <div class="block-content__in">
+                        <div class="h3">
+                        <span class="d-inline-block" contenteditable="true"
+                              [textContent]="account?.name" placeholder="Name"
+                              (input)="patchFormValue(form, {'name':$event.target.textContent}, true)"></span>
+                        </div>
+                        <validation-messages class="error" [control]="form.controls.name"></validation-messages>
+                        <!--<div class="color-picker">
+                            <input type="color" name="picker" id="color">
+                            <label for="color">Edit Theme Color</label>
+                        </div>-->
+                    </div>
+                    <div class="block-content__footer">
+                        <!-- <img src="assets/img/shootq-background.jpg"> -->
+                        <div class="upload-block edit-holder">
+                            <div class="upload-block__in upload-block__in_width"
+                                 *ngIf="!form.controls['background'].value">
+                                <label for="background">
+                                    <div class="upload-block__vertical cursor-pointer">
+                                        <i class="upload-block__icon icon-quick"></i>
+                                        <div class="upload-block__text text-grey">Upload a background photo</div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="upload-block__in"
+                                 *ngIf="form.controls['background'].value">
+                                <img [src]="form.controls['background'].value"/>
+                                <span class="upload-tip upload-tip__gradient_bg text-right">
+                                    <label class="cursor-pointer"
+                                           for="background">Change Background Image</label>
+                                    <i class="fa fa-circle "></i>
+                                    <span (click)="clearFileInput(background, form, 'background')">
+                                        Clear Image</span>
+                                </span>
+                            </div>
+                            <input type="file" #background ng2FileSelect style="display: none"
+                                   accept="image/x-png, image/jpeg, image/png" id="background"
+                                   [uploader]="uploader" (change)="onBackgroundChange($event)">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="l__col">
+                <div class="block-content block-content_xs">
+                    <div class="block-content__title block-content__title_mod">Company Info</div>
+                    <div class="text-grey">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam illum
+                        voluptatem beatae expedita iusto modi cumque. Saepe sint est obcaecati, sapiente et. Dolore alias,
+                        quas rem mollitia. Aliquam laudantium sapiente necessitatibus molestias, fuga, quo consequuntur
+                        fugit incidunt sunt soluta maxime!
+                    </div>
+                </div>
+            </div>-->
+        </div>
+
+        <form [formGroup]="form">
+            <div class="block-content block-content_sm block-content_border">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block-content__title">Company Info</div>
+                    </div>
+                </div>
+
+                <div class="row block-content__line">
+                    <div class="col-md-6">
+                        <div class="field">
+                            <input name="phone" type="tel" formControlName="phone"
+                                   [ngClass]="{'has-error': form.controls['phone'].errors}"
+                                   [attr.data-empty]="!form.controls['phone'].value"/>
+                            <label for="phone">Phone</label>
+                            <validation-messages class="error" [control]="form.controls.phone"></validation-messages>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="field">
+                            <input name="alt_phone" type="tel" formControlName="alt_phone"
+                                   [ngClass]="{'has-error': form.controls['alt_phone'].errors}"
+                                   [attr.data-empty]="!form.controls['alt_phone'].value"/>
+                            <label for="alt_phone">Alternative Phone</label>
+                            <validation-messages class="error"
+                                                 [control]="form.controls.alt_phone"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row block-content__line">
+                    <div class="col-md-12">
+                        <div class="field">
+                            <input name="email" type="email" formControlName="email"
+                                   [ngClass]="{'has-error': form.controls['email'].errors}"
+                                   [attr.data-empty]="!form.controls['email'].value"/>
+                            <label for="email">Email</label>
+                            <validation-messages class="error" [control]="form.controls.email"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row block-content__line">
+                    <div class="col-md-12">
+                        <div class="field">
+                            <input name="website" type="url" formControlName="website"
+                                   [ngClass]="{'has-error': form.controls['website'].errors}"
+                                   [attr.data-empty]="!form.controls['website'].value"
+                                   pattern="(?:(ftp|http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$"/>
+                            <label for="website">Website</label>
+                            <validation-messages class="error" [control]="form.controls.website"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-content__adress">
+                    <div class="block-content__adress-line">
+                        <div class="row block-content__line ">
+                            <div class="col-md-12">
+                                <div class="field">
+                                    <input name="address1" type="text" formControlName="address1"
+                                           [ngClass]="{'has-error': form.controls['address1'].errors}"
+                                           [attr.data-empty]="!form.controls['address1'].value">
+                                    <label for="address1">Address</label>
+                                    <validation-messages class="error"
+                                                         [control]="form.controls.address1"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row block-content__line">
+                            <div class="col-md-12">
+                                <div class="field">
+                                    <input name="address2" type="text" formControlName="address2"
+                                           [ngClass]="{'has-error': form.controls['address2'].errors}"
+                                           [attr.data-empty]="!form.controls['address2'].value">
+                                    <label for="address2">Address 2</label>
+                                    <validation-messages class="error"
+                                                         [control]="form.controls.address2"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row block-content__line">
+                            <div class="col-md-4">
+                                <div class="field">
+                                    <input name="city" type="text" formControlName="city"
+                                           [ngClass]="{'has-error': form.controls['city'].errors}"
+                                           [attr.data-empty]="!form.controls['city'].value">
+                                    <label for="city">City</label>
+                                    <validation-messages class="error"
+                                                         [control]="form.controls.city"></validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="field">
+                                    <label class="is-selected">State</label>
+                                    <div class="dropdown-select_wrap">
+                                        <app-dropdown-select [options]="choices.stateChoices"
+                                                             formControlName="state"
+                                                             [allowNull]="true"
+                                                             [valueKey]="'abbreviation'"
+                                                             [labelKey]="'name'">
+                                        </app-dropdown-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="field">
+                                    <input name="zip" type="text" formControlName="zip"
+                                           [ngClass]="{'has-error': form.controls['zip'].errors}"
+                                           [attr.data-empty]="!form.controls['zip'].value">
+                                    <label for="zip">ZIP</label>
+                                    <validation-messages class="error"
+                                                         [control]="form.controls.zip"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row block-content__line block-content__line_sm">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn_transparent"> <i class="icon-quick"></i> <span>Add another address</span></button>
+                      </div>
+                    </div> -->
+                </div>
+
+                <div class="row block-content__line">
+                    <div class="col-md-12">
+                        <div class="textarea field">
+                        <textarea placeholder="Type here..." formControlName="about"
+                                  [ngClass]="{'has-error': form.controls['phone'].about}"></textarea>
+                            <label class="is-selected">About us</label>
+                            <validation-messages class="error" [control]="form.controls.about"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal-footer modal-footer_border">
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn_md btn_white" (click)="close()"
+                            type="button">CANCEL</button>
+                    <button class="btn btn_md btn_blue" type="button"
+                            (click)="save()"
+                            [disabled]="form.untouched || form.invalid">
+                        SAVE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

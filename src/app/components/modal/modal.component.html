@@ -1,0 +1,81 @@
+<div bsModal #bsModalInstance="bs-modal" [config]="config"
+     class="old-modal-service modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="new-design" *ngIf="showNewModal" (window:resize)="calculateScreenHeight()">
+    <div class="modal-dialog {{cssClass}}">
+      <div class="row">
+          <div class="hidden-xs col-sm-2">
+            <img *ngIf="showLogo" class="white-logo" alt="ShootQ logo" src="/assets/img/logo-white.svg">
+          </div>
+          <div class="hidden-xs col-sm-10"></div>
+          <div class="hidden-xs col-sm-2 pull-right" >
+            <div class="close-div" *ngIf="closeButton" (click)="cancelForm()">
+              <i class="icon-close"></i>
+              <span>CLOSE</span>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="hidden-xs col-sm-2"></div>
+        <div class="col-sm-8">
+          <div id="container-1" class="container-1">
+            <div class="container-2">
+              <div class="modal-content" id="modal-content">
+                <div class="modal-header" *ngIf="title">
+                  <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-11">
+                      <h2>{{title}}</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-body {{bodyCssClass}}">
+                  <div>
+                  <dynamic-modal-content #dynamicModalContent [updateContent]="updateContent" [moduleTemplate]="templateModule" [modalRef]="bsModalInstance" (changeTemplate)="onChangeTemplate($event)"></dynamic-modal-content>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hidden-xs col-sm-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL WITH OLD DESIGN -->
+  <div class="old-modal" *ngIf="!showNewModal">
+    <div class="modal-dialog {{cssClass}}">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--<button *ngIf="closeButton" type="button" class="close" aria-label="Close" (click)="cancelForm()">
+            <span aria-hidden="true">×</span>
+          </button>-->
+          <div class="first-panel">
+            <div class="left-box"></div>
+            <div class="panel-header">
+              <h2>{{title}}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body {{bodyCssClass}}">
+          <dynamic-modal-content #dynamicModalContent [updateContent]="updateContent" [moduleTemplate]="templateModule" [modalRef]="bsModalInstance" (changeTemplate)="onChangeTemplate($event)"></dynamic-modal-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer modal-footer_white {{footerCssClass}}" *ngIf="showNewModal && showBottomBar">
+  <div class="row">
+    <div class="hidden-xs col-sm-2"></div>
+    <div class="col-sm-8 padding-top-5">
+      <div class="row" id="buttons-container">
+        <div class="col-xs-1"></div>
+          <div class="col-xs-11">
+            <button type="button" class="btn cancel-button" (click)="cancelForm()">CANCEL</button>
+            <button type="button" class="btn submit-button" *ngIf="canSubmit" (click)="submitForm()">{{submitButtonText}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-xs col-sm-2"></div>
+  </div>
+</div>

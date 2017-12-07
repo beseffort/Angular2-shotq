@@ -1,0 +1,45 @@
+<form (ngSubmit)="createJobContact()">
+  <div class="row margin-left-10 margin-right-10">
+    <div class="form-group">
+      <form-field [(ngValue)]="model.first_name" label="First Name" type="text" required="true"></form-field>
+    </div>
+    <div class="form-group">
+      <form-field [(ngValue)]="model.last_name" label="Last Name" type="text" required="true"></form-field>
+    </div>
+    <div class="form-group form-material" *ngIf="emailTypes && emailTypes.length > 0">
+      <div class="select-type">
+        <div class="material-select">
+          <select name="email-type" class="form-control" [(ngModel)]="personEmail.email_type">
+            <option *ngFor="let type of emailTypes" [value]="type.id">{{type.name}} Email</option>
+          </select>
+          <span  class="caret"></span>
+        </div>
+        <input [(ngModel)]="personEmail.address" name="email" type="email" class="form-control" required>
+      </div>
+    </div>
+    <div class="form-group form-material" *ngIf="phoneTypes && phoneTypes.length > 0">
+      <div class="select-type">
+        <div class="material-select">
+          <select name="phone-type" class="form-control" [(ngModel)]="personPhone.phone_type">
+            <option *ngFor="let type of phoneTypes" [value]="type.id">{{type.name}} Phone</option>
+          </select>
+          <span  class="caret"></span>
+        </div>
+        <input [(ngModel)]="personPhone.number" name="cell_phone" type="text" class="form-control"
+            data-plugin="formatter" data-pattern="([[999]]) [[999]]-[[9999]]" required>
+      </div>
+    </div>
+    <div class="form-group">
+	    <div class="checkbox-custom checkbox-default">
+	      <input [(ngModel)]="addToContacts" name="add_to_contacts" type="checkbox" checked="">
+	      <label>Add to Contacts</label>
+	    </div>
+    </div>
+  </div> 
+  <div class="row margin-left-3 margin-right-3">
+  	  <hr>
+	  <div class='pull-right'>
+	  	<button type="submit" class="btn btn-success">Create Job Contact</button>
+	  </div>
+  </div>
+</form>

@@ -1,0 +1,360 @@
+<div class="page proposal-steps" *ngIf="proposal"
+     [ngClass]="{'proposal-steps_bg-white': currentStep.name === 'settings'}">
+  <div class="top">
+    <app-step-indicator [steps]="steps"
+                        [nextStep]="nextStep"
+                        [styleType]="'proposal'"
+                        [canGoNextIfValid]="false"
+                        (stepChanged)="onStepChange($event)"
+                        (onFinish)="sendProposal()"
+    ></app-step-indicator>
+  </div>
+  <div class="buildPackage" *ngIf="currentStep.name === 'package'">
+    <div class="row container">
+      <div class="col-md-12">
+        <div class="proposal-packages-header">
+          <h1>Add packages</h1>
+          <div class="proposal-job-info">
+            <div class="proposal-job-title">{{ proposal.job.name }}</div>
+            <div class="proposal-job-date">{{ proposal.modified | date:'medium' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row container ">
+      <div class="col-md-9 col-sm-9">
+        <div class="packages-list bg">
+          <div class="proposal-packages-create-panel">
+            <div class="create-package border">
+              <div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <div class="title">Packages Templates</div>
+                </div>
+                <div class="col-md-8 col-sm-8">
+                  <div class="create-package-tools">
+                    <div class="text-right">
+                      <span>To edit templates, go to the <a [routerLink]="['/pricing', 'items']" target="_blank">pricing settings</a>.</span>
+                      <a class="btn btn-accept create-package-btn"
+                         [routerLink]="['add-package']">Create new package</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <packages-filter [categories]="packageCategories"
+                           (filterChanged)="filterPackages($event)"></packages-filter>
+
+          <div class="package-templates-container">
+            <package-templates [packages]="packageTemplates"
+                               [selectedPackages]="proposal.packages"
+                               (addPackage)="addPackageToProposal($event)"></package-templates>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-3">
+        <div class="proposal-selected-packages">
+          <selected-packages [packages]="proposal.packages"
+                             [packagesFilter]="currentPackageFilter"
+                             (onDeletePackage)="deletePackageFromProposal($event)"></selected-packages>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Setting Block -->
+  <div class="settingsBlock" [hidden]="!(currentStep.name === 'settings')">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12" *ngIf="currentStep.name === 'settings' && showSavedSettings">
+          <proposal-setting-templates
+            [proposal]="proposal"
+            [templates]="settingTemplates"
+            (onSelected)="updateSelectedSettingTemplate($event)"
+            (onSwitchToCustom)="switchToCustomSetting()"
+            (onApply)="applySettings($event)"></proposal-setting-templates>
+        </div>
+      </div>
+      <div class="row" [hidden]="showSavedSettings">
+        <div class="col-sm-3 optionsBlock">
+          <ul>
+            <li class="active" (click)="changeOption($event,1)" [class.active]="optionActive==1 || optionActive==5">
+              <span>Collection</span>
+              <ul class="childs">
+                <li class="active" (click)="changeOption($event,1)" [class.active]="optionActive==1">Receiving payment
+                </li>
+                <li (click)="changeOption($event,5)" [class.active]="optionActive==5">Schedule</li>
+              </ul>
+            </li>
+            <li (click)="changeOption($event,2)" [class.active]="optionActive==2"><span>Discounts</span></li>
+            <li (click)="changeOption($event,3)" [class.active]="optionActive==3"><span>Tax</span></li>
+            <li (click)="changeOption($event,4)" [class.active]="optionActive==4"><span>Expiration</span></li>
+          </ul>
+        </div>
+        <div class="col-sm-9">
+          <div class="configureStep">
+            <div class="option block1a" [class.active]="optionActive==1">
+              <proposal-receive-payment [proposal]="proposal"
+                                        (paymentUpdated)="updateProposalSettings($event)"
+                                        (stepChange)="changeStep($event)"></proposal-receive-payment>
+            </div>
+            <div class="option taxes" [class.active]="optionActive==2" *ngIf="optionActive==2">
+              <app-proposal-discounts [proposal]="proposal"
+                                      (onBack)="optionActive = 1"
+                                      (onNext)="optionActive = 3">
+
+              </app-proposal-discounts>
+            </div>
+            <div class="option block1b" [class.active]="optionActive==5" [class.hide]="!optionActive==5">
+              <schedule-payment [proposal]="proposal"
+                                (isValid)="settingsValid('schedule', $event)"
+                                (stepChange)="changeStep($event)"></schedule-payment>
+            </div>
+            <div class="option discounts" [class.active]="optionActive==3" *ngIf="optionActive==3">
+              <app-proposal-taxes [proposal]="proposal"
+                                  (onBack)="optionActive = 2"
+                                  (onNext)="optionActive = 4">
+
+              </app-proposal-taxes>
+            </div>
+
+            <div class="option expiration" [class.active]="optionActive==4" *ngIf="optionActive==4">
+              <app-proposal-expiration [proposal]="proposal"
+                                       (valid)="settingsValid('expiration', $event)"
+                                       (onChange)="updateProposalSettings($event)"></app-proposal-expiration>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="teamBlock" *ngIf="currentStep.name === 'team'">
+    <div class="titleBlock row mlr0i">
+      <h1 class="col-sm-8">{{ proposal.job.name }}</h1>
+      <div class="searchCount col-sm-4">
+        <div class="input-search input-search-dark search-contact search-contact_mod">
+          <i class="input-search-icon icon-search" aria-hidden="true"></i>
+
+          <input type="text" [formControl]="workerSearch" class="form-control" name=""
+                 placeholder="Search Recent Contacts"/>
+        </div>
+      </div>
+    </div>
+    <div class="textUnder">
+      <p>Personnel</p>
+      <p>Available on {{proposal.job.main_event_date | date: 'mediumDate'}}</p>
+    </div>
+    <div class="peopleList">
+      <ul>
+        <li *ngFor="let worker of workers">
+          <div class="checkStyle">
+            <div (click)="checkWorker(worker)" class="checkStyle-item is-conflicts">
+              <span class="checkBlock">
+                <input type="checkbox" [checked]="worker.checked" name="check1"/>
+                <span class="">&nbsp;</span>
+              </span>
+              <span class="type m_title">{{ worker.job_role === 'customize' ? worker.custom_job_role : worker.job_role }}</span>
+              <span class="image">
+                <img [src]="worker.avatar || 'assets/img/avatar.png'"/>
+                <span class="error" *ngIf="worker.conflicts?.length > 0">
+                  <span class="error__icon">!</span>
+                </span>
+              </span>
+              <span class="name">{{ worker.first_name }} {{ worker.last_name }}</span>
+              <span class="email">{{ worker.email }}</span>
+              <span *ngIf="worker.phone" class="number">
+                  {{ worker.phone | phone }}</span>
+
+              <div class="checkStyle-item__popover popover" *ngIf="worker.conflicts?.length > 0">
+                <div class="popover__title">CONFLICTS</div>
+                <div class="popover__item" *ngFor="let event of worker.conflicts">
+                  <div class="popover__link" [routerLink]="['/jobs', event.job_id]">{{ event.job_name }}</div>
+                  <div class="popover__time">
+                    {{event.start | date: 'shortTime'}}-{{event.end | date: 'shortTime'}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="contractBlock" *ngIf="currentStep.name === 'contract'">
+    <div class="titleBlock row mlr0i">
+      <h1 class="col-sm-8">Contracts</h1>
+      <div class="searchCount col-sm-4">
+        <div class="input-search input-search-dark search-contact search-contact_mod">
+          <i class="input-search-icon icon-search" aria-hidden="true"></i>
+          <input type="text" class="form-control" [formControl]="contractTemplateSearch" name=""
+                 placeholder="​Search Contract Template"/>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="proposal.contract_data">
+      <div class="textUnder">
+        <h3 class="h3">Added to Proposal</h3>
+      </div>
+
+      <div class="contratBlock list-title">
+        <div class="template-wrap position-relative">
+          <div class="template-item pointer is-green" (click)="openContract()">
+            <div class="template-item__top">
+              <div class="template-item__edit">Last Edited</div>
+              <div class="template-item__date pointer">
+                {{ proposal.contract_data.modified | date:'medium' }}
+              </div>
+              <div class="radio-custom template-item__radio">
+                <input type="radio" name="contract-template"
+                       [checked]="true"
+                       (click)="clearContract($event)">
+                <label for=""></label>
+              </div>
+            </div>
+            <!-- <div class="template-item__name">{{ template.title }}</div> -->
+            <div class="template-item__name pointer">
+              {{ proposal.contract_data.title }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="textUnder">
+      <h3 class="h3">Choose a Contract Template</h3>
+    </div>
+    <div class="contratBlock list-title">
+      <div class="template-wrap position-relative">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+        <!-- is-green , is-orange , is-yellow , is-red , is-black -->
+        <div class="template-item pointer template-item_child"
+             [ngClass]="template.color"
+             (click)="selectContractTemplate(template)"
+             *ngFor="let template of contractTemplates">
+          <div class="template-item__top">
+            <div class="template-item__edit">Last Edited</div>
+            <div class="template-item__date pointer">
+              {{ template.modified | date:'medium' }}
+            </div>
+            <div class="template-item__radio package-add-btn-container">
+              <div class="text-right">
+                <button type="button"
+                        class="package-add-btn"></button>
+                <div class="package-add-btn-check" *ngIf="proposal.contract_data?.template == template.id"></div>
+              </div>
+            </div>
+
+          </div>
+          <!-- <div class="template-item__name">{{ template.title }}</div> -->
+          <div class="template-item__name pointer">
+            {{ template.name }}
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <!--*ngIf="tabActive == 1 || (tabActive == 2 && optionActive == 4) || tabActive == 3 || tabActive == 4 || (tabActive == 2 && showSavedSettings)"-->
+  <div class="nextStep nextStep_mod" *ngIf="currentStep?.options?.showFooter ? currentStep.options.showFooter() : true">
+    <a class="cancel" (click)="nextStep.next(steps[currentStep._index-1])"
+       *ngIf="currentStep.name !=='package'">CANCEL</a>
+    <button class="next cpointer"
+            *ngIf="currentStep?.options?.nextButton ? currentStep.options.nextButton() : true"
+            (click)="nextStep.next()"
+            [disabled]="!currentStep.valid">
+      {{currentStep?.options.nextButtonText || 'NEXT'}}
+    </button>
+    <a class="next cpointer" *ngIf="currentStep.name === 'settings' && showSavedSettings && selectedSettingTemplate" (click)="applySettings()">APPLY SETTINGS</a>
+    <!--<button class="next cpointer" *ngIf="tabActive == 4" [disabled]="!proposal.contract" [routerLink]="['send', proposal.contract]">NEXT: SEND PROPOSAL </button>-->
+  </div>
+  <div class="modal fade " bsModal #saveSettingsModal="bs-modal"
+       tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm save-setting-confirm" *ngIf="!showSaveSettingsForm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-title">Would you like to save these settings?</div>
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <button type="button" class="btn next cpointer" (click)="showSaveSettingsForm = true">YES</button>
+            </div>
+            <div class="col-sm-6 text-center">
+              <button type="button" class="btn no cpointer" (click)="saveSettingsModal.hide()">NO THANKS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-dialog modal-sm save-setting-confirm" *ngIf="showSaveSettingsForm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="modal-title">Would you like to save these settings?</div>
+          <div class="row">
+            <div class="col-sm-12 margin-bottom-15">
+              <input type="text" name="settingsName" [(ngModel)]="settingsName" class="modal-input"
+                     placeholder="Settings title"/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6 text-right">
+              <button type="button" class="btn next cpointer" (click)="saveSettingsAsTemplate()">SAVE</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="summary">
+    <div class="bg" (click)="closeSummary();"></div>
+    <div class="proposalSummary">
+      <div class="title">
+        <h2>Proposal Summary</h2>
+        <span (click)="closeSummary();">CLOSE</span>
+      </div>
+      <ul>
+        <li>
+          <div class="top">
+            <i class="icon-close"></i>
+            <h5>Base Wedding</h5>
+            <span class="price">$3250.00</span>
+          </div>
+        </li>
+        <li>
+          <div class="top">
+            <i class="icon-close"></i>
+            <h5>2017 Wedding Price</h5>
+            <span class="price">$3250.00</span>
+          </div>
+          <ul>
+            <li>
+              <span>1 hour Portrait Session</span><span class="price">$600.00</span>
+            </li>
+            <li>
+              <span>Private online gallery that will be available for 3 months</span><span class="price">$300.00</span>
+            </li>
+            <li>
+              <span>USB with all images from your onlin gallery (approximately 100 edited images)</span><span
+              class="price">$300.00</span>
+            </li>
+          </ul>
+          <div class="button">
+            <a class="edit" href="#">EDIT</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+.public-overview {
+	&.page {
+		margin-left: 0 !important;
+		.page-content {
+			#timelineBlock {
+				margin-top: 20px !important;
+				padding: 30px 25px;
+				background-color: #fff;
+				border-top: 3.2px solid #3a405b;
+				.panel-heading {
+					border-bottom: none !important;
+				}
+				ul {
+				    margin-left: 8px;
+				    padding-left: 12px;
+					li {
+						top: -3px;
+						p.date {
+							padding-left: 5px;
+						}
+						&:after {
+							left: -19px;
+    						top: 3px;
+    						height: 12px;
+							width: 12px;
+						}
+						.contentAccordion {
+							> ul {
+								padding-left: 12px;
+								margin-top: 8px;
+								li {
+									padding-bottom: 0px;
+									top: -11px;
+									.appointmentAccordion {
+										.panel-group {
+											margin-bottom: 0;
+										}
+										h4 {
+											&.panel-title {
+												padding-top: 0 !important;
+												&:before {
+													content: '\f278';
+													top: 11px !important;
+												}
+											}
+										}
+										.contentAccordion {
+											padding-left: 28px;
+										}
+									}
+									&:after {
+										top: 12px;
+										height: 12px;
+    									width: 12px;
+									}
+									&:before {
+								        top: 12px;
+									}
+									&:first-child {
+			                            h4 {
+			                            	&.panel-title {
+			                            		&:before {
+				                                    border: 1px solid rgba(55, 57, 76, 0.5);
+	    											border-radius: 3px;
+	    											content: '\f278';
+	    											font-family: 'Material-Design-Iconic-Font';
+				                                }
+			                            	}
+			                            }
+			                        }
+			                        &.expanded {
+						                h4 {
+						                    &.panel-title {
+						                        &:before {
+						                            content: '\f273';
+						                        }
+						                    }
+						                }
+						            }
+								}
+							}
+							p {
+								&.dateInfo {
+									margin: 0;
+								    font-size: 14px;
+								}
+								&.info {
+									margin-top: 5px;
+									span {
+										font-size: 14px;
+									}
+								}
+							}
+						}
+						&:before {
+							width: 12px;
+						    height: 12px;
+						    left: -19px;
+						    top: 5px;
+						}
+					}
+				}
+				h4 {
+					font-size: 18px !important;
+					cursor: pointer;
+					&.panel-title {
+						padding-left: 30px !important;
+						padding-top: 5px !important;
+						&:before {
+							font-size: 13px !important;
+							height: 14px;
+						    width: 14px;
+						    left: 5px;
+						    padding: 2px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

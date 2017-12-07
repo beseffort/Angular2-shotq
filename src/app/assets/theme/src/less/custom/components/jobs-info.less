@@ -1,0 +1,332 @@
+/* Job Info Page */
+.job-info-container {
+    margin-left:98px;
+	timeline {
+		div#timelineBlock {
+		    padding-top: 50px;
+		    padding-left: 30px;
+		    margin-top: 97px;
+		    background: #fff;
+		    display: block;
+		    min-height: 404px;
+		    .no-events-to-display {
+		    	text-align: center;
+	    		margin-top: 10%;
+	    		font-size: 18px;
+	    		font-color: #3a405b;
+	    		max-height: 150px !important;
+		    }
+		}
+	}
+}
+ /* Job Info Contact List Component */
+.jobs-contact-list-container {
+	margin-top: 0 !important;
+	font-family: 'Titillium Web';
+	display: block;
+    height: 450px;
+    background-color: #ffffff;
+    margin-top: 97px;
+    margin-left: 0px;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+    .jobs-contact-list-header {
+		h1 {
+			font-family: 'Titillium Web';
+			display: inline-block;
+			font-size: 24px;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			color: #37394c;
+			padding-left: 20px;
+    		padding-top: 7px;
+		}
+		button.new-field-button {
+		  width: 120px;
+		  height: 34px;
+		  font-family: 'Titillium Web';
+		  font-size: 14px;
+		  font-weight: normal;
+		  font-style: normal;
+		  font-stretch: normal;
+		  line-height: normal;
+		  letter-spacing: normal;
+		  text-align: center;
+		  color: #3a405b;
+		  border-radius: 4px;
+		  background-color: #ffffff;
+		  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.06);
+		  border: solid 1px #d8d8d8;	
+
+		/*	font-family: 'Titillium Web';
+			font-size: 14px;
+			font-weight: 600;
+			font-style: normal;
+			font-stretch: normal;
+			letter-spacing: 0.5px;
+ 			text-align: center;
+			color: #086aff;
+			margin-top: 30px;
+		    margin-right: 0px;
+		    padding-right: 0;
+		    padding-left: 42px;*/
+		}
+    }
+    .jobs-contact-list-body {
+	    height: 262px;
+	    /*overflow-x: hidden;
+	    overflow-y: auto;*/
+		::-webkit-scrollbar {
+		  width: 4px;
+		}
+		::-webkit-scrollbar-track {
+		  -webkit-box-shadow: inset 0 0 6px rgba(58, 64, 91,0.3); 
+		  border-radius: 10px;
+		}
+		::-webkit-scrollbar-thumb {
+		  border-radius: 10px;
+		  -webkit-box-shadow: inset 0 0 6px rgba(58, 64, 91, 0.5); 
+		}
+    	.no-contacts-to-display {
+			text-align: center;
+    		margin-top: 20%;
+    		font-size: 18px;
+    		font-color: #3a405b;
+    		height: 150px !important;
+    	}
+    	tr {
+	    	td {
+		    	&.actions {
+		    		dropdown {
+		    			.btn-group, .btn-group.no-shadow.blue-circle:hover, .btn-group.no-shadow.blue-circle.open {
+		    				padding-top: 0px;
+		    				width: 24px;
+		    				height: 24px;
+		    				margin-left: 0;
+		    				a.dropdown-toggle {
+		    					box-shadow: none;
+		    					-webkit-box-shadow: none;
+		    					font-family: 'Titillium Web';
+								font-size: 12px;
+								font-weight: normal;
+								font-style: normal;
+								font-stretch: normal;
+								color: #3a405b;
+		    					i {
+		    						font-size: 10px !important;
+		    						margin-left: -9px;
+		    					}
+		    					
+		    				}
+		    			}
+		    			ul.dropdown-menu {
+		    				right: 0px;
+		    				left: auto;
+		    				li {
+		    					a {
+		    						i.icon-trash{
+			    						&::before {
+			    							color: #fd245f !important;
+			    						}
+			    					}
+			    					span.color-icon-trash {
+										color: #fd245f !important;
+			    					}
+			    					i.icon-task {
+			    						font-weight: bold;
+			    					}
+		    					}
+		    				}
+		    			}
+		    		}
+		    		&.third {
+		    			dropdown {
+		    				ul.dropdown-menu {
+			    				top: -50px;
+			    				left: -165px;
+			    			}
+		    			}
+		    		}
+		    		&.fourth {
+		    			dropdown {
+		    				ul.dropdown-menu {
+			    				top: -70px;
+			    				left: -165px;
+			    			}
+		    			}
+		    		}
+				}
+				&.role-col {
+					div {
+						&.input-group {
+							margin: 0;
+							button {
+								font-family: "Titillium Web";
+							    font-size: 14px;
+							    font-weight: normal;
+							    font-style: normal;
+							    font-stretch: normal;
+							    color: #37394c;
+							    text-align: left;
+								padding-left: 0;
+								border-radius: 0;
+			                    &.form-field {
+			                        background-color: #FFF;
+			                        transition: none;
+			                        -webkit-transition: none;
+			                        span {
+			                            &.caret {
+			                                border: none !important;
+			                                top: 14px !important;
+			                                right: 0 !important;
+			                                font-size: 6px;
+			                                position: absolute;
+			                            }
+			                        }
+			                    }
+			                }
+			                ul.dropdown-menu {
+			                	outline: none;
+			                	li {
+			                		cursor: pointer;
+			                		padding-left: 8px;
+			                		&:hover {
+			                			background-color: #eee;
+			                		}
+			                		&:focus {
+			    						outline: none;
+			    					}
+			                	}
+			                }
+						}
+					}
+				}
+			}
+			&:hover {
+				td {
+					&.role-col {
+						div.input-group {
+							button {
+								&.form-field {
+									background-color: #EEE;
+								}
+							}	
+						}
+					}
+				}
+			}
+		}
+
+    }
+    .jobs-contact-list-footer {
+	    background-color: #ffffff;
+	}
+}
+
+
+.default-dropdown {
+	form-field {
+		.input-group {
+			margin-bottom: 0 !important;
+		}
+		button.form-field {
+		    width: 100px;
+		    height: 30px;
+		    border-radius: 2px;
+		    background-color: transparent;
+		    border: solid 1px #e4e7ef;
+		    text-align: left;
+		    font-size: 14px;
+		    font-stretch: normal;
+		    font-style: normal;
+		    font-weight: normal;
+		    color: #3a405b;
+		    padding-left: 4px;
+		    line-height: 10px;
+		    &:focus {
+		        outline: none;
+		    }
+		    &.disabled {
+		        cursor: not-allowed;
+		    }
+		    span {
+		        font-size: 6px;
+		        color: #3a405b;
+		        position: absolute;
+		        right: 14px;
+		        top: 12px;
+		        border: none;
+		    }
+		}
+		ul.dropdown-menu {
+			min-width: 100px !important;
+		    width: 100px;
+		    border-radius: 0;
+		    margin-top: 5px;
+		    &:focus {
+		        outline: none;                
+		    }
+		    li {
+		        color: #3a405b;
+		        font-size: 14px;
+		        font-weight: normal;
+		        padding: 2px 10px;
+		        &:hover {
+		            cursor: pointer;
+		            background-color: #f0f2f7;
+		        }
+		        &:focus {
+		            outline: none;
+		            background-color: #f0f2f7;
+		        }
+		    }
+		}
+	}
+}
+job-info {
+	job-header {
+		.job-header {
+			.page {
+				.page-header {
+				    .row {
+				    	.col-sm-8 {
+					        .display-inline-block {
+					            .page-title {
+					                editable-label {
+					                    div {
+					                    	input::-webkit-input-placeholder { color: #3A405B; opacity: 1 !important; font-size: 18px; font-style: normal; }
+											input:-moz-placeholder { color: #3A405B; font-size: 18px; font-style: normal; }
+											input::-moz-placeholder { color: #3A405B; font-size: 18px; font-style: normal; }
+											input:-ms-input-placeholder { color: #3A405B; font-size: 18px; font-style: normal; }
+					                    	input.form-control {
+					                    		font-family: 'Titillium Web',sans-serif;
+											    font-size: 40px;
+											    font-weight: 600;
+											    height: 48px;
+											    border-top: none;
+											    border-left: none;
+											    border-right: none;
+    											border-radius: 0;
+    											background: #f7f7f7;
+    											height: 65px;
+    											color: #3A405B;
+    											width: 103%;
+					                    	}
+					                        label {
+					                        	padding-top: 11px !important;
+					                        	padding-left: 13px !important;
+					                        	font-size: 40px !important;
+					                            font-weight: 600 !important;
+				                                height: 60px !important;
+					                        }
+					                    }
+					                }
+					            }
+					        }
+				    	}
+				    }
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,791 @@
+.openOldModal {
+    &.modalContactMerge {
+        .show-blur {
+            -webkit-filter: inherit;
+            -moz-filter: inherit;
+            -o-filter: inherit;
+            -ms-filter: inherit;
+            filter: inherit;
+        }
+        .modal.fade.in {
+            .modal-dialog {
+                max-width:85%;
+                .modal-content {
+                    width:100%;
+                    .modal-header {
+                        display:none;
+                    }
+                    .modal-body {
+                        padding:0;
+                        .modalConfirm.in {
+                            padding-top:30px;
+                            transform: translate(0, 30%);
+                            .modal-body {
+                                background-color:#fff;
+                                h2 {
+                                    text-align: center;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    color: #3a405b;
+                                    font-size: 24px;
+                                    font-weight: bold;
+                                    line-height: 46px;
+                                }
+                                p {
+                                    line-height: 21px;
+                                    color: #3a405b;
+                                    font-size: 14px;
+                                    font-weight: normal;
+                                    text-align: center;
+                                    margin: 0px;
+                                    padding: 0px;
+                                    margin-bottom: 20px;
+                                }
+                                .buttons {
+                                    background-color:rgb(250, 251, 251);
+                                    padding-top: 10px;
+                                    padding-right:15px;
+                                    padding-bottom:10px;
+                                    text-align:right;
+                                    border-top:solid 1px rgb(228, 232, 240);
+                                    .cancel {
+                                        height: 30px;
+                                        border-radius: 2px;
+                                        background-color: rgb(255, 255, 255);
+                                        line-height: 30px;
+                                        color: rgb(181, 193, 207);
+                                        font-size: 14px;
+                                        font-weight: 600;
+                                        border:1px solid rgb(181, 193, 207);
+                                        display:inline-block;
+                                        text-align: center;
+                                        text-transform:uppercase;
+                                        padding: 0 20px;
+                                    }
+                                    .yes {
+                                        height: 30px;
+                                        border-radius: 2px;
+                                        background-color: rgb(8, 106, 255);
+                                        text-transform:uppercase;
+                                        color: rgb(255, 255, 255);
+                                        font-size: 14px;
+                                        font-weight: 600;
+                                        line-height:30px;
+                                        margin-left:10px;
+                                        display:inline-block;
+                                        text-align: center;
+                                        padding: 0 20px;
+                                        border: none;
+                                    }
+                                }
+                            }
+                            + .contactMerge:after {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                z-index: 2;
+                                background: rgba(0,0,0,0.5);
+                                left: 0;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                            }
+                        }
+                        .contactMerge {
+                            margin-left:0px !important;
+                            background: #fff !important;
+                            .divRipple{
+                                top: 137px;
+                            }
+                            .page-header {
+                                margin-top: 0px;
+                                padding:0px !important;
+                                margin-left:0px !important;
+                                h1 {
+                                    text-align:center;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    color: rgb(58, 64, 91);
+                                    font-size: 42px;
+                                    font-weight: bold;
+                                    line-height:64px;
+                                    padding-top: 5px;
+                                }
+                                button.close {
+                                    position: absolute;
+                                    top: 12px;
+                                    right: 18px;
+                                    outline: none;
+                                }
+                            }
+                            p {
+                                &.merge-contact-notice {
+                                    line-height: 21px;
+                                    color: rgb(58, 64, 91);
+                                    font-size: 14px;
+                                    font-weight: normal;
+                                    text-align: center;
+                                    margin:0px;
+                                    padding:0px;
+                                    margin-bottom:20px;
+                                }
+                                a.link-style {
+                                    text-decoration: none;
+                                    font-stretch: normal;
+                                    letter-spacing: normal;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    color: #086aff;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                }
+                            }
+                            .page-content {
+                                border-top:solid 1px rgb(228, 232, 240);
+                                padding:20px 20px 46px;
+                                min-height: 120px;
+                                .mergeBlock {
+                                    overflow:auto;
+                                    > .row {
+                                        min-width: 1010px;
+                                    }
+                                    
+                                }
+                                .row {
+                                    > div {
+                                        max-width:400px;
+                                        min-width:400px;
+                                        margin-top:0px;
+                                        padding-left:0px;
+                                        padding-right:0px;
+                                        .panel {
+                                            box-shadow: none;
+                                            border:none;
+                                            margin-top:0px;
+                                            margin-bottom:0px;
+                                            background:none;
+                                            .panel-body {
+                                                padding:0px;
+                                                padding-right: 0 !important;
+                                                padding-left: 0 !important;
+                                            }
+                                            .form-group {
+                                                > div {
+                                                    .relative {
+                                                        position: relative;
+                                                        min-height: 48px;
+                                                    }
+                                                    .input-group-icon {
+                                                        padding-top:10px;
+                                                        padding-bottom:7px;
+                                                        border-bottom: solid 1px rgb(228, 232, 240);
+                                                        padding-left:12px;
+                                                        .checkbox-custom {
+                                                            display:inline-block;
+                                                            vertical-align: top;
+                                                            margin-top:3px;
+                                                            margin-bottom:0px;
+                                                            + div {
+                                                                display:inline-block;
+                                                            }
+                                                        }
+                                                        form-field {
+                                                            display:inline-block;
+                                                            width:240px;
+                                                            vertical-align: top;
+                                                            .form-group {
+                                                                padding-top: 0px;
+                                                                margin-bottom: 0px;
+                                                                .row {
+                                                                    .col-xs-1 {
+                                                                        display:none;
+                                                                    }
+                                                                    .col-xs-11 {
+                                                                        width: 100%;
+                                                                        min-width: inherit;
+                                                                        max-width: inherit;
+                                                                        .input-group {
+                                                                            margin-bottom: 0px;
+                                                                            display: block;
+                                                                            margin-left: 20px;
+                                                                            padding:0px;
+                                                                            border-bottom: none;
+                                                                            .input-group-addon {
+                                                                                display:none;
+                                                                            }
+                                                                            input {
+                                                                                height: 30px;
+                                                                                border-radius: 2px;
+                                                                                border: none !important;
+                                                                                line-height: 30px;
+                                                                                color: rgb(58, 64, 91);
+                                                                                font-size: 14px;
+                                                                                font-weight: 400;
+                                                                                padding-left:10px;
+                                                                                padding-right:10px;
+                                                                                pointer-events: none;
+                                                                                background:none !important;
+                                                                                
+                                                                                &.ng-invalid {
+                                                                                    border-color:red;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        p {
+                                                                            padding-left: 22px;
+                                                                            color: red;
+                                                                            line-height: 1.3;
+                                                                            padding-top: 5px;
+                                                                            font-size: 12px;
+                                                                            display:none !important;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    .address-empty {
+                                                        height: 48px !important;
+                                                        padding-top: 10px;
+                                                        padding-bottom: 7px;
+                                                        label{
+                                                            font-size: 14px;
+                                                            font-weight: 600;
+                                                            color: #3a405b;
+                                                            margin-bottom: -2px;
+                                                            padding-left: 7px;
+                                                            width: 330px;
+                                                         }
+                                                        .oneLine {
+                                                             padding-top: 0px !important;
+                                                            }
+                                                        .input-group-addon {
+                                                            padding-bottom: 15px !important;
+                                                        }
+
+                                                    }
+                                                    .addressFields {
+                                                        padding-top: 12px;
+                                                        padding-bottom: 7px;
+                                                        border-bottom: solid 1px #e4e8f0;
+                                                        padding-left: 12px;
+                                                        height: 68px;
+                                                        .checkbox-custom {
+                                                            display: inline-block;
+                                                            vertical-align: top;
+                                                            margin-top: 3px;
+                                                            margin-bottom: 0px;
+                                                            padding-top: 10px;
+                                                        }
+
+                                                        form-field-address {
+                                                            display: inline-block;
+                                                            width: calc( 100% - 25px );
+                                                            .input.group-icon {
+                                                                margin-left: 0;
+                                                                border: none;
+                                                                margin: 0;
+                                                                padding: 0;
+                                                                padding-left: 20px;
+                                                            }
+                                                            .input{
+                                                                width: 100%;
+                                                                height: 30px;
+                                                                border-radius: 2px;
+                                                                border: none !important;
+                                                                line-height: 30px;
+                                                                color: #3a405b;
+                                                                font-size: 14px;
+                                                                font-weight: 600;
+                                                                padding-left: 10px;
+                                                                padding-right: 10px;
+                                                                background: none !important;
+                                                                max-width: 240px;
+                                                                pointer-events: none;
+                                                                width: 100%;
+                                                                background-image: none;
+                                                                display: table-cell;
+                                                                vertical-align: top;
+                                                                padding-top: 0px;
+                                                                padding-bottom: 0px;
+                                                                text-align: left;
+                                                            }
+                                                            .input-group-addon {
+                                                                position: absolute;
+                                                                left: 0px;
+                                                                display: block;
+                                                                color: #3a405b;
+                                                                font-size: 14px;
+                                                                font-weight: 600;
+                                                                text-transform: capitalize;
+                                                                padding: 0px;
+                                                                width: 210px;
+                                                                min-width: inherit;
+                                                                text-align: left;
+                                                                padding-bottom: 23px;
+                                                                border-bottom: solid 1px #e4e8f0;
+                                                                padding-left: 10px;
+                                                                line-height: 21px;
+                                                                bottom: 0px;
+                                                                overflow: hidden;
+                                                                background-color: #fff;
+                                                                border-left-width: 0px;
+                                                                text-overflow: ellipsis;
+                                                                padding-right: 10px;
+                                                                border-radius: 0px;
+                                                                padding-left: 10px;
+                                                                border-top:none;
+                                                              }
+                                                              .input-group {
+                                                                    padding: 0px;
+                                                                    margin-bottom:0px !important;
+                                                                    border-bottom: none;
+                                                                    width: 100%;
+                                                                    .btn.form-field,
+                                                                    input {
+                                                                        height: 30px;
+                                                                        border-radius: 2px;
+                                                                        border: none !important;
+                                                                        line-height: 30px;
+                                                                        color: #3a405b;
+                                                                        font-size: 14px;
+                                                                        font-weight: 600;
+                                                                        padding-left: 10px;
+                                                                        background: none !important;
+                                                                        pointer-events: none;
+                                                                        width:100%;
+                                                                        background-image: none;
+                                                                        display: table-cell;
+                                                                        vertical-align: top;
+                                                                        padding-top: 0px;
+                                                                        padding-bottom: 0px;
+                                                                        text-align:left;
+                                                                        .caret {
+                                                                            display:none;
+                                                                        }
+                                                                    }
+                                                                    .input-group-addon {
+                                                                        text-align:left;
+                                                                        display: table-cell;
+                                                                        width: 1%;
+                                                                    }
+                                                            }
+                                                            .input-group-icon {
+                                                                    height: 30px;
+                                                                    padding-top:2px;
+                                                                    padding-bottom:7px;
+                                                                    border-bottom: solid 0px rgb(228, 232, 240);
+                                                                    padding-left:0px;
+                                                                    margin-left: 10px;
+                                                                    max-width: 350px;
+                                                                    label{
+                                                                        font-size: 14px;
+                                                                        font-weight: 400;
+                                                                        color: #3a405b;
+                                                                        margin-bottom: -2px;
+                                                                        padding-left: 7px;
+                                                                        width: 330px;
+                                                                    }
+                                                                    .oneLine {
+                                                                        padding-top: 8px;
+                                                                    }
+                                                                }
+                                                            .form-group {
+                                                                padding-bottom: 5px;
+                                                                margin-bottom:0px;
+                                                                display:block;
+                                                                form-field {
+                                                                    display:block;
+                                                                    form-field-wrap {
+                                                                        display:block;
+                                                                        .form-material {
+                                                                            padding-top: 0px;
+                                                                            margin-bottom:0px;
+                                                                            .col-xs-1 {
+                                                                                display:none;
+                                                                            }
+                                                                            .col-xs-11 {
+                                                                                width:100%;
+                                                                                max-width: inherit;
+                                                                                min-width: inherit;
+                                                                                .input-group {
+                                                                                    padding: 0px;
+                                                                                    margin-bottom:0px !important;
+                                                                                    border-bottom: none;
+                                                                                    width: 100%;
+                                                                                    .btn.form-field,
+                                                                                    input {
+                                                                                        height: 30px;
+                                                                                        border-radius: 2px;
+                                                                                        border: none !important;
+                                                                                        line-height: 30px;
+                                                                                        color: #3a405b;
+                                                                                        font-size: 14px;
+                                                                                        font-weight: 600;
+                                                                                        padding-left: 10px;
+                                                                                        padding-right: 10px;
+                                                                                        background: none !important;
+                                                                                        max-width: 240px;
+                                                                                        pointer-events: none;
+                                                                                        width:100%;
+                                                                                        background-image: none;
+                                                                                        display: table-cell;
+                                                                                        vertical-align: top;
+                                                                                        padding-top: 0px;
+                                                                                        padding-bottom: 0px;
+                                                                                        text-align:left;
+                                                                                        .caret {
+                                                                                            display:none;
+                                                                                        }
+                                                                                    }
+                                                                                    .input-group-addon {
+                                                                                        text-align:left;
+                                                                                        display: table-cell;
+                                                                                        width: 1%;
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            .form-group,
+                                                            form-field-wrap {
+                                                                display:block;
+                                                                .form-group {
+                                                                    padding-top:0px;
+                                                                    margin-bottom:0px;
+                                                                    display:block;
+                                                                    .col-xs-1 {
+                                                                        display:none;
+                                                                    }
+                                                                    .col-xs-11 {
+                                                                        width:100%;
+                                                                        max-width: inherit;
+                                                                        min-width: inherit;
+                                                                        width: 100%;
+                                                                        .input-group {
+                                                                            padding: 0px;
+                                                                            margin-bottom:0px !important;
+                                                                            border-bottom: none;
+                                                                            width: 100%;
+                                                                            display:table;
+                                                                            .btn.form-field,
+                                                                            input {
+                                                                                height: 30px;
+                                                                                border-radius: 2px;
+                                                                                border: none !important;
+                                                                                line-height: 30px;
+                                                                                color: #3a405b;
+                                                                                font-size: 14px;
+                                                                                font-weight: 600;
+                                                                                padding-left: 10px;
+                                                                                padding-right: 10px;
+                                                                                background: none !important;
+                                                                                max-width: 240px;
+                                                                                pointer-events: none;
+                                                                                width:100%;
+                                                                                background-image: none;
+                                                                                display: table-cell;
+                                                                                vertical-align: top;
+                                                                                padding-top: 0px;
+                                                                                padding-bottom: 0px;
+                                                                                text-align:left;
+                                                                                .caret {
+                                                                                    display:none;
+                                                                                }
+                                                                            }
+                                                                            .input-group-addon {
+                                                                                text-align:left;
+                                                                                display: table-cell;
+                                                                                width: 1%;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.col-panel-merge-left {
+                                            max-width:610px;
+                                            min-width: 610px;
+                                            .form-group {
+                                                max-width: inherit;
+                                                > div {
+                                                    position:relative;
+                                                    .input-group-icon {
+                                                        margin-left: 210px;
+                                                        &.checked {
+                                                            background-color: rgb(250, 251, 251);
+                                                        }
+                                                        form-field {
+                                                            .form-group {
+                                                                position: inherit;
+                                                                .row {
+                                                                    position: inherit;
+                                                                    .col-xs-11 {
+                                                                        position: inherit;
+                                                                        .input-group {
+                                                                            position: inherit;
+                                                                            .input-group-addon {
+                                                                                position: absolute;
+                                                                                left: 0px;
+                                                                                display: block;
+                                                                                color: rgb(58, 64, 91);
+                                                                                font-size: 14px;
+                                                                                font-weight: 600;
+                                                                                text-transform: capitalize;
+                                                                                padding: 0px;
+                                                                                width: 210px;
+                                                                                min-width: inherit;
+                                                                                text-align: left;
+                                                                                padding-bottom:15px;
+                                                                                border-bottom: solid 1px rgb(228, 232, 240);
+                                                                                padding-left:10px;
+                                                                                line-height:21px;
+                                                                                bottom: 0px;
+                                                                                overflow: hidden;
+                                                                                text-overflow: ellipsis;
+                                                                                padding-right: 10px;
+                                                                                border-radius: 0px;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        &.disabled {
+                                                            form-field {
+                                                                .form-group {
+                                                                    .row {
+                                                                        .col-xs-11 {
+                                                                            .input-group {
+                                                                                margin-left: 50px;
+                                                                                input {
+                                                                                    color: #b5c1cf;
+                                                                                    padding-left: 0;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            form-field-address {
+                                                                .input-group {
+                                                                    &.input-group-icon {
+                                                                        margin-left: 40px;
+                                                                        input, label {
+                                                                            color: #b5c1cf;
+                                                                            padding-left: 0;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.col-panel-merge-right {
+                                            width: calc( 100% - 610px );
+                                            max-width: inherit;
+                                            .row {
+                                                > .form-group {
+                                                    max-width: inherit;
+                                                }
+                                            }
+                                            .form-group {
+                                                > div {
+                                                    .input-group-icon {
+                                                        &.checked {
+                                                            background-color: rgb(250, 251, 251);
+                                                        }
+                                                        &.disabled {
+                                                            form-field {
+                                                                .form-group {
+                                                                    .row {
+                                                                        .col-xs-11 {
+                                                                            .input-group {
+                                                                                margin-left: 50px;
+                                                                                input {
+                                                                                    color: #b5c1cf;
+                                                                                    padding-left: 0;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            form-field-address {
+                                                                .input-group {
+                                                                    &.input-group-icon {
+                                                                        margin-left: 40px;
+                                                                        input, label {
+                                                                            color: #b5c1cf;
+                                                                            padding-left: 0;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.modalContactMerge {
+    &.modal-open {
+        &:not(.openOldModal) {
+            .old-modal {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                -moz-transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                -o-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+                > .modal-dialog {
+                    > .modal-content {
+                        background:none !important;
+                        > .modal-header {
+                            display:none;
+                        }
+                        > .modal-body {
+                            background:none !important;
+                        }
+                    }
+                }
+            }
+            .page.contactMerge {
+                display:none;
+            }
+        }
+    }
+    .name{
+      display:inline-flex;
+      width: 320px;
+      margin-left: 210px;
+      font-family: 'Titillium Web';
+      font-size: 24px;
+      font-weight: 300;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #3a405b;
+      position: static !important;
+	  label{
+		max-width: 160px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+        font-size: 20px;
+        text-transform: uppercase;
+	  }
+    }
+    .name2{
+      display:inline-flex;
+      width: 320px;
+      margin-left: 0px !important;
+      font-family: 'Titillium Web';
+      font-size: 24px;
+      font-weight: 300;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #3a405b;
+	  label{
+		max-width: 160px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+        font-size: 20px;
+        text-transform: uppercase;
+	  }
+    }
+
+    .firstName{
+        margin-right: 7px;
+    }
+
+    .select-all {
+      font-family: 'Titillium Web';
+      text-align: left;
+      margin-left: 210px;
+      margin-top: -15px;
+    }
+    .select-all-2 {
+      font-family: 'Titillium Web';
+      text-align: left;
+      margin-left: 0px;
+      margin-top: -15px;
+    }
+    .error {
+        height: 48px;
+        div.checkbox-custom{
+            label {
+                &:before{
+                    border: red 1px solid;
+                }
+            }
+        }
+     form-field {
+        .form-group {
+            .row {
+                 .col-xs-11 {
+                    .input-group {
+                        span {
+                            color: red !important;
+                        }
+                        }}}}}
+     form-field-address {
+         span {
+                color: red !important;
+            }
+     }
+    }
+}
+
+.contactMerge {
+    .page-bottom-actions {
+        background-color: #fafbfb;
+        padding-top: 10px;
+        padding-right: 15px;
+        padding-bottom: 8px;
+        text-align: right;
+        border-top: 1px solid #e4e8f0;
+        .btn {
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+            text-align: center;
+            border: none; 
+        }
+        .btn-default {
+            background-color: transparent;
+            color: rgba(55, 57, 76, 0.5);;
+        }
+        .btn-primary {
+            background-color: #086aff;
+            color: #fff;
+            margin-left: 10px;
+        }
+    }
+}
+

@@ -1,0 +1,9 @@
+<p> Archived items and packages will be listed under the Archived category.<p>
+
+<p>Once archived, items and packages can be permanently deleted unless they have been previously sold or presented in an online booking. <p>
+
+<div class="loading-ripple" *ngIf="isLoading"></div>
+<div class="align-right">
+    <button type="button" class="btn cancel-button" (click)="cancel()">CANCEL</button>
+    <button type="button" type="submit" class="btn save-button" (click)="confirm()">CONFIRM</button>
+</div>

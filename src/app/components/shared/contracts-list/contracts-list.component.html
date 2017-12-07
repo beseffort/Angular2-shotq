@@ -1,0 +1,58 @@
+<div class="job-contracts">
+    <div class="clearfix">
+        <div class="clearfix__left">
+            <h2 class="job-contracts__title">Contracts <span>({{ contracts.length }})</span></h2>
+            <span class="job-contracts__archive cursor-pointer" (click)="toggleView();">
+                View <span *ngIf="!isArchived">Archived </span>Contracts
+            </span>
+        </div>
+        <div class="clearfix__right">
+            <button class="sq-btn-add pull-right"
+                    (click)="newContract()"
+                    *ngIf="!isArchived && canAdd">New Contract</button>
+        </div>
+    </div>
+    <div class="position-relative">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+        <div id="table-container" class="table-responsive">
+            <div class="text-center no-items" *ngIf="!contracts.length">
+                There are no items to display.
+            </div>
+            <table class="table table-hover"
+                   *ngIf="contracts.length">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 20px!important;">NAME</th>
+                        <th style="padding-left: 20px!important;">TYPE</th>
+                        <th style="padding-left: 20px!important;">SENT DATE</th>
+                        <th style="padding-left: 20px!important;">JOB NAME</th>
+                        <th style="padding-left: 20px!important;"
+                            colspan="2">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contract of contracts">
+                        <td style="padding-left: 20px!important;" class="bold cursor-pointer"
+                            (click)="previewContract(contract)">
+                            {{ contract.title }}</td>
+                        <td>{{ contract.job_type }}</td>
+                        <td>{{ contract.sent | date: 'mediumDate' }}</td>
+                        <td>{{ contract.job_name }}</td>
+                        <td>{{ contract.status | humanize }}</td>
+                        <td>
+                            <dropdown *ngIf="contract.actions?.length"
+                                      [dropUp]="true"
+                                      [button]="false"
+                                      [dropdownClass]="'dropdown-menu-right'"
+                                      listClass="blue-circle vertical"
+                                      iconClass="icon-more-icon-o font-size-10"
+                                      [actions]="contract.actions"
+                                      (optionSelected)="singleAction($event, contract)">
+                            </dropdown>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

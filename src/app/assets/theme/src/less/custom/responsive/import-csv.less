@@ -1,0 +1,44 @@
+import-csv{
+  paginate {
+    
+    @media screen and (max-width: 1070px) {
+      div.pagination-styles.contacts-pagination {
+        width: 80%;
+        div.paginate-size ul {
+          list-style: none;
+          padding-left: 36px;
+          margin-bottom: 0px;
+          padding-top: 16px;
+        }
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      div.pagination-styles.contacts-pagination {
+        div.paginate-size {
+          position: absolute;
+        }
+      }
+    }
+    @media screen and (max-width: 975px) {
+      div.pagination-styles.contacts-pagination {
+        width: 72%;
+      }
+    }
+    @media screen and (max-width: 930px) {
+      div.pagination-styles.contacts-pagination {
+        width: 360px;
+        text-align: left;
+        padding-top: 0;
+        div.paginate-size {
+          position: static;
+          &.option-all {
+            margin-top: 20px;
+          }
+        }
+        div.paginate.paginate-num {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

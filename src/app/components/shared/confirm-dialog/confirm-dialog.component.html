@@ -1,0 +1,22 @@
+<div class="modal fade " bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-sm_mod ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header-in">
+          <div class="h3">{{ title}}</div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div [innerHTML]="body"></div>
+      </div>
+      <div class="modal-footer bg">
+        <button type="button" class="btn btn_xs btn_transparent "
+                data-dismiss="modal" (click)="modal.hide()">Cancel</button>
+             <!-- "btn_red" mod for delete btn   -->
+        <button type="button" class="btn btn_xs " [ngClass]="actionMode"
+                (click)="confirm()">{{ action }}</button>
+      </div>
+    </div>
+  </div>
+</div>

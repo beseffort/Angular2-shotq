@@ -1,0 +1,94 @@
+<div class="notes">
+  <div class="notes-header">
+    <div class="notes-header__title">Notes</div>
+    <div class="notes-header__actions">
+      <button
+        type="button" class="sq-btn-add"
+        [disabled]="noteChangeBuffer.id >= 0"
+        (click)="startChanges(null)"
+      >New Note</button>
+    </div>
+    <div class="add-note-form" *ngIf="noteChangeBuffer.id === 0">
+      <input
+        type="text" class="add-note-form__title-input" placeholder="Note Name" required
+        [(ngModel)]="noteChangeBuffer.subject" #ctrl="ngModel"
+      />
+      <sq-text-editor
+        class="note-card__editor"
+        [(ngModel)]="noteChangeBuffer.body"
+      ></sq-text-editor>
+      <div class="add-note-form__action-buttons">
+        <button class="sq-btn-dismiss" (click)="stopChanges()">Cancel</button>
+        <button class="sq-btn-submit" (click)="commitChanges()">Post Note</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-list">
+    <div class="loading-ripple" *ngIf="notesLoading"></div>
+    <div *ngIf="notes.length === 0 && !notesLoading" class="no-notes-to-display">
+      There are no notes to display.
+    </div>
+
+    <ng-template [ngIf]="notes && !notesLoading">
+      <ng-template ngFor let-note [ngForOf]="notes" let-i="index">
+
+        <div class="js-node-card note-card"
+            [ngClass]="{'note-card--changing': noteChangeBuffer.id === note.id}">
+          <div class="note-card__block">
+            <div class="note-card__title">
+              <div class="note-card__actions" *ngIf="noteChangeBuffer.id !== note.id">
+                <dropdown
+                  listClass="blue-circle" iconClass="icon-more-icon-o font-size-10"
+                  [button]="false" [actions]="noteActions"
+                  (optionSelected)="onNoteActionClicked(note, $event, i)"
+                ></dropdown>
+              </div>
+              <div class="title note-card__title-text">
+                <label *ngIf="noteChangeBuffer.id >= 0 && noteChangeBuffer.id !== note.id">{{ note.subject }}</label>
+                <editable-label
+                  *ngIf="noteChangeBuffer.id < 0"
+                  placeholder="Note Name"
+                  [cssClassLabel]="'note-card__title-label'"
+                  [value]="note.subject" [required]="true"
+                  (valueChange)="onNoteTitleChange(note, $event)"
+                ></editable-label>
+              </div>
+
+              <input type="text" class="note-card__title-input" required
+                     [(ngModel)]="noteChangeBuffer.subject" *ngIf="noteChangeBuffer.id === note.id">
+              <div class="note-card__edit-note-buttons" *ngIf="noteChangeBuffer.id === note.id">
+                <button class="sq-btn-dismiss" (click)="stopChanges()">Cancel</button>
+                <button class="sq-btn-submit" (click)="commitChanges()">Save Note</button>
+              </div>
+
+              <time *ngIf="noteChangeBuffer.id !== note.id"
+                class="note-card__date"
+                tooltip="by {{ note.$createdByDisplayName }} @ {{ note.created|date:'medium' }}"
+              >{{ note.created | date:'longDate' }}</time>
+              <span
+                class="note-card__edited-tag"
+                *ngIf="note.is_edited && noteChangeBuffer.id !== note.id"
+                tooltip="{{ note.$modifiedByDisplayName }} @ {{ note.modified | date:'medium' }}"
+              >Edited</span>
+            </div>
+            <div #card>
+              <div class="note-card__text" *ngIf="noteChangeBuffer.id !== note.id">
+                <span [innerHTML]="note.$body" *ngIf="note.$isExpanded"></span>
+                <span [innerHTML]="note.$truncatedBody" *ngIf="!note.$isExpanded"></span>
+                <a (click)="toggleNote($event, note)" *ngIf="note.$isLongNote && note.$isExpanded">See&nbsp;less</a>
+                <a (click)="toggleNote($event, note)" *ngIf="note.$isLongNote && !note.$isExpanded">See&nbsp;more</a>
+              </div>
+            </div>
+            <sq-text-editor
+              *ngIf="noteChangeBuffer.id === note.id"
+              class="note-card__editor"
+              [(ngModel)]="noteChangeBuffer.body"
+            >
+            </sq-text-editor>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

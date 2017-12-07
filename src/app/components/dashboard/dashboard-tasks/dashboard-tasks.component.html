@@ -1,0 +1,24 @@
+<div class="dashboard-tasks">
+  <div class="dashboard-tasks__header">
+    <!-- begin dashboard-tasks dropdown -->
+    <div class="dashboard-tasks__switcher" dropdown>
+      <a href dropdownToggle (click)="false" class="dropdown-toggle">
+        <i class="icon-confirm" aria-hidden="true"></i>
+        <h2 class="dashboard-tasks__title">Upcoming Tasks</h2>
+        <i class="icon-down-arrow"></i>
+      </a>
+      <ul *dropdownMenu class="dropdown-menu">
+        <li *ngFor="let choice of items">
+          <a class="dropdown-item" href="#">{{choice}}</a>
+        </li>
+      </ul>
+    </div>
+    <!-- end dashboard-tasks dropdown -->
+  </div>
+  <div class="dashboard-tasks__body">
+    <div class="no-activity">
+      <img src="https://dummyimage.com/120x120/fadd00/000000" />
+      <p>You’ve completed all of your tasks. Nice work!</p>
+    </div>
+  </div>
+</div>

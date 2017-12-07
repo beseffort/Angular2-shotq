@@ -1,0 +1,63 @@
+<div class="booking-welcome-screen" style="" *ngIf="message === 'welcome'">
+  <div class="proposal-information">
+    <h1>{{ proposal.job.name }}</h1>
+    <div class="description-container" *ngIf="canEnter">
+      <h3>Welcome to your personalized client site!</h3>
+      <p>
+        You'll find options for different packages once you click continue.<br>
+        You can add additional options or request changes.<br>
+        <span *ngIf="proposal.expiration_date">
+          Please note that this proposal will expire by: <strong>{{proposal.expiration_date | date: 'longDate'}}</strong>
+        </span>
+      </p>
+    </div>
+    <div class="continue-container" *ngIf="canEnter">
+      <button type="button" class="continue-container-btn" [routerLink]="['../']">continue</button>
+    </div>
+  </div>
+</div>
+<div class="booking-welcome-screen" style="" *ngIf="message === 'thankyou'">
+  <div class="proposal-information">
+    <h1>Thank You!</h1>
+    <div class="description-container" *ngIf="canEnter">
+      <h3>This will be your personalized client site!</h3>
+      <p>You’ll be able to access your event schedule, event details, and history of our conversations
+        as client and photographer. You will also be able to pay your invoices here. We look forward to
+        working with you!
+      </p>
+    </div>
+    <div class="continue-container" *ngIf="canEnter">
+      <button type="button" class="continue-container-btn"
+              [routerLink]="['/public', 'client-access', proposal.job.id, 'overview']">continue
+      </button>
+    </div>
+  </div>
+</div>
+<div class="booking-welcome-screen" style="" *ngIf="message === 'proposal_expired'">
+    <div class="proposal-information">
+        <div class="description-container">
+            <h3>
+                Proposal expired
+            </h3>
+            <p>
+                Sorry, but this proposal is no longer available.
+                We'll get back to you soon with a new proposal for your review!
+                <!--Your proposal expired on <strong>{{proposal.expiration_date | date: 'longDate'}}</strong>-->
+            </p>
+        </div>
+    </div>
+</div>
+<div class="booking-welcome-screen" style="" *ngIf="message === 'proposal_accepted'">
+  <div class="proposal-information">
+    <h1>{{ proposal.job.name }}</h1>
+    <div class="description-container">
+      <h3>Proposal Accepted</h3>
+      <p>We're glad that you've returned, but you have already accepted this proposal, and it is now pending review with {{ proposal.account_name }}</p>
+    </div>
+    <div class="continue-container">
+      <button type="button" class="continue-container-btn"
+        [routerLink]="['/public', 'client-access', proposal.job.id, 'overview']">continue
+      </button>
+    </div>
+  </div>
+</div>

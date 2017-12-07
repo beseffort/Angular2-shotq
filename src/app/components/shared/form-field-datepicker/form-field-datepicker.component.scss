@@ -1,0 +1,38 @@
+.datepicker-wrap {
+  position: relative;
+  cursor: text;
+
+  input {
+    pointer-events: none;
+  }
+}
+
+i.icon {
+  position: absolute;
+  top: 30px;
+  z-index: 4;
+  font-size: 18px;
+  height: 18px;
+  line-height: 18px;
+  width: 20px;
+  text-align: center;
+  cursor: pointer;
+
+  &.calendar-icon {
+    right: 0;
+  }
+
+  &.reset-icon {
+    right: 28px;
+  }
+}
+
+.dropdown-menu {
+  padding: 0;
+  border: none;
+}
+
+.custom-datepicker {
+  display:inline-block;
+  min-height:290px;
+}

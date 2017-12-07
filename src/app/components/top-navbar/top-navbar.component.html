@@ -1,0 +1,56 @@
+<nav class="site-navbar navbar navbar-inverse navbar-mega" role="navigation" *ngIf="!sidebarClientAccess">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left" [class.hided]="sidebarCollapsed"
+      (click)="emitToggleSidebar()">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="hamburger-bar"></span>
+    </button>
+    <button type="button" class="navbar-toggle" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <i class="icon md-more" aria-hidden="true"></i>
+    </button>
+    <div class="navbar-brand navbar-brand-center brand-icon-container">
+      <img src="/assets/img/shootq-icon.svg" alt="ShootQ logo" />
+    </div>
+  </div>
+  <div class="navbar-container container-fluid">
+    <!-- Navbar Collapse -->
+    <div class="collapse navbar-collapse navbar-collapse-toolbar" [class.collapsed]="!isMenuCollapsed" [class.in]="!isMenuCollapsed">
+      <!-- Navbar Toolbar -->
+      <ul class="nav navbar-toolbar" *ngIf="isMenuCollapsed">
+        <li class="nav-searchbar" >
+          <searchbar (searchTerm)="processSearchTerm($event)"
+                     [contactResults]="contactResults" [jobResults]="jobResults"
+                     [contactSpinLoading]="isContactLoading" [jobSpinLoading]="isJobLoading"></searchbar>
+        </li>
+      </ul>
+      <!-- End Navbar Toolbar -->
+      <!-- Navbar Toolbar Right -->
+      <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+        <li class="dropdown shutter-dropdown plus-block">
+          <div id="plus-menu">
+            <dropdown btnClass="btn btn-info btn-xs" iconClass="icon md-plus" [button]="false"
+                      [actions]="cameraIconActions" (optionSelected)="executeAction($event)"></dropdown>
+          </div>
+        </li>
+        <li class="notification-block">
+          <div class="notification-icon">
+          </div>
+          <span class="notification-number">0</span>
+        </li>
+        <li class="account-settings">
+          <div class="navbar-avatar" data-toggle="dropdown" role="button">
+            <span class="avatar avatar-online">
+              <img [src]="currentUser?.user_profile?.avatar || 'assets/img/avatar.png'" alt="Logged-in user-image">
+            </span>
+            <dropdown btnClass="btn btn-info btn-xs" [button]="false"
+                      [actions]="accountActions" (optionSelected)="executeAction($event)"></dropdown>
+          </div>
+        </li>
+      </ul>
+      <!-- End Navbar Toolbar Right -->
+    </div>
+  </div>
+</nav>
+<!-- Client Access -->
+<client-navbar *ngIf="sidebarClientAccess"></client-navbar>
+<!--<app-quick-contract #quickContractModal></app-quick-contract>-->

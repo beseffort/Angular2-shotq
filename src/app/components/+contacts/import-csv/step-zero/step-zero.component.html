@@ -1,0 +1,24 @@
+<div class="row import-csv-step-zero">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-11 center">
+		<div class="heading">
+			<h3 class="title">Import Contact</h3>
+			<p>ShootQ allows you to import relationships using industry standard formats.</p>
+		</div>
+		<div class="left-panel">
+			<h3 class="title">vCard Format</h3>
+			<p>vCard is supported by popular contact management applications, including Apple Address Book and Microsoft Outlook.</p>
+			<button class="btn-transparent">UPLOAD VCARD</button>
+		</div>
+		<div class="right-panel">
+			<h3 class="title">CSV Format</h3>
+			<p>CSV or Comma Separated Values is a common export format for most spreadsheet applications such as Microsoft Excel.</p>
+			<div class="select-file">
+			    <label class="btn btn-transparent btn-file" (click)="openDialog($event)">UPLOAD CSV</label>
+			    <input id="input-file-0" class="hide" #inputFile (change)="fileSelected($event)" type="file" name="file" accept=".csv" />
+		  	</div>
+			<button class="btn new-field-button new-address-button-pos">DOWNLOAD CSV TEMPLATE</button>
+		</div>
+	</div>
+	<button id="cancelButton" type="button" class="hidden" (click)="cancel()"></button>
+</div>

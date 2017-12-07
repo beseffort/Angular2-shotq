@@ -1,0 +1,486 @@
+@import "variables";
+@import "mixins";
+@import 'helpers.scss';
+@import 'forms.scss';
+@import 'datepicker-overrides.scss';
+@import 'ngx-datepicker-overrides.scss';
+@import 'buttons.scss';
+@import 'dropdown.scss';
+@import 'accordion.scss';
+@import 'ng-select.scss';
+@import 'material-inputs.scss';
+@import 'body-padding-with-modal';
+
+// This class adds a dropdown/dropup caret to an element.
+// By default it is a dropdown caret. To make it drop-up add `.open` class
+// to the same element.
+.sq-caret {
+  @include sq-caret;
+}
+
+[class^="sq-btn-"],
+[class*="sq-btn-"] {
+  &.sq-caret::after {
+    float: right;
+    line-height: 1.25rem;
+  }
+}
+
+#wrapper {
+  height: 100%;
+}
+
+.page-content {
+  font-family: inherit;
+}
+
+
+label {
+  font-weight: 300;
+}
+
+/* Fix for dropdown: not closing when clicking on icon inside dropdown toggle */
+[dropdowntoggle] i {
+  pointer-events: none;
+}
+
+/* Tabs */
+.nav.nav-tabs {
+  li {
+    a {
+      color: #5b94a2;
+      text-transform: uppercase;
+      border: none !important;
+    }
+
+    &.active {
+      border-radius: 2px;
+      border: solid 1px #d4d4d4;
+      border-bottom: 1px solid #fff;
+
+      a {
+        color: #999;
+        background: #fff;
+      }
+    }
+  }
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+/* Pagination */
+.pagination {
+  margin: 0;
+
+  a, span {
+    color: #5f5f5f !important;
+  }
+
+  & > .active {
+    & > a, & > a:focus, & > a:hover, & > span, & > span:focus, & > span:hover {
+      background: #e3e3e3;
+      border-color: #e3e3e3;
+    }
+  }
+}
+
+/* Buttons in header of the page */
+.actions-holder .btn {
+  float: right;
+  width: auto;
+  margin-top: .5em;
+  margin-right: 10px;
+}
+
+.input-group api-typeahead:last-child .form-control {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  box-shadow: none;
+}
+
+.modal-backdrop.in  {
+  background: #000;
+  opacity: .7;
+}
+
+.body_nopadding {
+  padding-top: 0;
+}
+
+body.modal-open {
+    overflow-y: hidden !important;
+}
+
+/* Modals */
+modal-overlay .modal.in {
+  display: flex!important;
+  align-items: center;
+}
+
+.modal-dialog,
+modal-overlay .modal-dialog {
+  width: 600px;
+  margin: auto!important;
+  &_wide {
+    width: 1040px!important;
+  }
+
+  /deep/ {
+    .modal-header {
+      @include sq-dialog-header;
+      // override the rules forced in Application/src/app/assets/theme/src/less/custom/base/modal.less
+      padding: $modal-header-padding !important;
+      margin-top: 0!important;
+
+      .h3, .modal-title {
+        font-size: $modal-title-font-size;
+        font-weight: $modal-title-font-weight;
+        color: $gray-dark;
+        font-family: $font-family-base;
+        margin: 0;
+      }
+    }
+
+    .modal-body {
+      padding: 15px $modal-padding-x;
+      border-top: 1px solid $modal-content-border-color;
+      border-bottom: 1px solid $modal-content-border-color;
+    }
+
+    .modal-footer {
+      position: initial;
+      height: 50px;
+      padding: 9px $modal-padding-x;
+      background: $modal-footer-bg;
+    }
+
+    .btn {
+      margin-right: 10px;
+      background: transparent;
+      border-color: transparent;
+      border-radius: 4px;
+      font-size: 1rem;
+      width: auto;
+      text-transform: capitalize;
+      &_xs {
+        padding: 5px 30px;
+      }
+      &_md {
+        padding: 10px 19px;
+      }
+      &_transparent {
+        background: transparent;
+        color: rgba(55, 57, 76, 0.5);
+      }
+      &_blue {
+        background-color: $btn-primary-bg;
+        color: $btn-primary-color;
+      }
+      &_green {
+        background-color: $btn-success-bg;
+        color: $btn-success-color;
+      }
+      &_red {
+        background-color: $btn-danger-bg;
+        color: $btn-danger-color;
+      }
+      &_shadow {
+        box-shadow: 0 30px 50px 0 rgba(0, 0, 0, 0.2);
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.modal-confirm {
+  .modal-body {
+    border-top: none;
+    padding-top: 0;
+    padding-bottom: 40px;
+    div {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+/* Utils */
+.m {
+  &-0 {
+    margin: 0!important;
+  }
+  &-l-1 {
+    margin-left: 1rem!important;
+  }
+}
+
+.p-0 {
+  padding: 0!important;
+}
+
+.p-t-0 {
+  padding-top: 0!important;
+}
+
+.hidden {
+  visibility: hidden!important;
+}
+
+.opacity-0 {
+  opacity: 0!important;
+}
+
+.d-inline-block,
+.display-inline-block {
+  display: inline-block!important;
+}
+
+.text {
+  &-center {
+    text-align: center;
+  }
+
+  &-left {
+    text-align: left;
+  }
+
+  &-right {
+    text-align: right;
+  }
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+/* Notifications */
+#toast-container {
+  .toast-bottom-left {
+    bottom: 40px;
+    left: 20px;
+  }
+
+  .toast {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-width: 200px;
+    max-width: 300px;
+    border: none;
+
+    &.toast-success {
+      background-color: $brand-success;
+    }
+
+    &.toast-error {
+      background-color: $brand-danger;
+    }
+  }
+
+  .toast-success:not(.toast-just-text):before,
+  .toast-info:not(.toast-just-text):before,
+  .toast-warning:not(.toast-just-text):before,
+  .toast-error:not(.toast-just-text):before {
+    font-size: 1.75rem;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.slideInLeft {
+  animation-name: slideInLeft;
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.slideOutLeft {
+  animation-name: slideOutLeft;
+}
+
+.error,
+.errors {
+  font-size: 0.85rem;
+  color: $brand-danger;
+  text-align: left;
+}
+
+input,
+textarea,
+.form-control, .input-group {
+  &.ng-touched.ng-invalid,
+  &.has-error {
+    border: solid 1px $brand-danger !important;
+    -webkit-box-shadow: 0 0 4px 1px transparentize($brand-danger, 0.5) !important;
+    box-shadow: 0 0 4px 1px transparentize($brand-danger, 0.5) !important;
+  }
+}
+
+/* Slick slider */
+.slick-disabled {
+  display: none !important
+}
+
+.slick-slide {
+  float: none;
+}
+
+html {
+  background: transparent;
+}
+.fc-event-popover {
+  min-width: 320px;
+  max-width: 320px;
+  min-height: 170px;
+  background-color: #fff;
+  border: 1px solid #e4e8f0;
+  padding: 15px 15px 60px;
+  color: #3a405b;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    right: 2px;
+    transform: rotate(-45deg);
+    background-color: #fff;
+    width: 15px;
+    height: 15px;
+    border-right: 1px solid #e4e8f0;
+    border-bottom: 1px solid #e4e8f0;
+  }
+  a:hover {
+    color: #3a405b;
+  }
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+    padding: 10px;
+  }
+  &__header {
+    //border-bottom: 1px solid #e4e8f0;
+    padding-bottom: 15px;
+  }
+  &__title {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  &__location {
+    opacity: .5;
+    font-size: 12px;
+    font-family: "Titillium Web", sans-serif;
+  }
+  &__desc {
+    padding: 15px 0;
+    border-bottom: 1px solid #e4e8f0;
+    font-size: 12px;
+    opacity: .87;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  &__sub-events {
+    opacity: .87;
+    font-size: 12px;
+    margin: 0;
+    padding: 15px 0 15px 0px;
+    border-bottom: 1px solid #e4e8f0;
+  }
+  &__sub-event {
+    list-style: none;
+    padding-top: 10px;
+  }
+  &__event-item {
+    text-decoration: none;
+    color: #3a405b;
+    font-size: 12px;
+    &:hover {
+      text-decoration: none;
+    }
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+  &__event-name {
+    float: left;
+    padding-right: 5px;
+    width: 50%;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  &__event-time {
+    float: right;
+    font-weight: 600;
+    text-align: right;
+    width: 50%;
+  }
+  &__footer {
+    padding-top: 15px;
+    position: absolute;
+    bottom: 25px;
+    //min-height: 50px;
+    width: calc(100% - 50px);
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+  &__participant {
+    float: left;
+  }
+  &__participant {
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  &__btn {
+    float: right;
+  }
+  .fa-circle {
+    margin-right: 12px;
+  }
+}
+
+.disable-all-events {
+  pointer-events: none;
+}

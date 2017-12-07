@@ -1,0 +1,144 @@
+<div class="page">
+    <div class="page-content" [class.padding-top-0]="currentStatus === 'opportunity'">
+        <div class="panel panel-shadow">
+            <div class="panel-body">
+                <div class="row m-r-0 m-l-0">
+                    <div class="page-title__block">
+                        <h2 class="page-title">
+                            <span *ngIf="!isArchived">All</span>
+                            <span *ngIf="isArchived">Archived</span> Jobs
+                            <span *ngIf="jobs && !isLoading">
+                                ({{ totalItems }})</span>
+                        </h2>
+                        <span class="cursor-pointer page-title__archive"
+                              (click)="toggleView()">
+                            View <span *ngIf="!isArchived">archived </span>jobs
+                        </span>
+                        <div class="col-xs-6 second-column pull-right text-right contact-type-list" [class.scroll]="scroll">
+                            <div class="input-search input-search-dark search-contact scroll">
+                                <i class="input-search-icon icon-search"></i>
+                                <input type="text" [(ngModel)]="search_box" (keyup)="search($event)" class="form-control"
+                                       name="" placeholder="Search">
+                            </div>
+                            <div class="add-new-contact" *ngIf="!isArchived">
+                              <a class="sq-btn-secondary" (click)="openNewJobModal()">New Job</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 first-column padding-left-0">
+                        <div *ngIf="!isArchived"
+                             class="btn-group contact-actions">
+                            <button type="button" class="btn btn-default delete"
+                                    [disabled]="!checkedJobIds.length"
+                                    (click)="confirmArchive();">
+                              <span tooltip="Archive" placement="bottom" class="action-option action-option-delete">
+                                <i class="icon-archive"></i>
+                              </span>
+                            </button>
+                        </div>
+                        <div *ngIf="isArchived"
+                              class="btn-group contact-actions">
+                            <button type="button" class="btn btn-default first"
+                                    [disabled]="!checkedJobIds.length"
+                                    (click)="confirmDelete();">
+                                <span tooltip="Delete" placement="bottom" class="action-option action-option-delete">
+                                    <i class="icon-trash"></i>
+                                </span>
+                            </button>
+                            <button type="button" class="btn btn-default second"
+                                    [disabled]="!checkedJobIds.length"
+                                    (click)="confirmRestore();">
+                                <span tooltip="Restore" placement="bottom" class="action-option action-option-delete">
+                                    <i class="icon-ic-export"></i>
+                                </span>
+                            </button>
+                        </div>
+
+                            <!--<button type="button" class="btn btn-default third {{ dropdownOpenedClass }}"
+                                    [disabled]="true">
+                                <dropdown [button]="false" iconClass="icon-folder"
+                                          [class.disabled]="!actionsBar.enabled" [disabled]="true"></dropdown>
+                            </button>-->
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="contact-list position-relative">
+                        <div class="rippleContainer" *ngIf="isLoading">
+                            <div class="loading-ripple"></div>
+                        </div>
+                        <div class="text-center m-t-20 no-items-message"
+                             *ngIf="!totalItems && !isLoading">
+                            There are no items to display
+                        </div>
+                        <div id="table-container" class="jobs-list">
+                            <table class="table table-hover scroll"
+                                   [class.hide]="totalItems === 0 || isLoading">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="sq-checkbox sq-checkbox_empty">
+                                            <input type="checkbox" (click)="toggleCheckAll()"
+                                                   [checked]="isAllChecked()"/><label></label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <sort-btn title="Job Name" orderBy="name" [(currentOrderBy)]="orderBy"
+                                                  [(currentOrderDirection)]="orderByDirection['name']"
+                                                  (ngChange)="reloadJobs()" [newStyles]="true"></sort-btn>
+                                    </th>
+                                    <th>
+                                        <sort-btn title="Type" orderBy="job_type__name" [(currentOrderBy)]="orderBy"
+                                                  [(currentOrderDirection)]="orderByDirection['job_type__name']"
+                                                  (ngChange)="reloadJobs()" [newStyles]="true"></sort-btn>
+                                    </th>
+                                    <th>
+                                        <sort-btn title="Client" orderBy="external_owner__first_name"
+                                                  [(currentOrderBy)]="orderBy"
+                                                  [(currentOrderDirection)]="orderByDirection['external_owner__first_name']"
+                                                  (ngChange)="reloadJobs()" [newStyles]="true"></sort-btn>
+                                    </th>
+                                    <th>Phone</th>
+                                    <th>
+                                        <sort-btn title="Main Event" orderBy="main_event_date"
+                                                  [(currentOrderBy)]="orderBy"
+                                                  [(currentOrderDirection)]="orderByDirection['main_event_date']"
+                                                  (ngChange)="reloadJobs()" [newStyles]="true"></sort-btn>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let job of jobs; let last = last">
+                                    <td class="text-middle">
+                                        <div class="sq-checkbox sq-checkbox_empty">
+                                            <input type="checkbox" [checked]="isChecked(job)"
+                                                   (click)="toggleCheck(job)"/><label></label>
+                                        </div>
+                                    </td>
+                                    <td class="text-middle bold"><a
+                                            [routerLink]="['/jobs', job.id]">{{ job.name | truncateWords: 5 }}</a>
+                                    </td>
+                                    <td class="text-middle">
+                                        {{ job.job_type_details?.display_name || 'No Type' }}
+                                    </td>
+                                    <td class="text-middle bold"><a *ngIf="getClient(job.external_owner)"
+                                                               [routerLink]="[getRoute(job)]">{{ client.name }}</a></td>
+                                    <td class="text-middle">{{ client.phone }}</td>
+                                    <td class="text-middle"><span *ngIf="job.main_event_date && job.main_event_date !== 'None'">{{ job.main_event_date | date }}</span><span *ngIf="!job.main_event_date && job.main_event_date === 'None'">No Date Selected</span></td>
+                                </tr>
+                                <tr [class.has-pages]="hasPages" class="paginate-container">
+                                    <td colspan="6">
+                                        <paginate [totalItems]="totalItems" [currentPage]="currentPage"
+                                          (ngChange)="handlePageChange($event)" [newDesign]="true"
+                                          [perPageOptions]="[10, 50, 100]"></paginate>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<div #wrapperDiv (click)="onClick($event)">
+  <div class="form-group form-material {{cssClass}}">
+    <ng-content></ng-content>
+    <input class="form-control fake-input" tabindex="-1" [class.focus]="isFocused" [class.empty]="!hasValue">
+  </div>
+</div>

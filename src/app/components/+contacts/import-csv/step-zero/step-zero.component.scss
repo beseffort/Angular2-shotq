@@ -1,0 +1,50 @@
+.import-csv-step-zero {
+    font-family: Titillium Web;
+	color: #fff;
+	.heading {
+		h3.title {
+		    font-weight: 400;
+			color: #fff;
+			margin-bottom: 10px !important;
+		}
+	}
+	.left-panel, .right-panel {
+		h3.title {
+	    	font-weight: 400;
+			margin-bottom: 10px !important;
+		}
+		display: inline-block;
+		width: 276px;
+		.new-field-button {
+		    font-size: 14px !important;
+		    margin-top: 8px !important;
+		    margin-left: -11px !important;
+		    float: left !important;
+		}
+	}
+	button.btn-transparent, label.btn-transparent {
+	    margin: 0 auto;
+	    padding: 8px;
+	    background: #fff;
+	    color: #fff;
+	    background: rgba(255, 255, 255, 0.2);
+	    border-radius: 2px;
+	    text-align: center;
+	    text-decoration: none;
+	    letter-spacing: 1px;
+	    font-weight: 600;
+	    width: 266px;
+	    height: 50px;
+	    border: none;
+	}
+	label.btn-file {
+		input[type=file] {
+		    display: none;
+		}
+	    padding-top: 13px;
+    	margin-top: -3px;
+	}
+	.center {
+		padding-left: 15%;
+	}
+}

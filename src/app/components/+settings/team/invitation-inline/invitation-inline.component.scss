@@ -1,0 +1,66 @@
+.item {
+  background: #FFF;
+  border-bottom: 1px solid #e4e8f0;
+  // padding: 0 21px;
+  padding: 9px 0;
+  &__ava {
+    position: relative;
+    float: left;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &__info {
+    overflow: hidden;
+    padding: 5px 0;
+  }
+  &__right {
+    padding: 5px 0;
+  }
+  &__name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3a405b;
+    font-family: 'Titillium Web';
+    line-height: 1.2;
+    margin-bottom: 5px;
+    span {
+      color: rgba(#3a405b, .5);
+      font-size: 12px;
+      padding: 0 5px;
+    }
+  }
+  &__mail {
+    opacity: 0.5;
+    font-size: 14px;
+    color: #3a405b;
+  }
+  &__job_role {
+    opacity: 0.7;
+    font-size: 12px;
+    color: #3a405b;
+  }
+  &__edit {
+    font-size: 13px;
+    color: #086aff;
+    text-transform: capitalize;
+    text-align: right;
+    cursor: pointer;
+  }
+  &__special {
+    font-size: 14px;
+    color: #3a405b;
+    text-transform: capitalize;
+    text-align: right;
+  }
+}

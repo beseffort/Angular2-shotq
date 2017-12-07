@@ -1,0 +1,140 @@
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+
+.jobs-info-top-contacts__container {
+  margin-top: 0 !important;
+  margin-bottom: 20px;
+  margin-left: 0;
+  background-color: $body-bg;
+  font-family: $font-family-base;
+  @include box-shadow(0 1px 1px 1px rgba(0, 0, 0, .1));
+  &_wide {
+    width: 100%;
+  }
+}
+
+.jobs-info-top-contacts__header {
+  padding: 20px;
+  border-bottom: solid 1px $pale-grey;
+  height: 64px !important;
+
+  h1 {
+    display: inline-block;
+    height: 36px;
+    line-height: 1.1;
+    font-family: $font-family-base;
+    font-size: $font-size-h3;
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+    color: $body-color;
+  }
+}
+
+
+.jobs-info-top-contacts__list {
+  padding-left: 0;
+  list-style: none;
+  margin: 0 20px;
+  padding-top: 10px;
+
+}
+
+/deep/ .role-col {
+  .icon-down-arrow, .icon-up-arrow {
+    margin-left: 6px;
+  }
+
+  .input-group {
+    margin-bottom: 0;
+  }
+}
+
+.jobs-info-top-contacts__list-item {
+  margin: 0 0 20px;
+
+  .fn {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $body-color;
+    text-transform: capitalize;
+    display: inline-block;
+    max-width: calc(100% - 100px);
+    padding-right: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .role {
+    height: 19px;
+    padding-top: 2px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: normal;
+    font-size: $font-size-h5;
+    text-align: right;
+    color: #b5c1cf;
+    float: right;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  em {
+    display: block;
+    opacity: 0.5;
+    font-family: $font-family-base;
+    font-size: 10px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    text-transform: uppercase;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    color: $body-color;
+  }
+  .email {
+    display: block;
+    height: 21px;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 14px;
+    color: #3a405b;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+  }
+  .email--empty {
+    @extend .email;
+    font-style: italic;
+    color: #b5c1cf;
+  }
+  .tel {
+    display: block;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    color: $body-color;
+  }
+  .tel--empty {
+    @extend .tel;
+    font-style: italic;
+    color: #b5c1cf;
+  }
+}
+
+.jobs-info-top-contacts__footer {
+  height: 40px;
+  background-color: $body-bg;
+  border-top: solid $border-width $pale-grey;
+}
+
+.jobs-info-top-contacts__see-all {
+  font-weight: normal;
+}
+
+.no-items {
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 2.5rem 0;
+}

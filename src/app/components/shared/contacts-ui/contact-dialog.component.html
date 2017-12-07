@@ -1,0 +1,140 @@
+<div class="modal-header">
+  <h4 class="modal-title" *ngIf="isNewObject" >Create Contact</h4>
+  <h4 class="modal-title" *ngIf="!isNewObject" >Change Contact</h4>
+</div>
+<form class="modal-body" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
+  <fieldset>
+    <legend>Contact Details</legend>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="field">
+          <input id="id_first_name" name="firstName" type="text" class="sq-form-control"
+                 formControlName="firstName"
+                 [class.has-error]="form.controls.firstName.touched && form.controls.firstName.errors"
+                 [attr.data-empty]="!form.controls.firstName.value"/>
+          <label for="id_first_name">First name *</label>
+          <div *ngIf="form.controls.firstName.touched">
+            <div class="error" *ngIf="form.controls.firstName.errors?.required">This field is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="field">
+          <input id="id_last_name" name="lastName" type="text" class="sq-form-control"
+                 formControlName="lastName"
+                 [class.has-error]="form.controls.lastName.touched && form.controls.lastName.errors"
+                 [attr.data-empty]="!form.controls.lastName.value"/>
+          <label for="id_last_name">Last name *</label>
+          <div *ngIf="form.controls.lastName.touched">
+            <div class="error" *ngIf="form.controls.lastName.errors?.required">This field is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field">
+          <input id="id_email" name="email" type="email" class="sq-form-control"
+                 formControlName="email"
+                 [class.has-error]="form.controls['email'].errors"
+                 [attr.data-empty]="!form.controls['email'].value"/>
+          <label for="id_email">Email</label>
+          <div class="error" *ngIf="form.controls['email'].errors?.email">
+            This
+            field must be a valid email address
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field">
+          <input id="id_phone" name="phone" type="tel" class="sq-form-control"
+                 formControlName="phone"
+                 [class.has-error]="form.controls.phone.touched && form.controls.phone.errors"
+                 [attr.data-empty]="!form.controls.phone.value"/>
+          <label for="id_phone">Phone number</label>
+          <div class="error"
+               *ngIf="form.controls.phone.errors && form.controls.phone.errors.phone">
+            This field must be a valid phone number
+          </div>
+          <!-- validation-messages class="error" [control]="form.controls.phone"></validation-messages -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field">
+          <input id="id_postal_address" name="postal_address" type="text" class="sq-form-control"
+            placeholder=""
+            formControlName="postalAddress"
+            [class.has-error]="form.controls.postalAddress.touched && form.controls.postalAddress.errors"
+            [attr.data-empty]="!form.controls['postalAddress'].value"
+            googleplace (setAddress)="updateLocation($event)" />
+          <label for="id_postal_address">Address, City State & Zip</label>
+          <div *ngIf="form.controls.postalAddress.touched">
+            <div class="error" *ngIf="form.controls.postalAddress.errors?.postalAddress.any">Cannot recognize the address</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="important-dates">
+    <legend>Important Dates</legend>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field input-group"
+             [class.has-error]="form.controls.birthday.dirty && form.controls.birthday.errors">
+          <input id="id_birthday" formControlName="birthday" class="form-control" autocomplete="off"
+                 [attr.data-empty]="!form.controls.birthday.value"
+                 [options]="{dateFormat: 'mm/dd/yyyy'}"
+                 (inputFieldChanged)="onDateFieldChanged($event, form.controls.birthday)"
+                 (focus)="dp1.closeCalendar();dp2.closeCalendar()"
+                 ngx-mydatepicker #dp1="ngx-mydatepicker"
+          />
+          <label for="id_birthday">Birthday</label>
+          <div class="input-group-btn">
+            <button class="btn-calendar"
+                    (click)="dp2.closeCalendar();dp1.toggleCalendar();$event.stopPropagation()"
+            ><i class="icon-ios-calendar"></i></button>
+          </div>
+        </div>
+        <div *ngIf="form.controls.birthday.dirty && form.controls.birthday.errors">
+          <div class="error">The date must be in the MM/DD/YYYY format</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="field input-group"
+             [class.has-error]="form.controls.anniversary.dirty && form.controls.anniversary.errors">
+          <input id="id_anniversary" formControlName="anniversary" class="form-control" autocomplete="off"
+                 [attr.data-empty]="!form.controls.anniversary.value"
+                 [options]="{dateFormat: 'mm/dd/yyyy'}"
+                 (inputFieldChanged)="onDateFieldChanged($event, form.controls.anniversary)"
+                 (focus)="dp1.closeCalendar();dp2.closeCalendar()"
+                 ngx-mydatepicker #dp2="ngx-mydatepicker"
+          />
+          <label for="id_anniversary">Anniversary</label>
+          <div class="input-group-btn">
+            <button class="btn-calendar"
+                    (click)="dp1.closeCalendar();dp2.toggleCalendar();$event.stopPropagation()"
+            ><i class="icon-ios-calendar"></i></button>
+          </div>
+        </div>
+        <div *ngIf="form.controls.anniversary.dirty && form.controls.anniversary.errors">
+          <div class="error">The date must be in the MM/DD/YYYY format</div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<div class="modal-footer">
+  <button type="button" class="sq-btn-dismiss" (click)="cancel()">Cancel</button>
+  <button type="button" class="sq-btn-submit" (click)="submit()" [disabled]="form.invalid">Save</button>
+</div>

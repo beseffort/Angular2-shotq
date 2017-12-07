@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <h2>1. How do you want to recieve payment?</h2>
+  <div class="selectCreate">
+    <p>Select a way to receive payment from your client.</p>
+    <div class="clearfix"></div>
+  </div>
+  <ul>
+    <li *ngFor="let gatewayAccount of merchantAccounts">
+      <label>
+        <input type="radio" [value]="gatewayAccount.id" name="merchant_account" formControlName="merchant_account"/>
+        <div class="imgBlock">
+          <img src="{{ paymentProviders[gatewayAccount.merchant_type].image }}" />
+        </div>
+      </label>
+    </li>
+  </ul>
+  <div class='checksBlock'>
+    <div class="checkStyle">
+      <label [ngClass]="{'disable-all-events': form.value.collect_manually}">
+        <input type="checkbox" name="collect_manually" formControlName="collect_manually" tabindex="-1"/>
+        <span>Collect Manually</span>
+      </label>
+    </div>
+    <div class="checkStyle" *ngIf="!paymentData.collect_manually && paymentData.merchant_account">
+      <label>
+        <input type="checkbox" formControlName="pay_with_check" />
+        <span>Allow client to pay with check</span>
+      </label>
+    </div>
+  </div>
+  <div class="buttons">
+    <a href="" class="back" (click)="back($event)">BACK</a>
+    <a href="" class="next" (click)="save($event)">NEXT</a>
+  </div>
+</form>

@@ -1,0 +1,5 @@
+<md-tab-group (selectChange)="emitTabChange()" [(selectedIndex)]="index">
+  <md-tab *ngFor="let tab of tabs">
+    <ng-template md-tab-label *ngIf="tab.title">{{tab.title}}</ng-template>
+  </md-tab>
+</md-tab-group>

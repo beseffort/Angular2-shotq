@@ -1,0 +1,7 @@
+<form-field-wrap [label]="label" [floating]="floating" [inputId]="inputId" [errors]="getErrors(inputRef)">
+	<div [id]="textGroupId" class="input-group input-group-icon">
+	  <span class="input-group-addon" (click)="focusTextArea()">{{label}}</span>
+	  <textarea [rows]="rows" [id]="inputId" class="form-control {{cssClass}}" [class.empty]="!value" [placeholder]="placeholder || ''" [disabled]="disabled" [required]="required"
+	    [ngModel]="value" (ngModelChange)="onChange($event)" [name]="inputId" #inputRef="ngModel" (focus)="addSelectedClass()" (blur)="removeSelectedlass()"></textarea>
+	</div>
+</form-field-wrap>

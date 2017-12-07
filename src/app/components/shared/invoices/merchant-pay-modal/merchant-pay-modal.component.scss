@@ -1,0 +1,47 @@
+@import "../../../../../assets/css/variables";
+@import "../../../../../assets/css/mixins";
+
+.loading-ripple {
+	top: 50%;
+	transform: translate(0, -50%);
+}
+.modal-message {
+	margin: 0;
+	padding: 0;
+}
+
+
+.sq-iframe-form-field {
+	iframe {
+		input {
+			height: 44px;
+		}
+	}
+}
+.form-group {
+	position: relative;
+}
+.form-control {
+	background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid $gray-lighter;
+    height: 44px;
+    padding: 12px 12px 0;
+}
+.control-label {
+    position: absolute;
+    z-index: 2;
+    top: 12px;
+    left: 12px;
+    color: $input-color-placeholder;
+    margin: 0;
+    user-select: none;
+    pointer-events: none;
+    font-size: 10px;
+    transform: translate3d(0, -10px, 0);
+}
+
+.paypal-iframe {
+    width: 100%;
+    min-height: 250px;
+}

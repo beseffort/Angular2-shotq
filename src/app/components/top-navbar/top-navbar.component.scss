@@ -1,0 +1,13 @@
+top-navbar {
+  z-index: 1000!important;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+

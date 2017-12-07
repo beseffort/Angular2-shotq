@@ -1,0 +1,15 @@
+<div  class="col-md-6">
+  <div class="item__info">
+    <div class="item__name">{{ invitation.name }}</div>
+    <div class="item__mail">{{ invitation.email }}</div>
+    <div class="item__job_role">{{ invitation.job_role === choices.CUSTOMIZE ? invitation.custom_job_role : invitation.job_role }}</div>
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="pull-right item__right">
+    <div class="item__special"><strong>{{ invitation.role }}</strong></div>
+    <div class="item__edit" (click)="cancel()">Cancel</div>
+    <div class="item__edit" (click)="resend()">Resend</div>
+    <div class="item__edit" [routerLink]="['/settings/team/', invitation.worker_id]">Edit</div>
+  </div>
+</div>

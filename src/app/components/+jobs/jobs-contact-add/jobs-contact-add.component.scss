@@ -1,0 +1,21 @@
+.material-select {
+	select, input[type=text] {
+		display: inline-block;
+		width:70%
+	}
+	span.caret {
+		display: inline-block;
+	}
+}
+.select-type {
+	input {
+		display: inline-block;
+		width: 70%
+	}
+	.material-select {
+		display: inline-block;
+	}
+}
+.select-contact-type {
+	margin-top: 22px;
+}

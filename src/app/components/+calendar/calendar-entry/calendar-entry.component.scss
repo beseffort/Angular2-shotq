@@ -1,0 +1,30 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+$desktop-sm: 1279;
+
+.page {
+	&__header {
+		padding-top: 20px;
+	}
+	&__container {
+		position: relative;
+	}
+}
+
+.calendar-fullcalendar {
+	margin-left: percentage(289/1340);
+	@include r($desktop-sm) {
+		margin-left: 250px;
+	}
+}
+.calendar-filter {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: percentage(289/1340);
+	min-width: 250px;
+	height: 100%;
+	background-color: #fff;
+	border-bottom: 1px solid $gray-lighter;
+}

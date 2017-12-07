@@ -1,0 +1,60 @@
+accordion {
+  &.accordion-inverse {
+    &.panel-group accordion-group {
+      .panel {
+        border-color: #fff !important;
+      }
+    }
+  }
+
+  &.panel-group accordion-group {
+    &:not(:last-child) {
+      .panel {
+        border-bottom: 3px solid #e3e3e3;
+      }
+    }
+
+    .panel {
+      background: none;
+      border-radius: 0;
+    }
+
+    .panel-heading {
+      background: none;
+      cursor: pointer;
+
+      .panel-title {
+        padding-left: 25px;
+
+        a:hover, a:focus {
+          text-decoration: none;
+        }
+
+        &:before {
+          font: normal normal normal 14px/1 FontAwesome;
+          left: 0;
+          right: initial;
+          content: '\f13a';
+          color: #5b94a2;
+        }
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    &.panel-open {
+      .panel-heading .panel-title {
+        &:before {
+          content: '\f139';
+          color: inherit;
+        }
+      }
+    }
+
+    .panel-collapse .panel-body {
+      padding: 0;
+    }
+  }
+}

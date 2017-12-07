@@ -1,0 +1,9 @@
+<div class="{{cssClass}}" [class.has-error]="getErrors()"  (click)="onLabelClick()">
+	<input #input *ngIf="isEditable" class="sq-form-control editable-label {{cssClassLabel}}" [class.error]="hasError" [type]="type" [step]="step" [name]="name" [(ngModel)]="value" (blur)="onBlur($event)" [placeholder]="placeholder" [required]="required" (keydown)="inputKeyUp($event)"/>
+	<label *ngIf="!isEditable" (mouseover)="hover = true" (mouseleave)="this.hover = false;" class="{{getLabelClass()}}">{{ getLabelValue() | truncateWords: truncateWords }}
+		<span class="edit" *ngIf="showEditIcon && !isEditable && hover">
+	      <i class="icon-edit" (click)="toggleEditable()" (mouseover)="hover = true" (mouseleave)="this.hover = false;"></i>
+	    </span>
+	</label>
+</div>
+

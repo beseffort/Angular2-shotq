@@ -1,0 +1,121 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+
+.custom-fullcalendar-view /deep/ {
+  color: $gray-dark;
+  table {
+    min-width: 790px;
+  }
+  th, tr, td {
+    border-color: $gray-lighter;
+  }
+  .fc-basic-view .fc-body .fc-row {
+    min-height: 8em;
+  }
+  .fc-header-toolbar {
+    display: none;
+  }
+  .fc-day-header {
+    padding: 16px 0;
+    font-size: $font-size-sm;
+    font-weight: normal;
+    text-transform: uppercase;
+    &.fc-today {
+      font-weight: bold;
+    }
+  }
+  .fc-view {
+    overflow-x: auto;
+  }
+  .fc-view-container {
+    background-color: #fff;
+  }
+  .fc-today {
+    background-color: rgba(182, 193, 207, .1);
+  }
+  .fc-event {
+    border: 0;
+    border-radius: 0;
+    .fc-bg {
+      z-index: -1;
+      opacity: 0.87;
+    }
+  }
+  // top event tagline
+  .tally {
+    height: 4px;
+  }
+
+  // table grid
+  .fc-time-grid {
+    .fc-minor {
+      td {
+        border-style: dashed;
+        &.fc-time {
+          border: 0;
+        }
+      }
+    }
+    tr:not(.fc-minor) {
+      td.fc-time {
+        position: relative;
+        span {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #b5c1cf;
+          font-weight: 100;
+        }
+      }
+    }
+  }
+  // event styles
+  .fc-time-grid-event {
+    &.short {
+      height: 15px;
+      padding: 0;
+      .tally {
+        height: 100%;
+        width: 3px;
+        display: inline-block;
+      }
+      .fc-content {
+        width: calc(100% - 4px);
+        padding: 0;
+        display: inline-block;
+        top: -3px;
+        left: 2px;
+        .fc-title, .fc-time {
+          font-size: 10px;
+          padding-right: 4px;
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+    font-weight: normal;
+    margin-left: 1.5%;
+    .fc-content {
+      padding: 5px 6px 9px;
+      -webkit-display: flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      z-index: 3;
+    }
+    .fc-time {
+      font-size: $font-size-sm;
+      color: #8c97b2;
+      -webkit-order: 2;
+      order: 2;
+    }
+    .fc-title {
+      font-size: $font-size-base;
+      margin-bottom: 6px;
+      word-break: break-all;
+    }
+  }
+}

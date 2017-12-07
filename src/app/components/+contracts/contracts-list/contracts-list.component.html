@@ -1,0 +1,155 @@
+<div class="page page-contracts">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-5 col-sm-6">
+                <h1 class="page-title">Contracts
+                </h1>
+                <div class="page-header-actions page-header-actions_header">
+                    <a class="btn btn-success" (click)="createContract()">
+                        <i class="icon md-plus"></i>
+                        <span class="btn-name">Create New</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-6">
+                <div class="page-contracts__right">
+                    <div class="contacts-switcher cursor-pointer">
+                        <a class="contacts-switcher__btn list-view"
+                           [ngClass]="{'is-active': viewType == 'list'}"
+                           (click)="toggleView('list')">
+                            <i class="contacts-switcher__icon"></i>
+                        </a>
+                        <a class="contacts-switcher__btn grid-view"
+                           [ngClass]="{'is-active': viewType == 'grid'}"
+                           (click)="toggleView('grid')">
+                            <i class="contacts-switcher__icon"></i>
+                        </a>
+                    </div>
+                    <div class="page-header-actions page-header-actions_mod">
+                        <div class="input-search input-search-dark search-contact">
+
+                            <i class="input-search-icon icon-search" aria-hidden="true"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   [(ngModel)]="searchTerm"
+                                   [formControl]="searchTermControl"
+                                   placeholder="Search Contracts">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content position-relative">
+        <div class="loading-ripple" *ngIf="isLoading"></div>
+
+        <div class="contract-new" *ngIf="queryFilterParamsEmpty && (contracts && contracts.length === 0)">
+            <div class="contract-new__in">
+                <div class="contract-new__text">You don’t have any Contracts yet!</div>
+                <div class="contract-new__pic">
+                    <img src="/assets/img/contract-illustration.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="contract__row clearfix" *ngIf="!queryFilterParamsEmpty || contracts && contracts.length > 0">
+            <div class="contract__col1">
+                <!-- table -->
+                <div id="" class="contract-table" *ngIf="viewType == 'list'">
+                    <!-- <perfect-scrollbar class="contract-list-container"> -->
+                    <div class="contract-list-container">
+                        <table class="table table-hover content">
+                            <thead>
+                            <tr>
+                                <th class="" width="5"></th>
+                                <th class="head-name">CONTRACT NAME</th>
+                                <th class="head-name">
+                                    <div>JOB</div>
+                                </th>
+                                <th class="head-name">
+                                    <div>MAIN CONTACT</div>
+                                </th>
+                                <th class="head-name">
+                                    <div>LAST MODIFIED</div>
+                                </th>
+                                <th class="head-name">
+                                    <div>STATUS</div>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let contract of contracts">
+                                <td></td>
+                                <td class="text-middle bold contact-name">
+                                    <a class="pointer" (click)="openContract(contract)">{{ contract.title }}</a>
+                                </td>
+                                <td class="text-middle bold contact-name">
+                                    <a class="pointer"
+                                       *ngIf="contract.job"
+                                       [routerLink]="['/jobs', 'info', contract.job]">{{ contract.job_name }}</a>
+                                </td>
+                                <td class="text-middle">{{ contract.external_owner_name }}</td>
+                                <td class="text-middle">{{ contract.modified | date: 'mediumDate' }}</td>
+                                <td class="text-middle">{{ contract.status | humanize }}</td>
+                                <td class="text-middle action-button action-button_contract">
+                                    <dropdown [button]="false"
+                                              [dropdownClass]="'dropdown-menu-right'"
+                                              listClass="blue-circle"
+                                              iconClass="icon-more-icon-o font-size-10"
+                                              [actions]="contractActions.enabled"
+                                              (optionSelected)="singleContractAction($event, contract)">
+                                    </dropdown>
+                                </td>
+                            </tr>
+                            <tr class="paginate-container" [class.has-pages]="hasPages">
+                                <td colspan="7">
+                                    <paginate [totalItems]="paginator.totalItems" [currentPage]="paginator.currentPage"
+                                              [newDesign]="true"
+                                              (ngChange)="handlePageChange($event)" [perPageOptions]="[10, 50, 100]"
+                                              [perPage]="paginator.perPage"
+                                              customClass="contracts-pagination"></paginate>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- </perfect-scrollbar> -->
+
+                </div>
+
+                <!-- table -->
+                <!-- grid -->
+                <div class="contract-list-wrap"
+                     style="margin-bottom: 100px;"
+                     *ngIf="viewType == 'grid'">
+                    <div class="contract-list"
+                         [ngClass]="contract.status"
+                         *ngFor="let contract of contracts">
+                        <div class="contract-list__icon">
+                            <i></i>
+                        </div>
+                        <div class="contract-list__title">{{ contract.status | humanize }}</div>
+                        <div class="contract-list__job">{{ contract.job_name }}</div>
+                        <div class="contract-list__dropdown">
+                            <dropdown [button]="false"
+                                      [dropdownClass]="'dropdown-menu-right'"
+
+                                      listClass="blue-circle"
+                                      iconClass="icon-more-icon-o font-size-10"
+                                      [actions]="contractActions.enabled"
+                                      (optionSelected)="singleContractAction($event, contract)">
+                            </dropdown>
+                        </div>
+                    </div>
+                </div>
+                <!-- grid -->
+            </div>
+
+            <div class="contracts__col2">
+                <app-filter-panel [filterParams]="filterParams"
+                                  (filterChanged)="filterChanged($event)"></app-filter-panel>
+
+            </div>
+        </div>
+    </div>
+</div>

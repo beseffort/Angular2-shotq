@@ -1,0 +1,57 @@
+
+.site-navbar {
+  background-color: @site-navbar-header-bg;
+
+  @media (min-width: @grid-float-breakpoint) {
+    background-color: @inverse;
+  }
+
+  .navbar-header {
+    background-color: transparent;
+    color: @site-navbar-header-color;
+
+    .navbar-toggle {
+      color: @site-navbar-header-color;
+    }
+
+    .hamburger {
+      &:before,
+      &:after,
+      .hamburger-bar {
+        background-color: @site-navbar-header-color;
+      }
+    }
+
+    .navbar-brand {
+      color: @site-navbar-brand-color;
+
+      @media (min-width: @grid-float-breakpoint) {
+        color: @title-color;
+      }
+    }
+  }
+
+  .navbar-container {
+    background-color: @inverse;
+  }
+
+  &.navbar-inverse {
+    .navbar-container {
+      background-color: transparent;
+    }
+  }
+
+  // for skins
+  &.navbar-inverse,
+  &[class*="bg-"][class*="00"] {
+    @media (min-width: @grid-float-breakpoint) {
+      background-color: @site-navbar-header-bg;
+    }
+
+    .navbar-brand {
+      @media (min-width: @grid-float-breakpoint) {
+        color: @site-navbar-brand-color;
+      }
+    }
+  }
+}

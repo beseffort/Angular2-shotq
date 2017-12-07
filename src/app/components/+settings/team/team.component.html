@@ -1,0 +1,47 @@
+<div class="page pricingItemList">
+  <div class="page-content">
+    <div class="row-panel-container border-top">
+      <div class="row-panel-container__title">
+        <div class="row">
+          <div class="col-md-6">
+            <h1>Team Members</h1>
+            <!--div class="row-panel-container__text">You are the owner of this account. <a href="#">Click here</a> to transfer ownership to another user.</div-->
+          </div>
+          <div class="col-md-6">
+            <div class="text-right">
+                <button type="button" class="btn btn_green" (click)="openInvitationModal()">Add user</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-panel-container">
+      <div>
+        <div class="row-panel-container__header">
+          <h2>Studio</h2>
+        </div>
+        <worker-inline [worker]="worker" *ngFor="let worker of studioWorkers"></worker-inline>
+        <p class="row-panel-container__message" *ngIf="!studioWorkers.length">You don't have studio workers.</p>
+      </div>
+
+    </div>
+    <div class="row-panel-container">
+      <div>
+        <div class="row-panel-container__header">
+          <h2>Contractors</h2>
+        </div>
+        <worker-inline [worker]="worker" *ngFor="let worker of contractorWorkers"></worker-inline>
+        <p class="row-panel-container__message" *ngIf="!contractorWorkers.length">You don't have contractors.</p>
+      </div>
+    </div>
+    <div class="row-panel-container">
+      <div>
+        <div class="row-panel-container__header">
+          <h2>Invitations</h2>
+        </div>
+        <invitation-inline [invitation]="invitation" (onDelete)="removeInvitation($event)" *ngFor="let invitation of invitations"></invitation-inline>
+        <p class="row-panel-container__message" *ngIf="!invitations.length">You don't have pending invitations.</p>
+      </div>
+    </div>
+  </div>
+</div>

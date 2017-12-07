@@ -1,0 +1,54 @@
+
+<h2>{{ header }}</h2>
+<div class="selectCreate">
+  <a (click)="addObject()" class="pointer">CREATE NEW {{ modelName.toUpperCase() }}</a>
+  <div class="clearfix"></div>
+</div>
+<form style="display: block;">
+  <ul class="listSelect">
+    <div class="list-title" *ngIf="objects.length > 0">
+      <h3>Added to proposal</h3>
+    </div>
+
+
+    <li class="edit" *ngFor="let obj of objects">
+      <label *ngIf="obj.id">
+        <input type="radio" class="pointer"
+               [checked]="true"
+               [readonly]="true"
+               (click)="deleteObject(obj)"/>
+        <span>{{obj.name}}</span>
+      </label>
+      <span *ngIf="obj.id" (click)="obj.editing = !obj.editing" class="pointer">VIEW/EDIT</span>
+      <app-proposal-discount-form [discount]="obj"
+                                  *ngIf="obj.editing || !obj.id "
+                                  (onCancel)="onFormCancel(obj)"
+                                  (savedAsTemplate)="onSaveAsTemplate($event)">
+      </app-proposal-discount-form>
+    </li>
+    <div class="list-title border-title" *ngIf="objectTemplates?.length"><h3>Select {{ modelName }}</h3></div>
+    <li class="edit" *ngFor="let template of objectTemplates">
+      <label>
+        <input type="radio"
+               [checked]="false"
+               [readonly]="true"
+               (click)="createObject($event, template)"/>
+        <span>{{template.name}}</span>
+      </label>
+      <span (click)="template.editing = !template.editing" class="pointer">VIEW/EDIT</span>
+      <app-proposal-discount-form [discount]="template"
+                                  *ngIf="template.editing"
+                                  [forTemplate]="true"
+                                  (savedAsTemplate)="onSaveAsTemplate($event)"
+                                  (templateDeleted)="onTemplateDeleted($event)">
+      </app-proposal-discount-form>
+
+    </li>
+  </ul>
+</form>
+<div class="buttons">
+  <a class="back" (click)="onBack.emit()">BACK</a>
+  <a class="next pointer" *ngIf="objects.length" (click)="onNextClick()">NEXT</a>
+  <a class="skip" *ngIf="!objects.length" (click)="onNext.emit()">SKIP</a>
+</div>
+

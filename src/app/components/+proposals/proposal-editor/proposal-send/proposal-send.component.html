@@ -1,0 +1,176 @@
+<div class="page" *ngIf="proposal">
+
+  <div class="heading">
+    <div class="row">
+      <div class="col-sm-6">
+        <a [routerLink]="['/jobs/', proposal.job.id, 'proposal']" class="back">
+          <i class="icon-up-arrow"></i>
+          back
+        </a>
+      </div>
+      <div class="col-sm-6">
+        <div class="pull-right">
+          <a [routerLink]="['/booking', proposal.id, 'welcome']" class="btn btn_preview">Preview Booking Site</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="contract-send contract-send_mod ">
+    <!-- col -->
+    <div class="loading-ripple" *ngIf="isLoading"></div>
+
+    <div class="page-content position-relative margin-bottom-10" *ngIf="proposal">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="page-title">Send Proposal</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn btn-link btn_md pointer" (click)="addFromContacts()" *ngIf="!isDisabled">MODIFY
+                CONTACTS</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text">As the sender, you automatically receive a copy of the completed documents.</div>
+            </div>
+          </div>
+          <div class="signatures" *ngFor="let signature of signatures">
+
+            <div class="row position-relative">
+              <div class="col-sm-4">
+                <div class="iinput input_text">
+                  <div class="iinput__title">Name:</div>
+                  <input type="text" [(ngModel)]="signature.name" disabled>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="iinput input_text">
+                  <div class="iinput__title">Email:</div>
+                  <input type="email" [(ngModel)]="signature.email" disabled>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="select ">
+                  <select [(ngModel)]="signature.sig_requirement" [disabled]="isDisabled">
+                    <option value="required">​Signature Required</option>
+                    <option value="review">Review Only</option>
+                  </select>
+                </div>
+
+              </div>
+              <!--<button type="button" class="btn btn_delete">-->
+                    <!--<i class="icon-close"></i>-->
+              <!--</button>-->
+              <!-- <div class="col-sm-4">
+                <div class="text-center">
+                  <button type="button" class="btn btn_delete">
+                    <i class="icon-close"></i>
+                  </button>
+
+                </div>
+              </div> -->
+            </div>
+
+          </div>
+
+          <!--<button type="button" class="added">-->
+            <!--<i class="added__icon"></i>-->
+            <!--<span class="added__text">Add Another Recipient</span>-->
+          <!--</button>-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <ul>
+            <li *ngFor="let link of bookingLinks">
+              <a [href]="link.link" target="_blank">Client site link ({{ link.signature.email }})</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="page-content page-content_mod position-relative" *ngIf="proposal">
+      <div class="row" >
+          <hr class="contract-send-hr">
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-sm-7"> <h3>Message</h3></div>
+              <div class="col-sm-5">
+                <div class="text-right">
+                  <div class="select ">
+                    <select [ngModel]="emailTemplate" (ngModelChange)="onTemplateSelected($event)"
+                            [disabled]="isDisabled">
+                      <option value="undefined" >No template</option>
+                      <option [ngValue]="template" *ngFor="let template of emailTemplates"
+                      >{{ template.name }}</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="iinput input_text">
+                  <div class="iinput__title">Subject:</div>
+                  <input type="text" [(ngModel)]="emailSubject" [disabled]="isDisabled">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12" *ngIf="!isDisabled">
+                <sq-text-editor
+                  class="proposal-send__email-editor-form-control"
+                  name="body" [(ngModel)]="emailBody"
+                ></sq-text-editor>
+              </div>
+              <div class="col-md-12" *ngIf="!!isDisabled">
+                <div class="proposal-send__email-text" [innerHTML]="emailBody"></div>
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- col -->
+</div>
+
+<!-- fixed-footer -->
+<div class="row" *ngIf="proposal">
+  <div class="modal-footer padding-right-60  modal-footer_border">
+    <div class="row">
+      <div class="col-sm-12 padding-top-5">
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button"
+                    class="btn cancel-button" [routerLink]="['/jobs', proposal.job.id, 'proposal']">
+              CANCEL
+            </button>
+            <button type="button"
+                    class="btn submit-button margin-right-0"
+                    (click)="save()" [disabled]="isDisabled">
+              CONFIRM & SEND
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

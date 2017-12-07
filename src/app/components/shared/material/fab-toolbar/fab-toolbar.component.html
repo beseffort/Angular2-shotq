@@ -1,0 +1,12 @@
+<div class="fixed-action-btn horizontal" (mouseover)="over($event)" (mouseout)="blur($event)">
+  <a class="">
+    <i [class]="icon"></i>
+  </a>
+  <ul>
+    <li *ngFor="let action of actions" class="btn-floating" [class.divider]="action.separator" [hidden]="action.hidden" style="transform: scaleY(1) scaleX(1) translateY(0px) translateX(0px); opacity: 1;">
+      <a *ngIf="!action.separator" [title]="action.title" [href]="action.href || ''" (click)="onClick($event, action)" (click)="action.action">
+        <i [class]="action.icon"></i>
+      </a>
+    </li>
+  </ul>
+</div>

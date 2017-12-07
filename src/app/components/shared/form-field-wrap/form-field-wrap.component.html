@@ -1,0 +1,15 @@
+<div class="form-group form-material {{cssClass}}" [class.floating]="isFloating()" [class.has-error]="errors && errors.length">
+	<div class="row">
+		<div class="col-xs-1">
+	  	<img class="" alt="" src="/assets/img/warning-light-u-i.svg" *ngIf="errors && errors.length">
+	  </div>
+	  <div class="col-xs-11">
+	  	<ng-content></ng-content>
+	  	<div *ngIf="errors && errors.length">
+	  		<div *ngFor="let error of errors">
+	  			<p>{{error}}</p>
+	  		</div>
+	  	</div>
+	  </div>
+  </div>
+</div>

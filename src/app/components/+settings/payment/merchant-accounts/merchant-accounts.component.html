@@ -1,0 +1,35 @@
+<div class="page-in">
+    <div class="page-header page-header_border">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="page-header-title">Collection Types</div>
+            </div>
+            <!--<div class="col-md-4">-->
+            <!--<div class="text-right">-->
+            <!--<button type="button" class="btn btn_sm btn_green">Add New Merchant</button>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="page-content page-content_md position-relative">
+        <div class="imgBlock-wrap">
+            <div class="imgBlock"
+                 *ngFor="let gateway of merchantGateways"
+                 [ngClass]="{'is-active': !!gateway.account}"
+                 (click)="onGatewayClick(gateway)">
+                <img [ngClass]="gateway.key" [src]="gateway.icon"/>
+                <span class="imgBlock__icon"
+                      *ngIf="!!gateway.account"
+                      (click)="deleteGateway(gateway);$event.stopPropagation();"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-merchant-form #accountmodal
+                   (onClose)="getMerchantAccounts()"
+                   [merchantTypeChoices]="merchantGateways">
+
+</app-merchant-form>
+
+

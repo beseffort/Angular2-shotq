@@ -1,0 +1,4 @@
+src/app/assets/theme
+node_modules/
+./~/ng2-select/
+typings/globals

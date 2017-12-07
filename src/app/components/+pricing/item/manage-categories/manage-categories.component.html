@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmit($event)" #form="ngForm" >
+	<div class="categories-info">
+		<p>Organize your items by setting up categories.</p>
+	</div>
+	<div class="categories floating">
+		<table class="table table-striped">
+			<tbody>
+				<tr *ngFor="let cat of categories; let i = index" >
+					<td>
+						<editable-label cssClass="category-label" cssClassPlaceholder="new-category" cssClassLabel="category" [value]="cat.name" (valueChange)="valueChange($event, i)" (editable)="handleEditableStatus($event, i)" (invalidInput)="invalidInput()" placeholder="Name" [required]="true" [isEditable]="true" [invalidStrings]="categoriesNames"></editable-label>
+						<div (click)="removeCategory(i)" class="action-delete-category">x</div>
+					</td>
+				</tr>
+				<tr *ngIf="categories.length === 0">
+					<td class="no-categories">No Categories Exist</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="loading-ripple" *ngIf="isLoading"></div>
+	</div>
+    <div class="bottom-actions">
+        <div class="addBlock">
+            <button class="action-add-category" (click)="addCategory($event)">ADD A CATEGORY</button>
+        </div>
+        <div class="button">
+            <button class="action-ok" (click)="close()">Close Window</button>
+        </div>
+	</div>
+</form>

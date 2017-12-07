@@ -1,0 +1,59 @@
+<form [formGroup]="form" class="schedule_preset__form">
+  <div class="presetTitle presetTitle_pd-bottom presetTitle_border-bottom">
+    <div class="inputStyle">
+      <input type="text" placeholder="Schedule Title" formControlName="title" />
+    </div>
+  </div>
+  <div>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let p of schedule.payments; let i = index;">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <span class="list-group-title">{{ p.title }}</span>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="text-right">
+              <button type="button " class="btn" (click)="editPayment(i)">Edit</button>
+            </div>
+          </div>
+
+
+        </div>
+        <div *ngIf="i === editIndex" class="wrap-payment-form margin-top-15">
+          <schedule-payment-form [item]="payment"
+            [proposalHasEvent]="proposalHasEvent"
+            [displayRemainingBalance]="remainingBalanceIndex === -1 || remainingBalanceIndex === i"
+            [displayAtBooking]="atBookingPaymentIndex === -1 || atBookingPaymentIndex === i"
+            (saved)="onSaveEdited($event)"
+            (canceled)="onCancel()"
+            (deleted)="deletePayment($event)"></schedule-payment-form>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="p-t-0" *ngIf="payment && editIndex === null">
+    <schedule-payment-form [item]="payment"
+      [proposalHasEvent]="proposalHasEvent"
+      [displayRemainingBalance]="remainingBalanceIndex === -1"
+      [displayAtBooking]="atBookingPaymentIndex === -1"
+      [displayDelete]="false"
+      (saved)="onSaveNew($event)"
+      (canceled)="onCancel()"></schedule-payment-form>
+  </div>
+  <p class="add" *ngIf="editIndex === null && !payment">
+    <a href="" (click)="addPayment()" stop-click>ADD PAYMENT</a>
+  </p>
+  <div class="buttons buttons_mod buttons_width buttons_footer margin-bottom-0">
+    <button type="button" class="saveNew btn cancel"
+            (click)="cancel($event)">Cancel</button>
+    <button type="button" class="saveNew btn delete"
+            (click)="delete()" *ngIf="canDelete && !schedule.proposal">Delete</button>
+    <button type="button" class="saveNew btn" *ngIf="canSavePreset"
+            (click)="saveAsPreset()" [ngClass]="{'disabled': schedule.payments.length < 1}">Save as preset</button>
+    <button type="button" class="saveNew btn"
+            [disabled]="schedule.payments.length < 1 || form.invalid"
+            (click)="save()" [ngClass]="{'disabled': schedule.payments.length < 1 || form.invalid}">Save</button>
+  </div>
+</form>

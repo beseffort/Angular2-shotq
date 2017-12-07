@@ -1,0 +1,34 @@
+<div class="filterSelectBlock" id="filterSelect-{{idBlock}}">
+    <div class="row multi-select">
+        <div class="col-xs-1 contact-error-img">
+            <img class="" alt="" src="/assets/img/warning-light-u-i.svg" *ngIf="errors">
+        </div>
+        <div class="col-xs-11 contentBlock">
+            <div class="input-group input-group-icon">
+                <span class="input-group-addon"><label attr.for="contactType_{{idBlock}}" >{{label}}</label></span>
+                <div class="inputBlock">
+                    <ul class="selectedBlock" >
+                        <li *ngFor="let value of listAdded; let i = index">
+                            <div>
+                                <span (click)="onOptionRemoved(i)" >x</span>
+                                <span>{{value.label}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="filter toggleOpen">
+                        <input type="text" id="contactType_{{idBlock}}" [(ngModel)]="searchTerm" autocomplete="off"/> 
+                        <ul>
+                            <li *ngFor="let option of filterListOptions; let i = index"  >
+                                <span (click)="onOptionAdded(i)">{{option.label}}</span>
+                            </li>
+                            <li class="empty">No results found</li>
+                        </ul>
+                    </div>
+                </div>
+                <span _ngcontent-rxo-12="" class="caret icon-down-arrow"></span>
+                <span _ngcontent-rxo-12="" class="caret icon-up-arrow"></span>
+            </div>
+            <p class="error" *ngIf="errors">{{errors}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+.divRipple {
+    background-color: #ffffff;
+    position: static;
+}
+.action-button {
+    padding-left: 12px;
+    max-width: 150px;
+}
+.red {
+    color: #fd5a64;
+}
+.grey {
+    opacity: 0.5;
+}
+.br-none {
+    border-right: none !important;
+}
+.rippleContainer {
+    min-height: 200px;
+}
+.visibility-hidden {
+    visibility: hidden !important;
+    height: 0 !important;
+}
+.contract_invoice {
+    padding: 0;
+}
+.invoice-back-panel {
+    background-color: #fff;
+    padding: 25px 33px;
+    border-bottom: 1px solid #e4e8f0;
+}
+.invoice-back-btn {
+    color: #086aff;
+    cursor: pointer;
+    display: inline-block;
+    .icon-right-arrow {
+        font-size: 9px;
+        display: inline-block;
+        position: relative;
+        top: -2px;
+        margin-right: 8px;
+        transform: rotate(180deg);
+    }
+}
+
+.page {
+    padding-top: 0;
+    margin: 0;
+    &__content {
+        background-color: #fff;
+        -webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
+        -moz-box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
+        box-shadow: 0 1px 1px 1px rgba(0,0,0,.1);
+    }
+    &__title {
+    padding: 25px 20px;
+        h3 {
+            margin: 0;
+            font-family: "Titillium Web", sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.79;
+            color: #3a405b;
+        }
+    }
+}
+
+// .jb-invoice-list {
+//     /deep/ .btn-group.no-shadow.blue-circle {
+//         margin-left: -8px;
+//     }
+//     /deep/ .btn-group.no-shadow.blue-circle:hover,
+//     /deep/ .btn-group.no-shadow.blue-circle.open {
+//         margin-left: 0;
+//     }
+// }
+
+.no-items-message {
+    margin-bottom: 20px;
+}
+
+.contract_invoice {
+    .contracts-invoices-list {
+        margin-top: 0;
+    }
+}

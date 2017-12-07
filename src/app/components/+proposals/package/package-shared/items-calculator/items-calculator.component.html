@@ -1,0 +1,23 @@
+<div class="totalBlock">
+    <div class="totalBlock-item">
+        <div class="totalBlock-title">SELLING PRICE</div>
+        <div class="totalBlock-num">
+          $<input class="total-input" type="text"
+                  #totalInputElm
+                  [formControl]="totalInput"
+                  (blur)="onTotalInputBlur()">
+        </div>
+    </div>
+    <div class="totalBlock-item">
+        <div class="totalBlock-title">COST OF GOODS</div>
+        <div class="totalBlock-num">${{ cogs_total }}</div>
+    </div>
+    <div class="totalBlock-item">
+        <div class="totalBlock-title">SHIPPING</div>
+        <div class="totalBlock-num">${{ shipping_cost }}</div>
+    </div>
+    <div class="totalBlock-item is-profit">
+        <div class="totalBlock-title">PROFIT</div>
+        <div class="totalBlock-num">${{ profit }}</div>
+    </div>
+</div>

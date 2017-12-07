@@ -1,0 +1,73 @@
+$displays: ('block', 'inline-block', 'inline', 'none');
+
+@each $display in $displays {
+  .display-#{$display} {
+    display: #{$display};
+  }
+}
+
+$positions: ('relative', 'absolute', 'fixed', 'static');
+
+@each $position in $positions {
+  .position-#{$position} {
+    position: #{$position};
+  }
+}
+
+$margins: (0, 5, 10, 15, 20, 25, 30, 40, 45, 50, -5, -10, -15, -20, -25, -30, -40, -50);
+
+@each $margin in $margins {
+  .m-t-#{$margin} {
+    margin-top: #{$margin}px;
+  }
+  .m-b-#{$margin} {
+    margin-bottom: #{$margin}px;
+  }
+  .m-l-#{$margin} {
+    margin-left: #{$margin}px;
+  }
+  .m-r-#{$margin} {
+    margin-right: #{$margin}px;
+  }
+}
+
+$paddings: (0, 5, 10, 15, 20, 25, 30, 40, 50, -5, -10, -15, -20, -25, -30, -40, -50);
+
+@each $padding in $paddings {
+  .p-t-#{$padding} {
+    padding-top: #{$padding}px;
+  }
+  .p-b-#{$padding} {
+    padding-bottom: #{$padding}px;
+  }
+  .p-l-#{$padding} {
+    padding-left: #{$padding}px;
+  }
+  .p-r-#{$padding} {
+    padding-right: #{$padding}px;
+  }
+}
+
+$opacities: (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100);
+
+@each $opacity in $opacities {
+  .opacity-#{$opacity} {
+    opacity: $opacity/100;
+  }
+}
+
+$cases: ('uppercase', 'lowercase', 'capitalize');
+
+@each $case in $cases {
+  .text-transform-#{$case} {
+    text-transform: #{$case};
+  }
+}
+
+$cursors: ('pointer', 'default');
+
+@each $cursor in $cursors {
+  .cursor-#{$cursor} {
+    cursor: #{$cursor};
+  }
+}

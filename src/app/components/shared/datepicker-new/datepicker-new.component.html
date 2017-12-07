@@ -1,0 +1,15 @@
+<div class="material-datepicker {{addClass}}" [class.invalidDate]="invalidDate">
+    <div  class="input-group input-group-icon" id="date-picker-new-{{idBlock}}">
+        <span  (click)="onSpanClick($event)" class="input-group-addon" *ngIf="label"><label>{{label}}</label></span>
+        <div class="inputContainer">
+        	<input #inputField [id]="inputId" type="text" class="selection" [value]="dateString" (input)="inputChange($event)" (blur)="inputBlur($event)" (focus)="inputFocus($event)">
+        	<div class="btnContainer">
+        		<button *ngIf="showDeleteIcon" aria-label="Clear Date" class="btnclear btnclearenabled btnleftborder" type="button" (click)="clearDate($event, true)"><span class="icon icon-cross"></span></button>
+        		<button aria-label="Open Calendar" class="btnpicker btnpickerenabled btnleftborder" type="button" (click)="showDatepicker()"><span class="icon icon-calendar"></span></button>
+        	</div>
+        </div>
+        <my-date-picker #datepicker  name="{{nameBlock}}" [ngModel]="data" [options]="options" (dateChanged)="dateChanged($event)"></my-date-picker>
+        <span class="caret icon-down-arrow" (click)="showDatepicker()" ></span>
+        <span class="caret icon-up-arrow" (click)="hideDatepicker()"></span>
+    </div>
+</div>

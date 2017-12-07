@@ -1,0 +1,65 @@
+.dashboard-tasks {
+	a, a:hover {
+		text-decoration: none;
+	}
+	&__header {
+		margin-bottom: 19px;
+	}
+	&__body {
+		background-color: #f0f0f0;
+		padding: 41px 30px 36px;
+	}
+	&__title {
+		font-family: 'Titillium Web', sans-serif;
+	  	font-size: 24px;
+	  	font-weight: 600;
+	  	line-height: 1.17;
+	  	margin: 0;
+	  	display: inline-block;
+	  	vertical-align: middle;
+	  	padding-right: 20px;
+	}
+	&__switcher {
+		position: relative;
+		display: inline-block;
+	}
+}
+
+.no-activity {
+	text-align: center;
+	img {
+		width: 128px;
+		height: 128px;
+		border-radius: 50%;
+	}
+	p {
+		font-size: 24px;
+	 	font-weight: 300;
+	 	line-height: 1.17;
+	 	margin-bottom: 0;
+	}
+}
+
+.icon-down-arrow,
+.icon-up-arrow {
+	color: #3a405b;
+	font-size: 8px;
+	position: relative;
+	top: 3px;
+}
+
+.icon-confirm {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	color: #3a405b;
+	margin-right: 11px;
+}
+
+.dropdown-toggle {
+	display: inline-block;
+}
+.dropdown-menu {
+	top: 28px;
+	width: 100%;
+}

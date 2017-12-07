@@ -1,0 +1,243 @@
+ul.booking {
+
+  &.steps {
+    // max-width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    box-shadow: none;
+    font-size: 0px;
+    margin: 50px auto;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+    li {
+
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      width: 20%;
+
+      > span {
+        &.title {
+          position: absolute;
+          // top:-29px;
+          bottom: calc(100% + 15px);
+          text-align: center;
+          font-style: normal;
+          color: rgba(#3a405b, .2);
+          font-size: 12px;
+          font-weight: 600;
+          width: 100%;
+          line-height: 14px;
+          left: 0;
+        }
+        &.number {
+          position: relative;
+          display: inline-block;
+          color: rgba(#3a405b, .2);
+          font-size: 13px;
+          font-weight: bold;
+          border: 2px solid rgba(#3a405b, .2);
+          width: 42px;
+          height: 42px;
+          line-height: 36px;
+          z-index: 2;
+          background-color: #fff;
+          border-radius: 40px;
+          // cursor:pointer;
+        }
+        &.line {
+          display: block;
+          width: 100%;
+          position: absolute;
+          left: -50%;
+          top: 50%;
+          -moz-transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          height: 2px;
+          background-color: rgba(#3a405b, .2);
+          z-index: 1;
+        }
+      }
+      &.first {
+        > span {
+          &.line {
+            display: none;
+          }
+        }
+      }
+      &.active {
+        > span {
+          &.title {
+            color: #3a405b;
+          }
+          &.line {
+            background-color: #3a405b;
+          }
+          &.number {
+            border: none;
+            color: #3a405b;
+            width: 40px;
+            height: 40px;
+            line-height: 39px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            &:before {
+              content: "";
+              display: block;
+              left: 50%;
+              top: 50%;
+              position: absolute;
+              -moz-transform: translate(-50%, -50%);
+              -webkit-transform: translate(-50%, -50%);
+              -o-transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+              width: calc(100% + 3px);
+              height: calc(100% + 3px);
+              border: 2px solid #3a405b;
+              z-index: 1;
+              border-radius: 50px;
+            }
+            > span {
+              background-color: #fff;
+              border-radius: 50px;
+              z-index: 2;
+              position: relative;
+              width: 40px;
+              height: 40px;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+ul.proposal {
+  &.steps {
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    box-shadow: none;
+    font-size: 0px;
+    margin-bottom: 0;
+    padding-bottom: 25px;
+    li {
+      margin-top: 29px;
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      width: 25%;
+
+      > span {
+        &.title {
+          position: absolute;
+          top: -29px;
+          text-align: center;
+          font-style: normal;
+          color: #3a405b;
+          font-size: 12px;
+          font-weight: normal;
+          width: 100%;
+          line-height: 19px;
+          left: 0;
+        }
+        &.number {
+          position: relative;
+          display: inline-block;
+          color: rgba(58, 64, 91, 0.5);
+          font-size: 13px;
+          font-weight: bold;
+          border: 2px solid #f7f7f7;
+          width: 42px;
+          height: 42px;
+          line-height: 36px;
+          z-index: 2;
+          background-color: #fff;
+          border-radius: 40px;
+          //cursor:pointer;
+        }
+        &.line {
+          display: block;
+          width: 100%;
+          position: absolute;
+          left: 0px;
+          top: 50%;
+          -moz-transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+          height: 2px;
+          background-color: #f7f7f7;
+          z-index: 1;
+        }
+      }
+      &.first,
+      &.last {
+        > span {
+          &.line {
+            width: 50%;
+          }
+        }
+      }
+      &.first {
+        > span {
+          &.line {
+            left: 50%;
+          }
+        }
+      }
+      &.active {
+        > span {
+          &.number {
+            border: none;
+            color: #3a405b;
+            width: 40px;
+            height: 40px;
+            line-height: 39px;
+            &:before {
+              content: "";
+              display: block;
+              left: 50%;
+              top: 50%;
+              position: absolute;
+              -moz-transform: translate(-50%, -50%);
+              -webkit-transform: translate(-50%, -50%);
+              -o-transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+              width: calc(100% + 2px);
+              height: calc(100% + 2px);
+              background: rgb(231, 80, 80);
+              background: -moz-linear-gradient(-45deg, rgba(231, 80, 80, 1) 0%, rgba(247, 174, 24, 1) 100%);
+              background: -webkit-linear-gradient(-45deg, rgba(231, 80, 80, 1) 0%, rgba(247, 174, 24, 1) 100%);
+              background: linear-gradient(135deg, rgba(231, 80, 80, 1) 0%, rgba(247, 174, 24, 1) 100%);
+              filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e75050', endColorstr='#f7ae18', GradientType=1);
+              z-index: 1;
+              border-radius: 50px;
+            }
+            > span {
+              background-color: #fff;
+              border-radius: 50px;
+              z-index: 2;
+              position: relative;
+              width: 40px;
+              height: 40px;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}

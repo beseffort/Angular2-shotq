@@ -1,0 +1,20 @@
+<div>
+  <div class="row" *ngFor="let options of groupsOptions; let groupIndex = index;">
+    <div class="col-md-4 col-sm-4 ">
+      <div class="text-left">
+        <div class="text">{{ groups[groupIndex].name }}</div>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-5">
+      <div class="dropdown-select_wrap">
+        <app-dropdown-select [(ngModel)]="groups[groupIndex].selected"
+          (optionSelected)="selectGroupOption(groupIndex)"
+          [options]="options">
+        </app-dropdown-select>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-3 padding-right-60">
+      <p>${{ groups[groupIndex].selected_data?.extra_price || '0.00' }}</p>
+    </div>
+  </div>
+</div>

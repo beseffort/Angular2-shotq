@@ -1,0 +1,62 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+.custom-fc-sidebar {
+  background-color: #fff;
+  padding: 12px 24px;
+  border-top: 1px solid $gray-lighter;
+  //@include box-shadow(inset 1px 0 0 0 $gray-lighter);
+  &__options {
+    margin-bottom: 41px;
+  }
+  &__title {
+    font-size: 16px;
+    font-family: $font-family-base;
+    margin-bottom: 10px;
+  }
+  &__dropdown {
+    /deep/.dropdown-menu {
+      max-height: 350px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.custom-fc-link {
+  font-size: 14px;
+  color: $bright-blue;
+  display: block;
+  margin-bottom: 21px;
+}
+.custom-fc-option-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.custom-fc-option {
+  font-size: 0;
+  margin-bottom: 10px;
+  &__text {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: $font-size-base;
+    width: 80%;
+  }
+  &__checkbox {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20%;
+    text-align: right;
+  }
+}
+.custom-fc-circle {
+  background-color: transparent;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 13px;
+  &.default {
+    background-color: $gray-lighter;
+  }
+}

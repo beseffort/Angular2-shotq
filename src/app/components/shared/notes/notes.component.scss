@@ -1,0 +1,217 @@
+@import "../../../../assets/css/variables";
+@import "../../../../assets/css/mixins";
+
+$content-padding-x: 32px;
+$content-padding-y: 24px;
+
+@media (max-width: breakpoint-max(md)) {
+  .loading-ripple {
+    top: 150px !important;
+    left: 95px !important;
+    right: 0 !important;
+  }
+}
+
+.notes {
+  display: block;
+  margin: 0 !important;
+  font-family: $font-family-base;
+  background-color: #fff;
+  @include box-shadow(0 1px 1px 1px rgba(0, 0, 0, 0.1))
+}
+
+.notes-header {
+  border-bottom: solid 1px $pale-grey;
+  background-color: #fff;
+  min-height: 80px;
+  position: relative;
+  padding: $content-padding-y $content-padding-x;
+  font-size: 0;
+  &__title {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50%;
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: $font-size-h3;
+    font-weight: 700;
+    line-height: 1;
+    color: $gray-dark;
+  }
+  &__actions {
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+  }
+}
+
+.add-note-form {
+  padding: 0;
+  margin-top: 22px;
+  font-size: 1rem;
+  /deep/ &__action-buttons {
+    padding-top: 10px;
+    text-align: right;
+    margin-bottom: 0;
+  }
+}
+
+.note-list {
+  position: relative;
+  min-height: 100px;
+  .no-notes-to-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: $font-size-lg;
+  }
+}
+
+/*
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">Special title treatment</h4>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+*/
+
+.note-card {
+  margin: 0;
+  padding: 20px $content-padding-x;
+  font-family: $font-family-base;
+  transition: box-shadow .3s;
+  box-shadow: 0 1px 2px 0 rgba(181, 193, 207, 0.5);
+  background-color: #fff;
+
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(181, 193, 207, 0.5);
+  }
+
+  &:first-child {
+    .note-card__title {
+      box-shadow: none;
+    }
+  }
+}
+
+// container for the card header and text
+.note-card__block {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-left-color: #ff8c00;
+  padding: 0 0 0 16px;
+}
+
+.note-card__title-text {
+  overflow: hidden;
+  margin-right: $input-height;
+
+  // override editable label rules
+  /deep/ label {
+    font-size: $font-size-lg;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    color: $gray-dark;
+  }
+}
+
+.note-card__actions {
+  float: right;
+  line-height: $input-height;
+  width: $input-height;
+  vertical-align: text-top;
+
+  /deep/ .dropdown-menu {
+    // display the popup menu to the left of the menu button
+    left: auto;
+    right: 100%;
+  }
+}
+
+.note-card__date,
+.note-card__edited-tag {
+  font-size: $font-size-h5;
+  color: $gray-dark;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.note-card__edited-tag {
+  color: $red-pink;
+  margin: 0 0 0 $spacer-x;
+}
+
+.note-card__text {
+  overflow-y: hidden;
+  padding: 0;
+}
+
+.note-card__title-input {
+  @include sq-base-form-control;
+  display: inline-block;
+  vertical-align: middle;
+
+  @media (min-width: breakpoint-min(xl)) {
+    width: 60%;
+  }
+}
+
+// tinymce editor
+.note-card__editor {
+  // 10 lines of the default font text
+  min-height: (10 * ($font-size-base * $line-height-base) + ($input-padding-y * 2));
+  margin-top: 15px;
+}
+
+.note-card--changing {
+  padding: 0;
+  height: 360px;
+
+  .note-card__block {
+    border: 1px solid rgba(0, 0, 0, 0);
+  }
+}
+
+.note-card.note-card--changing {
+  padding: 20px $content-padding-x;
+
+  .note-card__block {
+    padding: 0;
+  }
+}
+
+.add-note-form {
+  display: block;
+  padding: 0;
+  width: 100%;
+}
+
+.add-note-form__title-input {
+  @include sq-base-form-control;
+}
+
+.add-note-form__action-buttons {
+  padding-top: 10px;
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.note-card__edit-note-buttons {
+  text-align: right;
+  width: 100%;
+  margin-top: 10px;
+  white-space: nowrap;
+
+  @media (min-width: breakpoint-min(xl)) {
+    width: 40%;
+    float: right;
+    margin: 0;
+  }
+}

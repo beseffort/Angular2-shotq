@@ -1,0 +1,98 @@
+<!-- Icon button -->
+<div class="btn-group" dropdown
+     [ngClass]="{'dropup': dropUp}" [dropdownToggle]="false"
+     *ngIf="isBtnNoSplitted()"
+     (onClose)="onCloseHandler($event)" (onOpen)="onOpenHandler($event)">
+    <button id="single-button-{{id}}" type="button" [class]="btnClass" [disabled]="disabled" dropdown-open>
+    {{name}}<i [class]="iconClass"></i>
+    </button>
+    <ul role="menu" class="dropdown-menu {{dropdownClass}}"  aria-labelledby="single-button">
+      <li *ngFor="let action of actions" role="menuitem" [class.divider]="action.separator">
+          <a *ngIf="!action.separator" class="dropdown-item" [href]="action.href"
+             (click)="onClick($event, action)" >{{action.name}}</a>
+      </li>
+    </ul>
+</div>
+<!-- Split button -->
+<div class="btn-group" dropdown
+     [ngClass]="{'dropup': dropUp}" [dropdownToggle]="false"
+     *ngIf="isBtnSplitted()"
+     (onClose)="onCloseHandler($event)" (onOpen)="onOpenHandler($event)">
+  <button id="split-button-{{id}}" type="button" [class]="btnClass" *ngIf="!href" >{{name}}</button>
+  <a id="split-button-{{id}}" routerLink="{{href}}" *ngIf="href" [class]="btnClass">{{name}}</a>
+  <button type="button" class="{{btnClass}} dropdown-toggle" dropdown-open>
+    <i [class]="iconClass"></i>
+    <span class="sr-only">{{name}}</span>
+  </button>
+  <ul class="dropdown-menu {{dropdownClass}}" role="menu" aria-labelledby="split-button">
+    <li *ngFor="let action of actions" role="menuitem" [class.divider]="action.separator"><a *ngIf="!action.separator" class="dropdown-item" [href]="action.href" (click)="onClick($event, action)" >{{action.name}}</a></li>
+  </ul>
+</div>
+<!-- Text icon button -->
+<div [class]="listClass"
+     [ngClass]="{'dropup': dropUp}"
+     (click)="clickHandler($event)" dropdown
+     [dropdownToggle]="false" *ngIf="!isButton() && !simple"
+     (onClose)="onCloseHandler($event)" (onOpen)="onOpenHandler($event)" >
+	{{name}}
+  <a (href)="noReturn($event)" class="dropdown-toggle" dropdown-open>
+    <i [class]="iconClass"></i>
+  </a>
+  <ul class="dropdown-menu {{dropdownClass}}" *ngIf="!disabled">
+  	<li *ngFor="let action of actions" [class.divider]="action.separator" [hidden]="action.hidden">
+      <a *ngIf="!action.separator" [href]="action.href" (click)="onClick($event, action)" (click)="action.action">
+        <span class="{{ getClassIconName(action.icon) }}">{{action.name}}</span>
+        <i [class]="action.icon"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- Category drop-down -->
+<div class="btn-group no-shadow" dropdown
+     [ngClass]="{'dropup': dropUp}" [dropdownToggle]="false"
+     *ngIf="isCategoryDropDown()"
+     (onOpen)="onOpenHandler($event)" (onClose)="onCloseFireEvent($event)">
+    {{name}}
+    <a (href)="noReturn($event)" class="dropdown-toggle" dropdown-open>
+      <i [class]="iconClass"></i>
+    </a>
+    <ul role="menu" class="dropdown-menu {{dropdownClass}}" [class.op7]="blockDropdown" aria-labelledby="single-button" dropdown-not-closable-zone>
+      <div class="loading-categories-message" [class.hide]="!blockDropdown">Please wait...</div>
+      <li [class.hide]="blockDropdown" *ngIf="actions && actions.length > 0" class="category-header">
+        <i class="icon-folder"></i>
+        <span>Add to category</span>
+      </li>
+      <li [class.hide]="blockDropdown" *ngFor="let action of actions" role="menuitem" class="category-item">
+          <md-checkbox [checked]="action.checked" (click)="onClick($event, action);">
+            <span class="dropdown-item category-anchor">{{action.name | humanize}}</span>
+          </md-checkbox>
+      </li>
+      <li [class.hide]="blockDropdown" *ngIf="extraActions && extraActions.length > 0" class="category-header hr">
+        <i class="icon-trash"></i>
+        <span class="m-r-10">Remove from category</span>
+      </li>
+      <li [class.hide]="blockDropdown" *ngFor="let eaction of extraActions" role="menuitem" class="category-item">
+        <md-checkbox [checked]="eaction.checked" (change)="action.checked = $event" (click)="onClick($event, eaction);">
+          <span class="dropdown-item category-anchor">{{eaction.name | humanize}}</span>
+        </md-checkbox>
+      </li>
+    </ul>
+</div>
+<!-- Drop-down contact-profile (phone && email) -->
+<div [class]="listClass" [ngClass]="{'dropup': dropUp}"
+     (click)="clickHandler($event)" dropdown [dropdownToggle]="false"
+     *ngIf="!isButton() && simple"
+     (onClose)="onCloseHandler($event)" (onOpen)="onOpenHandler($event)" >
+  {{name}}
+  <a (href)="noReturn($event)" class="dropdown-toggle" dropdown-open>
+    <div *ngIf="isOpen" class="arrow-up {{removeArrow}}"></div>
+    <i class="dropdown-toggle-middle" [class]="iconClass"></i>
+  </a>
+  <ul class="dropdown-menu {{dropdownClass}} move-left" *ngIf="!disabled">
+    <li class= "contact-profile-li" *ngFor="let action of actions" [class.divider]="action.separator" [hidden]="action.hidden">
+      <span class="type">{{action.type_name}}</span><br>
+      <span class="data" *ngIf="isMail" ><a  href="mailto: {{action.name}}">{{action.name}}</a></span>
+      <span class="data" *ngIf="!isMail"><a  href="tel: {{action.name}}">{{action.name}}</a></span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,12 @@
+<ul class="steps" [ngClass]="styleType">
+  <li *ngFor="let step of _steps; let ind = index"
+      [ngClass]="{
+        'first': ind == 0,
+        'pointer': canActivateStep(step),
+        'active': currentStep._index >= step._index}"
+      (click)="onStepClick(step)">
+    <span class="title">{{step.title}}</span>
+    <span class="number"><span>{{step._index + 1}}</span></span>
+    <span class="line"></span>
+  </li>
+</ul>

@@ -1,0 +1,91 @@
+<div class="modal fade jobs-info-contacts-dialog__container" bsModal #dialog="bs-modal" [config]="{backdrop: false}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title pull-left">Job Contacts ({{ numberOfContacts }})</h1>
+
+        <button type="button" class="close pull-right hidden" aria-label="Close" (click)="dialog.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <button type="button" class="btn jobs-info-contacts-dialog__new-contact hidden"
+                (click)="onAddJobContact($event)"
+        >New Contact</button>
+        <div class="input-search jobs-info-contacts-dialog__search-contact hidden">
+          <i class="input-search-icon icon-search" aria-hidden="true"></i>
+          <input type="text" class="form-control" name="" placeholder="Search"/>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <div class="jobs-info-contacts-dialog__contact-list table-responsive">
+          <div class="loading-ripple move-down" *ngIf="isLoading"></div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="select-col">
+                  <div class="checkbox-custom checkbox-default hidden">
+                    <input type="checkbox"/>
+                    <label></label>
+                  </div>
+                </th>
+                <th class="name-col">Name</th>
+                <th class="email-col">Email</th>
+                <th class="phone-col">Phone</th>
+                <th class="role-col" colspan="2">Job Role</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let c of contacts; let i=index"
+                  class="jobs-info-contacts-dialog__contact vcard"
+                  [class.jobs-info-contacts-dialog__contact--primary]="job.isPrimaryJobContact(c)"
+                  [class.jobs-info-contacts-dialog__contact--archived]="c.archived"
+              >
+                <td class="select-col">
+                  <div class="checkbox-custom checkbox-default hidden">
+                    <input type="checkbox"/><label></label>
+                  </div>
+                </td>
+                <td class="name-col">
+                  <a [routerLink]="['/contacts/profile', c.contact]" class="fn">{{ c.name | capitalize }}</a>
+                  <em class="jobs-info-contacts-dialog__primary-contact-label" *ngIf="job.isPrimaryJobContact(c)">Primary</em>
+                </td>
+                <td class="email-col"><span class="email">{{ c.default_email_address }}</span></td>
+                <td class="phone-col"><span class="tel">{{ c.default_phone_number }}</span></td>
+                <td class="role-col">
+                  <span class="role" *ngIf="contactChangeBuffer.id !== c.id"
+                        (click)="startChanges(c)"
+                  >{{ c.primaryRole.name }}</span>
+                  <form-field *ngIf="contactChangeBuffer.id === c.id"
+                              [onlySelect]="true" [ngSelectValue]="contactChangeBuffer.primaryRole.id"
+                              [options]="roles"
+                              (ngSelectValueChange)="onContactRoleIdChanged($event)"
+                  ></form-field>
+                </td>
+                <td class="actions-col">
+                  <dropdown *ngIf="contactChangeBuffer.id !== c.id && c.$actions.length"
+                            [button]="false" listClass="blue-circle"
+                            iconClass="icon-more-icon-o font-size-10"
+                            [actions]="c.$actions"
+                            (optionSelected)="onContactActionClicked(c, $event)"
+                  ></dropdown>
+                  <span *ngIf="contactChangeBuffer.id === c.id">
+                    <i class="icon-confirm" (click)="commitChanges()"></i>
+                    <i class="icon-cancel" (click)="stopChanges()"></i>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="modal-footer bg">
+        <button type="button" class="sq-btn-dismiss" data-dismiss="modal" (click)="dialog.hide()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>

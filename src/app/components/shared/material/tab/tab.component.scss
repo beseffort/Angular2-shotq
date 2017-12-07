@@ -1,0 +1,21 @@
+md-tab-group {
+	color: currentColor;
+	min-width: auto;
+}
+
+/deep/ {
+  .md-tab-label {
+    font-size: 15px !important;
+    min-width: 1px !important;
+    padding: 0 90px !important;
+    opacity: 1 !important;
+    &:focus {
+      background-color: #FFFFFF !important;
+    }
+  }
+  .md-tab-header {
+    md-ink-bar {
+      background-color: #37CF8D !important;
+    }
+  }
+}
